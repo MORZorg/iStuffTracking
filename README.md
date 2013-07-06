@@ -1,4 +1,6 @@
 iStuffTracking
 ==============
 
-DIP Projecy
+DIP Project
+
+Recognition and tracking for low-performance devices
