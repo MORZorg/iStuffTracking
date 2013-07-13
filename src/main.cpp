@@ -11,6 +11,14 @@
 using namespace cv;
 using namespace std;
 
+/**
+ * @brief Main function.
+ *
+ * @param argc
+ * @param argv[]
+ *
+ * @return 
+ */
 int main(int argc, char * argv[])
 {
   int i = 0;
@@ -103,6 +111,9 @@ int main(int argc, char * argv[])
   return 0;
 }
 
+/**
+ * @brief Function to display the help message.
+ */
 void printHelp()
 {
   cout << "Usage:\n";
