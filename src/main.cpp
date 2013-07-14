@@ -2,7 +2,8 @@
  * @file main.cpp
  * @brief Main file
  * @author Maurizio Zucchelli
- * @version 0.1.0
+ * @author Mattia Rizzini
+ * @version 0.1.1
  * @date 2013-07-13
  */
 
