@@ -21,94 +21,97 @@ using namespace std;
  */
 int main(int argc, char * argv[])
 {
-  int i = 0;
-  while (++i < argc)
-  {
-    if ( argv[i][0] != '-' )
-    {
-      printHelp();
-      exit(1);
-    }
+	int i = 0;
 
-    if ( argv[i][1] == '-' )
-    {
-      if (!strcmp(argv[i] + 2, "help"))
-      {
-        printHelp();
-        return 0;
-      }
-    }
-    else
-    {
-      if (argv[i][1] == 'd')
-      {
-        // Debug
-        switch (argv[i][2])
-        {
-          case 0:
-          case '0':
-            cerr << "Full debug on.\n";
-            debug = true;
-          case '1':
-            cerr << "Sbra debug on.\n";
-            break;
-          default:
-            cerr << "Undefined debug mode.\n";
-            printHelp();
-            exit(1);
-        }
-      }
-      else
-      {
-        // No other flags yet.
-        cerr << "Undefined flag.\n";
-        printHelp();
-        exit(1);
-      }
-    }
-  }
+	// Command line flags parsing, mostly debug level
+	while (++i < argc)
+	{
+    	if ( argv[i][0] != '-' )
+		{
+			printHelp();
+			exit(1);
+		}
 
-  if (debug)
-    cerr << "Flags parsed. Starting.\n";
+		if ( argv[i][1] == '-' )
+		{
+			if (!strcmp(argv[i] + 2, "help"))
+			{
+				printHelp();
+				return 0;
+			}
+		}
+		else
+		{
+			if (argv[i][1] == 'd')
+			{
+				// Debug
+				switch (argv[i][2])
+				{
+					case 0:
+					case '0':
+						cerr << "Full debug on.\n";
+						debug = true;
+					case '1':
+						cerr << "Sbra debug on.\n";
+						break;
+					default:
+						cerr << "Undefined debug mode.\n";
+						printHelp();
+						exit(1);
+				}
+			}
+			else
+			{
+				// No other flags yet.
+				cerr << "Undefined flag.\n";
+				printHelp();
+				exit(1);
+			}
+		}
+	}
 
-  namedWindow("Input", CV_WINDOW_AUTOSIZE);
-  namedWindow("Output", CV_WINDOW_AUTOSIZE);
+	if (debug)
+		cerr << "Flags parsed. Starting.\n";
 
-  VideoCapture capture = VideoCapture(CV_CAP_ANY);
-  // FIXME: Check if the object has really been instantiated
-  //if (capture == NULL)
-  //{
-  //  cerr << "ERROR: No capture device found.\n";
-  //  exit( 2 );
-  //}
-  
-  // Show the image captured from the camera in the window and repeat
-  while (true)
-  {
-    // Get one frame
-    Mat frame;
-    capture >> frame;
-    // FIXME: Check if the object has really been instantiated
-    //if (frame == NULL)
-    //{
-    //  cerr << "ERROR: frame is null.\n";
-    //  break;
-    //}
+	namedWindow( "Input", CV_WINDOW_AUTOSIZE );
+	namedWindow( "Output", CV_WINDOW_AUTOSIZE );
 
-    imshow("Input", frame);
+	VideoCapture capture( CV_CAP_ANY ); //= VideoCapture(CV_CAP_ANY);
+	 
+	Mat frame, output_frame;
 
-    // Parse frame...
-    // [...]
-    Mat output_frame = frame;
-    
-    imshow("Output", output_frame);
-  }
+	int key = -1;
+	
+	// Check if the stream is opened
+	if( capture.isOpened() ) {
+		// Show the image captured from the camera in the window and repeat
+		while( key == -1 )
+		{
+			capture >> frame;
 
-  capture.release();
-  destroyWindow("Input");
-  destroyWindow("Output");
+			if( frame.empty() ) {
+				cerr << "Capture error. Exiting" << endl;
+				break;
+			}
 
-  return 0;
+			imshow( "Input", frame );
+
+			// Elaborate frame	
+			output_frame = frame;
+
+			imshow( "Output", output_frame );
+
+			key = waitKey( 5 );
+		}
+	} else
+		cerr << "Source interfacing error. Exiting" << endl;
+
+	capture.release();
+
+	destroyWindow("Input");
+	destroyWindow("Output");
+
+	return 0;
 }
 
 /**
@@ -116,10 +119,10 @@ int main(int argc, char * argv[])
  */
 void printHelp()
 {
-  cout << "Usage:\n";
-  cout << "\t--help\tShow this help and exit.\n";
-  cout << "\t-dN\tShow debug messages.\n"
-       << "\t\tWhere N is an optional integer ranging from 0 to SBRA.\n"
-       << "\t\tWith 0 indicating the most verbose debug possible.\n";
+	cout << "Usage:\n";
+	cout << "\t--help\tShow this help and exit.\n";
+	cout << "\t-dN\tShow debug messages.\n"
+		<< "\t\tWhere N is an optional integer ranging from 0 to SBRA.\n"
+		<< "\t\tWith 0 indicating the most verbose debug possible.\n";
 }
 
