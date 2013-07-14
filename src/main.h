@@ -16,7 +16,7 @@
 
 bool debug;
 
-int main(int, char**);
+int main( int, char** );
 
 void printHelp();
 

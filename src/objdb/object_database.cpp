@@ -9,22 +9,46 @@
 
 #include "object_database.h"
 
-using namespace std;
+/**
+ * @brief	Load DB Constructor
+ * @details	If the name passed matches an existing DB it loads it, \
+ 			otherwise throws an exception
+ * @param[in] _dbName	The name of the DB to be loaded
+ */
+ObjectDatabase::ObjectDatabase( String _dbName ) {
+	this -> dbPath = "./database/";
+	this -> dbName = _dbName;
+
+	// Add existence check
+	if( false )
+		throw DBExistsException();
+
+	if( debug )
+		cerr << "Opening DB " << _dbName << endl;
+
+	load();
+}
 
 /**
- * @brief	Constructor
- * @details	If the name passed matches an existing DB i load it, \
- 			otherwise I generate the structures and fill them performing \
-			a recognize over the images in the directory passed as second argument
+ * @brief	Create DB Constructor
+ * @details	If the name passed matches an existing DB throws an exception, \
+ 			otherwise generates the structures and fill them performing \
+			a recognize over the images in the directory passed as second argument.
+ * @param[in] _dbName		The name of the DB to be created
+ * @param[in] imagesPath	The position of the images from which the descriptors are to be taken
  */
 ObjectDatabase::ObjectDatabase( String _dbName, String imagesPath = "./image_sample/" ) {
-	if( false )
-		load();
-	else {
-		this -> dbName = _dbName;
+	this -> dbPath = "./database/";
+	this -> dbName = _dbName;
 
-		build( imagesPath );
-	}
+	if( debug )
+		cerr << _dbName << " doesn't exists. Start creating it" << endl;
+
+	// Add existence check
+	if( false )
+		throw DBExistsException();
+
+	build( imagesPath );
 }
 
 /**
@@ -44,7 +68,22 @@ void ObjectDatabase::load() {
  * @param[in] imagesPath	The path containing the source images
  */
 void ObjectDatabase::build( String imagesPath ) {
+	// Load images in a Mat vector (mostly thanks to boost)
+	vector<Mat> samples = vector<Mat>();	
 	
+	fs::path fullPath = fs::system_complete( fs::path( imagesPath ) );
+
+	if( debug )
+		cerr << "Loading images from " << fullPath << endl;
+
+	if( !fs::exists( fullPath ) || !fs::is_directory( fullPath ) )
+		throw DBNotExistsException();
+
+	fs::directory_iterator end_iter;
+
+	for( fs::directory_iterator it( fullPath ); it != end_iter; ++it )
+		if( debug )
+			cerr << it -> path().filename() << endl;
 }
 
 /**

@@ -3,14 +3,15 @@
  * @brief Main file
  * @author Maurizio Zucchelli
  * @author Mattia Rizzini
- * @version 0.1.1
+ * @version 0.1.1-dbtest
  * @date 2013-07-13
  */
 
 #include "main.h"
+#include "objdb/object_database.h"
 
-using namespace cv;
-using namespace std;
+//using namespace cv;
+//using namespace std;
 
 /**
  * @brief Main function.
@@ -20,7 +21,7 @@ using namespace std;
  *
  * @return 
  */
-int main(int argc, char * argv[])
+int main( int argc, char* argv[] )
 {
 	int i = 0;
 
@@ -74,7 +75,15 @@ int main(int argc, char * argv[])
 	if (debug)
 		cerr << "Flags parsed. Starting.\n";
 
-	namedWindow( "Input", CV_WINDOW_AUTOSIZE );
+	try {
+		String dbName = "Aragorn";
+		ObjectDatabase db( dbName );
+	} catch( exception& e ) {
+		cout << e.what() << endl;
+		return -1;
+	}
+
+	/*namedWindow( "Input", CV_WINDOW_AUTOSIZE );
 	namedWindow( "Output", CV_WINDOW_AUTOSIZE );
 
 	VideoCapture capture( CV_CAP_ANY ); //= VideoCapture(CV_CAP_ANY);
@@ -110,7 +119,7 @@ int main(int argc, char * argv[])
 	capture.release();
 
 	destroyWindow("Input");
-	destroyWindow("Output");
+	destroyWindow("Output");*/
 
 	return 0;
 }
