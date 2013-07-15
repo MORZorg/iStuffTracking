@@ -38,7 +38,7 @@ class ObjectDatabase {
 		ObjectDatabase( string, string );
 		virtual ~ObjectDatabase();
 		
-		void getDescriptorDB();
+		Rect match( Mat );
 
 	private:
 		void load();

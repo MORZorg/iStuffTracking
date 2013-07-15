@@ -20,10 +20,9 @@ namespace fs = boost::filesystem;
  			otherwise throws an exception
  * @param[in] _dbName	The name of the DB to be loaded
  */
-ObjectDatabase::ObjectDatabase( string _dbName ) {
-	this -> dbPath = "./database/";
-	this -> dbName = _dbName;
-
+ObjectDatabase::ObjectDatabase( string _dbName ) :
+	dbPath( "./database" ), dbName( _dbName )
+{
 	// Add existence check
 	if( false )
 		throw DBNotExistsException();
@@ -42,16 +41,15 @@ ObjectDatabase::ObjectDatabase( string _dbName ) {
  * @param[in] _dbName		The name of the DB to be created
  * @param[in] imagesPath	The position of the images from which the descriptors are to be taken
  */
-ObjectDatabase::ObjectDatabase( string _dbName, string imagesPath ) {
-	this -> dbPath = "./database/";
-	this -> dbName = _dbName;
-
-	if( debug )
-		cerr << _dbName << " doesn't exists. Start creating it" << endl;
-
+ObjectDatabase::ObjectDatabase( string _dbName, string imagesPath ) :
+	dbPath( "./database" ), dbName( _dbName )
+{
 	// Add existence check
 	if( false )
 		throw DBExistsException();
+
+	if( debug )
+		cerr << _dbName << " doesn't exists. Start creating it" << endl;
 
 	build( imagesPath );
 }
@@ -61,6 +59,20 @@ ObjectDatabase::ObjectDatabase( string _dbName, string imagesPath ) {
  */
 ObjectDatabase::~ObjectDatabase() {
 
+}
+
+/**
+ * @brief	Search for descriptors matching in passed frame
+ * @details	Given an image, searches for the descriptors in the database \
+ 			and returns a rectangle enclosing the matched object
+ * @param[in] frame	The image to search into
+ * @retval	A Rect which encloses the object in the frame reference system
+ 			or an empty Rect if nothing is found
+ */
+Rect ObjectDatabase::match( Mat frame ) {
+	Rect encloser( 0, 0, 0, 0 );
+
+	return encloser;
 }
 
 /**
@@ -110,12 +122,5 @@ void ObjectDatabase::build( string imagesPath ) {
  * @brief	Writes the database to a file in the default directory
  */
 void ObjectDatabase::save() {
-
-}
-
-/**
- * @brief Returns the structure containing the descriptors
- */
-void ObjectDatabase::getDescriptorDB() {
 
 }
