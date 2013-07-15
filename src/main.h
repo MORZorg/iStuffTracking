@@ -14,6 +14,8 @@
 #include "opencv2/imgproc/imgproc.hpp"
 #include "opencv2/highgui/highgui.hpp"
 
+#include "object_recognition/object_recognizer.h"
+
 bool debug;
 
 int main(int, char**);

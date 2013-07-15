@@ -10,12 +10,12 @@
 #define OBJECT_RECOGNIZER_H__
 
 #include <iostream>
-#include <thread>
+#include <boost/thread.hpp>
 
 #include "opencv2/imgproc/imgproc.hpp"
 #include "opencv2/highgui/highgui.hpp"
 
-extern debug;
+extern bool debug;
 
 class ObjectDatabase;
 class ObjectTracker;
@@ -24,16 +24,19 @@ class ObjectRecognizer
 {
 	/* Attributes */
 	private:
-		std::thread::id running;
+		const static char TAG[];
 
-		VideoCapture*		source;
+		boost::thread* running;
+
+		cv::VideoCapture*		source;
 		ObjectDatabase*	matcher;
 		ObjectTracker*	callback;
 
 	/* Methods */
 	public:
 		/* Constructors and Destructors */
-		ObjectRecognizer(VideoCapture*, ObjectDatabase*);
+		ObjectRecognizer(cv::VideoCapture*, ObjectDatabase*);
+		ObjectRecognizer(cv::VideoCapture*);
 		virtual ~ObjectRecognizer();
 		
 		/* Setters */
@@ -48,7 +51,7 @@ class ObjectRecognizer
 
 	private:
 		void run();
-		void recognizeFrame(Mat);
-}
+		void recognizeFrame(cv::Mat);
+};
 
 #endif /* Defined OBJECT_RECOGNIZER_H__ */
