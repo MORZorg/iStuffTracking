@@ -14,10 +14,12 @@
 
 #include "opencv2/imgproc/imgproc.hpp"
 #include "opencv2/highgui/highgui.hpp"
+#include "opencv2/nonfree/nonfree.hpp"
+
+#include "../objdb/object_database.h"
 
 extern bool debug;
 
-class ObjectDatabase;
 class ObjectTracker;
 
 class ObjectRecognizer
@@ -54,4 +56,4 @@ class ObjectRecognizer
 		void recognizeFrame(cv::Mat);
 };
 
-#endif /* Defined OBJECT_RECOGNIZER_H__ */
+#endif /* defined OBJECT_RECOGNIZER_H__ */

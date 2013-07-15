@@ -122,8 +122,13 @@ void ObjectRecognizer::run()
 		if (debug)
 			cerr << TAG << ": Recognizing frame.\n";
 
-		Mat frame;
-		*source >> frame;
+		// Oggetto: insieme di label e maschera relativa al frame di rilevamento
+		// Match: rileva oggetto in un frame
+		// Da fare:
+		//	Chiedere/prendere dalla struttura superiore un frame;
+		//	Rilevare la presenza di un oggetto;
+		//	Informare la struttura superiore,
+		//		la quale informerà il tracker;
 
 		sleep(5);
 	}
