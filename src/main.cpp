@@ -8,7 +8,6 @@
  */
 
 #include "main.h"
-#include "objdb/object_database.h"
 
 //using namespace cv;
 //using namespace std;
@@ -76,8 +75,8 @@ int main( int argc, char* argv[] )
 		cerr << "Flags parsed. Starting.\n";
 
 	try {
-		String dbName = "Aragorn";
-		ObjectDatabase db( dbName );
+		string dbName = "Aragorn";
+		ObjectDatabase db( dbName, "./image_sample/" );
 	} catch( exception& e ) {
 		cout << e.what() << endl;
 		return -1;

@@ -12,9 +12,7 @@
 // Standard C++ libraries
 #include <iostream>
 #include <vector>
-
-// Custom libraries
-//#include "../main.h"
+#include <string>
 
 // OpenCV libraries
 #include "opencv2/highgui/highgui.hpp"
@@ -32,19 +30,19 @@ extern bool debug;
 
 class ObjectDatabase {
 	private:
-		String dbPath;
-		String dbName;
+		string dbPath;
+		string dbName;
 
 	public:
-		ObjectDatabase( String );
-		ObjectDatabase( String, String );
+		ObjectDatabase( string );
+		ObjectDatabase( string, string );
 		virtual ~ObjectDatabase();
 		
 		void getDescriptorDB();
 
 	private:
 		void load();
-		void build( String );
+		void build( string );
 		void save();
 };
 

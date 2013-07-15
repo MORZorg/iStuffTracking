@@ -9,19 +9,24 @@
 
 #include "object_database.h"
 
+using namespace std;
+using namespace cv;
+
+namespace fs = boost::filesystem;
+
 /**
  * @brief	Load DB Constructor
  * @details	If the name passed matches an existing DB it loads it, \
  			otherwise throws an exception
  * @param[in] _dbName	The name of the DB to be loaded
  */
-ObjectDatabase::ObjectDatabase( String _dbName ) {
+ObjectDatabase::ObjectDatabase( string _dbName ) {
 	this -> dbPath = "./database/";
 	this -> dbName = _dbName;
 
 	// Add existence check
 	if( false )
-		throw DBExistsException();
+		throw DBNotExistsException();
 
 	if( debug )
 		cerr << "Opening DB " << _dbName << endl;
@@ -37,7 +42,7 @@ ObjectDatabase::ObjectDatabase( String _dbName ) {
  * @param[in] _dbName		The name of the DB to be created
  * @param[in] imagesPath	The position of the images from which the descriptors are to be taken
  */
-ObjectDatabase::ObjectDatabase( String _dbName, String imagesPath = "./image_sample/" ) {
+ObjectDatabase::ObjectDatabase( string _dbName, string imagesPath ) {
 	this -> dbPath = "./database/";
 	this -> dbName = _dbName;
 
@@ -49,6 +54,13 @@ ObjectDatabase::ObjectDatabase( String _dbName, String imagesPath = "./image_sam
 		throw DBExistsException();
 
 	build( imagesPath );
+}
+
+/**
+ * @brief	Destructor
+ */
+ObjectDatabase::~ObjectDatabase() {
+
 }
 
 /**
@@ -67,9 +79,9 @@ void ObjectDatabase::load() {
  			Also saves the database into a file
  * @param[in] imagesPath	The path containing the source images
  */
-void ObjectDatabase::build( String imagesPath ) {
+void ObjectDatabase::build( string imagesPath ) {
 	// Load images in a Mat vector (mostly thanks to boost)
-	vector<Mat> samples = vector<Mat>();	
+	vector< Mat > samples = vector< Mat >();	
 	
 	fs::path fullPath = fs::system_complete( fs::path( imagesPath ) );
 
@@ -81,9 +93,17 @@ void ObjectDatabase::build( String imagesPath ) {
 
 	fs::directory_iterator end_iter;
 
-	for( fs::directory_iterator it( fullPath ); it != end_iter; ++it )
+	for( fs::directory_iterator it( fullPath ); it != end_iter; ++it ) {
 		if( debug )
 			cerr << it -> path().filename() << endl;
+
+		Mat load = imread( it -> path().string() ); 
+
+		samples.push_back( load );
+
+		imshow( "Loading..", load );
+		waitKey();
+	}
 }
 
 /**
