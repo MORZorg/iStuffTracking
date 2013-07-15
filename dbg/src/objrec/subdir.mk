@@ -1,9 +1,9 @@
 # Add inputs and outputs from these tool invocations to the build variables 
-CPP_SRCS += ../src/object_recognition/object_recognizer.cpp \
+CPP_SRCS += ../src/objrec/object_recognizer.cpp \
 
-OBJS += ./src/object_recognition/object_recognizer.o \
+OBJS += ./src/objrec/object_recognizer.o \
 
-CPP_DEPS += ./src/object_recognition/object_recognizer.d \
+CPP_DEPS += ./src/objrec/object_recognizer.d \
 
 
 # Each subdirectory must supply rules for building sources it contributes
