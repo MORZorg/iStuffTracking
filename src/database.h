@@ -41,8 +41,7 @@ namespace IStuff {
 			std::map< Label, cv::Mat > descriptorDB;
 
 		public:
-			ObjectDatabase( std::string );
-			ObjectDatabase( std::string, std::string );
+			ObjectDatabase( std::string, std::string = "image_sample/" );
 			virtual ~ObjectDatabase();
 			
 			cv::Rect match( cv::Mat );

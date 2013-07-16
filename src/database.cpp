@@ -16,22 +16,30 @@ using namespace IStuff;
 namespace fs = boost::filesystem;
 
 /**
- * @brief	Load DB Constructor
+ * @brief	Constructor
  * @details	If the name passed matches an existing DB it loads it, \
- 			otherwise throws an exception
+ 			otherwise it creates it 
  * @param[in] _dbName	The name of the DB to be loaded
+ * @param[in] imagesPath	The position of the images from which the descriptors are to be taken
  */
-ObjectDatabase::ObjectDatabase( string _dbName ) :
+ObjectDatabase::ObjectDatabase( string _dbName, string imagesPath ) :
 	dbPath( "database/" ), dbName( _dbName )
 {
-	// Add existence check
-	if( false )
-		throw DBNotExistsException();
+	// Check for database existence
+	string dbFileName = dbPath + dbName + ".sbra";
+	ifstream file_check( dbFileName.c_str(), ios::binary );
 
-	if( debug )
-		cerr << "Opening DB " << _dbName << endl;
+	if( !file_check ) {
+		if( debug )
+			cerr << _dbName << " doesn't exists. Start creating it" << endl;
 
-	load();
+		build( imagesPath );
+	} else {
+		if( debug )
+			cerr << "Opening DB " << _dbName << endl;
+
+		load();
+	}
 }
 
 /**
@@ -42,7 +50,7 @@ ObjectDatabase::ObjectDatabase( string _dbName ) :
  * @param[in] _dbName		The name of the DB to be created
  * @param[in] imagesPath	The position of the images from which the descriptors are to be taken
  */
-ObjectDatabase::ObjectDatabase( string _dbName, string imagesPath ) :
+/*ObjectDatabase::ObjectDatabase( string _dbName, string imagesPath ) :
 	dbPath( "database/" ), dbName( _dbName )
 {
 	// Add existence check
@@ -53,7 +61,7 @@ ObjectDatabase::ObjectDatabase( string _dbName, string imagesPath ) :
 		cerr << _dbName << " doesn't exists. Start creating it" << endl;
 
 	build( imagesPath );
-}
+}*/
 
 /**
  * @brief	Destructor
@@ -81,7 +89,24 @@ Rect ObjectDatabase::match( Mat frame ) {
  * param[in] dbName	The name of the DB to load
  */
 void ObjectDatabase::load() {
+	if( debug )
+		cerr << "Loading database" << endl;
 
+	string dbFileName = dbPath + dbName + ".sbra";
+	ifstream f( dbFileName.c_str(), ios::binary );
+	
+	if( f.fail() ) {
+		if( debug )
+			cerr << "\tError in file stream opening" << endl;
+		return;
+	} else if( debug )
+		cerr << "\tLoading from " << dbFileName << endl;
+
+	boost::archive::binary_iarchive iarch( f );
+	iarch >> descriptorDB;
+
+	if( debug )
+		cerr << "\tLoad successfull" << endl;
 }
 
 /**
@@ -150,8 +175,6 @@ void ObjectDatabase::build( string imagesPath ) {
 
 		// Draw the keypoints for debug purposes
 		if( debug ) {
-			cerr << "\tCalculating image to show" << endl;
-
 			Mat outputImage;
 			drawKeypoints( load, keypoints, outputImage, Scalar( 255, 0, 0 ), DrawMatchesFlags::DEFAULT );
 
@@ -172,9 +195,6 @@ void ObjectDatabase::build( string imagesPath ) {
 	}
 
 	// Now that the descriptorDB structure is generated, i serialize it for future usage
-	if( debug )
-		cerr << "Saving the created database" << endl;
-
 	save();
 }
 
@@ -182,12 +202,15 @@ void ObjectDatabase::build( string imagesPath ) {
  * @brief	Writes the database to a file in the default directory
  */
 void ObjectDatabase::save() {
+	if( debug )
+		cerr << "Saving the created database" << endl;
+
 	string dbFileName = dbPath + dbName + ".sbra";
 	ofstream f( dbFileName.c_str(), ios::binary );
 	
 	if( f.fail() ) {
 		if( debug )
-			cerr << "\tError in ostream opening" << endl;
+			cerr << "\tError in file stream opening" << endl;
 		return;
 	} else if( debug )
 		cerr << "\tSaving to " << dbFileName << endl;
