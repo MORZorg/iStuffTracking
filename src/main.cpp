@@ -76,7 +76,7 @@ int main( int argc, char* argv[] )
 
 	try {
 		string dbName = "Aragorn";
-		ObjectDatabase db( dbName, "./image_sample/" );
+		IStuff::ObjectDatabase db( dbName, "./image_sample/" );
 	} catch( exception& e ) {
 		cout << e.what() << endl;
 		return -1;
