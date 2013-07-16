@@ -75,9 +75,9 @@ int main( int argc, char* argv[] )
 		cerr << "Flags parsed. Starting.\n";
 
 	try {
-		string dbName = "Aragorn";
-		IStuff::ObjectDatabase db( dbName );
-	} catch( exception& e ) {
+		string dbName = "Aragorna";
+		IStuff::Database db( dbName );
+	} catch( IStuff::DBCreationException& e ) {
 		cout << e.what() << endl;
 		return -1;
 	}

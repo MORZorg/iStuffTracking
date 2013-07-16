@@ -1,7 +1,7 @@
 /**
  * @file	object_database.cpp
- * @brief	Definition for ObjectDatabase class
- * @class	ObjectDatabase
+ * @brief	Definition for Database class
+ * @class	Database
  * @author	Mattia Rizzini
  * @version	0.1.0
  * @date	2013-07-14
@@ -22,7 +22,7 @@ namespace fs = boost::filesystem;
  * @param[in] _dbName	The name of the DB to be loaded
  * @param[in] imagesPath	The position of the images from which the descriptors are to be taken
  */
-ObjectDatabase::ObjectDatabase( string _dbName, string imagesPath ) :
+Database::Database( string _dbName, string imagesPath ) :
 	dbPath( "database/" ), dbName( _dbName )
 {
 	// Check for database existence
@@ -33,7 +33,11 @@ ObjectDatabase::ObjectDatabase( string _dbName, string imagesPath ) :
 		if( debug )
 			cerr << _dbName << " doesn't exists. Start creating it" << endl;
 
-		build( imagesPath );
+		try {
+			build( imagesPath );
+		} catch( DBCreationException& e ) {
+			throw e;
+		}
 	} else {
 		if( debug )
 			cerr << "Opening DB " << _dbName << endl;
@@ -50,7 +54,7 @@ ObjectDatabase::ObjectDatabase( string _dbName, string imagesPath ) :
  * @param[in] _dbName		The name of the DB to be created
  * @param[in] imagesPath	The position of the images from which the descriptors are to be taken
  */
-/*ObjectDatabase::ObjectDatabase( string _dbName, string imagesPath ) :
+/*Database::Database( string _dbName, string imagesPath ) :
 	dbPath( "database/" ), dbName( _dbName )
 {
 	// Add existence check
@@ -66,7 +70,7 @@ ObjectDatabase::ObjectDatabase( string _dbName, string imagesPath ) :
 /**
  * @brief	Destructor
  */
-ObjectDatabase::~ObjectDatabase() {
+Database::~Database() {
 
 }
 
@@ -78,7 +82,7 @@ ObjectDatabase::~ObjectDatabase() {
  * @retval	A Rect which encloses the object in the frame reference system
  			or an empty Rect if nothing is found
  */
-Rect ObjectDatabase::match( Mat frame ) {
+Rect Database::match( Mat frame ) {
 	Rect encloser( 0, 0, 0, 0 );
 
 	return encloser;
@@ -88,7 +92,7 @@ Rect ObjectDatabase::match( Mat frame ) {
  * @brief	Load existing database and fill the kd-tree containing descriptors
  * param[in] dbName	The name of the DB to load
  */
-void ObjectDatabase::load() {
+void Database::load() {
 	if( debug )
 		cerr << "Loading database" << endl;
 
@@ -117,7 +121,7 @@ void ObjectDatabase::load() {
  			Also saves the database into a file
  * @param[in] imagesPath	The path containing the source images
  */
-void ObjectDatabase::build( string imagesPath ) {
+void Database::build( string imagesPath ) {
 	// Load images using boost to retrieve filenames
 	//vector< Mat > samples = vector< Mat >();	
 	
@@ -127,7 +131,7 @@ void ObjectDatabase::build( string imagesPath ) {
 		cerr << "Loading images from " << fullPath << endl;
 
 	if( !fs::exists( fullPath ) || !fs::is_directory( fullPath ) )
-		throw DBNotExistsException();
+		throw DBCreationException(); 
 
 	fs::directory_iterator end_iter;
 
@@ -139,6 +143,17 @@ void ObjectDatabase::build( string imagesPath ) {
 	Mat load, descriptors;
 	vector< KeyPoint > keypoints;
 
+	// If there are no images in the given directory then error
+	int file_count = std::count_if(
+			fs::directory_iterator( fullPath ),
+			fs::directory_iterator(),
+			bind( static_cast< bool(*)( const fs::path& ) > ( fs::is_regular_file ), 
+			bind( &fs::directory_entry::path, boost::lambda::_1 ) ) );	
+
+	if( file_count == 0 ) {
+		throw DBCreationException(); 
+	}
+	
 	// For every image, calculate the keypoints and add them to a map
 	// As key I use the source image name
 	for( fs::directory_iterator it( fullPath ); it != end_iter; ++it ) {
@@ -201,7 +216,7 @@ void ObjectDatabase::build( string imagesPath ) {
 /**
  * @brief	Writes the database to a file in the default directory
  */
-void ObjectDatabase::save() {
+void Database::save() {
 	if( debug )
 		cerr << "Saving the created database" << endl;
 

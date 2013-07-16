@@ -1,6 +1,6 @@
 /**
  * @file	object_database.h
- * @brief	Library for ObjectDatabase class
+ * @brief	Library for Database class
  * @author	Mattia Rizzini
  * @version	0.1.0
  * @date	2013-07-14
@@ -22,10 +22,12 @@
 #include "opencv2/nonfree/nonfree.hpp"
 
 // Boost libraries
-#include "boost/filesystem/operations.hpp"
-#include "boost/filesystem/path.hpp"
+#include "boost/filesystem.hpp"
+#include "boost/lambda/bind.hpp"
+
 #include "boost/archive/binary_oarchive.hpp"
 #include "boost/archive/binary_iarchive.hpp"
+
 #include "boost/serialization/map.hpp"
 #include "serialize_mat.h"
 
@@ -34,15 +36,15 @@ extern bool debug;
 namespace IStuff {
 	typedef std::string Label;
 
-	class ObjectDatabase {
+	class Database {
 		private:
 			std::string dbPath;
 			std::string dbName;
 			std::map< Label, cv::Mat > descriptorDB;
 
 		public:
-			ObjectDatabase( std::string, std::string = "image_sample/" );
-			virtual ~ObjectDatabase();
+			Database( std::string, std::string = "image_sample/" );
+			virtual ~Database();
 			
 			cv::Rect match( cv::Mat );
 
@@ -52,15 +54,9 @@ namespace IStuff {
 			void save();
 	};
 
-	class DBNotExistsException: public std::exception {
-		virtual const char* what() const throw() {
-			return "Error in Database loading, the selected DB doesn't exist.";
-		}
-	};
-
-	class DBExistsException: public std::exception {
-		virtual const char* what() const throw() {
-			return "Error in Database creation, the DB you want to create already exists.";
+	class DBCreationException: public std::exception {
+		public: virtual const char* what() const throw() {
+			return "Error in Database creation, no files in given directory or wrong path given.";
 		}
 	};
 };
