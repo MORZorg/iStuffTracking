@@ -8,8 +8,9 @@
 
 #include "main.h"
 
-using namespace cv;
 using namespace std;
+using namespace cv;
+using namespace IStuff;
 
 /**
  * @brief Main function.
@@ -75,8 +76,8 @@ int main(int argc, char * argv[])
 
   VideoCapture capture = VideoCapture(CV_CAP_ANY);
 	
-	ObjectRecognizer recognizer = ObjectRecognizer(&capture);
-	recognizer.start();
+	Manager manager;
+	//manager.setDatabase(...);
   
   // Show the image captured from the camera in the window and repeat
   while (true)
@@ -84,11 +85,12 @@ int main(int argc, char * argv[])
     // Get one frame
     Mat frame;
     capture >> frame;
+
+		manager.elaborateFrame(frame);
 		
     imshow("Camera", frame);
   }
 
-	recognizer.stop();
   capture.release();
   destroyWindow("Camera");
 

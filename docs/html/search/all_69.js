@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['isrunning',['isRunning',['../class_object_recognizer.html#a5ebfeb7eb238b9349fc9740fb6bd397b',1,'ObjectRecognizer']]]
+  ['isrunning',['isRunning',['../class_i_stuff_1_1_recognizer.html#aac5297071c1f6ff12049a58c88bb3952',1,'IStuff::Recognizer']]]
 ];
