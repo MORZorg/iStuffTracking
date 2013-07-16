@@ -14,8 +14,8 @@
 #include "opencv2/imgproc/imgproc.hpp"
 #include "opencv2/highgui/highgui.hpp"
 
-#include "objdb/object_database.h"
-#include "objrec/object_recognizer.h"
+#include "IStuff/manager.h"
+//#include "IStuff/database.h"
 
 bool debug;
 

@@ -1,0 +1,168 @@
+\hypertarget{class_i_stuff_1_1_manager}{\section{I\-Stuff\-:\-:Manager Class Reference}
+\label{class_i_stuff_1_1_manager}\index{I\-Stuff\-::\-Manager@{I\-Stuff\-::\-Manager}}
+}
+
+
+Class to manage the joint 3\-D \hyperlink{class_i_stuff_1_1_object}{Object} recognition and tracking.  
+
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_i_stuff_1_1_manager_a1658ff9f18e38ccd9cb8b0b371b9c20b}{\hyperlink{class_i_stuff_1_1_manager_a1658ff9f18e38ccd9cb8b0b371b9c20b}{Manager} ()}\label{class_i_stuff_1_1_manager_a1658ff9f18e38ccd9cb8b0b371b9c20b}
+
+\begin{DoxyCompactList}\small\item\em Constructs the class. \end{DoxyCompactList}\item 
+void \hyperlink{class_i_stuff_1_1_manager_aa91ba11affc3ec961acaf81fc5c5e62d}{set\-Database} (Database $\ast$)
+\begin{DoxyCompactList}\small\item\em Changes the database used to identify the object. \end{DoxyCompactList}\item 
+void \hyperlink{class_i_stuff_1_1_manager_ab90926d6eb67361ac587d10081aef667}{set\-Object} (\hyperlink{class_i_stuff_1_1_object}{Object})
+\begin{DoxyCompactList}\small\item\em Changes the current description of the object. \end{DoxyCompactList}\item 
+\hyperlink{class_i_stuff_1_1_object}{Object} \hyperlink{class_i_stuff_1_1_manager_a80d15a0a83976f63c357f65b20387e02}{get\-Object} ()
+\begin{DoxyCompactList}\small\item\em Returns the current description of the object. \end{DoxyCompactList}\item 
+void \hyperlink{class_i_stuff_1_1_manager_a47f17fa372382713bcc0f37aae006745}{elaborate\-Frame} (cv\-::\-Mat)
+\begin{DoxyCompactList}\small\item\em Elaborates a frame, searching for the object. \end{DoxyCompactList}\item 
+\hypertarget{class_i_stuff_1_1_manager_afed6c2adc5a4b65bd630d2a042df987b}{cv\-::\-Mat {\bfseries paint\-Object} (cv\-::\-Mat)}\label{class_i_stuff_1_1_manager_afed6c2adc5a4b65bd630d2a042df987b}
+
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_i_stuff_1_1_manager_a3cacb02ece1a4938e7754ad553c91a74}{int \hyperlink{class_i_stuff_1_1_manager_a3cacb02ece1a4938e7754ad553c91a74}{frames\-\_\-tracked\-\_\-count}}\label{class_i_stuff_1_1_manager_a3cacb02ece1a4938e7754ad553c91a74}
+
+\begin{DoxyCompactList}\small\item\em When this reaches R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-P\-E\-R\-I\-O\-D, a new recognition is done. \end{DoxyCompactList}\item 
+\hypertarget{class_i_stuff_1_1_manager_a9b4234320a01a049bc10f9f13d612fc4}{boost\-::shared\-\_\-mutex {\bfseries object\-\_\-update}}\label{class_i_stuff_1_1_manager_a9b4234320a01a049bc10f9f13d612fc4}
+
+\item 
+\hypertarget{class_i_stuff_1_1_manager_a9b898107c919a3ba73f60278c9c05742}{\hyperlink{class_i_stuff_1_1_object}{Object} {\bfseries actual\-\_\-object}}\label{class_i_stuff_1_1_manager_a9b898107c919a3ba73f60278c9c05742}
+
+\item 
+\hypertarget{class_i_stuff_1_1_manager_aae57c3ee778cb782dc8dc954a6667c73}{Database $\ast$ {\bfseries database}}\label{class_i_stuff_1_1_manager_aae57c3ee778cb782dc8dc954a6667c73}
+
+\item 
+\hypertarget{class_i_stuff_1_1_manager_a8debd3deef96a862ed16ab3387e10d73}{\hyperlink{class_i_stuff_1_1_recognizer}{Recognizer} $\ast$ {\bfseries recognizer}}\label{class_i_stuff_1_1_manager_a8debd3deef96a862ed16ab3387e10d73}
+
+\item 
+\hypertarget{class_i_stuff_1_1_manager_a6195abc0b414c5c8ee52415e394a8360}{Tracker $\ast$ {\bfseries tracker}}\label{class_i_stuff_1_1_manager_a6195abc0b414c5c8ee52415e394a8360}
+
+\end{DoxyCompactItemize}
+\subsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_i_stuff_1_1_manager_a0228682f317a86ce7057b86e9d229ac6}{static const char {\bfseries T\-A\-G} \mbox{[}$\,$\mbox{]} = \char`\"{}Mng\char`\"{}}\label{class_i_stuff_1_1_manager_a0228682f317a86ce7057b86e9d229ac6}
+
+\item 
+\hypertarget{class_i_stuff_1_1_manager_a58f0beb39eea21e78a8983e5954065c3}{static const int {\bfseries R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-P\-E\-R\-I\-O\-D} = 20}\label{class_i_stuff_1_1_manager_a58f0beb39eea21e78a8983e5954065c3}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class to manage the joint 3\-D \hyperlink{class_i_stuff_1_1_object}{Object} recognition and tracking. 
+
+\begin{DoxyAuthor}{Author}
+Maurizio Zucchelli 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\-1.\-0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2013-\/07-\/16 
+\end{DoxyDate}
+
+
+Definition at line 28 of file manager.\-h.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_i_stuff_1_1_manager_a47f17fa372382713bcc0f37aae006745}{\index{I\-Stuff\-::\-Manager@{I\-Stuff\-::\-Manager}!elaborate\-Frame@{elaborate\-Frame}}
+\index{elaborate\-Frame@{elaborate\-Frame}!IStuff::Manager@{I\-Stuff\-::\-Manager}}
+\subsubsection[{elaborate\-Frame}]{\setlength{\rightskip}{0pt plus 5cm}void Manager\-::elaborate\-Frame (
+\begin{DoxyParamCaption}
+\item[{cv\-::\-Mat}]{}
+\end{DoxyParamCaption}
+)}}\label{class_i_stuff_1_1_manager_a47f17fa372382713bcc0f37aae006745}
+
+
+Elaborates a frame, searching for the object. 
+
+This function alternates the recognition to the tracking, making a new recognition every R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-P\-E\-R\-I\-O\-D frames.
+
+
+\begin{DoxyParams}{Parameters}
+{\em frame} & The frame to be analyzed. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 97 of file manager.\-cpp.
+
+\hypertarget{class_i_stuff_1_1_manager_a80d15a0a83976f63c357f65b20387e02}{\index{I\-Stuff\-::\-Manager@{I\-Stuff\-::\-Manager}!get\-Object@{get\-Object}}
+\index{get\-Object@{get\-Object}!IStuff::Manager@{I\-Stuff\-::\-Manager}}
+\subsubsection[{get\-Object}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Object} Manager\-::get\-Object (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_i_stuff_1_1_manager_a80d15a0a83976f63c357f65b20387e02}
+
+
+Returns the current description of the object. 
+
+Since it is used by the recognition thread, it is syncrhonized using the R\-W\-L pattern.
+
+\begin{DoxyReturn}{Returns}
+The current description of the object. 
+\end{DoxyReturn}
+
+
+Definition at line 77 of file manager.\-cpp.
+
+\hypertarget{class_i_stuff_1_1_manager_aa91ba11affc3ec961acaf81fc5c5e62d}{\index{I\-Stuff\-::\-Manager@{I\-Stuff\-::\-Manager}!set\-Database@{set\-Database}}
+\index{set\-Database@{set\-Database}!IStuff::Manager@{I\-Stuff\-::\-Manager}}
+\subsubsection[{set\-Database}]{\setlength{\rightskip}{0pt plus 5cm}void Manager\-::set\-Database (
+\begin{DoxyParamCaption}
+\item[{Database $\ast$}]{database}
+\end{DoxyParamCaption}
+)}}\label{class_i_stuff_1_1_manager_aa91ba11affc3ec961acaf81fc5c5e62d}
+
+
+Changes the database used to identify the object. 
+
+This means that with high probability a different object will be searched for\-: the next elaboration must be a recognition.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em database} & The new database to be used. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 43 of file manager.\-cpp.
+
+\hypertarget{class_i_stuff_1_1_manager_ab90926d6eb67361ac587d10081aef667}{\index{I\-Stuff\-::\-Manager@{I\-Stuff\-::\-Manager}!set\-Object@{set\-Object}}
+\index{set\-Object@{set\-Object}!IStuff::Manager@{I\-Stuff\-::\-Manager}}
+\subsubsection[{set\-Object}]{\setlength{\rightskip}{0pt plus 5cm}void Manager\-::set\-Object (
+\begin{DoxyParamCaption}
+\item[{{\bf Object}}]{new\-\_\-object}
+\end{DoxyParamCaption}
+)}}\label{class_i_stuff_1_1_manager_ab90926d6eb67361ac587d10081aef667}
+
+
+Changes the current description of the object. 
+
+Since it is used by the recognition thread, it is syncrhonized using the R\-W\-L pattern.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em new\-\_\-object} & The new description of the object. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 56 of file manager.\-cpp.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+src/\-I\-Stuff/\hyperlink{manager_8h}{manager.\-h}\item 
+src/\-I\-Stuff/\hyperlink{manager_8cpp}{manager.\-cpp}\end{DoxyCompactItemize}

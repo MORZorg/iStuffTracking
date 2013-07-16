@@ -19,6 +19,9 @@ extern bool debug;
 
 namespace IStuff
 {
+	/**
+	 * @brief Label relative to a view of an Object.
+	 */
 	typedef std::string Label;
 
 	class Object
@@ -40,7 +43,7 @@ namespace IStuff
 			void removeLabel(const Label);
 
 			/* Getters */
-			std::vector<cv::Point2f> getMask(Label) const;
+			std::vector<cv::Point2f> getMask(const Label) const;
 	};
 }
 

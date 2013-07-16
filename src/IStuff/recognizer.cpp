@@ -1,6 +1,6 @@
 /**
  * @file recognizer.cpp
- * @class	Recognizer
+ * @class	IStuff::Recognizer
  * @brief Class used to recognize objects in a video stream.
  * @details	This class manages a thread receiving a frame from an input stream,
  *	analyzing it to find some kind of 3D object and then updating the data used 
@@ -56,7 +56,8 @@ void Recognizer::setDatabase(Database* matcher)
  */
 bool Recognizer::isRunning() const
 {
-	return *running != thread();
+	// HACK: Bad way around to check if a thread has finished running.
+	return running->try_join_for(chrono::nanoseconds(0));
 }
 
 /* Other methods */
@@ -64,15 +65,21 @@ bool Recognizer::isRunning() const
 /**
  * @brief Function 
  */
-void Recognizer::recognizeFrame(Mat frame, Manager* callback)
+Object Recognizer::recognizeFrame(Mat frame)
 {
 	if (debug)
 		cerr << TAG << ": Recognizing frame.\n";
 
-	sleep(5);
+	// TODO
+	sleep(1);
+
+	if (debug)
+		cerr << TAG << ": Frame recognized.\n";
+
+	return Object();
 }
 
-bool Recognizer::backgroundRecognizeFrame(Mat frame, Manager* callback)
+bool Recognizer::backgroundRecognizeFrame(Mat frame, Manager* reference)
 {
 	if (isRunning())
 	{
@@ -86,7 +93,12 @@ bool Recognizer::backgroundRecognizeFrame(Mat frame, Manager* callback)
 		cerr << TAG << ": Starting in background.\n";
 
 	// NOTE: "[=]" means "all used variables are captured in the lambda".
-	running = new thread([=]() { recognizeFrame(frame, callback); });
+	running = new thread([=]()
+			{
+				Object new_object = recognizeFrame(frame);
+				reference->setObject(new_object);
+			});
+
 	return true;
 }
 

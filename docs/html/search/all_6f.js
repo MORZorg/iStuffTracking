@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['object_5frecognizer_2eh',['object_recognizer.h',['../object__recognizer_8h.html',1,'']]],
-  ['objectrecognizer',['ObjectRecognizer',['../class_object_recognizer.html',1,'ObjectRecognizer'],['../class_object_recognizer.html#a8c2fbf624024bd7eedb302efe62f7c52',1,'ObjectRecognizer::ObjectRecognizer()']]]
+  ['object',['Object',['../class_i_stuff_1_1_object.html',1,'IStuff']]],
+  ['object',['Object',['../class_i_stuff_1_1_object.html#a40860402e64d8008fb42329df7097cdb',1,'IStuff::Object']]],
+  ['object_2ecpp',['object.cpp',['../object_8cpp.html',1,'']]],
+  ['object_2eh',['object.h',['../object_8h.html',1,'']]]
 ];

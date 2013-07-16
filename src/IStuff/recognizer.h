@@ -6,14 +6,17 @@
  * @date 2013-07-14
  */
 
-#ifndef OBJECT_RECOGNIZER_H__
-#define OBJECT_RECOGNIZER_H__
+#ifndef I_STUFF_RECOGNIZER_H__
+#define I_STUFF_RECOGNIZER_H__
 
 #include <iostream>
 
 #include <boost/thread.hpp>
+#include <boost/chrono.hpp>
 
 #include "opencv2/imgproc/imgproc.hpp"
+
+#include "object.h"
 
 extern bool debug;
 
@@ -45,11 +48,12 @@ namespace IStuff
 			bool isRunning() const;
 
 			/* Other methods */
-			void recognizeFrame(cv::Mat, Manager*);
+			Object recognizeFrame(cv::Mat);
 			bool backgroundRecognizeFrame(cv::Mat, Manager*);
-
-		private:
 	};
 }
 
-#endif /* defined OBJECT_RECOGNIZER_H__ */
+#include "manager.h"
+
+#endif /* defined I_STUFF_RECOGNIZER_H__ */
+

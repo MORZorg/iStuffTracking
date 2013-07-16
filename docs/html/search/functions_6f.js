@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['objectrecognizer',['ObjectRecognizer',['../class_object_recognizer.html#a8c2fbf624024bd7eedb302efe62f7c52',1,'ObjectRecognizer']]]
+  ['object',['Object',['../class_i_stuff_1_1_object.html#a40860402e64d8008fb42329df7097cdb',1,'IStuff::Object']]]
 ];

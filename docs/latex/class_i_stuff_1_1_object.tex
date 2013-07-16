@@ -1,0 +1,133 @@
+\hypertarget{class_i_stuff_1_1_object}{\section{I\-Stuff\-:\-:Object Class Reference}
+\label{class_i_stuff_1_1_object}\index{I\-Stuff\-::\-Object@{I\-Stuff\-::\-Object}}
+}
+
+
+Class used to represent a three dimensional object.  
+
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_i_stuff_1_1_object_a40860402e64d8008fb42329df7097cdb}{\hyperlink{class_i_stuff_1_1_object_a40860402e64d8008fb42329df7097cdb}{Object} ()}\label{class_i_stuff_1_1_object_a40860402e64d8008fb42329df7097cdb}
+
+\begin{DoxyCompactList}\small\item\em Constructs a new object. \end{DoxyCompactList}\item 
+void \hyperlink{class_i_stuff_1_1_object_aee004eb2e471cda24ad4a58f6ae55b41}{set\-Label} (const Label, const std\-::vector$<$ cv\-::\-Point2f $>$)
+\begin{DoxyCompactList}\small\item\em Changes a Label of this \hyperlink{class_i_stuff_1_1_object}{Object} to represent a different mask. \end{DoxyCompactList}\item 
+void \hyperlink{class_i_stuff_1_1_object_ab9f6cf27353153dd8c9d3e55c7321f7f}{remove\-Label} (const Label)
+\begin{DoxyCompactList}\small\item\em Removes a Label from this \hyperlink{class_i_stuff_1_1_object}{Object}. \end{DoxyCompactList}\item 
+std\-::vector$<$ cv\-::\-Point2f $>$ \hyperlink{class_i_stuff_1_1_object_a469d14582bee7d25f546742d75f7eae4}{get\-Mask} (const Label) const 
+\begin{DoxyCompactList}\small\item\em Returns the mask associated to a Label. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_i_stuff_1_1_object_a5513b3d190ca3af9395d66c79e736f06}{std\-::map$<$ Label, std\-::vector\\*
+$<$ cv\-::\-Point2f $>$ $>$ {\bfseries description}}\label{class_i_stuff_1_1_object_a5513b3d190ca3af9395d66c79e736f06}
+
+\end{DoxyCompactItemize}
+\subsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_i_stuff_1_1_object_a2ba8d34aa857298238f9800e1f3ddb1e}{static const char {\bfseries T\-A\-G} \mbox{[}$\,$\mbox{]} = \char`\"{}Obj\char`\"{}}\label{class_i_stuff_1_1_object_a2ba8d34aa857298238f9800e1f3ddb1e}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class used to represent a three dimensional object. 
+
+\begin{DoxyAuthor}{Author}
+Maurizio Zucchelli 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\-1.\-0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2013-\/07-\/16 
+\end{DoxyDate}
+
+
+Definition at line 27 of file object.\-h.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_i_stuff_1_1_object_a469d14582bee7d25f546742d75f7eae4}{\index{I\-Stuff\-::\-Object@{I\-Stuff\-::\-Object}!get\-Mask@{get\-Mask}}
+\index{get\-Mask@{get\-Mask}!IStuff::Object@{I\-Stuff\-::\-Object}}
+\subsubsection[{get\-Mask}]{\setlength{\rightskip}{0pt plus 5cm}vector$<$ Point2f $>$ Object\-::get\-Mask (
+\begin{DoxyParamCaption}
+\item[{const Label}]{label}
+\end{DoxyParamCaption}
+) const}}\label{class_i_stuff_1_1_object_a469d14582bee7d25f546742d75f7eae4}
+
+
+Returns the mask associated to a Label. 
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em out\-\_\-of\-\_\-range} & If the Label searched does not exist.\\
+\hline
+\end{DoxyExceptions}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em label} & The Label to search for.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The mask associated to the input Label. 
+\end{DoxyReturn}
+
+
+Definition at line 63 of file object.\-cpp.
+
+\hypertarget{class_i_stuff_1_1_object_ab9f6cf27353153dd8c9d3e55c7321f7f}{\index{I\-Stuff\-::\-Object@{I\-Stuff\-::\-Object}!remove\-Label@{remove\-Label}}
+\index{remove\-Label@{remove\-Label}!IStuff::Object@{I\-Stuff\-::\-Object}}
+\subsubsection[{remove\-Label}]{\setlength{\rightskip}{0pt plus 5cm}void Object\-::remove\-Label (
+\begin{DoxyParamCaption}
+\item[{const Label}]{label}
+\end{DoxyParamCaption}
+)}}\label{class_i_stuff_1_1_object_ab9f6cf27353153dd8c9d3e55c7321f7f}
+
+
+Removes a Label from this \hyperlink{class_i_stuff_1_1_object}{Object}. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em label} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 48 of file object.\-cpp.
+
+\hypertarget{class_i_stuff_1_1_object_aee004eb2e471cda24ad4a58f6ae55b41}{\index{I\-Stuff\-::\-Object@{I\-Stuff\-::\-Object}!set\-Label@{set\-Label}}
+\index{set\-Label@{set\-Label}!IStuff::Object@{I\-Stuff\-::\-Object}}
+\subsubsection[{set\-Label}]{\setlength{\rightskip}{0pt plus 5cm}void Object\-::set\-Label (
+\begin{DoxyParamCaption}
+\item[{const Label}]{, }
+\item[{const std\-::vector$<$ cv\-::\-Point2f $>$}]{}
+\end{DoxyParamCaption}
+)}}\label{class_i_stuff_1_1_object_aee004eb2e471cda24ad4a58f6ae55b41}
+
+
+Changes a Label of this \hyperlink{class_i_stuff_1_1_object}{Object} to represent a different mask. 
+
+If the Label isn't currently part of the \hyperlink{class_i_stuff_1_1_object}{Object}, it is added.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em label} & The label to be changed or added. \\
+\hline
+\mbox{\tt in}  & {\em mask} & The new mask to be associated. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 38 of file object.\-cpp.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+src/\-I\-Stuff/\hyperlink{object_8h}{object.\-h}\item 
+src/\-I\-Stuff/\hyperlink{object_8cpp}{object.\-cpp}\end{DoxyCompactItemize}

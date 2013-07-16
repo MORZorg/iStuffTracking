@@ -1,6 +1,6 @@
 /**
  * @file object.cpp
- * @class	Object
+ * @class	IStuff::Object
  * @brief Class used to represent a three dimensional object.
  * @author Maurizio Zucchelli
  * @version 0.1.0
@@ -54,7 +54,7 @@ void Object::removeLabel(const Label label)
 
 /**
  * @brief Returns the mask associated to a Label.
- * @throw out_of_range { If the Label searched does not exist }
+ * @throw out_of_range If the Label searched does not exist.
  *
  * @param[in] label	The Label to search for.
  *
