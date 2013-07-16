@@ -24,6 +24,8 @@ int main( int argc, char* argv[] )
 {
 	int i = 0;
 
+	string dbName = "Aragorn", dbDir = "image_sample/";
+
 	// Command line flags parsing, mostly debug level
 	while (++i < argc)
 	{
@@ -35,11 +37,15 @@ int main( int argc, char* argv[] )
 
 		if ( argv[i][1] == '-' )
 		{
-			if (!strcmp(argv[i] + 2, "help"))
-			{
+			if (!strcmp(argv[i] + 2, "help")) {
 				printHelp();
 				return 0;
+			} else if( !strcmp( argv[i] + 2, "database" ) ) {
+				dbName = argv[ ++i ];
+			} else if( !strcmp( argv[i] + 2, "folder" ) ) {
+				dbDir = argv[ ++i ];
 			}
+
 		}
 		else
 		{
@@ -75,8 +81,8 @@ int main( int argc, char* argv[] )
 		cerr << "Flags parsed. Starting.\n";
 
 	try {
-		string dbName = "Aragorna";
-		IStuff::Database db( dbName );
+		//string dbName = "Aragorna";
+		IStuff::Database db( dbName, dbDir );
 	} catch( IStuff::DBCreationException& e ) {
 		cout << e.what() << endl;
 		return -1;
@@ -133,5 +139,8 @@ void printHelp()
 	cout << "\t-dN\tShow debug messages.\n"
 		<< "\t\tWhere N is an optional integer ranging from 0 to SBRA.\n"
 		<< "\t\tWith 0 indicating the most verbose debug possible.\n";
+	cout << "\t--database databaseName\tLoad databaseName.\n";
+	cout << "\t--folder folderName\tIndicates where to find images\n"
+		<< "\t\tfor database creation.\n";
 }
 
