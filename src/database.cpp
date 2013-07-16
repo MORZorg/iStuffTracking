@@ -7,7 +7,7 @@
  * @date	2013-07-14
  */
 
-#include "object_database.h"
+#include "database.h"
 
 using namespace std;
 using namespace cv;
@@ -22,7 +22,7 @@ namespace fs = boost::filesystem;
  * @param[in] _dbName	The name of the DB to be loaded
  */
 ObjectDatabase::ObjectDatabase( string _dbName ) :
-	dbPath( "./database" ), dbName( _dbName )
+	dbPath( "database/" ), dbName( _dbName )
 {
 	// Add existence check
 	if( false )
@@ -43,7 +43,7 @@ ObjectDatabase::ObjectDatabase( string _dbName ) :
  * @param[in] imagesPath	The position of the images from which the descriptors are to be taken
  */
 ObjectDatabase::ObjectDatabase( string _dbName, string imagesPath ) :
-	dbPath( "./database" ), dbName( _dbName )
+	dbPath( "database/" ), dbName( _dbName )
 {
 	// Add existence check
 	if( false )
@@ -93,8 +93,8 @@ void ObjectDatabase::load() {
  * @param[in] imagesPath	The path containing the source images
  */
 void ObjectDatabase::build( string imagesPath ) {
-	// Load images in a Mat vector (mostly thanks to boost)
-	vector< Mat > samples = vector< Mat >();	
+	// Load images using boost to retrieve filenames
+	//vector< Mat > samples = vector< Mat >();	
 	
 	fs::path fullPath = fs::system_complete( fs::path( imagesPath ) );
 
@@ -106,22 +106,95 @@ void ObjectDatabase::build( string imagesPath ) {
 
 	fs::directory_iterator end_iter;
 
+	// SIFT detector and extractor
+	Ptr< FeatureDetector > featureDetector = FeatureDetector::create( "SIFT" );
+	Ptr< DescriptorExtractor > featureExtractor = DescriptorExtractor::create( "SIFT" );
+	
+	// Temporary containers
+	Mat load, descriptors;
+	vector< KeyPoint > keypoints;
+
+	// For every image, calculate the keypoints and add them to a map
+	// As key I use the source image name
 	for( fs::directory_iterator it( fullPath ); it != end_iter; ++it ) {
-		if( debug )
+		if( debug ) {
+			cerr << "\tTreating a new image: ";
 			cerr << it -> path().filename() << endl;
+		}
+	
+		load = imread( it -> path().string() );
 
-		Mat load = imread( it -> path().string() ); 
+		if( debug ) {
+			cerr << "\tImage loaded. Showing.." << endl;
 
-		samples.push_back( load );
+			//imshow( "Loaded image", load );
+		}
 
-		imshow( "Loading..", load );
-		waitKey();
+		// Detect the keypoints in the actual image
+		featureDetector -> detect( load, keypoints );
+
+		if( debug )
+			cerr << "\tFeatures detected" << endl;
+
+		// Compute the 128 dimension SIFT descriptor at each keypoint detected
+		// Each row in descriptors corresponds to the SIFT descriptor for each keypoint
+		featureExtractor -> compute( load, keypoints, descriptors );
+
+		if( debug )
+			cerr << "\tDescriptors extracted" << endl;
+
+		descriptorDB.insert( pair< Label, Mat >( it -> path().filename().string(), descriptors ) );
+
+		if( debug )
+			cerr << "\tDataBase updated" << endl;
+
+		// Draw the keypoints for debug purposes
+		if( debug ) {
+			cerr << "\tCalculating image to show" << endl;
+
+			Mat outputImage;
+			drawKeypoints( load, keypoints, outputImage, Scalar( 255, 0, 0 ), DrawMatchesFlags::DEFAULT );
+
+			string outsbra = "keypoints_sample/" + it -> path().filename().string();
+			cerr << "\tShowing image " << outsbra << endl;
+
+			imwrite( outsbra, outputImage );
+			//imshow( "Loaded keypoints", outputImage );
+			//waitKey();
+
+			cerr << "\tReiterating" << endl << endl;
+		}
+
+		//samples.push_back( load );
+
+		//imshow( "Loading..", load );
+		//waitKey();
 	}
+
+	// Now that the descriptorDB structure is generated, i serialize it for future usage
+	if( debug )
+		cerr << "Saving the created database" << endl;
+
+	save();
 }
 
 /**
  * @brief	Writes the database to a file in the default directory
  */
 void ObjectDatabase::save() {
+	string dbFileName = dbPath + dbName + ".sbra";
+	ofstream f( dbFileName.c_str(), ios::binary );
+	
+	if( f.fail() ) {
+		if( debug )
+			cerr << "\tError in ostream opening" << endl;
+		return;
+	} else if( debug )
+		cerr << "\tSaving to " << dbFileName << endl;
 
+	boost::archive::binary_oarchive oarch( f );
+	oarch << descriptorDB;
+
+	if( debug )
+		cerr << "\tSave successfull" << endl;
 }

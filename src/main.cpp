@@ -9,8 +9,8 @@
 
 #include "main.h"
 
-//using namespace cv;
-//using namespace std;
+using namespace cv;
+using namespace std;
 
 /**
  * @brief Main function.
@@ -76,7 +76,7 @@ int main( int argc, char* argv[] )
 
 	try {
 		string dbName = "Aragorn";
-		IStuff::ObjectDatabase db( dbName, "./image_sample/" );
+		IStuff::ObjectDatabase db( dbName, "image_sample/" );
 	} catch( exception& e ) {
 		cout << e.what() << endl;
 		return -1;

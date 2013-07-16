@@ -1,4 +1,4 @@
 USER_OBJS :=
 
-LIBS := `pkg-config --libs opencv` -lboost_system -lboost_filesystem -lboost_thread
+LIBS := `pkg-config --libs opencv` -lboost_system -lboost_filesystem -lboost_thread -lboost_serialization
 

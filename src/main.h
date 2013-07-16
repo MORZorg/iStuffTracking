@@ -11,7 +11,7 @@
 
 #include <iostream>
 
-#include "object_database.h"
+#include "database.h"
 
 #include "opencv2/imgproc/imgproc.hpp"
 #include "opencv2/highgui/highgui.hpp"
