@@ -14,7 +14,6 @@
 #include <fstream>
 #include <vector>
 #include <string>
-#include <map>
 
 // Custom header files
 #include "object.h"
@@ -22,6 +21,7 @@
 // OpenCV libraries
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/features2d/features2d.hpp"
+#include "opencv2/calib3d/calib3d.hpp"
 #include "opencv2/nonfree/nonfree.hpp"
 
 // Boost libraries
@@ -35,6 +35,7 @@
 #include "boost/serialization/map.hpp"
 #include "serialize_mat.h"
 
+#include "boost/lexical_cast.hpp"
 
 extern bool debug;
 
@@ -45,7 +46,11 @@ namespace IStuff {
 		private:
 			std::string dbPath;
 			std::string dbName;
-			std::map< Label, cv::Mat > descriptorDB;
+
+			std::vector< std::vector< cv::Point2f > > cornersDB;
+			std::vector< std::vector< cv::KeyPoint > > keypointDB;
+			std::vector< cv::Mat > descriptorDB;
+			std::vector< Label > labelDB;
 
 		public:
 			Database( std::string, std::string = "image_sample/" );

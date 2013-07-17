@@ -89,61 +89,82 @@ Object Database::match( Mat frame ) {
 	// FLANNMatcher, for his usage is not needed the instantiation of an Index
 	FlannBasedMatcher matcher;
 
-	// Temporary object for multiple matches
-	vector< DMatch > matches;
+	// Matcher training
+	matcher.add( descriptorDB );
+	matcher.train();
 
-	// For every entry in the map I try to find good matches and draw it (debug only)
-	for( map< Label, Mat >::iterator it = descriptorDB.begin(); it != descriptorDB.end(); it++ ) {
+	if( debug )
+		cerr << "\tMatcher Trained\n";
+
+	// Matches vector
+	vector< vector< DMatch > > matches;
+
+	matcher.knnMatch( frameDescriptors, matches, 2 );
+
+	if( debug )
+		cerr << "\tMatches found\n";
+	
+	// The knnMatch method returns the two best matches for every descriptor
+	// I keep only the best and only when the distance of the very best is significantly
+	// lower than the distance of the relatively worst match
+	std::vector< DMatch > good_matches;
+
+	for( int i = 0; i < std::min( frameDescriptors.rows - 1, (int)matches.size() ); i++ )
+		if( matches[ i ][ 0 ].distance < 0.6 * matches[ i ][ 1 ].distance )
+				good_matches.push_back( matches[ i ][ 0 ] );
+
+	// Print out the good matching keypoints 
+	if( debug )
+		for( int i = 0; i < good_matches.size(); i++ )
+			cerr <<"\tGood match #" << i
+					<< "\n\t\tqueryDescriptorIndex: " << good_matches[ i ].queryIdx
+					<< "\n\t\ttrainDescriptorIndex: " << good_matches[ i ].trainIdx
+					<< "\n\t\ttrainImageIndex: " << good_matches[ i ].imgIdx << " (" << labelDB[ good_matches[ i ].imgIdx ] << ")\n\n";
+
+	// For every label in the database, extract the points and search homography mask
+	for( int i = 0; i < labelDB.size(); i++ ) {
+		vector< Point2f > labelPoints, scenePoints;
+		vector< Point2f > labelCorners;
+		bool active = false;
+
 		if( debug )
-			cerr << "\tMatching over label " << it -> first << endl;
+			cerr << "\tSearching mask for label " << labelDB[ i ] << endl;
 
-		matcher.match( frameDescriptors, it -> second, matches );
-
-		// Find the good matches throught distance analysis
-		double max_dist = 0, min_dist = 100;
-
-		for( int i = 0; i < frameDescriptors.rows; i++ ) {
-			double dist = matches[ i ].distance;
-
-		    min_dist = ( dist < min_dist ? dist : min_dist );
-		    max_dist = ( dist > min_dist ? dist : max_dist );
-		}
-
-		if( debug )
-			cerr << "\tMaximum match distance is " << max_dist << endl
- 				 << "\tMinimum match distance is " << min_dist << endl;
-
-		// Consider good matches only those in which the distance is less than 3/2 * min_dist
-		std::vector< DMatch > good_matches;
-
-		for( int i = 0; i < frameDescriptors.rows; i++ )
-			if( matches[ i ].distance <= 1.5 * min_dist )
-				good_matches.push_back( matches[ i ] );
-
-		// Draw the good matches retrieving the sample images from the original folder
-		if( debug ) {
-			// Retrieve informations about the original sample
-			Mat originalSample = imread( "image_sample/" + it -> first );
-			vector< KeyPoint > sampleKeypoints;
-
-			// Detect the keypoints in the actual image
-			featureDetector -> detect( originalSample, sampleKeypoints );
-
-			// Draw stuff
-			Mat img_matches;
-
-			drawMatches( frame, frameKeypoints, originalSample, sampleKeypoints, good_matches, img_matches, Scalar::all(-1), Scalar::all(-1), vector< char >(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS );
-
-			// Print
-			string matchesPath = "output_sample/" + it -> first;
-			imwrite( matchesPath, img_matches );
-
-			// Print out something
-			for( int i = 0; i < good_matches.size(); i++ ) {
-				printf( "\tGood Match [%d] Keypoint 1: %d  -- Keypoint 2: %d  \n", i, good_matches[i].queryIdx, good_matches[i].trainIdx );
+		// If there is at least one good match in the actual label, mark the label
+		// as active and add the points to the lists
+		for( int j = 0; j < good_matches.size(); j++ )
+			if( good_matches[ j ].imgIdx == i ) {
+				active = true;
+				labelPoints.push_back( keypointDB[ i ][ good_matches[ j ].trainIdx ].pt );
+				scenePoints.push_back( keypointDB[ i ][ good_matches[ j ].queryIdx ].pt );
 			}
+
+		if( debug )
+			cerr << "\t\tFound " << labelPoints.size() << " keypoints in this mask\n";
+
+		if( !active || labelPoints.size() < 4 ) {
+			if( debug )
+				cerr << "\t\t\tToo few keypoints, passing to next mask..\n";
+
+			continue;
 		}
+
+		if( debug )
+			cerr << "\t\tCalculating homography mask\n";
+
+		// Calculate homography mask and add it to the matchingObject
+		Mat H = findHomography( labelPoints, scenePoints, CV_RANSAC );
+
+		perspectiveTransform( cornersDB[ i ], labelCorners, H );
+
+		if( debug )
+			cerr << "\t\tMask calculated, adding current label to output Object\n";
+
+		matchingObject.setLabel( labelDB[ i ], labelCorners );
 	}
+
+	if( debug )
+		cerr << "\tMatching done. Returning the object\n\n";
 
 	return matchingObject;
 }
@@ -208,6 +229,8 @@ void Database::build( string imagesPath ) {
 	if( file_count == 0 )
 		throw DBCreationException(); 
 	
+	int labelCounter = 0;
+
 	// For every image, calculate the descriptor, index them with a flann::Index and
 	// add the Index to the map
 	// As key the source image name
@@ -237,10 +260,24 @@ void Database::build( string imagesPath ) {
 		featureExtractor -> compute( load, keypoints, descriptors );
 
 		if( debug )
-			cerr << "\tDescriptors extracted" << endl;
+			cerr << "\tDescriptors extracted\n"
+	 			 << "\t\tSaving label, keypoints, descriptors and sample corners\n";
 
-		//descriptorDB.insert( pair< Label, flann::Index >( it -> path().filename().string(), newIndex ) );
-		descriptorDB[ it -> path().filename().string() ] = descriptors; 
+		string labelName = dbName + "Label" + boost::lexical_cast<std::string>( labelCounter++ );
+
+		labelDB.push_back( labelName ); 
+		keypointDB.push_back( keypoints );
+		descriptorDB.push_back( descriptors) ;
+
+		// The corner of the image will be required to find the correspondent boundaries in the sample 
+		vector< Point2f > sampleCorners( 4 );
+
+		sampleCorners[ 0 ] = cvPoint( 0, 0 );
+		sampleCorners[ 1 ] = cvPoint( load.cols, 0 );
+		sampleCorners[ 2 ] = cvPoint( load.cols, load.rows );
+		sampleCorners[ 3 ] = cvPoint( 0, load.rows );
+
+		cornersDB.push_back( sampleCorners );
 
 		if( debug )
 			cerr << "\tDataBase updated" << endl;
@@ -262,7 +299,7 @@ void Database::build( string imagesPath ) {
 	}
 
 	// Now that the descriptorDB structure is generated, i serialize it for future usage
-	save();
+	//save();
 }
 
 /**

@@ -92,7 +92,7 @@ int main( int argc, char* argv[] )
 		return -1;
 	}
 
-	Mat match = imread( "match_sample/Camera360_2013_7_17_125225.jpg" );
+	Mat match = imread( "match_sample/Camera360_2013_7_17_032929.jpg" );
 	IStuff::Object test = db -> match( match );
 
 	/*namedWindow( "Input", CV_WINDOW_AUTOSIZE );
