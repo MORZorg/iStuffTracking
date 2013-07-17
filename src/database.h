@@ -23,16 +23,12 @@
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/features2d/features2d.hpp"
 #include "opencv2/nonfree/nonfree.hpp"
+#include "opencv2/flann/flann.hpp"
 
 // Boost libraries
 #include "boost/filesystem.hpp"
 #include "boost/lambda/bind.hpp"
-
-#include "boost/archive/binary_oarchive.hpp"
-#include "boost/archive/binary_iarchive.hpp"
-
-#include "boost/serialization/map.hpp"
-#include "serialize_mat.h"
+#include "boost/foreach.hpp"
 
 extern bool debug;
 
@@ -43,7 +39,7 @@ namespace IStuff {
 		private:
 			std::string dbPath;
 			std::string dbName;
-			std::map< Label, cv::Mat > descriptorDB;
+			std::map< Label, cv::flann::Index > descriptorDB;
 
 		public:
 			Database( std::string, std::string = "image_sample/" );

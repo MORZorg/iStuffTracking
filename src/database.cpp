@@ -25,11 +25,15 @@ namespace fs = boost::filesystem;
 Database::Database( string _dbName, string imagesPath ) :
 	dbPath( "database/" ), dbName( _dbName )
 {
-	// Check for database existence
-	string dbFileName = dbPath + dbName + ".sbra";
-	ifstream file_check( dbFileName.c_str(), ios::binary );
+	// Initializing database
+	descriptorDB = map< Label, flann::Index >();
 
-	if( !file_check ) {
+	// Check for database existence
+	string dbDirName = dbPath + dbName;
+	
+	fs::path fullPath = fs::system_complete( fs::path( dbDirName ) );
+	
+	if( !fs::exists( fullPath ) || !fs::is_directory( fullPath ) ) {
 		if( debug )
 			cerr << _dbName << " doesn't exists. Start creating it" << endl;
 
@@ -46,26 +50,6 @@ Database::Database( string _dbName, string imagesPath ) :
 	}
 }
 
-/**
- * @brief	Create DB Constructor
- * @details	If the name passed matches an existing DB throws an exception, \
- 			otherwise generates the structures and fill them performing \
-			a recognize over the images in the directory passed as second argument.
- * @param[in] _dbName		The name of the DB to be created
- * @param[in] imagesPath	The position of the images from which the descriptors are to be taken
- */
-/*Database::Database( string _dbName, string imagesPath ) :
-	dbPath( "database/" ), dbName( _dbName )
-{
-	// Add existence check
-	if( false )
-		throw DBExistsException();
-
-	if( debug )
-		cerr << _dbName << " doesn't exists. Start creating it" << endl;
-
-	build( imagesPath );
-}*/
 
 /**
  * @brief	Destructor
@@ -89,25 +73,29 @@ Object Database::match( Mat frame ) {
 }
 
 /**
- * @brief	Load existing database and fill the kd-tree containing descriptors
- * param[in] dbName	The name of the DB to load
+ * @brief	Load existing database and fill the map 
  */
 void Database::load() {
+	// Iterate over the directory which should contain the selected DB
+	// If the directory cannot be opened, throws exception
+	string dbDirName = dbPath + dbName;
+
 	if( debug )
-		cerr << "Loading database" << endl;
+		cerr << "Loading database from " << dbDirName << endl;
 
-	string dbFileName = dbPath + dbName + ".sbra";
-	ifstream f( dbFileName.c_str(), ios::binary );
+	fs::path fullPath = fs::system_complete( fs::path( dbDirName ) );
 	
-	if( f.fail() ) {
-		if( debug )
-			cerr << "\tError in file stream opening" << endl;
-		return;
-	} else if( debug )
-		cerr << "\tLoading from " << dbFileName << endl;
+	if( !fs::exists( fullPath ) || !fs::is_directory( fullPath ) )
+		throw DBCreationException(); 
 
-	boost::archive::binary_iarchive iarch( f );
-	iarch >> descriptorDB;
+	fs::directory_iterator end_iter;
+	
+	for( fs::directory_iterator it( fullPath ); it != end_iter; ++it ) {
+		cerr << "\tLoading from " << it -> path().filename()  << endl;
+
+		flann::Index loadedIndex( Mat(), flann::SavedIndexParams( it -> path().string() ) );
+		descriptorDB.insert( pair< Label, flann::Index >( it -> path().string(), loadedIndex ) );
+	}
 
 	if( debug )
 		cerr << "\tLoad successfull" << endl;
@@ -122,9 +110,7 @@ void Database::load() {
  * @param[in] imagesPath	The path containing the source images
  */
 void Database::build( string imagesPath ) {
-	// Load images using boost to retrieve filenames
-	//vector< Mat > samples = vector< Mat >();	
-	
+	// Use boost to iterate over a directory content
 	fs::path fullPath = fs::system_complete( fs::path( imagesPath ) );
 
 	if( debug )
@@ -150,12 +136,12 @@ void Database::build( string imagesPath ) {
 			bind( static_cast< bool(*)( const fs::path& ) > ( fs::is_regular_file ), 
 			bind( &fs::directory_entry::path, boost::lambda::_1 ) ) );	
 
-	if( file_count == 0 ) {
+	if( file_count == 0 )
 		throw DBCreationException(); 
-	}
 	
-	// For every image, calculate the keypoints and add them to a map
-	// As key I use the source image name
+	// For every image, calculate the descriptor, index them with a flann::Index and
+	// add the Index to the map
+	// As key the source image name is used
 	for( fs::directory_iterator it( fullPath ); it != end_iter; ++it ) {
 		if( debug ) {
 			cerr << "\tTreating a new image: ";
@@ -184,7 +170,12 @@ void Database::build( string imagesPath ) {
 		if( debug )
 			cerr << "\tDescriptors extracted" << endl;
 
-		descriptorDB.insert( pair< Label, Mat >( it -> path().filename().string(), descriptors ) );
+		flann::Index newIndex( descriptors, flann::KDTreeIndexParams() );
+
+		if( debug )
+			cerr << "\tNow inserting" << endl;
+
+		descriptorDB.insert( pair< Label, flann::Index >( it -> path().filename().string(), newIndex ) );
 
 		if( debug )
 			cerr << "\tDataBase updated" << endl;
@@ -215,24 +206,29 @@ void Database::build( string imagesPath ) {
 }
 
 /**
- * @brief	Writes the database to a file in the default directory
+ * @brief	Writes the database to a set of files in the default directory
+ * @details	A directory with the name of the database is created. In that directory
+			one file per label is created containing the correspondent Index
  */
 void Database::save() {
 	if( debug )
 		cerr << "Saving the created database" << endl;
 
-	string dbFileName = dbPath + dbName + ".sbra";
-	ofstream f( dbFileName.c_str(), ios::binary );
-	
-	if( f.fail() ) {
-		if( debug )
-			cerr << "\tError in file stream opening" << endl;
-		return;
-	} else if( debug )
-		cerr << "\tSaving to " << dbFileName << endl;
+	string dbDirName= dbPath + dbName;
+	fs::create_directory( dbDirName );
 
-	boost::archive::binary_oarchive oarch( f );
-	oarch << descriptorDB;
+	if( debug )
+		cerr << "\tDirectory " << dbDirName << " created" << endl;
+
+	pair< Label, flann::Index > elementStructure;
+
+	BOOST_FOREACH( elementStructure, descriptorDB ) {
+		string actualFile = dbDirName + elementStructure.first + ".sbra";
+
+		cerr << "\tSaving " << actualFile << endl;
+
+		elementStructure.second.save( actualFile );
+	}
 
 	if( debug )
 		cerr << "\tSave successfull" << endl;

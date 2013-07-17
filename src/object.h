@@ -6,8 +6,8 @@
 * @date 2013-07-16
 */
 
-#ifndef OBJECT_RECOGNIZER_H__
-#define OBJECT_RECOGNIZER_H__
+#ifndef I_STUFF_OBJECT_H__
+#define I_STUFF_OBJECT_H__
 
 #include <iostream>
 #include <map>
@@ -47,4 +47,4 @@ namespace IStuff
 	};
 }
 
-#endif /* defined OBJECT_RECOGNIZER_H__ */
+#endif
