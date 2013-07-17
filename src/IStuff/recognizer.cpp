@@ -108,9 +108,36 @@ bool Recognizer::backgroundRecognizeFrame(Mat frame, Manager* reference)
 	running = auto_ptr<thread>(new thread([=]()
 			{
 				Object new_object = recognizeFrame(frame);
-				reference->setObject(new_object);
+				reference->sendMessage(Manager::MSG_RECOGNITION_END, &new_object);
 			}));
 
 	return true;
+}
+
+/**
+ * @brief Method to send messages to this Recognizer.
+ * @details Managed messages:<br />
+ *	<dl>
+ *		<dt>MSG_RECOGNITION_START</dt>
+ *		<dd>data: cv::Mat<br />
+ *		This causes the recognization process to start.</dd>
+ *	</dl>
+ *
+ * @param[in] msg				The message identifier.
+ * @param[in] data			The data related to the message.
+ * @param[in] reply_to	The sender of the message (optional).
+ */
+void Recognizer::sendMessage(int msg, void* data, void* reply_to)
+{
+	switch (msg)
+	{
+		case Manager::MSG_RECOGNITION_START:
+			backgroundRecognizeFrame(*(Mat*)data, (Manager*)reply_to);
+			break;
+		case Manager::MSG_RECOGNITION_END:
+			break;
+		default:
+			break;
+	}
 }
 

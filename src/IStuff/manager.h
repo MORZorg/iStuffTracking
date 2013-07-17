@@ -11,9 +11,7 @@
 
 #include <iostream>
 
-#include <boost/thread/shared_mutex.hpp>
-
-#include "opencv2/imgproc/imgproc.hpp"
+#include "opencv2/core/core.hpp"
 
 #include "object.h"
 #include "recognizer.h"
@@ -28,6 +26,10 @@ namespace IStuff
 	class Manager
 	{
 		/* Attributes */
+		public:
+			const static int MSG_RECOGNITION_START = 1;
+			const static int MSG_RECOGNITION_END	 = 2;
+
 		private:
 			const static char TAG[];
 			const static int RECOGNITION_PERIOD = 20;
@@ -51,7 +53,6 @@ namespace IStuff
 
 			/* Setters */
 			void setDatabase(Database*);
-			void setObject(Object);
 
 			/* Getters */
 			Object getObject();
@@ -59,6 +60,8 @@ namespace IStuff
 			/* Other methods */
 			void elaborateFrame(cv::Mat);
 			cv::Mat paintObject(cv::Mat);
+
+			void sendMessage(int, void*, void* = NULL);
 	};
 }
 
