@@ -17,12 +17,12 @@
 
 #include "object.h"
 #include "recognizer.h"
+#include "tracker.h"
 
 extern bool debug;
 
 namespace IStuff
 {
-	class Tracker;
 	class Database;
 
 	class Manager
@@ -40,8 +40,8 @@ namespace IStuff
 
 			Object actual_object;
 			Database* database;
-			Recognizer* recognizer;
-			Tracker* tracker;
+			Recognizer recognizer;
+			Tracker tracker;
 
 		/* Methods */
 		public:
