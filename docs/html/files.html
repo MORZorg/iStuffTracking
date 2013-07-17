@@ -45,6 +45,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -90,7 +92,7 @@ $(document).ready(function(){initNavTree('files.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -104,11 +106,20 @@ $(document).ready(function(){initNavTree('files.html','');});
 <div class="title">File List</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock">Here is a list of all documented files with brief descriptions:</div><div class="directory">
-<div class="levels">[detail level <span onclick="javascript:toggleLevel(1);">1</span><span onclick="javascript:toggleLevel(2);">2</span>]</div><table class="directory">
+<div class="textblock">Here is a list of all files with brief descriptions:</div><div class="directory">
+<div class="levels">[detail level <span onclick="javascript:toggleLevel(1);">1</span><span onclick="javascript:toggleLevel(2);">2</span><span onclick="javascript:toggleLevel(3);">3</span>]</div><table class="directory">
 <tr id="row_0_" class="even"><td class="entry"><img id="arr_0_" src="ftv2mlastnode.png" alt="\" width="16" height="22" onclick="toggleFolder('0_')"/><img id="img_0_" src="ftv2folderopen.png" alt="-" width="24" height="22" onclick="toggleFolder('0_')"/><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html" target="_self">src</a></td><td class="desc"></td></tr>
-<tr id="row_0_0_"><td class="entry"><img src="ftv2blank.png" alt="&#160;" width="16" height="22" /><img src="ftv2node.png" alt="o" width="16" height="22" /><a href="main_8cpp_source.html"><img src="ftv2doc.png" alt="*" width="24" height="22" /></a><a class="el" href="main_8cpp.html" target="_self">main.cpp</a></td><td class="desc">Main file </td></tr>
-<tr id="row_0_1_" class="even"><td class="entry"><img src="ftv2blank.png" alt="&#160;" width="16" height="22" /><img src="ftv2lastnode.png" alt="\" width="16" height="22" /><a href="main_8h_source.html"><img src="ftv2doc.png" alt="*" width="24" height="22" /></a><a class="el" href="main_8h.html" target="_self">main.h</a></td><td class="desc">Main file's header </td></tr>
+<tr id="row_0_0_"><td class="entry"><img src="ftv2blank.png" alt="&#160;" width="16" height="22" /><img id="arr_0_0_" src="ftv2mnode.png" alt="o" width="16" height="22" onclick="toggleFolder('0_0_')"/><img id="img_0_0_" src="ftv2folderopen.png" alt="-" width="24" height="22" onclick="toggleFolder('0_0_')"/><a class="el" href="dir_9ecd5c5c2bfeacb6e1f58c01e4ddfde2.html" target="_self">IStuff</a></td><td class="desc"></td></tr>
+<tr id="row_0_0_0_" class="even"><td class="entry"><img src="ftv2blank.png" alt="&#160;" width="16" height="22" /><img src="ftv2vertline.png" alt="|" width="16" height="22" /><img src="ftv2node.png" alt="o" width="16" height="22" /><a href="manager_8cpp_source.html"><img src="ftv2doc.png" alt="*" width="24" height="22" /></a><a class="el" href="manager_8cpp.html" target="_self">manager.cpp</a></td><td class="desc"></td></tr>
+<tr id="row_0_0_1_"><td class="entry"><img src="ftv2blank.png" alt="&#160;" width="16" height="22" /><img src="ftv2vertline.png" alt="|" width="16" height="22" /><img src="ftv2node.png" alt="o" width="16" height="22" /><a href="manager_8h_source.html"><img src="ftv2doc.png" alt="*" width="24" height="22" /></a><a class="el" href="manager_8h.html" target="_self">manager.h</a></td><td class="desc">Header file relative to the class <a class="el" href="class_i_stuff_1_1_manager.html" title="Class to manage the joint 3D Object recognition and tracking. ">IStuff::Manager</a> </td></tr>
+<tr id="row_0_0_2_" class="even"><td class="entry"><img src="ftv2blank.png" alt="&#160;" width="16" height="22" /><img src="ftv2vertline.png" alt="|" width="16" height="22" /><img src="ftv2node.png" alt="o" width="16" height="22" /><a href="object_8cpp_source.html"><img src="ftv2doc.png" alt="*" width="24" height="22" /></a><a class="el" href="object_8cpp.html" target="_self">object.cpp</a></td><td class="desc"></td></tr>
+<tr id="row_0_0_3_"><td class="entry"><img src="ftv2blank.png" alt="&#160;" width="16" height="22" /><img src="ftv2vertline.png" alt="|" width="16" height="22" /><img src="ftv2node.png" alt="o" width="16" height="22" /><a href="object_8h_source.html"><img src="ftv2doc.png" alt="*" width="24" height="22" /></a><a class="el" href="object_8h.html" target="_self">object.h</a></td><td class="desc">Header file relative to the class <a class="el" href="class_i_stuff_1_1_object.html" title="Class used to represent a three dimensional object. ">IStuff::Object</a> </td></tr>
+<tr id="row_0_0_4_" class="even"><td class="entry"><img src="ftv2blank.png" alt="&#160;" width="16" height="22" /><img src="ftv2vertline.png" alt="|" width="16" height="22" /><img src="ftv2node.png" alt="o" width="16" height="22" /><a href="recognizer_8cpp_source.html"><img src="ftv2doc.png" alt="*" width="24" height="22" /></a><a class="el" href="recognizer_8cpp.html" target="_self">recognizer.cpp</a></td><td class="desc"></td></tr>
+<tr id="row_0_0_5_"><td class="entry"><img src="ftv2blank.png" alt="&#160;" width="16" height="22" /><img src="ftv2vertline.png" alt="|" width="16" height="22" /><img src="ftv2node.png" alt="o" width="16" height="22" /><a href="recognizer_8h_source.html"><img src="ftv2doc.png" alt="*" width="24" height="22" /></a><a class="el" href="recognizer_8h.html" target="_self">recognizer.h</a></td><td class="desc">Header file relative to the class <a class="el" href="class_i_stuff_1_1_recognizer.html" title="Class used to recognize objects in a video stream. ">IStuff::Recognizer</a> </td></tr>
+<tr id="row_0_0_6_" class="even"><td class="entry"><img src="ftv2blank.png" alt="&#160;" width="16" height="22" /><img src="ftv2vertline.png" alt="|" width="16" height="22" /><img src="ftv2node.png" alt="o" width="16" height="22" /><a href="tracker_8cpp_source.html"><img src="ftv2doc.png" alt="*" width="24" height="22" /></a><a class="el" href="tracker_8cpp.html" target="_self">tracker.cpp</a></td><td class="desc"></td></tr>
+<tr id="row_0_0_7_"><td class="entry"><img src="ftv2blank.png" alt="&#160;" width="16" height="22" /><img src="ftv2vertline.png" alt="|" width="16" height="22" /><img src="ftv2lastnode.png" alt="\" width="16" height="22" /><a href="tracker_8h_source.html"><img src="ftv2doc.png" alt="*" width="24" height="22" /></a><a class="el" href="tracker_8h.html" target="_self">tracker.h</a></td><td class="desc">Header file relative to the class <a class="el" href="class_i_stuff_1_1_tracker.html" title="Class used to track objects in a video stream. ">IStuff::Tracker</a> </td></tr>
+<tr id="row_0_1_" class="even"><td class="entry"><img src="ftv2blank.png" alt="&#160;" width="16" height="22" /><img src="ftv2node.png" alt="o" width="16" height="22" /><a href="main_8cpp_source.html"><img src="ftv2doc.png" alt="*" width="24" height="22" /></a><a class="el" href="main_8cpp.html" target="_self">main.cpp</a></td><td class="desc">Main file </td></tr>
+<tr id="row_0_2_"><td class="entry"><img src="ftv2blank.png" alt="&#160;" width="16" height="22" /><img src="ftv2lastnode.png" alt="\" width="16" height="22" /><a href="main_8h_source.html"><img src="ftv2doc.png" alt="*" width="24" height="22" /></a><a class="el" href="main_8h.html" target="_self">main.h</a></td><td class="desc">Main file's header </td></tr>
 </table>
 </div><!-- directory -->
 </div><!-- contents -->
@@ -116,7 +127,7 @@ $(document).ready(function(){initNavTree('files.html','');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Sat Jul 13 2013 16:38:34 for iStuffTracking by
+    <li class="footer">Generated on Thu Jul 18 2013 00:01:07 for iStuffTracking by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
   </ul>

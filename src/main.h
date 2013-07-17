@@ -14,6 +14,9 @@
 #include "opencv2/imgproc/imgproc.hpp"
 #include "opencv2/highgui/highgui.hpp"
 
+#include "IStuff/manager.h"
+//#include "IStuff/database.h"
+
 bool debug;
 
 int main(int, char**);

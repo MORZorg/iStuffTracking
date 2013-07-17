@@ -8,8 +8,9 @@
 
 #include "main.h"
 
-using namespace cv;
 using namespace std;
+using namespace cv;
+using namespace IStuff;
 
 /**
  * @brief Main function.
@@ -71,16 +72,12 @@ int main(int argc, char * argv[])
   if (debug)
     cerr << "Flags parsed. Starting.\n";
 
-  namedWindow("Input", CV_WINDOW_AUTOSIZE);
-  namedWindow("Output", CV_WINDOW_AUTOSIZE);
+  namedWindow("Camera", CV_WINDOW_AUTOSIZE);
 
   VideoCapture capture = VideoCapture(CV_CAP_ANY);
-  // FIXME: Check if the object has really been instantiated
-  //if (capture == NULL)
-  //{
-  //  cerr << "ERROR: No capture device found.\n";
-  //  exit( 2 );
-  //}
+	
+	Manager manager;
+	//manager.setDatabase(...);
   
   // Show the image captured from the camera in the window and repeat
   while (true)
@@ -88,25 +85,14 @@ int main(int argc, char * argv[])
     // Get one frame
     Mat frame;
     capture >> frame;
-    // FIXME: Check if the object has really been instantiated
-    //if (frame == NULL)
-    //{
-    //  cerr << "ERROR: frame is null.\n";
-    //  break;
-    //}
 
-    imshow("Input", frame);
-
-    // Parse frame...
-    // [...]
-    Mat output_frame = frame;
-    
-    imshow("Output", output_frame);
+		manager.elaborateFrame(frame);
+		
+    imshow("Camera", frame);
   }
 
   capture.release();
-  destroyWindow("Input");
-  destroyWindow("Output");
+  destroyWindow("Camera");
 
   return 0;
 }
