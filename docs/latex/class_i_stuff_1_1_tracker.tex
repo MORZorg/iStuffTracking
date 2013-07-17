@@ -1,0 +1,363 @@
+\hypertarget{class_i_stuff_1_1_tracker}{\section{I\-Stuff\-:\-:Tracker Class Reference}
+\label{class_i_stuff_1_1_tracker}\index{I\-Stuff\-::\-Tracker@{I\-Stuff\-::\-Tracker}}
+}
+
+
+Class used to track objects in a video stream.  
+
+
+
+
+{\ttfamily \#include $<$tracker.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_i_stuff_1_1_tracker_adf214393a14e8bf23de2fc8231e239ec}{Tracker} ()
+\begin{DoxyCompactList}\small\item\em Constructs a structure used to track 3\-D objects inside a video stream. \end{DoxyCompactList}\item 
+virtual \hyperlink{class_i_stuff_1_1_tracker_a0ed1e23312cfe7fcfe5f2ac2abd69163}{$\sim$\-Tracker} ()
+\item 
+\hyperlink{class_i_stuff_1_1_object}{Object} \hyperlink{class_i_stuff_1_1_tracker_ab4419b0053b32baaa6e253aab5eef852}{get\-Object} ()
+\begin{DoxyCompactList}\small\item\em Returns the \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object} tracked. \end{DoxyCompactList}\item 
+bool \hyperlink{class_i_stuff_1_1_tracker_adeaab8820045251bcf5a7b4f394eb568}{is\-Running} () const 
+\begin{DoxyCompactList}\small\item\em Checks whether this \hyperlink{class_i_stuff_1_1_tracker}{I\-Stuff\-::\-Tracker} is actualizing an \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object}. \end{DoxyCompactList}\item 
+void \hyperlink{class_i_stuff_1_1_tracker_aec1abe2fb89fc417f1ef95794b6cccbc}{track\-Frame} (cv\-::\-Mat)
+\begin{DoxyCompactList}\small\item\em Tracks the current \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object} between the last frame and this one. \end{DoxyCompactList}\item 
+void \hyperlink{class_i_stuff_1_1_tracker_a931b4e57f59d6a0f38d78bb34ab2332b}{send\-Message} (int, void $\ast$, void $\ast$=N\-U\-L\-L)
+\begin{DoxyCompactList}\small\item\em Method to send messages to this \hyperlink{class_i_stuff_1_1_tracker}{I\-Stuff\-::\-Tracker}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_i_stuff_1_1_tracker_a0a65a60fae69f48ad3cc3b7581128c3d}{set\-Object} (\hyperlink{class_i_stuff_1_1_object}{Object})
+\begin{DoxyCompactList}\small\item\em Updates the \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object} used by the \hyperlink{class_i_stuff_1_1_tracker}{I\-Stuff\-::\-Tracker}. \end{DoxyCompactList}\item 
+\hyperlink{class_i_stuff_1_1_object}{Object} \hyperlink{class_i_stuff_1_1_tracker_abbd2fe5afc84816d781f23ad98e8d488}{track\-Frame} (cv\-::\-Mat, cv\-::\-Mat, \hyperlink{class_i_stuff_1_1_object}{Object})
+\begin{DoxyCompactList}\small\item\em Tracks the given \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object} between the two given frames. \end{DoxyCompactList}\item 
+void \hyperlink{class_i_stuff_1_1_tracker_aa262d69317aeaa699b42ab5a22960b07}{actualize\-Object} (\hyperlink{class_i_stuff_1_1_object}{Object})
+\begin{DoxyCompactList}\small\item\em Makes the tracking for a given \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object} on every frame stored. \end{DoxyCompactList}\item 
+bool \hyperlink{class_i_stuff_1_1_tracker_a3c230057ef289346b9037d315bee4a86}{background\-Actualize\-Object} (\hyperlink{class_i_stuff_1_1_object}{Object})
+\begin{DoxyCompactList}\small\item\em Method to do the actualization process in a separate thread. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\-::auto\-\_\-ptr$<$ boost\-::thread $>$ \hyperlink{class_i_stuff_1_1_tracker_aa7e9ed78659336011a3ac499be0674e9}{running}
+\item 
+boost\-::shared\-\_\-mutex \hyperlink{class_i_stuff_1_1_tracker_a395a42f0c4888461053315b24f9c7892}{object\-\_\-update}
+\item 
+boost\-::shared\-\_\-mutex \hyperlink{class_i_stuff_1_1_tracker_a7d60cb5e6f1102906ad0f3653df0f14b}{history\-\_\-update}
+\item 
+\hyperlink{class_i_stuff_1_1_object}{Object} \hyperlink{class_i_stuff_1_1_tracker_a304bacfdb3444d47018f0840c8db0106}{actual\-\_\-object}
+\item 
+cv\-::\-Mat \hyperlink{class_i_stuff_1_1_tracker_a656020d6fe4cac1807961417192aaacb}{last\-\_\-frame}
+\item 
+std\-::queue$<$ cv\-::\-Mat $>$ \hyperlink{class_i_stuff_1_1_tracker_a5244d9783d84966bb86988e674227a8e}{frame\-\_\-history}
+\item 
+int \hyperlink{class_i_stuff_1_1_tracker_a4b61344f6dea5d440399261c8d037415}{frames\-\_\-tracked\-\_\-count}
+\end{DoxyCompactItemize}
+\subsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static const char \hyperlink{class_i_stuff_1_1_tracker_a68ef6bf09dbf9db7a6788ed899edb28d}{T\-A\-G} \mbox{[}$\,$\mbox{]} = \char`\"{}Trk\char`\"{}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class used to track objects in a video stream. 
+
+\begin{DoxyAuthor}{Author}
+Maurizio Zucchelli 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\-1.\-0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2013-\/07-\/17 
+\end{DoxyDate}
+
+
+Definition at line 27 of file tracker.\-h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_i_stuff_1_1_tracker_adf214393a14e8bf23de2fc8231e239ec}{\index{I\-Stuff\-::\-Tracker@{I\-Stuff\-::\-Tracker}!Tracker@{Tracker}}
+\index{Tracker@{Tracker}!IStuff::Tracker@{I\-Stuff\-::\-Tracker}}
+\subsubsection[{Tracker}]{\setlength{\rightskip}{0pt plus 5cm}Tracker\-::\-Tracker (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_i_stuff_1_1_tracker_adf214393a14e8bf23de2fc8231e239ec}
+
+
+Constructs a structure used to track 3\-D objects inside a video stream. 
+
+
+
+Definition at line 24 of file tracker.\-cpp.
+
+\hypertarget{class_i_stuff_1_1_tracker_a0ed1e23312cfe7fcfe5f2ac2abd69163}{\index{I\-Stuff\-::\-Tracker@{I\-Stuff\-::\-Tracker}!$\sim$\-Tracker@{$\sim$\-Tracker}}
+\index{$\sim$\-Tracker@{$\sim$\-Tracker}!IStuff::Tracker@{I\-Stuff\-::\-Tracker}}
+\subsubsection[{$\sim$\-Tracker}]{\setlength{\rightskip}{0pt plus 5cm}Tracker\-::$\sim$\-Tracker (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_i_stuff_1_1_tracker_a0ed1e23312cfe7fcfe5f2ac2abd69163}
+
+
+Definition at line 32 of file tracker.\-cpp.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_i_stuff_1_1_tracker_aa262d69317aeaa699b42ab5a22960b07}{\index{I\-Stuff\-::\-Tracker@{I\-Stuff\-::\-Tracker}!actualize\-Object@{actualize\-Object}}
+\index{actualize\-Object@{actualize\-Object}!IStuff::Tracker@{I\-Stuff\-::\-Tracker}}
+\subsubsection[{actualize\-Object}]{\setlength{\rightskip}{0pt plus 5cm}void Tracker\-::actualize\-Object (
+\begin{DoxyParamCaption}
+\item[{{\bf Object}}]{old\-\_\-object}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [private]}}}\label{class_i_stuff_1_1_tracker_aa262d69317aeaa699b42ab5a22960b07}
+
+
+Makes the tracking for a given \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object} on every frame stored. 
+
+This method is thread-\/ready, containing interruption points. At every step, a frame is removed from the queue and the class' \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object} is replaced.
+
+
+\begin{DoxyParams}{Parameters}
+{\em old\-\_\-object} & The object to be actualized. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 139 of file tracker.\-cpp.
+
+\hypertarget{class_i_stuff_1_1_tracker_a3c230057ef289346b9037d315bee4a86}{\index{I\-Stuff\-::\-Tracker@{I\-Stuff\-::\-Tracker}!background\-Actualize\-Object@{background\-Actualize\-Object}}
+\index{background\-Actualize\-Object@{background\-Actualize\-Object}!IStuff::Tracker@{I\-Stuff\-::\-Tracker}}
+\subsubsection[{background\-Actualize\-Object}]{\setlength{\rightskip}{0pt plus 5cm}bool Tracker\-::background\-Actualize\-Object (
+\begin{DoxyParamCaption}
+\item[{{\bf Object}}]{old\-\_\-object}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [private]}}}\label{class_i_stuff_1_1_tracker_a3c230057ef289346b9037d315bee4a86}
+
+
+Method to do the actualization process in a separate thread. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em old\-\_\-object} & The \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object} to be actualized.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} if the thread is started, {\ttfamily false} if it was already running. 
+\end{DoxyReturn}
+
+
+Definition at line 213 of file tracker.\-cpp.
+
+\hypertarget{class_i_stuff_1_1_tracker_ab4419b0053b32baaa6e253aab5eef852}{\index{I\-Stuff\-::\-Tracker@{I\-Stuff\-::\-Tracker}!get\-Object@{get\-Object}}
+\index{get\-Object@{get\-Object}!IStuff::Tracker@{I\-Stuff\-::\-Tracker}}
+\subsubsection[{get\-Object}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Object} Tracker\-::get\-Object (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_i_stuff_1_1_tracker_ab4419b0053b32baaa6e253aab5eef852}
+
+
+Returns the \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object} tracked. 
+
+\begin{DoxyReturn}{Returns}
+The \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object}. 
+\end{DoxyReturn}
+
+
+Definition at line 59 of file tracker.\-cpp.
+
+\hypertarget{class_i_stuff_1_1_tracker_adeaab8820045251bcf5a7b4f394eb568}{\index{I\-Stuff\-::\-Tracker@{I\-Stuff\-::\-Tracker}!is\-Running@{is\-Running}}
+\index{is\-Running@{is\-Running}!IStuff::Tracker@{I\-Stuff\-::\-Tracker}}
+\subsubsection[{is\-Running}]{\setlength{\rightskip}{0pt plus 5cm}bool Tracker\-::is\-Running (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{class_i_stuff_1_1_tracker_adeaab8820045251bcf5a7b4f394eb568}
+
+
+Checks whether this \hyperlink{class_i_stuff_1_1_tracker}{I\-Stuff\-::\-Tracker} is actualizing an \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object}. 
+
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} if actualizing, {\ttfamily false} otherwise. 
+\end{DoxyReturn}
+
+
+Definition at line 71 of file tracker.\-cpp.
+
+\hypertarget{class_i_stuff_1_1_tracker_a931b4e57f59d6a0f38d78bb34ab2332b}{\index{I\-Stuff\-::\-Tracker@{I\-Stuff\-::\-Tracker}!send\-Message@{send\-Message}}
+\index{send\-Message@{send\-Message}!IStuff::Tracker@{I\-Stuff\-::\-Tracker}}
+\subsubsection[{send\-Message}]{\setlength{\rightskip}{0pt plus 5cm}void Tracker\-::send\-Message (
+\begin{DoxyParamCaption}
+\item[{int}]{msg, }
+\item[{void $\ast$}]{data, }
+\item[{void $\ast$}]{reply\-\_\-to = {\ttfamily NULL}}
+\end{DoxyParamCaption}
+)}}\label{class_i_stuff_1_1_tracker_a931b4e57f59d6a0f38d78bb34ab2332b}
+
+
+Method to send messages to this \hyperlink{class_i_stuff_1_1_tracker}{I\-Stuff\-::\-Tracker}. 
+
+Managed messages\-:\par
+ 
+\begin{DoxyDescription}
+\item[\hyperlink{class_i_stuff_1_1_manager_af7f9a2cc3c53b7cf351a12f179230da7}{I\-Stuff\-::\-Manager\-::\-M\-S\-G\-\_\-\-R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-S\-T\-A\-R\-T} ]data\-: cv\-::\-Mat\par
+ This causes the other methods to start saving the frames, if they aren't already. This also resets a counter used to discard possible unactualized frames when the recognition ends. 
+\item[\hyperlink{class_i_stuff_1_1_manager_a4c465ff50b8eddde0e5fd8b4d3e37bbc}{I\-Stuff\-::\-Manager\-::\-M\-S\-G\-\_\-\-R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-E\-N\-D} ]data\-: \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object}\par
+ This causes the \hyperlink{class_i_stuff_1_1_tracker}{I\-Stuff\-::\-Tracker} to start actualizing the new \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object} using the frames captured during the recognition process.\par
+ If the actualization was already happening, the process is interrupted, the unactualized frames are discarded and the current \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object} is substituted before restarting the actualization. 
+\end{DoxyDescription}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em msg} & The message identifier. \\
+\hline
+\mbox{\tt in}  & {\em data} & The data related to the message. \\
+\hline
+\mbox{\tt in}  & {\em reply\-\_\-to} & The sender of the message (optional). \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 258 of file tracker.\-cpp.
+
+\hypertarget{class_i_stuff_1_1_tracker_a0a65a60fae69f48ad3cc3b7581128c3d}{\index{I\-Stuff\-::\-Tracker@{I\-Stuff\-::\-Tracker}!set\-Object@{set\-Object}}
+\index{set\-Object@{set\-Object}!IStuff::Tracker@{I\-Stuff\-::\-Tracker}}
+\subsubsection[{set\-Object}]{\setlength{\rightskip}{0pt plus 5cm}void Tracker\-::set\-Object (
+\begin{DoxyParamCaption}
+\item[{{\bf Object}}]{new\-\_\-object}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [private]}}}\label{class_i_stuff_1_1_tracker_a0a65a60fae69f48ad3cc3b7581128c3d}
+
+
+Updates the \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object} used by the \hyperlink{class_i_stuff_1_1_tracker}{I\-Stuff\-::\-Tracker}. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em new\-\_\-object} & The new \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object}. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 42 of file tracker.\-cpp.
+
+\hypertarget{class_i_stuff_1_1_tracker_aec1abe2fb89fc417f1ef95794b6cccbc}{\index{I\-Stuff\-::\-Tracker@{I\-Stuff\-::\-Tracker}!track\-Frame@{track\-Frame}}
+\index{track\-Frame@{track\-Frame}!IStuff::Tracker@{I\-Stuff\-::\-Tracker}}
+\subsubsection[{track\-Frame}]{\setlength{\rightskip}{0pt plus 5cm}void Tracker\-::track\-Frame (
+\begin{DoxyParamCaption}
+\item[{cv\-::\-Mat}]{new\-\_\-frame}
+\end{DoxyParamCaption}
+)}}\label{class_i_stuff_1_1_tracker_aec1abe2fb89fc417f1ef95794b6cccbc}
+
+
+Tracks the current \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object} between the last frame and this one. 
+
+This method changes the the actual \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object} and the last frame held by the class. Also, if there's a recognition is in progress, the new frame is stored.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em new\-\_\-frame} & The frame where to track the \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object}. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 87 of file tracker.\-cpp.
+
+\hypertarget{class_i_stuff_1_1_tracker_abbd2fe5afc84816d781f23ad98e8d488}{\index{I\-Stuff\-::\-Tracker@{I\-Stuff\-::\-Tracker}!track\-Frame@{track\-Frame}}
+\index{track\-Frame@{track\-Frame}!IStuff::Tracker@{I\-Stuff\-::\-Tracker}}
+\subsubsection[{track\-Frame}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Object} Tracker\-::track\-Frame (
+\begin{DoxyParamCaption}
+\item[{cv\-::\-Mat}]{old\-\_\-frame, }
+\item[{cv\-::\-Mat}]{new\-\_\-frame, }
+\item[{{\bf Object}}]{old\-\_\-object}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [private]}}}\label{class_i_stuff_1_1_tracker_abbd2fe5afc84816d781f23ad98e8d488}
+
+
+Tracks the given \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object} between the two given frames. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em old\-\_\-frame} & The frame whose the \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object} is referred to. \\
+\hline
+\mbox{\tt in}  & {\em new\-\_\-frame} & The frame where to track the \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object}. \\
+\hline
+\mbox{\tt in}  & {\em old\-\_\-object} & The \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object} to be tracked.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The new \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object} tracked in the new frame. 
+\end{DoxyReturn}
+
+
+Definition at line 120 of file tracker.\-cpp.
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{class_i_stuff_1_1_tracker_a304bacfdb3444d47018f0840c8db0106}{\index{I\-Stuff\-::\-Tracker@{I\-Stuff\-::\-Tracker}!actual\-\_\-object@{actual\-\_\-object}}
+\index{actual\-\_\-object@{actual\-\_\-object}!IStuff::Tracker@{I\-Stuff\-::\-Tracker}}
+\subsubsection[{actual\-\_\-object}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Object} I\-Stuff\-::\-Tracker\-::actual\-\_\-object\hspace{0.3cm}{\ttfamily [private]}}}\label{class_i_stuff_1_1_tracker_a304bacfdb3444d47018f0840c8db0106}
+
+
+Definition at line 37 of file tracker.\-h.
+
+\hypertarget{class_i_stuff_1_1_tracker_a5244d9783d84966bb86988e674227a8e}{\index{I\-Stuff\-::\-Tracker@{I\-Stuff\-::\-Tracker}!frame\-\_\-history@{frame\-\_\-history}}
+\index{frame\-\_\-history@{frame\-\_\-history}!IStuff::Tracker@{I\-Stuff\-::\-Tracker}}
+\subsubsection[{frame\-\_\-history}]{\setlength{\rightskip}{0pt plus 5cm}std\-::queue$<$cv\-::\-Mat$>$ I\-Stuff\-::\-Tracker\-::frame\-\_\-history\hspace{0.3cm}{\ttfamily [private]}}}\label{class_i_stuff_1_1_tracker_a5244d9783d84966bb86988e674227a8e}
+
+
+Definition at line 39 of file tracker.\-h.
+
+\hypertarget{class_i_stuff_1_1_tracker_a4b61344f6dea5d440399261c8d037415}{\index{I\-Stuff\-::\-Tracker@{I\-Stuff\-::\-Tracker}!frames\-\_\-tracked\-\_\-count@{frames\-\_\-tracked\-\_\-count}}
+\index{frames\-\_\-tracked\-\_\-count@{frames\-\_\-tracked\-\_\-count}!IStuff::Tracker@{I\-Stuff\-::\-Tracker}}
+\subsubsection[{frames\-\_\-tracked\-\_\-count}]{\setlength{\rightskip}{0pt plus 5cm}int I\-Stuff\-::\-Tracker\-::frames\-\_\-tracked\-\_\-count\hspace{0.3cm}{\ttfamily [private]}}}\label{class_i_stuff_1_1_tracker_a4b61344f6dea5d440399261c8d037415}
+
+
+Definition at line 40 of file tracker.\-h.
+
+\hypertarget{class_i_stuff_1_1_tracker_a7d60cb5e6f1102906ad0f3653df0f14b}{\index{I\-Stuff\-::\-Tracker@{I\-Stuff\-::\-Tracker}!history\-\_\-update@{history\-\_\-update}}
+\index{history\-\_\-update@{history\-\_\-update}!IStuff::Tracker@{I\-Stuff\-::\-Tracker}}
+\subsubsection[{history\-\_\-update}]{\setlength{\rightskip}{0pt plus 5cm}boost\-::shared\-\_\-mutex I\-Stuff\-::\-Tracker\-::history\-\_\-update\hspace{0.3cm}{\ttfamily [private]}}}\label{class_i_stuff_1_1_tracker_a7d60cb5e6f1102906ad0f3653df0f14b}
+
+
+Definition at line 34 of file tracker.\-h.
+
+\hypertarget{class_i_stuff_1_1_tracker_a656020d6fe4cac1807961417192aaacb}{\index{I\-Stuff\-::\-Tracker@{I\-Stuff\-::\-Tracker}!last\-\_\-frame@{last\-\_\-frame}}
+\index{last\-\_\-frame@{last\-\_\-frame}!IStuff::Tracker@{I\-Stuff\-::\-Tracker}}
+\subsubsection[{last\-\_\-frame}]{\setlength{\rightskip}{0pt plus 5cm}cv\-::\-Mat I\-Stuff\-::\-Tracker\-::last\-\_\-frame\hspace{0.3cm}{\ttfamily [private]}}}\label{class_i_stuff_1_1_tracker_a656020d6fe4cac1807961417192aaacb}
+
+
+Definition at line 38 of file tracker.\-h.
+
+\hypertarget{class_i_stuff_1_1_tracker_a395a42f0c4888461053315b24f9c7892}{\index{I\-Stuff\-::\-Tracker@{I\-Stuff\-::\-Tracker}!object\-\_\-update@{object\-\_\-update}}
+\index{object\-\_\-update@{object\-\_\-update}!IStuff::Tracker@{I\-Stuff\-::\-Tracker}}
+\subsubsection[{object\-\_\-update}]{\setlength{\rightskip}{0pt plus 5cm}boost\-::shared\-\_\-mutex I\-Stuff\-::\-Tracker\-::object\-\_\-update\hspace{0.3cm}{\ttfamily [private]}}}\label{class_i_stuff_1_1_tracker_a395a42f0c4888461053315b24f9c7892}
+
+
+Definition at line 34 of file tracker.\-h.
+
+\hypertarget{class_i_stuff_1_1_tracker_aa7e9ed78659336011a3ac499be0674e9}{\index{I\-Stuff\-::\-Tracker@{I\-Stuff\-::\-Tracker}!running@{running}}
+\index{running@{running}!IStuff::Tracker@{I\-Stuff\-::\-Tracker}}
+\subsubsection[{running}]{\setlength{\rightskip}{0pt plus 5cm}std\-::auto\-\_\-ptr$<$boost\-::thread$>$ I\-Stuff\-::\-Tracker\-::running\hspace{0.3cm}{\ttfamily [private]}}}\label{class_i_stuff_1_1_tracker_aa7e9ed78659336011a3ac499be0674e9}
+
+
+Definition at line 33 of file tracker.\-h.
+
+\hypertarget{class_i_stuff_1_1_tracker_a68ef6bf09dbf9db7a6788ed899edb28d}{\index{I\-Stuff\-::\-Tracker@{I\-Stuff\-::\-Tracker}!T\-A\-G@{T\-A\-G}}
+\index{T\-A\-G@{T\-A\-G}!IStuff::Tracker@{I\-Stuff\-::\-Tracker}}
+\subsubsection[{T\-A\-G}]{\setlength{\rightskip}{0pt plus 5cm}const char Tracker\-::\-T\-A\-G = \char`\"{}Trk\char`\"{}\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}}\label{class_i_stuff_1_1_tracker_a68ef6bf09dbf9db7a6788ed899edb28d}
+
+
+Definition at line 31 of file tracker.\-h.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+src/\-I\-Stuff/\hyperlink{tracker_8h}{tracker.\-h}\item 
+src/\-I\-Stuff/\hyperlink{tracker_8cpp}{tracker.\-cpp}\end{DoxyCompactItemize}

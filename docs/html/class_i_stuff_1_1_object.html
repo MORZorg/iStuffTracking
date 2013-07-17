@@ -45,6 +45,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -92,7 +93,7 @@ $(document).ready(function(){initNavTree('class_i_stuff_1_1_object.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -114,34 +115,35 @@ $(document).ready(function(){initNavTree('class_i_stuff_1_1_object.html','');});
 
 <p>Class used to represent a three dimensional object.  
  <a href="class_i_stuff_1_1_object.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="object_8h_source.html">object.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a40860402e64d8008fb42329df7097cdb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a40860402e64d8008fb42329df7097cdb"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_stuff_1_1_object.html#a40860402e64d8008fb42329df7097cdb">Object</a> ()</td></tr>
-<tr class="memdesc:a40860402e64d8008fb42329df7097cdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a new object. <br/></td></tr>
+<tr class="memitem:a40860402e64d8008fb42329df7097cdb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_stuff_1_1_object.html#a40860402e64d8008fb42329df7097cdb">Object</a> ()</td></tr>
+<tr class="memdesc:a40860402e64d8008fb42329df7097cdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a new object.  <a href="#a40860402e64d8008fb42329df7097cdb">More...</a><br/></td></tr>
 <tr class="separator:a40860402e64d8008fb42329df7097cdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aee004eb2e471cda24ad4a58f6ae55b41"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_stuff_1_1_object.html#aee004eb2e471cda24ad4a58f6ae55b41">setLabel</a> (const Label, const std::vector&lt; cv::Point2f &gt;)</td></tr>
-<tr class="memdesc:aee004eb2e471cda24ad4a58f6ae55b41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes a Label of this <a class="el" href="class_i_stuff_1_1_object.html" title="Class used to represent a three dimensional object. ">Object</a> to represent a different mask.  <a href="#aee004eb2e471cda24ad4a58f6ae55b41">More...</a><br/></td></tr>
+<tr class="memitem:ae8f5483f459e46687bd01e6f9977afd3"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_stuff_1_1_object.html#ae8f5483f459e46687bd01e6f9977afd3">~Object</a> ()</td></tr>
+<tr class="separator:ae8f5483f459e46687bd01e6f9977afd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee004eb2e471cda24ad4a58f6ae55b41"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_stuff_1_1_object.html#aee004eb2e471cda24ad4a58f6ae55b41">setLabel</a> (const <a class="el" href="namespace_i_stuff.html#a88882361612ef78eee4224382c8d126b">Label</a>, const std::vector&lt; cv::Point2f &gt;)</td></tr>
+<tr class="memdesc:aee004eb2e471cda24ad4a58f6ae55b41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes a <a class="el" href="namespace_i_stuff.html#a88882361612ef78eee4224382c8d126b" title="Label relative to a view of an Object. ">IStuff::Label</a> of this <a class="el" href="class_i_stuff_1_1_object.html" title="Class used to represent a three dimensional object. ">IStuff::Object</a> to represent a different mask.  <a href="#aee004eb2e471cda24ad4a58f6ae55b41">More...</a><br/></td></tr>
 <tr class="separator:aee004eb2e471cda24ad4a58f6ae55b41"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab9f6cf27353153dd8c9d3e55c7321f7f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_stuff_1_1_object.html#ab9f6cf27353153dd8c9d3e55c7321f7f">removeLabel</a> (const Label)</td></tr>
-<tr class="memdesc:ab9f6cf27353153dd8c9d3e55c7321f7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes a Label from this <a class="el" href="class_i_stuff_1_1_object.html" title="Class used to represent a three dimensional object. ">Object</a>.  <a href="#ab9f6cf27353153dd8c9d3e55c7321f7f">More...</a><br/></td></tr>
+<tr class="memitem:ab9f6cf27353153dd8c9d3e55c7321f7f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_stuff_1_1_object.html#ab9f6cf27353153dd8c9d3e55c7321f7f">removeLabel</a> (const <a class="el" href="namespace_i_stuff.html#a88882361612ef78eee4224382c8d126b">Label</a>)</td></tr>
+<tr class="memdesc:ab9f6cf27353153dd8c9d3e55c7321f7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes a <a class="el" href="namespace_i_stuff.html#a88882361612ef78eee4224382c8d126b" title="Label relative to a view of an Object. ">IStuff::Label</a> from this <a class="el" href="class_i_stuff_1_1_object.html" title="Class used to represent a three dimensional object. ">IStuff::Object</a>.  <a href="#ab9f6cf27353153dd8c9d3e55c7321f7f">More...</a><br/></td></tr>
 <tr class="separator:ab9f6cf27353153dd8c9d3e55c7321f7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a469d14582bee7d25f546742d75f7eae4"><td class="memItemLeft" align="right" valign="top">std::vector&lt; cv::Point2f &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_stuff_1_1_object.html#a469d14582bee7d25f546742d75f7eae4">getMask</a> (const Label) const </td></tr>
-<tr class="memdesc:a469d14582bee7d25f546742d75f7eae4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the mask associated to a Label.  <a href="#a469d14582bee7d25f546742d75f7eae4">More...</a><br/></td></tr>
+<tr class="memitem:a469d14582bee7d25f546742d75f7eae4"><td class="memItemLeft" align="right" valign="top">std::vector&lt; cv::Point2f &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_stuff_1_1_object.html#a469d14582bee7d25f546742d75f7eae4">getMask</a> (const <a class="el" href="namespace_i_stuff.html#a88882361612ef78eee4224382c8d126b">Label</a>) const </td></tr>
+<tr class="memdesc:a469d14582bee7d25f546742d75f7eae4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the mask associated to a <a class="el" href="namespace_i_stuff.html#a88882361612ef78eee4224382c8d126b" title="Label relative to a view of an Object. ">IStuff::Label</a>.  <a href="#a469d14582bee7d25f546742d75f7eae4">More...</a><br/></td></tr>
 <tr class="separator:a469d14582bee7d25f546742d75f7eae4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a5513b3d190ca3af9395d66c79e736f06"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5513b3d190ca3af9395d66c79e736f06"></a>
-std::map&lt; Label, std::vector<br class="typebreak"/>
-&lt; cv::Point2f &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>description</b></td></tr>
+<tr class="memitem:a5513b3d190ca3af9395d66c79e736f06"><td class="memItemLeft" align="right" valign="top">std::map&lt; <a class="el" href="namespace_i_stuff.html#a88882361612ef78eee4224382c8d126b">Label</a>, std::vector<br class="typebreak"/>
+&lt; cv::Point2f &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_stuff_1_1_object.html#a5513b3d190ca3af9395d66c79e736f06">description</a></td></tr>
 <tr class="separator:a5513b3d190ca3af9395d66c79e736f06"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-attribs"></a>
 Static Private Attributes</h2></td></tr>
-<tr class="memitem:a2ba8d34aa857298238f9800e1f3ddb1e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2ba8d34aa857298238f9800e1f3ddb1e"></a>
-static const char&#160;</td><td class="memItemRight" valign="bottom"><b>TAG</b> [] = &quot;Obj&quot;</td></tr>
+<tr class="memitem:a2ba8d34aa857298238f9800e1f3ddb1e"><td class="memItemLeft" align="right" valign="top">static const char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_stuff_1_1_object.html#a2ba8d34aa857298238f9800e1f3ddb1e">TAG</a> [] = &quot;Obj&quot;</td></tr>
 <tr class="separator:a2ba8d34aa857298238f9800e1f3ddb1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -151,7 +153,52 @@ static const char&#160;</td><td class="memItemRight" valign="bottom"><b>TAG</b> 
 <dl class="section date"><dt>Date</dt><dd>2013-07-16 </dd></dl>
 
 <p>Definition at line <a class="el" href="object_8h_source.html#l00027">27</a> of file <a class="el" href="object_8h_source.html">object.h</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="a40860402e64d8008fb42329df7097cdb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Object::Object </td>
+          <td>(</td>
+          <td class="paramname">)</td><td></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Constructs a new object. </p>
+
+<p>Definition at line <a class="el" href="object_8cpp_source.html#l00023">23</a> of file <a class="el" href="object_8cpp_source.html">object.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ae8f5483f459e46687bd01e6f9977afd3"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Object::~Object </td>
+          <td>(</td>
+          <td class="paramname">)</td><td></td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="object_8cpp_source.html#l00026">26</a> of file <a class="el" href="object_8cpp_source.html">object.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a469d14582bee7d25f546742d75f7eae4"></a>
 <div class="memitem">
 <div class="memproto">
@@ -159,29 +206,29 @@ static const char&#160;</td><td class="memItemRight" valign="bottom"><b>TAG</b> 
         <tr>
           <td class="memname">vector&lt; Point2f &gt; Object::getMask </td>
           <td>(</td>
-          <td class="paramtype">const Label&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespace_i_stuff.html#a88882361612ef78eee4224382c8d126b">Label</a>&#160;</td>
           <td class="paramname"><em>label</em>)</td><td></td>
           <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the mask associated to a Label. </p>
+<p>Returns the mask associated to a <a class="el" href="namespace_i_stuff.html#a88882361612ef78eee4224382c8d126b" title="Label relative to a view of an Object. ">IStuff::Label</a>. </p>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">out_of_range</td><td>If the Label searched does not exist.</td></tr>
+    <tr><td class="paramname">std::out_of_range</td><td>If the <a class="el" href="namespace_i_stuff.html#a88882361612ef78eee4224382c8d126b" title="Label relative to a view of an Object. ">IStuff::Label</a> searched does not exist.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">label</td><td>The Label to search for.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">label</td><td>The <a class="el" href="namespace_i_stuff.html#a88882361612ef78eee4224382c8d126b" title="Label relative to a view of an Object. ">IStuff::Label</a> to search for.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The mask associated to the input Label. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The mask associated to the input <a class="el" href="namespace_i_stuff.html#a88882361612ef78eee4224382c8d126b" title="Label relative to a view of an Object. ">IStuff::Label</a>. </dd></dl>
 
-<p>Definition at line <a class="el" href="object_8cpp_source.html#l00063">63</a> of file <a class="el" href="object_8cpp_source.html">object.cpp</a>.</p>
+<p>Definition at line <a class="el" href="object_8cpp_source.html#l00064">64</a> of file <a class="el" href="object_8cpp_source.html">object.cpp</a>.</p>
 
 </div>
 </div>
@@ -192,14 +239,14 @@ static const char&#160;</td><td class="memItemRight" valign="bottom"><b>TAG</b> 
         <tr>
           <td class="memname">void Object::removeLabel </td>
           <td>(</td>
-          <td class="paramtype">const Label&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespace_i_stuff.html#a88882361612ef78eee4224382c8d126b">Label</a>&#160;</td>
           <td class="paramname"><em>label</em>)</td><td></td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Removes a Label from this <a class="el" href="class_i_stuff_1_1_object.html" title="Class used to represent a three dimensional object. ">Object</a>. </p>
+<p>Removes a <a class="el" href="namespace_i_stuff.html#a88882361612ef78eee4224382c8d126b" title="Label relative to a view of an Object. ">IStuff::Label</a> from this <a class="el" href="class_i_stuff_1_1_object.html" title="Class used to represent a three dimensional object. ">IStuff::Object</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">label</td><td></td></tr>
@@ -207,7 +254,7 @@ static const char&#160;</td><td class="memItemRight" valign="bottom"><b>TAG</b> 
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="object_8cpp_source.html#l00048">48</a> of file <a class="el" href="object_8cpp_source.html">object.cpp</a>.</p>
+<p>Definition at line <a class="el" href="object_8cpp_source.html#l00049">49</a> of file <a class="el" href="object_8cpp_source.html">object.cpp</a>.</p>
 
 </div>
 </div>
@@ -218,7 +265,7 @@ static const char&#160;</td><td class="memItemRight" valign="bottom"><b>TAG</b> 
         <tr>
           <td class="memname">void Object::setLabel </td>
           <td>(</td>
-          <td class="paramtype">const Label&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespace_i_stuff.html#a88882361612ef78eee4224382c8d126b">Label</a>&#160;</td>
           <td class="paramname">, </td>
         </tr>
         <tr>
@@ -235,17 +282,62 @@ static const char&#160;</td><td class="memItemRight" valign="bottom"><b>TAG</b> 
       </table>
 </div><div class="memdoc">
 
-<p>Changes a Label of this <a class="el" href="class_i_stuff_1_1_object.html" title="Class used to represent a three dimensional object. ">Object</a> to represent a different mask. </p>
-<p>If the Label isn't currently part of the <a class="el" href="class_i_stuff_1_1_object.html" title="Class used to represent a three dimensional object. ">Object</a>, it is added.</p>
+<p>Changes a <a class="el" href="namespace_i_stuff.html#a88882361612ef78eee4224382c8d126b" title="Label relative to a view of an Object. ">IStuff::Label</a> of this <a class="el" href="class_i_stuff_1_1_object.html" title="Class used to represent a three dimensional object. ">IStuff::Object</a> to represent a different mask. </p>
+<p>If the <a class="el" href="namespace_i_stuff.html#a88882361612ef78eee4224382c8d126b" title="Label relative to a view of an Object. ">IStuff::Label</a> isn't currently part of the <a class="el" href="class_i_stuff_1_1_object.html" title="Class used to represent a three dimensional object. ">IStuff::Object</a>, it is added.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">label</td><td>The label to be changed or added. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">label</td><td>the <a class="el" href="namespace_i_stuff.html#a88882361612ef78eee4224382c8d126b" title="Label relative to a view of an Object. ">IStuff::Label</a> to be changed or added. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">mask</td><td>The new mask to be associated. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="object_8cpp_source.html#l00038">38</a> of file <a class="el" href="object_8cpp_source.html">object.cpp</a>.</p>
+<p>Definition at line <a class="el" href="object_8cpp_source.html#l00039">39</a> of file <a class="el" href="object_8cpp_source.html">object.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a class="anchor" id="a5513b3d190ca3af9395d66c79e736f06"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::map&lt; <a class="el" href="namespace_i_stuff.html#a88882361612ef78eee4224382c8d126b">Label</a>, std::vector&lt;cv::Point2f&gt; &gt; IStuff::Object::description</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="object_8h_source.html#l00033">33</a> of file <a class="el" href="object_8h_source.html">object.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a2ba8d34aa857298238f9800e1f3ddb1e"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char Object::TAG = &quot;Obj&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="object_8h_source.html#l00031">31</a> of file <a class="el" href="object_8h_source.html">object.h</a>.</p>
 
 </div>
 </div>
@@ -258,8 +350,8 @@ static const char&#160;</td><td class="memItemRight" valign="bottom"><b>TAG</b> 
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>IStuff</b></li><li class="navelem"><a class="el" href="class_i_stuff_1_1_object.html">Object</a></li>
-    <li class="footer">Generated on Tue Jul 16 2013 18:16:55 for iStuffTracking by
+    <li class="navelem"><a class="el" href="namespace_i_stuff.html">IStuff</a></li><li class="navelem"><a class="el" href="class_i_stuff_1_1_object.html">Object</a></li>
+    <li class="footer">Generated on Thu Jul 18 2013 00:01:07 for iStuffTracking by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
   </ul>

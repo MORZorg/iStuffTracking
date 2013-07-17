@@ -45,6 +45,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -99,7 +100,7 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -110,6 +111,15 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 
 <div class="contents">
 &#160;<ul>
+<li>actualizeObject()
+: <a class="el" href="class_i_stuff_1_1_tracker.html#aa262d69317aeaa699b42ab5a22960b07">IStuff::Tracker</a>
+</li>
+<li>backgroundActualizeObject()
+: <a class="el" href="class_i_stuff_1_1_tracker.html#a3c230057ef289346b9037d315bee4a86">IStuff::Tracker</a>
+</li>
+<li>backgroundRecognizeFrame()
+: <a class="el" href="class_i_stuff_1_1_recognizer.html#ad4e54485be9385a287bc51670247b0cc">IStuff::Recognizer</a>
+</li>
 <li>elaborateFrame()
 : <a class="el" href="class_i_stuff_1_1_manager.html#a47f17fa372382713bcc0f37aae006745">IStuff::Manager</a>
 </li>
@@ -117,16 +127,21 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 : <a class="el" href="class_i_stuff_1_1_object.html#a469d14582bee7d25f546742d75f7eae4">IStuff::Object</a>
 </li>
 <li>getObject()
-: <a class="el" href="class_i_stuff_1_1_manager.html#a80d15a0a83976f63c357f65b20387e02">IStuff::Manager</a>
+: <a class="el" href="class_i_stuff_1_1_tracker.html#ab4419b0053b32baaa6e253aab5eef852">IStuff::Tracker</a>
+, <a class="el" href="class_i_stuff_1_1_manager.html#a80d15a0a83976f63c357f65b20387e02">IStuff::Manager</a>
 </li>
 <li>isRunning()
 : <a class="el" href="class_i_stuff_1_1_recognizer.html#aac5297071c1f6ff12049a58c88bb3952">IStuff::Recognizer</a>
+, <a class="el" href="class_i_stuff_1_1_tracker.html#adeaab8820045251bcf5a7b4f394eb568">IStuff::Tracker</a>
 </li>
 <li>Manager()
 : <a class="el" href="class_i_stuff_1_1_manager.html#a1658ff9f18e38ccd9cb8b0b371b9c20b">IStuff::Manager</a>
 </li>
 <li>Object()
 : <a class="el" href="class_i_stuff_1_1_object.html#a40860402e64d8008fb42329df7097cdb">IStuff::Object</a>
+</li>
+<li>paintObject()
+: <a class="el" href="class_i_stuff_1_1_manager.html#a5cc4e8151aa21b873786eb8c0742c3d5">IStuff::Manager</a>
 </li>
 <li>recognizeFrame()
 : <a class="el" href="class_i_stuff_1_1_recognizer.html#a6505a142d08eaf1e8f6a1f95571a4c7a">IStuff::Recognizer</a>
@@ -137,15 +152,38 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 <li>removeLabel()
 : <a class="el" href="class_i_stuff_1_1_object.html#ab9f6cf27353153dd8c9d3e55c7321f7f">IStuff::Object</a>
 </li>
+<li>sendMessage()
+: <a class="el" href="class_i_stuff_1_1_manager.html#adaef1575710c20ad769c23bb55d2144c">IStuff::Manager</a>
+, <a class="el" href="class_i_stuff_1_1_recognizer.html#a1bb1a4e7045eb4d84d84dac439e9c762">IStuff::Recognizer</a>
+, <a class="el" href="class_i_stuff_1_1_tracker.html#a931b4e57f59d6a0f38d78bb34ab2332b">IStuff::Tracker</a>
+</li>
 <li>setDatabase()
-: <a class="el" href="class_i_stuff_1_1_manager.html#aa91ba11affc3ec961acaf81fc5c5e62d">IStuff::Manager</a>
-, <a class="el" href="class_i_stuff_1_1_recognizer.html#a37fe89eb44d68215cab011b1962b8293">IStuff::Recognizer</a>
+: <a class="el" href="class_i_stuff_1_1_recognizer.html#a37fe89eb44d68215cab011b1962b8293">IStuff::Recognizer</a>
+, <a class="el" href="class_i_stuff_1_1_manager.html#aa91ba11affc3ec961acaf81fc5c5e62d">IStuff::Manager</a>
 </li>
 <li>setLabel()
 : <a class="el" href="class_i_stuff_1_1_object.html#aee004eb2e471cda24ad4a58f6ae55b41">IStuff::Object</a>
 </li>
 <li>setObject()
-: <a class="el" href="class_i_stuff_1_1_manager.html#ab90926d6eb67361ac587d10081aef667">IStuff::Manager</a>
+: <a class="el" href="class_i_stuff_1_1_tracker.html#a0a65a60fae69f48ad3cc3b7581128c3d">IStuff::Tracker</a>
+</li>
+<li>Tracker()
+: <a class="el" href="class_i_stuff_1_1_tracker.html#adf214393a14e8bf23de2fc8231e239ec">IStuff::Tracker</a>
+</li>
+<li>trackFrame()
+: <a class="el" href="class_i_stuff_1_1_tracker.html#abbd2fe5afc84816d781f23ad98e8d488">IStuff::Tracker</a>
+</li>
+<li>~Manager()
+: <a class="el" href="class_i_stuff_1_1_manager.html#a322cad25d7007438b3a043ad02253d29">IStuff::Manager</a>
+</li>
+<li>~Object()
+: <a class="el" href="class_i_stuff_1_1_object.html#ae8f5483f459e46687bd01e6f9977afd3">IStuff::Object</a>
+</li>
+<li>~Recognizer()
+: <a class="el" href="class_i_stuff_1_1_recognizer.html#aa0035e71951a13fe00764a54913d0e5a">IStuff::Recognizer</a>
+</li>
+<li>~Tracker()
+: <a class="el" href="class_i_stuff_1_1_tracker.html#a0ed1e23312cfe7fcfe5f2ac2abd69163">IStuff::Tracker</a>
 </li>
 </ul>
 </div><!-- contents -->
@@ -153,7 +191,7 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Tue Jul 16 2013 18:16:55 for iStuffTracking by
+    <li class="footer">Generated on Thu Jul 18 2013 00:01:07 for iStuffTracking by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
   </ul>

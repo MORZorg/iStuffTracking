@@ -38,9 +38,9 @@ Recognizer::~Recognizer()
 /* Setters */
 
 /**
- * @brief Associates a Database to this Recognizer.
+ * @brief Associates a IStuff::Database to this IStuff::Recognizer.
  *
- * @param[in] matcher	The matcher to be updated.
+ * @param[in] matcher	The new matcher to be used.
  */
 void Recognizer::setDatabase(Database* matcher)
 {
@@ -50,7 +50,7 @@ void Recognizer::setDatabase(Database* matcher)
 /* Getters */
 
 /**
- * @brief Checks whether this Recognizer has a thread up and running.
+ * @brief Checks whether this IStuff::Recognizer has a thread up and running.
  *
  * @return `true` if recognizing, `false` otherwise.
  */
@@ -63,11 +63,11 @@ bool Recognizer::isRunning() const
 /* Other methods */
 
 /**
- * @brief Recognizes an Object into a frame.
+ * @brief Recognizes an IStuff::Object into a frame.
  *
- * @param[in] frame	The frame to be searched for an Object.
+ * @param[in] frame	The frame to be searched for an IStuff::Object.
  *
- * @return The object found inside the given frame.
+ * @return The IStuff::Object found inside the given frame.
  */
 Object Recognizer::recognizeFrame(Mat frame)
 {
@@ -86,8 +86,8 @@ Object Recognizer::recognizeFrame(Mat frame)
 /**
  * @brief Method to do the recognization process in a separate thread.
  *
- * @param[in] frame			The frame to be searched for an Object.
- * @param[in] reference	The reference to the Manager to inform of the result.
+ * @param[in] frame			The frame to be searched for an IStuff::Object.
+ * @param[in] reference	The reference to the IStuff::Manager to inform of the result.
  *
  * @return `true` if the thread is started, `false` if it was already running.
  */
@@ -115,10 +115,10 @@ bool Recognizer::backgroundRecognizeFrame(Mat frame, Manager* reference)
 }
 
 /**
- * @brief Method to send messages to this Recognizer.
+ * @brief Method to send messages to this IStuff::Recognizer.
  * @details Managed messages:<br />
  *	<dl>
- *		<dt>MSG_RECOGNITION_START</dt>
+ *		<dt>IStuff::Manager::MSG_RECOGNITION_START</dt>
  *		<dd>data: cv::Mat<br />
  *		This causes the recognization process to start.</dd>
  *	</dl>

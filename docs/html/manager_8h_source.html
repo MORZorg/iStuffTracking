@@ -45,6 +45,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -91,7 +92,7 @@ $(document).ready(function(){initNavTree('manager_8h_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -111,63 +112,66 @@ $(document).ready(function(){initNavTree('manager_8h_source.html','');});
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;iostream&gt;</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;boost/thread/shared_mutex.hpp&gt;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &quot;opencv2/core/core.hpp&quot;</span></div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &quot;opencv2/imgproc/imgproc.hpp&quot;</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="object_8h.html" title="Header file relative to the class IStuff::Object. ">object.h</a>&quot;</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="recognizer_8h.html" title="Header file relative to the class IStuff::Recognizer. ">recognizer.h</a>&quot;</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">bool</span> debug;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">namespace </span>IStuff</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;{</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">class </span>Tracker;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">class </span>Database;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_manager.html">   28</a></span>&#160;    <span class="keyword">class </span><a class="code" href="class_i_stuff_1_1_manager.html" title="Class to manage the joint 3D Object recognition and tracking. ">Manager</a></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    {</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="comment">/* Attributes */</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;            <span class="keyword">const</span> <span class="keyword">static</span> <span class="keywordtype">char</span> TAG[];</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            <span class="keyword">const</span> <span class="keyword">static</span> <span class="keywordtype">int</span> RECOGNITION_PERIOD = 20;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
-<div class="line"><a name="l00038"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_manager.html#a3cacb02ece1a4938e7754ad553c91a74">   38</a></span>&#160;            <span class="keywordtype">int</span> <a class="code" href="class_i_stuff_1_1_manager.html#a3cacb02ece1a4938e7754ad553c91a74" title="When this reaches RECOGNITION_PERIOD, a new recognition is done. ">frames_tracked_count</a>;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            boost::shared_mutex object_update;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;            <a class="code" href="class_i_stuff_1_1_object.html" title="Class used to represent a three dimensional object. ">Object</a> actual_object;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            Database* database;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            <a class="code" href="class_i_stuff_1_1_recognizer.html" title="Class used to recognize objects in a video stream. ">Recognizer</a>* recognizer;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;            Tracker* tracker;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="comment">/* Methods */</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            <span class="comment">/* Constructors and Destructors */</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            <a class="code" href="class_i_stuff_1_1_manager.html#a1658ff9f18e38ccd9cb8b0b371b9c20b" title="Constructs the class. ">Manager</a>();</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            <span class="keyword">virtual</span> ~<a class="code" href="class_i_stuff_1_1_manager.html" title="Class to manage the joint 3D Object recognition and tracking. ">Manager</a>();</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            <span class="comment">/* Setters */</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            <span class="keywordtype">void</span> <a class="code" href="class_i_stuff_1_1_manager.html#aa91ba11affc3ec961acaf81fc5c5e62d" title="Changes the database used to identify the object. ">setDatabase</a>(Database*);</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            <span class="keywordtype">void</span> <a class="code" href="class_i_stuff_1_1_manager.html#ab90926d6eb67361ac587d10081aef667" title="Changes the current description of the object. ">setObject</a>(<a class="code" href="class_i_stuff_1_1_object.html" title="Class used to represent a three dimensional object. ">Object</a>);</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            <span class="comment">/* Getters */</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            <a class="code" href="class_i_stuff_1_1_object.html" title="Class used to represent a three dimensional object. ">Object</a> <a class="code" href="class_i_stuff_1_1_manager.html#a80d15a0a83976f63c357f65b20387e02" title="Returns the current description of the object. ">getObject</a>();</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            <span class="comment">/* Other methods */</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            <span class="keywordtype">void</span> <a class="code" href="class_i_stuff_1_1_manager.html#a47f17fa372382713bcc0f37aae006745" title="Elaborates a frame, searching for the object. ">elaborateFrame</a>(cv::Mat);</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            cv::Mat paintObject(cv::Mat);</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    };</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;}</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* defined I_STUFF_MANAGER_H__ */</span><span class="preprocessor"></span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="object_8h.html" title="Header file relative to the class IStuff::Object. ">object.h</a>&quot;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="recognizer_8h.html" title="Header file relative to the class IStuff::Recognizer. ">recognizer.h</a>&quot;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="tracker_8h.html" title="Header file relative to the class IStuff::Tracker. ">tracker.h</a>&quot;</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">bool</span> <a class="code" href="manager_8h.html#a398527b3e9e358c345c5047b16871957">debug</a>;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="code" href="namespace_i_stuff.html">   22</a></span>&#160;<span class="keyword">namespace </span>IStuff</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;{</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keyword">class </span>Database;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_manager.html">   26</a></span>&#160;    <span class="keyword">class </span><a class="code" href="class_i_stuff_1_1_manager.html" title="Class to manage the joint 3D Object recognition and tracking. ">Manager</a></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    {</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <span class="comment">/* Attributes */</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_manager.html#af7f9a2cc3c53b7cf351a12f179230da7">   30</a></span>&#160;            <span class="keyword">const</span> <span class="keyword">static</span> <span class="keywordtype">int</span> <a class="code" href="class_i_stuff_1_1_manager.html#af7f9a2cc3c53b7cf351a12f179230da7">MSG_RECOGNITION_START</a> = 1;</div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_manager.html#a4c465ff50b8eddde0e5fd8b4d3e37bbc">   31</a></span>&#160;            <span class="keyword">const</span> <span class="keyword">static</span> <span class="keywordtype">int</span> <a class="code" href="class_i_stuff_1_1_manager.html#a4c465ff50b8eddde0e5fd8b4d3e37bbc">MSG_RECOGNITION_END</a>     = 2;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_manager.html#a0228682f317a86ce7057b86e9d229ac6">   34</a></span>&#160;            <span class="keyword">const</span> <span class="keyword">static</span> <span class="keywordtype">char</span> <a class="code" href="class_i_stuff_1_1_manager.html#a0228682f317a86ce7057b86e9d229ac6">TAG</a>[];</div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_manager.html#a58f0beb39eea21e78a8983e5954065c3">   35</a></span>&#160;            <span class="keyword">const</span> <span class="keyword">static</span> <span class="keywordtype">int</span> <a class="code" href="class_i_stuff_1_1_manager.html#a58f0beb39eea21e78a8983e5954065c3">RECOGNITION_PERIOD</a> = 20;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_manager.html#a3cacb02ece1a4938e7754ad553c91a74">   40</a></span>&#160;            <span class="keywordtype">int</span> <a class="code" href="class_i_stuff_1_1_manager.html#a3cacb02ece1a4938e7754ad553c91a74" title="When this reaches RECOGNITION_PERIOD, a new recognition is done. ">frames_tracked_count</a>;</div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_manager.html#a9b4234320a01a049bc10f9f13d612fc4">   41</a></span>&#160;            boost::shared_mutex <a class="code" href="class_i_stuff_1_1_manager.html#a9b4234320a01a049bc10f9f13d612fc4">object_update</a>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_manager.html#a9b898107c919a3ba73f60278c9c05742">   43</a></span>&#160;            <a class="code" href="class_i_stuff_1_1_object.html" title="Class used to represent a three dimensional object. ">Object</a> <a class="code" href="class_i_stuff_1_1_manager.html#a9b898107c919a3ba73f60278c9c05742">actual_object</a>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_manager.html#aae57c3ee778cb782dc8dc954a6667c73">   44</a></span>&#160;            Database* <a class="code" href="class_i_stuff_1_1_manager.html#aae57c3ee778cb782dc8dc954a6667c73">database</a>;</div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_manager.html#ac039aa2e611b04595e4ff69d3534b4cc">   45</a></span>&#160;            <a class="code" href="class_i_stuff_1_1_recognizer.html" title="Class used to recognize objects in a video stream. ">Recognizer</a> <a class="code" href="class_i_stuff_1_1_manager.html#ac039aa2e611b04595e4ff69d3534b4cc">recognizer</a>;</div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_manager.html#a3d313f62a1cfe606098fdcb6f1c748ee">   46</a></span>&#160;            <a class="code" href="class_i_stuff_1_1_tracker.html" title="Class used to track objects in a video stream. ">Tracker</a> <a class="code" href="class_i_stuff_1_1_manager.html#a3d313f62a1cfe606098fdcb6f1c748ee">tracker</a>;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="comment">/* Methods */</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            <span class="comment">/* Constructors and Destructors */</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            <a class="code" href="class_i_stuff_1_1_manager.html#a1658ff9f18e38ccd9cb8b0b371b9c20b" title="Constructs the class. ">Manager</a>();</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            <span class="keyword">virtual</span> <a class="code" href="class_i_stuff_1_1_manager.html#a322cad25d7007438b3a043ad02253d29">~Manager</a>();</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            <span class="comment">/* Setters */</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            <span class="keywordtype">void</span> <a class="code" href="class_i_stuff_1_1_manager.html#aa91ba11affc3ec961acaf81fc5c5e62d" title="Changes the IStuff::Database used to identify the IStuff::Object. ">setDatabase</a>(Database*);</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            <span class="comment">/* Getters */</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            <a class="code" href="class_i_stuff_1_1_object.html" title="Class used to represent a three dimensional object. ">Object</a> <a class="code" href="class_i_stuff_1_1_manager.html#a80d15a0a83976f63c357f65b20387e02" title="Returns the current description of the IStuff::Object. ">getObject</a>();</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            <span class="comment">/* Other methods */</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            <span class="keywordtype">void</span> <a class="code" href="class_i_stuff_1_1_manager.html#a47f17fa372382713bcc0f37aae006745" title="Elaborates a frame, searching for the IStuff::Object. ">elaborateFrame</a>(cv::Mat);</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            cv::Mat <a class="code" href="class_i_stuff_1_1_manager.html#a5cc4e8151aa21b873786eb8c0742c3d5" title="Paints the various masks of the IStuff::Object on the frame. ">paintObject</a>(cv::Mat);</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            <span class="keywordtype">void</span> <a class="code" href="class_i_stuff_1_1_manager.html#adaef1575710c20ad769c23bb55d2144c" title="Method to send messages to this IStuff::Manager. ">sendMessage</a>(<span class="keywordtype">int</span>, <span class="keywordtype">void</span>*, <span class="keywordtype">void</span>* = NULL);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    };</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;}</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* defined I_STUFF_MANAGER_H__ */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_9ecd5c5c2bfeacb6e1f58c01e4ddfde2.html">IStuff</a></li><li class="navelem"><a class="el" href="manager_8h.html">manager.h</a></li>
-    <li class="footer">Generated on Tue Jul 16 2013 18:16:55 for iStuffTracking by
+    <li class="footer">Generated on Thu Jul 18 2013 00:01:06 for iStuffTracking by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
   </ul>

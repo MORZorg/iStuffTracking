@@ -45,6 +45,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -91,7 +92,7 @@ $(document).ready(function(){initNavTree('object_8h_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -115,32 +116,32 @@ $(document).ready(function(){initNavTree('object_8h_source.html','');});
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &quot;opencv2/imgproc/imgproc.hpp&quot;</span></div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">bool</span> debug;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">bool</span> <a class="code" href="manager_8h.html#a398527b3e9e358c345c5047b16871957">debug</a>;</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">namespace </span>IStuff</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;{</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">typedef</span> std::string Label;</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="code" href="namespace_i_stuff.html#a88882361612ef78eee4224382c8d126b">   25</a></span>&#160;    <span class="keyword">typedef</span> std::string <a class="code" href="namespace_i_stuff.html#a88882361612ef78eee4224382c8d126b" title="Label relative to a view of an Object. ">Label</a>;</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
 <div class="line"><a name="l00027"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_object.html">   27</a></span>&#160;    <span class="keyword">class </span><a class="code" href="class_i_stuff_1_1_object.html" title="Class used to represent a three dimensional object. ">Object</a></div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    {</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="comment">/* Attributes */</span></div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;            <span class="keyword">const</span> <span class="keyword">static</span> <span class="keywordtype">char</span> TAG[];</div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_object.html#a2ba8d34aa857298238f9800e1f3ddb1e">   31</a></span>&#160;            <span class="keyword">const</span> <span class="keyword">static</span> <span class="keywordtype">char</span> <a class="code" href="class_i_stuff_1_1_object.html#a2ba8d34aa857298238f9800e1f3ddb1e">TAG</a>[];</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            std::map&lt; Label, std::vector&lt;cv::Point2f&gt; &gt; description;</div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_object.html#a5513b3d190ca3af9395d66c79e736f06">   33</a></span>&#160;            std::map&lt; Label, std::vector&lt;cv::Point2f&gt; &gt; <a class="code" href="class_i_stuff_1_1_object.html#a5513b3d190ca3af9395d66c79e736f06">description</a>;</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="comment">/* Methods */</span></div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            <span class="comment">/* Constructors and Destructors */</span></div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            <a class="code" href="class_i_stuff_1_1_object.html#a40860402e64d8008fb42329df7097cdb" title="Constructs a new object. ">Object</a>();</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            <span class="keyword">virtual</span> ~<a class="code" href="class_i_stuff_1_1_object.html" title="Class used to represent a three dimensional object. ">Object</a>();</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            <span class="keyword">virtual</span> <a class="code" href="class_i_stuff_1_1_object.html#ae8f5483f459e46687bd01e6f9977afd3">~Object</a>();</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            </div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;            <span class="comment">/* Setters */</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            <span class="keywordtype">void</span> <a class="code" href="class_i_stuff_1_1_object.html#aee004eb2e471cda24ad4a58f6ae55b41" title="Changes a Label of this Object to represent a different mask. ">setLabel</a>(<span class="keyword">const</span> Label, <span class="keyword">const</span> std::vector&lt;cv::Point2f&gt;);</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            <span class="keywordtype">void</span> <a class="code" href="class_i_stuff_1_1_object.html#ab9f6cf27353153dd8c9d3e55c7321f7f" title="Removes a Label from this Object. ">removeLabel</a>(<span class="keyword">const</span> Label);</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            <span class="keywordtype">void</span> <a class="code" href="class_i_stuff_1_1_object.html#aee004eb2e471cda24ad4a58f6ae55b41" title="Changes a IStuff::Label of this IStuff::Object to represent a different mask. ">setLabel</a>(<span class="keyword">const</span> <a class="code" href="namespace_i_stuff.html#a88882361612ef78eee4224382c8d126b" title="Label relative to a view of an Object. ">Label</a>, <span class="keyword">const</span> std::vector&lt;cv::Point2f&gt;);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            <span class="keywordtype">void</span> <a class="code" href="class_i_stuff_1_1_object.html#ab9f6cf27353153dd8c9d3e55c7321f7f" title="Removes a IStuff::Label from this IStuff::Object. ">removeLabel</a>(<span class="keyword">const</span> <a class="code" href="namespace_i_stuff.html#a88882361612ef78eee4224382c8d126b" title="Label relative to a view of an Object. ">Label</a>);</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            <span class="comment">/* Getters */</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            std::vector&lt;cv::Point2f&gt; <a class="code" href="class_i_stuff_1_1_object.html#a469d14582bee7d25f546742d75f7eae4" title="Returns the mask associated to a Label. ">getMask</a>(<span class="keyword">const</span> Label) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            std::vector&lt;cv::Point2f&gt; <a class="code" href="class_i_stuff_1_1_object.html#a469d14582bee7d25f546742d75f7eae4" title="Returns the mask associated to a IStuff::Label. ">getMask</a>(<span class="keyword">const</span> <a class="code" href="namespace_i_stuff.html#a88882361612ef78eee4224382c8d126b" title="Label relative to a view of an Object. ">Label</a>) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    };</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;}</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
@@ -151,7 +152,7 @@ $(document).ready(function(){initNavTree('object_8h_source.html','');});
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_9ecd5c5c2bfeacb6e1f58c01e4ddfde2.html">IStuff</a></li><li class="navelem"><a class="el" href="object_8h.html">object.h</a></li>
-    <li class="footer">Generated on Tue Jul 16 2013 18:16:55 for iStuffTracking by
+    <li class="footer">Generated on Thu Jul 18 2013 00:01:06 for iStuffTracking by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
   </ul>

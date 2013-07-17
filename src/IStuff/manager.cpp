@@ -32,11 +32,11 @@ Manager::~Manager()
 /* Setters */
 
 /**
- * @brief Changes the database used to identify the object.
- * @details This means that with high probability a different object will be
- *	searched for: the next elaboration must be a recognition.
+ * @brief Changes the IStuff::Database used to identify the IStuff::Object.
+ * @details This means that with high probability a different IStuff::Object
+ *	will be searched for: the next elaboration must be a recognition.
  *
- * @param[in] database	The new database to be used.
+ * @param[in] database	The new IStuff::Database to be used.
  */
 void Manager::setDatabase(Database* database)
 {
@@ -47,11 +47,9 @@ void Manager::setDatabase(Database* database)
 /* Getters */
 
 /**
- * @brief Returns the current description of the object.
- * @details Since it is used by the recognition thread, it is syncrhonized
- *	using the RWL pattern.
+ * @brief Returns the current description of the IStuff::Object.
  *
- * @return The current description of the object.
+ * @return The current description of IStuff::the Object.
  */
 Object Manager::getObject()
 {
@@ -61,9 +59,9 @@ Object Manager::getObject()
 /* Other methods */
 
 /**
- * @brief Elaborates a frame, searching for the object.
+ * @brief Elaborates a frame, searching for the IStuff::Object.
  * @details This function alternates the recognition to the tracking, making a
- *	new recognition every RECOGNITION_PERIOD frames.
+ *	new recognition every IStuff::Manager::RECOGNITION_PERIOD frames.
  *
  * @param frame	The frame to be analyzed.
  */
@@ -88,11 +86,11 @@ void Manager::elaborateFrame(Mat frame)
 }
 
 /**
- * @brief Paints the various masks of the Object on the frame.
+ * @brief Paints the various masks of the IStuff::Object on the frame.
  *
- * @param[in] frame	The frame on which che Object must be painted.
+ * @param[in] frame	The frame on which che IStuff::Object must be painted.
  *
- * @return A copy of the input frame, with the Object painted on it.
+ * @return A copy of the input frame, with the IStuff::Object painted on it.
  */
 Mat Manager::paintObject(Mat frame)
 {
@@ -100,16 +98,16 @@ Mat Manager::paintObject(Mat frame)
 }
 
 /**
- * @brief Method to send messages to this Manager.
+ * @brief Method to send messages to this IStuff::Manager.
  * @details Managed messages:<br />
  *	<dl>
- *		<dt>MSG_RECOGNITION_START</dt>
+ *		<dt>IStuff::Manager::MSG_RECOGNITION_START</dt>
  *		<dd>data: cv::Mat<br />
  *		This message is forwarded to both the Recognizer (to make it start the
  *		recognization) and the Tracker (to alert it).<br />
  *		This also resets the counter of frames tracked from last recognition.</dd>
- *		<dt>MSG_RECOGNITION_END</dt>
- *		<dd>data: Object<br />
+ *		<dt>IStuff::Manager::MSG_RECOGNITION_END</dt>
+ *		<dd>data: IStuff::Object<br />
  *		This message is forwarded to the Tracker, to update its Object.</dd>
  *	</dl>
  *
