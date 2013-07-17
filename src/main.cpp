@@ -24,7 +24,7 @@ int main( int argc, char* argv[] )
 {
 	int i = 0;
 
-	string dbName = "Aragorn", dbDir = "image_sample/";
+	string dbName = "Aragorn", dbDir = "image_sample/clean/";
 
 	// Command line flags parsing, mostly debug level
 	while (++i < argc)
@@ -88,6 +88,9 @@ int main( int argc, char* argv[] )
 		cout << e.what() << endl;
 		return -1;
 	} catch( IStuff::DBLoadingException& e ) {
+		cout << e.what() << endl;
+		return -1;
+	} catch( IStuff::DBSavingException& e ) {
 		cout << e.what() << endl;
 		return -1;
 	}

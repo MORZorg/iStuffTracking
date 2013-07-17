@@ -82,7 +82,7 @@ Object Database::match( Mat frame ) {
 	featureExtractor -> compute( frame, frameKeypoints, frameDescriptors );
 
 	if( debug )
-		cerr << "\tFrame descriptors computed\n";
+		cerr << "\tFrame descriptors and keypoints computed\n";
 
 	Object matchingObject = Object();
 
@@ -113,13 +113,21 @@ Object Database::match( Mat frame ) {
 		if( matches[ i ][ 0 ].distance < 0.6 * matches[ i ][ 1 ].distance )
 				good_matches.push_back( matches[ i ][ 0 ] );
 
-	// Print out the good matching keypoints 
-	if( debug )
+	// Prints out the good matching keypoints and draws them
+	if( debug ) {
 		for( int i = 0; i < good_matches.size(); i++ )
 			cerr <<"\tGood match #" << i
 					<< "\n\t\tqueryDescriptorIndex: " << good_matches[ i ].queryIdx
 					<< "\n\t\ttrainDescriptorIndex: " << good_matches[ i ].trainIdx
 					<< "\n\t\ttrainImageIndex: " << good_matches[ i ].imgIdx << " (" << labelDB[ good_matches[ i ].imgIdx ] << ")\n\n";
+
+		Mat img_keypoints;
+		drawKeypoints( frame, frameKeypoints, img_keypoints, Scalar::all( -1 ), DrawMatchesFlags::DEFAULT );
+
+		string outsbra = "keypoints_sample/AragornFrame.jpg";
+
+		imwrite( outsbra, img_keypoints );
+	}
 
 	// For every label in the database, extract the points and search homography mask
 	for( int i = 0; i < labelDB.size(); i++ ) {
@@ -135,8 +143,8 @@ Object Database::match( Mat frame ) {
 		for( int j = 0; j < good_matches.size(); j++ )
 			if( good_matches[ j ].imgIdx == i ) {
 				active = true;
-				labelPoints.push_back( keypointDB[ i ][ good_matches[ j ].trainIdx ].pt );
-				scenePoints.push_back( keypointDB[ i ][ good_matches[ j ].queryIdx ].pt );
+				labelPoints.push_back( keypointDB[ i ][ good_matches[ j ].queryIdx ].pt );
+				scenePoints.push_back( keypointDB[ i ][ good_matches[ j ].trainIdx ].pt );
 			}
 
 		if( debug )
@@ -158,13 +166,28 @@ Object Database::match( Mat frame ) {
 		perspectiveTransform( cornersDB[ i ], labelCorners, H );
 
 		if( debug )
+			for( int j = 0; j < labelCorners.size(); j++ )
+				cerr << "\t\t\tCoordinate " << j << ": " << labelCorners[ j ] << endl;
+
+		// Debug drawing
+		if( debug ) {
+			Mat imgMatches = frame;
+			line( imgMatches, labelCorners[0] + cornersDB[ i ][ 2 ], labelCorners[1] + cornersDB[ i ][ 2 ], Scalar( 0, 255, 0 ), 4 );
+			line( imgMatches, labelCorners[1] + cornersDB[ i ][ 2 ], labelCorners[2] + cornersDB[ i ][ 2 ], Scalar( 0, 255, 0 ), 4 );
+			line( imgMatches, labelCorners[2] + cornersDB[ i ][ 2 ], labelCorners[3] + cornersDB[ i ][ 2 ], Scalar( 0, 255, 0 ), 4 );
+			line( imgMatches, labelCorners[3] + cornersDB[ i ][ 2 ], labelCorners[0] + cornersDB[ i ][ 2 ], Scalar( 0, 255, 0 ), 4 );
+
+			imwrite( "output_sample/" + labelDB[ i ] + ".jpg", imgMatches );
+		}
+
+		if( debug )
 			cerr << "\t\tMask calculated, adding current label to output Object\n";
 
 		matchingObject.setLabel( labelDB[ i ], labelCorners );
 	}
 
 	if( debug )
-		cerr << "\tMatching done. Returning the object\n\n";
+		cerr << "\n\tMatching done. Returning the object\n\n";
 
 	return matchingObject;
 }
