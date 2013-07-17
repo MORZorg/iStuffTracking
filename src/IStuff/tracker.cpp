@@ -35,9 +35,9 @@ Tracker::~Tracker()
 /* Setters */
 
 /**
- * @brief Updates the Object used by the tracker.
+ * @brief Updates the IStuff::Object used by the IStuff::Tracker.
  *
- * @param new_object The new Object.
+ * @param[in] new_object The new IStuff::Object.
  */
 void Tracker::setObject(Object new_object)
 {
@@ -52,9 +52,9 @@ void Tracker::setObject(Object new_object)
 /* Getters */
 
 /**
- * @brief Returns the Object tracked.
+ * @brief Returns the IStuff::Object tracked.
  *
- * @return The Object.
+ * @return The IStuff::Object.
  */
 Object Tracker::getObject()
 {
@@ -64,9 +64,9 @@ Object Tracker::getObject()
 }
 
 /**
- * @brief Checks whether this Tracker is actualizing an Object.
+ * @brief Checks whether this IStuff::Tracker is actualizing an IStuff::Object.
  *
- * @return 
+ * @return `true` if actualizing, `false` otherwise.
  */
 bool Tracker::isRunning() const
 {
@@ -76,16 +76,15 @@ bool Tracker::isRunning() const
 
 /* Other methods */
 
-
 /**
- * @brief Tracks the current object between the last frame and this one.
- * @details This method changes the the actual object and the last frame held
- *	by the class. Also, if there's a recognition is in progress, the new frame
- *	is stored.
- *
- * @param[in] new_frame	The frame where to track the Object.
+ * @brief Tracks the current IStuff::Object between the last frame and this one.
+ * @details This method changes the the actual IStuff::Object and the last
+ *	frame held by the class. Also, if there's a recognition is in progress,
+ *	the new frame is stored.
+ * 
+ * @param[in] new_frame	The frame where to track the IStuff::Object.
  */
-void Tracker::trackFrame(Mat new_frame)
+void Tracker::trackFrame(cv::Mat new_frame)
 {
 	if (debug)
 		cerr << TAG << ": Tracking external object.\n";
@@ -94,6 +93,7 @@ void Tracker::trackFrame(Mat new_frame)
 
 	last_frame = new_frame;
 
+	// Synchronized
 	{
 		upgrade_lock<shared_mutex> lock(history_update);
 
@@ -109,15 +109,15 @@ void Tracker::trackFrame(Mat new_frame)
 }
 
 /**
- * @brief Tracks the given object between the two given frames.
- *
- * @param[in] old_frame		The frame whose the Object is referred to.
- * @param[in] new_frame		The frame where to track the Object.
- * @param[in] old_object	The Object to be tracked.
- *
- * @return The new Object tracked in the new frame.
+ * @brief Tracks the given IStuff::Object between the two given frames.
+ * 
+ * @param[in] old_frame		The frame whose the IStuff::Object is referred to.
+ * @param[in] new_frame		The frame where to track the IStuff::Object.
+ * @param[in] old_object	The IStuff::Object to be tracked.
+ * 
+ * @return The new IStuff::Object tracked in the new frame.
  */
-Object Tracker::trackFrame(Mat old_frame, Mat new_frame, Object old_object)
+Object Tracker::trackFrame(cv::Mat old_frame, cv::Mat new_frame, Object old_object)
 {
 	if (debug)
 		cerr << TAG << ": Tracking object.\n";
@@ -129,11 +129,11 @@ Object Tracker::trackFrame(Mat old_frame, Mat new_frame, Object old_object)
 }
 
 /**
- * @brief Makes the tracking for a given Object on every frame stored.
+ * @brief Makes the tracking for a given IStuff::Object on every frame stored.
  * @details This method is thread-ready, containing interruption points.
- *	At every step, a frame is removed from the queue and the class' Object is
- *	replaced.
- *
+ *	At every step, a frame is removed from the queue and the class'
+ *	IStuff::Object is replaced.
+ * 
  * @param old_object The object to be actualized.
  */
 void Tracker::actualizeObject(Object old_object)
@@ -206,7 +206,7 @@ void Tracker::actualizeObject(Object old_object)
 /**
  * @brief Method to do the actualization process in a separate thread.
  *
- * @param[in] old_object	The Object to be actualized.
+ * @param[in] old_object	The IStuff::Object to be actualized.
  *
  * @return `true` if the thread is started, `false` if it was already running.
  */
@@ -233,21 +233,22 @@ bool Tracker::backgroundActualizeObject(Object old_object)
 }
 
 /**
- * @brief Method to send messages to this Tracker.
+ * @brief Method to send messages to this IStuff::Tracker.
  * @details Managed messages:<br />
  *	<dl>
- *		<dt>MSG_RECOGNITION_START</dt>
+ *		<dt>IStuff::Manager::MSG_RECOGNITION_START</dt>
  *		<dd>data: cv::Mat<br />
  *		This causes the other methods to start saving the frames,
- *		if they aren't already. This also resets a counter used to discard possible
- *		unactualized frames when the recognition ends.</dd>
- *		<dt>MSG_RECOGNITION_END</dt>
- *		<dd>data: Object<br />
- *		This causes the Tracker to start actualizing the new Object using
- *		the frames captured during the recognition process.<br />
+ *		if they aren't already. This also resets a counter used to discard
+ *		possible unactualized frames when the recognition ends.</dd>
+ *		<dt>IStuff::Manager::MSG_RECOGNITION_END</dt>
+ *		<dd>data: IStuff::Object<br />
+ *		This causes the IStuff::Tracker to start actualizing the new
+ *		IStuff::Object using the frames captured during the recognition
+ *		process.<br />
  *		If the actualization was already happening, the process is interrupted,
- *		the unactualized frames are discarded and the current object is substituted
- *		before restarting the actualization.</dd>
+ *		the unactualized frames are discarded and the current IStuff::Object is
+ *		substituted before restarting the actualization.</dd>
  *	</dl>
  *
  * @param[in] msg				The message identifier.

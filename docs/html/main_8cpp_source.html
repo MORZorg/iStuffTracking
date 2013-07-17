@@ -45,6 +45,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -91,7 +92,7 @@ $(document).ready(function(){initNavTree('main_8cpp_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -141,7 +142,7 @@ $(document).ready(function(){initNavTree('main_8cpp_source.html','');});
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;          <span class="keywordflow">case</span> 0:</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;          <span class="keywordflow">case</span> <span class="charliteral">&#39;0&#39;</span>:</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            cerr &lt;&lt; <span class="stringliteral">&quot;Full debug on.\n&quot;</span>;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            debug = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            <a class="code" href="manager_8h.html#a398527b3e9e358c345c5047b16871957">debug</a> = <span class="keyword">true</span>;</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;          <span class="keywordflow">case</span> <span class="charliteral">&#39;1&#39;</span>:</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            cerr &lt;&lt; <span class="stringliteral">&quot;Sbra debug on.\n&quot;</span>;</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            <span class="keywordflow">break</span>;</div>
@@ -161,7 +162,7 @@ $(document).ready(function(){initNavTree('main_8cpp_source.html','');});
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    }</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  }</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  <span class="keywordflow">if</span> (debug)</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="manager_8h.html#a398527b3e9e358c345c5047b16871957">debug</a>)</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    cerr &lt;&lt; <span class="stringliteral">&quot;Flags parsed. Starting.\n&quot;</span>;</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  namedWindow(<span class="stringliteral">&quot;Camera&quot;</span>, CV_WINDOW_AUTOSIZE);</div>
@@ -178,7 +179,7 @@ $(document).ready(function(){initNavTree('main_8cpp_source.html','');});
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    Mat frame;</div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    capture &gt;&gt; frame;</div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        manager.<a class="code" href="class_i_stuff_1_1_manager.html#a47f17fa372382713bcc0f37aae006745" title="Elaborates a frame, searching for the object. ">elaborateFrame</a>(frame);</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        manager.<a class="code" href="class_i_stuff_1_1_manager.html#a47f17fa372382713bcc0f37aae006745" title="Elaborates a frame, searching for the IStuff::Object. ">elaborateFrame</a>(frame);</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        </div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    imshow(<span class="stringliteral">&quot;Camera&quot;</span>, frame);</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;  }</div>
@@ -204,7 +205,7 @@ $(document).ready(function(){initNavTree('main_8cpp_source.html','');});
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="main_8cpp.html">main.cpp</a></li>
-    <li class="footer">Generated on Tue Jul 16 2013 18:16:55 for iStuffTracking by
+    <li class="footer">Generated on Thu Jul 18 2013 00:01:06 for iStuffTracking by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
   </ul>

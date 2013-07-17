@@ -45,6 +45,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -75,6 +76,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li class="current"><a href="globals.html"><span>All</span></a></li>
       <li><a href="globals_func.html"><span>Functions</span></a></li>
+      <li><a href="globals_vars.html"><span>Variables</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
@@ -97,7 +99,7 @@ $(document).ready(function(){initNavTree('globals.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -107,16 +109,21 @@ $(document).ready(function(){initNavTree('globals.html','');});
 </div>
 
 <div class="contents">
-<div class="textblock">Here is a list of all documented file members with links to the documentation:</div><ul>
+<div class="textblock">Here is a list of all file members with links to the files they belong to:</div><ul>
+<li>debug
+: <a class="el" href="manager_8h.html#a398527b3e9e358c345c5047b16871957">manager.h</a>
+, <a class="el" href="main_8h.html#a398527b3e9e358c345c5047b16871957">main.h</a>
+, <a class="el" href="tracker_8h.html#a398527b3e9e358c345c5047b16871957">tracker.h</a>
+, <a class="el" href="recognizer_8h.html#a398527b3e9e358c345c5047b16871957">recognizer.h</a>
+, <a class="el" href="object_8h.html#a398527b3e9e358c345c5047b16871957">object.h</a>
+</li>
 <li>main()
 : <a class="el" href="main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97">main.cpp</a>
-</li>
-<li>paintObject()
-: <a class="el" href="manager_8cpp.html#a5fa8561285318b2719117996c2171214">manager.cpp</a>
+, <a class="el" href="main_8h.html#a2c3f6775325c30275d11c6abee2db6a0">main.h</a>
 </li>
 <li>printHelp()
-: <a class="el" href="main_8h.html#a0d20b69b0ad703df78459e1033d5c1d4">main.h</a>
-, <a class="el" href="main_8cpp.html#a0d20b69b0ad703df78459e1033d5c1d4">main.cpp</a>
+: <a class="el" href="main_8cpp.html#a0d20b69b0ad703df78459e1033d5c1d4">main.cpp</a>
+, <a class="el" href="main_8h.html#a0d20b69b0ad703df78459e1033d5c1d4">main.h</a>
 </li>
 </ul>
 </div><!-- contents -->
@@ -124,7 +131,7 @@ $(document).ready(function(){initNavTree('globals.html','');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Tue Jul 16 2013 18:16:55 for iStuffTracking by
+    <li class="footer">Generated on Thu Jul 18 2013 00:01:07 for iStuffTracking by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
   </ul>

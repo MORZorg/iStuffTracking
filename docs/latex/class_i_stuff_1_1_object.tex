@@ -6,30 +6,33 @@
 Class used to represent a three dimensional object.  
 
 
+
+
+{\ttfamily \#include $<$object.\-h$>$}
+
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{class_i_stuff_1_1_object_a40860402e64d8008fb42329df7097cdb}{\hyperlink{class_i_stuff_1_1_object_a40860402e64d8008fb42329df7097cdb}{Object} ()}\label{class_i_stuff_1_1_object_a40860402e64d8008fb42329df7097cdb}
-
+\hyperlink{class_i_stuff_1_1_object_a40860402e64d8008fb42329df7097cdb}{Object} ()
 \begin{DoxyCompactList}\small\item\em Constructs a new object. \end{DoxyCompactList}\item 
-void \hyperlink{class_i_stuff_1_1_object_aee004eb2e471cda24ad4a58f6ae55b41}{set\-Label} (const Label, const std\-::vector$<$ cv\-::\-Point2f $>$)
-\begin{DoxyCompactList}\small\item\em Changes a Label of this \hyperlink{class_i_stuff_1_1_object}{Object} to represent a different mask. \end{DoxyCompactList}\item 
-void \hyperlink{class_i_stuff_1_1_object_ab9f6cf27353153dd8c9d3e55c7321f7f}{remove\-Label} (const Label)
-\begin{DoxyCompactList}\small\item\em Removes a Label from this \hyperlink{class_i_stuff_1_1_object}{Object}. \end{DoxyCompactList}\item 
-std\-::vector$<$ cv\-::\-Point2f $>$ \hyperlink{class_i_stuff_1_1_object_a469d14582bee7d25f546742d75f7eae4}{get\-Mask} (const Label) const 
-\begin{DoxyCompactList}\small\item\em Returns the mask associated to a Label. \end{DoxyCompactList}\end{DoxyCompactItemize}
+virtual \hyperlink{class_i_stuff_1_1_object_ae8f5483f459e46687bd01e6f9977afd3}{$\sim$\-Object} ()
+\item 
+void \hyperlink{class_i_stuff_1_1_object_aee004eb2e471cda24ad4a58f6ae55b41}{set\-Label} (const \hyperlink{namespace_i_stuff_a88882361612ef78eee4224382c8d126b}{Label}, const std\-::vector$<$ cv\-::\-Point2f $>$)
+\begin{DoxyCompactList}\small\item\em Changes a \hyperlink{namespace_i_stuff_a88882361612ef78eee4224382c8d126b}{I\-Stuff\-::\-Label} of this \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object} to represent a different mask. \end{DoxyCompactList}\item 
+void \hyperlink{class_i_stuff_1_1_object_ab9f6cf27353153dd8c9d3e55c7321f7f}{remove\-Label} (const \hyperlink{namespace_i_stuff_a88882361612ef78eee4224382c8d126b}{Label})
+\begin{DoxyCompactList}\small\item\em Removes a \hyperlink{namespace_i_stuff_a88882361612ef78eee4224382c8d126b}{I\-Stuff\-::\-Label} from this \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object}. \end{DoxyCompactList}\item 
+std\-::vector$<$ cv\-::\-Point2f $>$ \hyperlink{class_i_stuff_1_1_object_a469d14582bee7d25f546742d75f7eae4}{get\-Mask} (const \hyperlink{namespace_i_stuff_a88882361612ef78eee4224382c8d126b}{Label}) const 
+\begin{DoxyCompactList}\small\item\em Returns the mask associated to a \hyperlink{namespace_i_stuff_a88882361612ef78eee4224382c8d126b}{I\-Stuff\-::\-Label}. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{class_i_stuff_1_1_object_a5513b3d190ca3af9395d66c79e736f06}{std\-::map$<$ Label, std\-::vector\\*
-$<$ cv\-::\-Point2f $>$ $>$ {\bfseries description}}\label{class_i_stuff_1_1_object_a5513b3d190ca3af9395d66c79e736f06}
-
+std\-::map$<$ \hyperlink{namespace_i_stuff_a88882361612ef78eee4224382c8d126b}{Label}, std\-::vector\\*
+$<$ cv\-::\-Point2f $>$ $>$ \hyperlink{class_i_stuff_1_1_object_a5513b3d190ca3af9395d66c79e736f06}{description}
 \end{DoxyCompactItemize}
 \subsection*{Static Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{class_i_stuff_1_1_object_a2ba8d34aa857298238f9800e1f3ddb1e}{static const char {\bfseries T\-A\-G} \mbox{[}$\,$\mbox{]} = \char`\"{}Obj\char`\"{}}\label{class_i_stuff_1_1_object_a2ba8d34aa857298238f9800e1f3ddb1e}
-
+static const char \hyperlink{class_i_stuff_1_1_object_a2ba8d34aa857298238f9800e1f3ddb1e}{T\-A\-G} \mbox{[}$\,$\mbox{]} = \char`\"{}Obj\char`\"{}
 \end{DoxyCompactItemize}
 
 
@@ -51,45 +54,74 @@ Definition at line 27 of file object.\-h.
 
 
 
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_i_stuff_1_1_object_a40860402e64d8008fb42329df7097cdb}{\index{I\-Stuff\-::\-Object@{I\-Stuff\-::\-Object}!Object@{Object}}
+\index{Object@{Object}!IStuff::Object@{I\-Stuff\-::\-Object}}
+\subsubsection[{Object}]{\setlength{\rightskip}{0pt plus 5cm}Object\-::\-Object (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_i_stuff_1_1_object_a40860402e64d8008fb42329df7097cdb}
+
+
+Constructs a new object. 
+
+
+
+Definition at line 23 of file object.\-cpp.
+
+\hypertarget{class_i_stuff_1_1_object_ae8f5483f459e46687bd01e6f9977afd3}{\index{I\-Stuff\-::\-Object@{I\-Stuff\-::\-Object}!$\sim$\-Object@{$\sim$\-Object}}
+\index{$\sim$\-Object@{$\sim$\-Object}!IStuff::Object@{I\-Stuff\-::\-Object}}
+\subsubsection[{$\sim$\-Object}]{\setlength{\rightskip}{0pt plus 5cm}Object\-::$\sim$\-Object (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_i_stuff_1_1_object_ae8f5483f459e46687bd01e6f9977afd3}
+
+
+Definition at line 26 of file object.\-cpp.
+
+
+
 \subsection{Member Function Documentation}
 \hypertarget{class_i_stuff_1_1_object_a469d14582bee7d25f546742d75f7eae4}{\index{I\-Stuff\-::\-Object@{I\-Stuff\-::\-Object}!get\-Mask@{get\-Mask}}
 \index{get\-Mask@{get\-Mask}!IStuff::Object@{I\-Stuff\-::\-Object}}
 \subsubsection[{get\-Mask}]{\setlength{\rightskip}{0pt plus 5cm}vector$<$ Point2f $>$ Object\-::get\-Mask (
 \begin{DoxyParamCaption}
-\item[{const Label}]{label}
+\item[{const {\bf Label}}]{label}
 \end{DoxyParamCaption}
 ) const}}\label{class_i_stuff_1_1_object_a469d14582bee7d25f546742d75f7eae4}
 
 
-Returns the mask associated to a Label. 
+Returns the mask associated to a \hyperlink{namespace_i_stuff_a88882361612ef78eee4224382c8d126b}{I\-Stuff\-::\-Label}. 
 
 
 \begin{DoxyExceptions}{Exceptions}
-{\em out\-\_\-of\-\_\-range} & If the Label searched does not exist.\\
+{\em std\-::out\-\_\-of\-\_\-range} & If the \hyperlink{namespace_i_stuff_a88882361612ef78eee4224382c8d126b}{I\-Stuff\-::\-Label} searched does not exist.\\
 \hline
 \end{DoxyExceptions}
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em label} & The Label to search for.\\
+\mbox{\tt in}  & {\em label} & The \hyperlink{namespace_i_stuff_a88882361612ef78eee4224382c8d126b}{I\-Stuff\-::\-Label} to search for.\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-The mask associated to the input Label. 
+The mask associated to the input \hyperlink{namespace_i_stuff_a88882361612ef78eee4224382c8d126b}{I\-Stuff\-::\-Label}. 
 \end{DoxyReturn}
 
 
-Definition at line 63 of file object.\-cpp.
+Definition at line 64 of file object.\-cpp.
 
 \hypertarget{class_i_stuff_1_1_object_ab9f6cf27353153dd8c9d3e55c7321f7f}{\index{I\-Stuff\-::\-Object@{I\-Stuff\-::\-Object}!remove\-Label@{remove\-Label}}
 \index{remove\-Label@{remove\-Label}!IStuff::Object@{I\-Stuff\-::\-Object}}
 \subsubsection[{remove\-Label}]{\setlength{\rightskip}{0pt plus 5cm}void Object\-::remove\-Label (
 \begin{DoxyParamCaption}
-\item[{const Label}]{label}
+\item[{const {\bf Label}}]{label}
 \end{DoxyParamCaption}
 )}}\label{class_i_stuff_1_1_object_ab9f6cf27353153dd8c9d3e55c7321f7f}
 
 
-Removes a Label from this \hyperlink{class_i_stuff_1_1_object}{Object}. 
+Removes a \hyperlink{namespace_i_stuff_a88882361612ef78eee4224382c8d126b}{I\-Stuff\-::\-Label} from this \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object}. 
 
 
 \begin{DoxyParams}[1]{Parameters}
@@ -98,32 +130,49 @@ Removes a Label from this \hyperlink{class_i_stuff_1_1_object}{Object}.
 \end{DoxyParams}
 
 
-Definition at line 48 of file object.\-cpp.
+Definition at line 49 of file object.\-cpp.
 
 \hypertarget{class_i_stuff_1_1_object_aee004eb2e471cda24ad4a58f6ae55b41}{\index{I\-Stuff\-::\-Object@{I\-Stuff\-::\-Object}!set\-Label@{set\-Label}}
 \index{set\-Label@{set\-Label}!IStuff::Object@{I\-Stuff\-::\-Object}}
 \subsubsection[{set\-Label}]{\setlength{\rightskip}{0pt plus 5cm}void Object\-::set\-Label (
 \begin{DoxyParamCaption}
-\item[{const Label}]{, }
+\item[{const {\bf Label}}]{, }
 \item[{const std\-::vector$<$ cv\-::\-Point2f $>$}]{}
 \end{DoxyParamCaption}
 )}}\label{class_i_stuff_1_1_object_aee004eb2e471cda24ad4a58f6ae55b41}
 
 
-Changes a Label of this \hyperlink{class_i_stuff_1_1_object}{Object} to represent a different mask. 
+Changes a \hyperlink{namespace_i_stuff_a88882361612ef78eee4224382c8d126b}{I\-Stuff\-::\-Label} of this \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object} to represent a different mask. 
 
-If the Label isn't currently part of the \hyperlink{class_i_stuff_1_1_object}{Object}, it is added.
+If the \hyperlink{namespace_i_stuff_a88882361612ef78eee4224382c8d126b}{I\-Stuff\-::\-Label} isn't currently part of the \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object}, it is added.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em label} & The label to be changed or added. \\
+\mbox{\tt in}  & {\em label} & the \hyperlink{namespace_i_stuff_a88882361612ef78eee4224382c8d126b}{I\-Stuff\-::\-Label} to be changed or added. \\
 \hline
 \mbox{\tt in}  & {\em mask} & The new mask to be associated. \\
 \hline
 \end{DoxyParams}
 
 
-Definition at line 38 of file object.\-cpp.
+Definition at line 39 of file object.\-cpp.
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{class_i_stuff_1_1_object_a5513b3d190ca3af9395d66c79e736f06}{\index{I\-Stuff\-::\-Object@{I\-Stuff\-::\-Object}!description@{description}}
+\index{description@{description}!IStuff::Object@{I\-Stuff\-::\-Object}}
+\subsubsection[{description}]{\setlength{\rightskip}{0pt plus 5cm}std\-::map$<$ {\bf Label}, std\-::vector$<$cv\-::\-Point2f$>$ $>$ I\-Stuff\-::\-Object\-::description\hspace{0.3cm}{\ttfamily [private]}}}\label{class_i_stuff_1_1_object_a5513b3d190ca3af9395d66c79e736f06}
+
+
+Definition at line 33 of file object.\-h.
+
+\hypertarget{class_i_stuff_1_1_object_a2ba8d34aa857298238f9800e1f3ddb1e}{\index{I\-Stuff\-::\-Object@{I\-Stuff\-::\-Object}!T\-A\-G@{T\-A\-G}}
+\index{T\-A\-G@{T\-A\-G}!IStuff::Object@{I\-Stuff\-::\-Object}}
+\subsubsection[{T\-A\-G}]{\setlength{\rightskip}{0pt plus 5cm}const char Object\-::\-T\-A\-G = \char`\"{}Obj\char`\"{}\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}}\label{class_i_stuff_1_1_object_a2ba8d34aa857298238f9800e1f3ddb1e}
+
+
+Definition at line 31 of file object.\-h.
 
 
 

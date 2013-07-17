@@ -45,6 +45,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -92,7 +93,7 @@ $(document).ready(function(){initNavTree('class_i_stuff_1_1_recognizer.html','')
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,21 +110,22 @@ $(document).ready(function(){initNavTree('class_i_stuff_1_1_recognizer.html','')
 
 <p>This is the complete list of members for <a class="el" href="class_i_stuff_1_1_recognizer.html">IStuff::Recognizer</a>, including all inherited members.</p>
 <table class="directory">
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>backgroundRecognizeFrame</b>(cv::Mat, Manager *) (defined in <a class="el" href="class_i_stuff_1_1_recognizer.html">IStuff::Recognizer</a>)</td><td class="entry"><a class="el" href="class_i_stuff_1_1_recognizer.html">IStuff::Recognizer</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_i_stuff_1_1_recognizer.html#ad4e54485be9385a287bc51670247b0cc">backgroundRecognizeFrame</a>(cv::Mat, Manager *)</td><td class="entry"><a class="el" href="class_i_stuff_1_1_recognizer.html">IStuff::Recognizer</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="class_i_stuff_1_1_recognizer.html#aac5297071c1f6ff12049a58c88bb3952">isRunning</a>() const </td><td class="entry"><a class="el" href="class_i_stuff_1_1_recognizer.html">IStuff::Recognizer</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>matcher</b> (defined in <a class="el" href="class_i_stuff_1_1_recognizer.html">IStuff::Recognizer</a>)</td><td class="entry"><a class="el" href="class_i_stuff_1_1_recognizer.html">IStuff::Recognizer</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_i_stuff_1_1_recognizer.html#afaba7db86af7bbf83f12472b7fc11e93">matcher</a></td><td class="entry"><a class="el" href="class_i_stuff_1_1_recognizer.html">IStuff::Recognizer</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
   <tr><td class="entry"><a class="el" href="class_i_stuff_1_1_recognizer.html#a6505a142d08eaf1e8f6a1f95571a4c7a">recognizeFrame</a>(cv::Mat)</td><td class="entry"><a class="el" href="class_i_stuff_1_1_recognizer.html">IStuff::Recognizer</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_i_stuff_1_1_recognizer.html#a4bf77b760d8dbc50c4ef50cad433db40">Recognizer</a>()</td><td class="entry"><a class="el" href="class_i_stuff_1_1_recognizer.html">IStuff::Recognizer</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>running</b> (defined in <a class="el" href="class_i_stuff_1_1_recognizer.html">IStuff::Recognizer</a>)</td><td class="entry"><a class="el" href="class_i_stuff_1_1_recognizer.html">IStuff::Recognizer</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_i_stuff_1_1_recognizer.html#a37fe89eb44d68215cab011b1962b8293">setDatabase</a>(Database *)</td><td class="entry"><a class="el" href="class_i_stuff_1_1_recognizer.html">IStuff::Recognizer</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>TAG</b> (defined in <a class="el" href="class_i_stuff_1_1_recognizer.html">IStuff::Recognizer</a>)</td><td class="entry"><a class="el" href="class_i_stuff_1_1_recognizer.html">IStuff::Recognizer</a></td><td class="entry"><span class="mlabel">private</span><span class="mlabel">static</span></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>~Recognizer</b>() (defined in <a class="el" href="class_i_stuff_1_1_recognizer.html">IStuff::Recognizer</a>)</td><td class="entry"><a class="el" href="class_i_stuff_1_1_recognizer.html">IStuff::Recognizer</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_i_stuff_1_1_recognizer.html#a9460f3d799e5a46ee9861f177e0d9988">running</a></td><td class="entry"><a class="el" href="class_i_stuff_1_1_recognizer.html">IStuff::Recognizer</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_i_stuff_1_1_recognizer.html#a1bb1a4e7045eb4d84d84dac439e9c762">sendMessage</a>(int, void *, void *=NULL)</td><td class="entry"><a class="el" href="class_i_stuff_1_1_recognizer.html">IStuff::Recognizer</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="class_i_stuff_1_1_recognizer.html#a37fe89eb44d68215cab011b1962b8293">setDatabase</a>(Database *)</td><td class="entry"><a class="el" href="class_i_stuff_1_1_recognizer.html">IStuff::Recognizer</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_i_stuff_1_1_recognizer.html#a90ec5deceaef320be5e825f653dcf7f1">TAG</a></td><td class="entry"><a class="el" href="class_i_stuff_1_1_recognizer.html">IStuff::Recognizer</a></td><td class="entry"><span class="mlabel">private</span><span class="mlabel">static</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_i_stuff_1_1_recognizer.html#aa0035e71951a13fe00764a54913d0e5a">~Recognizer</a>()</td><td class="entry"><a class="el" href="class_i_stuff_1_1_recognizer.html">IStuff::Recognizer</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Tue Jul 16 2013 18:16:55 for iStuffTracking by
+    <li class="footer">Generated on Thu Jul 18 2013 00:01:07 for iStuffTracking by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
   </ul>

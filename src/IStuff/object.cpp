@@ -29,10 +29,11 @@ Object::~Object()
 /* Setters */
 
 /**
- * @brief Changes a Label of this Object to represent a different mask.
- * @details If the Label isn't currently part of the Object, it is added.
+ * @brief Changes a IStuff::Label of this IStuff::Object to represent a different mask.
+ * @details If the IStuff::Label isn't currently part of the IStuff::Object,
+ *	it is added.
  *
- * @param[in] label	The label to be changed or added.
+ * @param[in] label	the IStuff::Label to be changed or added.
  * @param[in] mask	The new mask to be associated.
  */
 void Object::setLabel(const Label label, const vector<Point2f> mask)
@@ -41,7 +42,7 @@ void Object::setLabel(const Label label, const vector<Point2f> mask)
 }
 
 /**
- * @brief Removes a Label from this Object.
+ * @brief Removes a IStuff::Label from this IStuff::Object.
  *
  * @param[in] label
  */
@@ -53,12 +54,12 @@ void Object::removeLabel(const Label label)
 /* Getters */
 
 /**
- * @brief Returns the mask associated to a Label.
- * @throw out_of_range If the Label searched does not exist.
+ * @brief Returns the mask associated to a IStuff::Label.
+ * @throw std::out_of_range If the IStuff::Label searched does not exist.
  *
- * @param[in] label	The Label to search for.
+ * @param[in] label	The IStuff::Label to search for.
  *
- * @return The mask associated to the input Label.
+ * @return The mask associated to the input IStuff::Label.
  */
 vector<Point2f> Object::getMask(const Label label) const
 {

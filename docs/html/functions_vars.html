@@ -45,6 +45,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -99,7 +100,7 @@ $(document).ready(function(){initNavTree('functions_vars.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -110,8 +111,60 @@ $(document).ready(function(){initNavTree('functions_vars.html','');});
 
 <div class="contents">
 &#160;<ul>
+<li>actual_object
+: <a class="el" href="class_i_stuff_1_1_manager.html#a9b898107c919a3ba73f60278c9c05742">IStuff::Manager</a>
+, <a class="el" href="class_i_stuff_1_1_tracker.html#a304bacfdb3444d47018f0840c8db0106">IStuff::Tracker</a>
+</li>
+<li>database
+: <a class="el" href="class_i_stuff_1_1_manager.html#aae57c3ee778cb782dc8dc954a6667c73">IStuff::Manager</a>
+</li>
+<li>description
+: <a class="el" href="class_i_stuff_1_1_object.html#a5513b3d190ca3af9395d66c79e736f06">IStuff::Object</a>
+</li>
+<li>frame_history
+: <a class="el" href="class_i_stuff_1_1_tracker.html#a5244d9783d84966bb86988e674227a8e">IStuff::Tracker</a>
+</li>
 <li>frames_tracked_count
-: <a class="el" href="class_i_stuff_1_1_manager.html#a3cacb02ece1a4938e7754ad553c91a74">IStuff::Manager</a>
+: <a class="el" href="class_i_stuff_1_1_tracker.html#a4b61344f6dea5d440399261c8d037415">IStuff::Tracker</a>
+, <a class="el" href="class_i_stuff_1_1_manager.html#a3cacb02ece1a4938e7754ad553c91a74">IStuff::Manager</a>
+</li>
+<li>history_update
+: <a class="el" href="class_i_stuff_1_1_tracker.html#a7d60cb5e6f1102906ad0f3653df0f14b">IStuff::Tracker</a>
+</li>
+<li>last_frame
+: <a class="el" href="class_i_stuff_1_1_tracker.html#a656020d6fe4cac1807961417192aaacb">IStuff::Tracker</a>
+</li>
+<li>matcher
+: <a class="el" href="class_i_stuff_1_1_recognizer.html#afaba7db86af7bbf83f12472b7fc11e93">IStuff::Recognizer</a>
+</li>
+<li>MSG_RECOGNITION_END
+: <a class="el" href="class_i_stuff_1_1_manager.html#a4c465ff50b8eddde0e5fd8b4d3e37bbc">IStuff::Manager</a>
+</li>
+<li>MSG_RECOGNITION_START
+: <a class="el" href="class_i_stuff_1_1_manager.html#af7f9a2cc3c53b7cf351a12f179230da7">IStuff::Manager</a>
+</li>
+<li>object_update
+: <a class="el" href="class_i_stuff_1_1_manager.html#a9b4234320a01a049bc10f9f13d612fc4">IStuff::Manager</a>
+, <a class="el" href="class_i_stuff_1_1_tracker.html#a395a42f0c4888461053315b24f9c7892">IStuff::Tracker</a>
+</li>
+<li>RECOGNITION_PERIOD
+: <a class="el" href="class_i_stuff_1_1_manager.html#a58f0beb39eea21e78a8983e5954065c3">IStuff::Manager</a>
+</li>
+<li>recognizer
+: <a class="el" href="class_i_stuff_1_1_manager.html#ac039aa2e611b04595e4ff69d3534b4cc">IStuff::Manager</a>
+</li>
+<li>running
+: <a class="el" href="class_i_stuff_1_1_recognizer.html#a9460f3d799e5a46ee9861f177e0d9988">IStuff::Recognizer</a>
+, <a class="el" href="class_i_stuff_1_1_tracker.html#aa7e9ed78659336011a3ac499be0674e9">IStuff::Tracker</a>
+</li>
+<li>TAG
+: <a class="el" href="class_i_stuff_1_1_manager.html#a0228682f317a86ce7057b86e9d229ac6">IStuff::Manager</a>
+, <a class="el" href="class_i_stuff_1_1_object.html#a2ba8d34aa857298238f9800e1f3ddb1e">IStuff::Object</a>
+, <a class="el" href="class_i_stuff_1_1_tracker.html#a68ef6bf09dbf9db7a6788ed899edb28d">IStuff::Tracker</a>
+, <a class="el" href="class_i_stuff_1_1_recognizer.html#a90ec5deceaef320be5e825f653dcf7f1">IStuff::Recognizer</a>
+</li>
+<li>tracker
+: <a class="el" href="class_i_stuff_1_1_manager.html#a3d313f62a1cfe606098fdcb6f1c748ee">IStuff::Manager</a>
 </li>
 </ul>
 </div><!-- contents -->
@@ -119,7 +172,7 @@ $(document).ready(function(){initNavTree('functions_vars.html','');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Tue Jul 16 2013 18:16:55 for iStuffTracking by
+    <li class="footer">Generated on Thu Jul 18 2013 00:01:07 for iStuffTracking by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
   </ul>

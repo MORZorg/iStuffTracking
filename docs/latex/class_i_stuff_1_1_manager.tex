@@ -6,52 +6,55 @@
 Class to manage the joint 3\-D \hyperlink{class_i_stuff_1_1_object}{Object} recognition and tracking.  
 
 
+
+
+{\ttfamily \#include $<$manager.\-h$>$}
+
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{class_i_stuff_1_1_manager_a1658ff9f18e38ccd9cb8b0b371b9c20b}{\hyperlink{class_i_stuff_1_1_manager_a1658ff9f18e38ccd9cb8b0b371b9c20b}{Manager} ()}\label{class_i_stuff_1_1_manager_a1658ff9f18e38ccd9cb8b0b371b9c20b}
-
+\hyperlink{class_i_stuff_1_1_manager_a1658ff9f18e38ccd9cb8b0b371b9c20b}{Manager} ()
 \begin{DoxyCompactList}\small\item\em Constructs the class. \end{DoxyCompactList}\item 
+virtual \hyperlink{class_i_stuff_1_1_manager_a322cad25d7007438b3a043ad02253d29}{$\sim$\-Manager} ()
+\item 
 void \hyperlink{class_i_stuff_1_1_manager_aa91ba11affc3ec961acaf81fc5c5e62d}{set\-Database} (Database $\ast$)
-\begin{DoxyCompactList}\small\item\em Changes the database used to identify the object. \end{DoxyCompactList}\item 
-void \hyperlink{class_i_stuff_1_1_manager_ab90926d6eb67361ac587d10081aef667}{set\-Object} (\hyperlink{class_i_stuff_1_1_object}{Object})
-\begin{DoxyCompactList}\small\item\em Changes the current description of the object. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Changes the I\-Stuff\-::\-Database used to identify the \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object}. \end{DoxyCompactList}\item 
 \hyperlink{class_i_stuff_1_1_object}{Object} \hyperlink{class_i_stuff_1_1_manager_a80d15a0a83976f63c357f65b20387e02}{get\-Object} ()
-\begin{DoxyCompactList}\small\item\em Returns the current description of the object. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Returns the current description of the \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object}. \end{DoxyCompactList}\item 
 void \hyperlink{class_i_stuff_1_1_manager_a47f17fa372382713bcc0f37aae006745}{elaborate\-Frame} (cv\-::\-Mat)
-\begin{DoxyCompactList}\small\item\em Elaborates a frame, searching for the object. \end{DoxyCompactList}\item 
-\hypertarget{class_i_stuff_1_1_manager_afed6c2adc5a4b65bd630d2a042df987b}{cv\-::\-Mat {\bfseries paint\-Object} (cv\-::\-Mat)}\label{class_i_stuff_1_1_manager_afed6c2adc5a4b65bd630d2a042df987b}
-
+\begin{DoxyCompactList}\small\item\em Elaborates a frame, searching for the \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object}. \end{DoxyCompactList}\item 
+cv\-::\-Mat \hyperlink{class_i_stuff_1_1_manager_a5cc4e8151aa21b873786eb8c0742c3d5}{paint\-Object} (cv\-::\-Mat)
+\begin{DoxyCompactList}\small\item\em Paints the various masks of the \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object} on the frame. \end{DoxyCompactList}\item 
+void \hyperlink{class_i_stuff_1_1_manager_adaef1575710c20ad769c23bb55d2144c}{send\-Message} (int, void $\ast$, void $\ast$=N\-U\-L\-L)
+\begin{DoxyCompactList}\small\item\em Method to send messages to this \hyperlink{class_i_stuff_1_1_manager}{I\-Stuff\-::\-Manager}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static const int \hyperlink{class_i_stuff_1_1_manager_af7f9a2cc3c53b7cf351a12f179230da7}{M\-S\-G\-\_\-\-R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-S\-T\-A\-R\-T} = 1
+\item 
+static const int \hyperlink{class_i_stuff_1_1_manager_a4c465ff50b8eddde0e5fd8b4d3e37bbc}{M\-S\-G\-\_\-\-R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-E\-N\-D} = 2
 \end{DoxyCompactItemize}
 \subsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{class_i_stuff_1_1_manager_a3cacb02ece1a4938e7754ad553c91a74}{int \hyperlink{class_i_stuff_1_1_manager_a3cacb02ece1a4938e7754ad553c91a74}{frames\-\_\-tracked\-\_\-count}}\label{class_i_stuff_1_1_manager_a3cacb02ece1a4938e7754ad553c91a74}
-
+int \hyperlink{class_i_stuff_1_1_manager_a3cacb02ece1a4938e7754ad553c91a74}{frames\-\_\-tracked\-\_\-count}
 \begin{DoxyCompactList}\small\item\em When this reaches R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-P\-E\-R\-I\-O\-D, a new recognition is done. \end{DoxyCompactList}\item 
-\hypertarget{class_i_stuff_1_1_manager_a9b4234320a01a049bc10f9f13d612fc4}{boost\-::shared\-\_\-mutex {\bfseries object\-\_\-update}}\label{class_i_stuff_1_1_manager_a9b4234320a01a049bc10f9f13d612fc4}
-
+boost\-::shared\-\_\-mutex \hyperlink{class_i_stuff_1_1_manager_a9b4234320a01a049bc10f9f13d612fc4}{object\-\_\-update}
 \item 
-\hypertarget{class_i_stuff_1_1_manager_a9b898107c919a3ba73f60278c9c05742}{\hyperlink{class_i_stuff_1_1_object}{Object} {\bfseries actual\-\_\-object}}\label{class_i_stuff_1_1_manager_a9b898107c919a3ba73f60278c9c05742}
-
+\hyperlink{class_i_stuff_1_1_object}{Object} \hyperlink{class_i_stuff_1_1_manager_a9b898107c919a3ba73f60278c9c05742}{actual\-\_\-object}
 \item 
-\hypertarget{class_i_stuff_1_1_manager_aae57c3ee778cb782dc8dc954a6667c73}{Database $\ast$ {\bfseries database}}\label{class_i_stuff_1_1_manager_aae57c3ee778cb782dc8dc954a6667c73}
-
+Database $\ast$ \hyperlink{class_i_stuff_1_1_manager_aae57c3ee778cb782dc8dc954a6667c73}{database}
 \item 
-\hypertarget{class_i_stuff_1_1_manager_a8debd3deef96a862ed16ab3387e10d73}{\hyperlink{class_i_stuff_1_1_recognizer}{Recognizer} $\ast$ {\bfseries recognizer}}\label{class_i_stuff_1_1_manager_a8debd3deef96a862ed16ab3387e10d73}
-
+\hyperlink{class_i_stuff_1_1_recognizer}{Recognizer} \hyperlink{class_i_stuff_1_1_manager_ac039aa2e611b04595e4ff69d3534b4cc}{recognizer}
 \item 
-\hypertarget{class_i_stuff_1_1_manager_a6195abc0b414c5c8ee52415e394a8360}{Tracker $\ast$ {\bfseries tracker}}\label{class_i_stuff_1_1_manager_a6195abc0b414c5c8ee52415e394a8360}
-
+\hyperlink{class_i_stuff_1_1_tracker}{Tracker} \hyperlink{class_i_stuff_1_1_manager_a3d313f62a1cfe606098fdcb6f1c748ee}{tracker}
 \end{DoxyCompactItemize}
 \subsection*{Static Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{class_i_stuff_1_1_manager_a0228682f317a86ce7057b86e9d229ac6}{static const char {\bfseries T\-A\-G} \mbox{[}$\,$\mbox{]} = \char`\"{}Mng\char`\"{}}\label{class_i_stuff_1_1_manager_a0228682f317a86ce7057b86e9d229ac6}
-
+static const char \hyperlink{class_i_stuff_1_1_manager_a0228682f317a86ce7057b86e9d229ac6}{T\-A\-G} \mbox{[}$\,$\mbox{]} = \char`\"{}Mng\char`\"{}
 \item 
-\hypertarget{class_i_stuff_1_1_manager_a58f0beb39eea21e78a8983e5954065c3}{static const int {\bfseries R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-P\-E\-R\-I\-O\-D} = 20}\label{class_i_stuff_1_1_manager_a58f0beb39eea21e78a8983e5954065c3}
-
+static const int \hyperlink{class_i_stuff_1_1_manager_a58f0beb39eea21e78a8983e5954065c3}{R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-P\-E\-R\-I\-O\-D} = 20
 \end{DoxyCompactItemize}
 
 
@@ -69,7 +72,36 @@ Maurizio Zucchelli
 \end{DoxyDate}
 
 
-Definition at line 28 of file manager.\-h.
+Definition at line 26 of file manager.\-h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_i_stuff_1_1_manager_a1658ff9f18e38ccd9cb8b0b371b9c20b}{\index{I\-Stuff\-::\-Manager@{I\-Stuff\-::\-Manager}!Manager@{Manager}}
+\index{Manager@{Manager}!IStuff::Manager@{I\-Stuff\-::\-Manager}}
+\subsubsection[{Manager}]{\setlength{\rightskip}{0pt plus 5cm}Manager\-::\-Manager (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_i_stuff_1_1_manager_a1658ff9f18e38ccd9cb8b0b371b9c20b}
+
+
+Constructs the class. 
+
+
+
+Definition at line 24 of file manager.\-cpp.
+
+\hypertarget{class_i_stuff_1_1_manager_a322cad25d7007438b3a043ad02253d29}{\index{I\-Stuff\-::\-Manager@{I\-Stuff\-::\-Manager}!$\sim$\-Manager@{$\sim$\-Manager}}
+\index{$\sim$\-Manager@{$\sim$\-Manager}!IStuff::Manager@{I\-Stuff\-::\-Manager}}
+\subsubsection[{$\sim$\-Manager}]{\setlength{\rightskip}{0pt plus 5cm}Manager\-::$\sim$\-Manager (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_i_stuff_1_1_manager_a322cad25d7007438b3a043ad02253d29}
+
+
+Definition at line 29 of file manager.\-cpp.
 
 
 
@@ -83,9 +115,9 @@ Definition at line 28 of file manager.\-h.
 )}}\label{class_i_stuff_1_1_manager_a47f17fa372382713bcc0f37aae006745}
 
 
-Elaborates a frame, searching for the object. 
+Elaborates a frame, searching for the \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object}. 
 
-This function alternates the recognition to the tracking, making a new recognition every R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-P\-E\-R\-I\-O\-D frames.
+This function alternates the recognition to the tracking, making a new recognition every \hyperlink{class_i_stuff_1_1_manager_a58f0beb39eea21e78a8983e5954065c3}{I\-Stuff\-::\-Manager\-::\-R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-P\-E\-R\-I\-O\-D} frames.
 
 
 \begin{DoxyParams}{Parameters}
@@ -94,7 +126,7 @@ This function alternates the recognition to the tracking, making a new recogniti
 \end{DoxyParams}
 
 
-Definition at line 97 of file manager.\-cpp.
+Definition at line 68 of file manager.\-cpp.
 
 \hypertarget{class_i_stuff_1_1_manager_a80d15a0a83976f63c357f65b20387e02}{\index{I\-Stuff\-::\-Manager@{I\-Stuff\-::\-Manager}!get\-Object@{get\-Object}}
 \index{get\-Object@{get\-Object}!IStuff::Manager@{I\-Stuff\-::\-Manager}}
@@ -105,16 +137,73 @@ Definition at line 97 of file manager.\-cpp.
 )}}\label{class_i_stuff_1_1_manager_a80d15a0a83976f63c357f65b20387e02}
 
 
-Returns the current description of the object. 
-
-Since it is used by the recognition thread, it is syncrhonized using the R\-W\-L pattern.
+Returns the current description of the \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object}. 
 
 \begin{DoxyReturn}{Returns}
-The current description of the object. 
+The current description of I\-Stuff\-::the \hyperlink{class_i_stuff_1_1_object}{Object}. 
 \end{DoxyReturn}
 
 
-Definition at line 77 of file manager.\-cpp.
+Definition at line 54 of file manager.\-cpp.
+
+\hypertarget{class_i_stuff_1_1_manager_a5cc4e8151aa21b873786eb8c0742c3d5}{\index{I\-Stuff\-::\-Manager@{I\-Stuff\-::\-Manager}!paint\-Object@{paint\-Object}}
+\index{paint\-Object@{paint\-Object}!IStuff::Manager@{I\-Stuff\-::\-Manager}}
+\subsubsection[{paint\-Object}]{\setlength{\rightskip}{0pt plus 5cm}Mat Manager\-::paint\-Object (
+\begin{DoxyParamCaption}
+\item[{cv\-::\-Mat}]{}
+\end{DoxyParamCaption}
+)}}\label{class_i_stuff_1_1_manager_a5cc4e8151aa21b873786eb8c0742c3d5}
+
+
+Paints the various masks of the \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object} on the frame. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em frame} & The frame on which che \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object} must be painted.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A copy of the input frame, with the \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object} painted on it. 
+\end{DoxyReturn}
+
+
+Definition at line 95 of file manager.\-cpp.
+
+\hypertarget{class_i_stuff_1_1_manager_adaef1575710c20ad769c23bb55d2144c}{\index{I\-Stuff\-::\-Manager@{I\-Stuff\-::\-Manager}!send\-Message@{send\-Message}}
+\index{send\-Message@{send\-Message}!IStuff::Manager@{I\-Stuff\-::\-Manager}}
+\subsubsection[{send\-Message}]{\setlength{\rightskip}{0pt plus 5cm}void Manager\-::send\-Message (
+\begin{DoxyParamCaption}
+\item[{int}]{msg, }
+\item[{void $\ast$}]{data, }
+\item[{void $\ast$}]{reply\-\_\-to = {\ttfamily NULL}}
+\end{DoxyParamCaption}
+)}}\label{class_i_stuff_1_1_manager_adaef1575710c20ad769c23bb55d2144c}
+
+
+Method to send messages to this \hyperlink{class_i_stuff_1_1_manager}{I\-Stuff\-::\-Manager}. 
+
+Managed messages\-:\par
+ 
+\begin{DoxyDescription}
+\item[\hyperlink{class_i_stuff_1_1_manager_af7f9a2cc3c53b7cf351a12f179230da7}{I\-Stuff\-::\-Manager\-::\-M\-S\-G\-\_\-\-R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-S\-T\-A\-R\-T} ]data\-: cv\-::\-Mat\par
+ This message is forwarded to both the \hyperlink{class_i_stuff_1_1_recognizer}{Recognizer} (to make it start the recognization) and the \hyperlink{class_i_stuff_1_1_tracker}{Tracker} (to alert it).\par
+ This also resets the counter of frames tracked from last recognition. 
+\item[\hyperlink{class_i_stuff_1_1_manager_a4c465ff50b8eddde0e5fd8b4d3e37bbc}{I\-Stuff\-::\-Manager\-::\-M\-S\-G\-\_\-\-R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-E\-N\-D} ]data\-: \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object}\par
+ This message is forwarded to the \hyperlink{class_i_stuff_1_1_tracker}{Tracker}, to update its \hyperlink{class_i_stuff_1_1_object}{Object}. 
+\end{DoxyDescription}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em msg} & The message identifier. \\
+\hline
+\mbox{\tt in}  & {\em data} & The data related to the message. \\
+\hline
+\mbox{\tt in}  & {\em reply\-\_\-to} & The sender of the message (optional). \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 118 of file manager.\-cpp.
 
 \hypertarget{class_i_stuff_1_1_manager_aa91ba11affc3ec961acaf81fc5c5e62d}{\index{I\-Stuff\-::\-Manager@{I\-Stuff\-::\-Manager}!set\-Database@{set\-Database}}
 \index{set\-Database@{set\-Database}!IStuff::Manager@{I\-Stuff\-::\-Manager}}
@@ -125,40 +214,95 @@ Definition at line 77 of file manager.\-cpp.
 )}}\label{class_i_stuff_1_1_manager_aa91ba11affc3ec961acaf81fc5c5e62d}
 
 
-Changes the database used to identify the object. 
+Changes the I\-Stuff\-::\-Database used to identify the \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object}. 
 
-This means that with high probability a different object will be searched for\-: the next elaboration must be a recognition.
+This means that with high probability a different \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object} will be searched for\-: the next elaboration must be a recognition.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em database} & The new database to be used. \\
+\mbox{\tt in}  & {\em database} & The new I\-Stuff\-::\-Database to be used. \\
 \hline
 \end{DoxyParams}
 
 
-Definition at line 43 of file manager.\-cpp.
-
-\hypertarget{class_i_stuff_1_1_manager_ab90926d6eb67361ac587d10081aef667}{\index{I\-Stuff\-::\-Manager@{I\-Stuff\-::\-Manager}!set\-Object@{set\-Object}}
-\index{set\-Object@{set\-Object}!IStuff::Manager@{I\-Stuff\-::\-Manager}}
-\subsubsection[{set\-Object}]{\setlength{\rightskip}{0pt plus 5cm}void Manager\-::set\-Object (
-\begin{DoxyParamCaption}
-\item[{{\bf Object}}]{new\-\_\-object}
-\end{DoxyParamCaption}
-)}}\label{class_i_stuff_1_1_manager_ab90926d6eb67361ac587d10081aef667}
+Definition at line 41 of file manager.\-cpp.
 
 
-Changes the current description of the object. 
 
-Since it is used by the recognition thread, it is syncrhonized using the R\-W\-L pattern.
-
-
-\begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em new\-\_\-object} & The new description of the object. \\
-\hline
-\end{DoxyParams}
+\subsection{Member Data Documentation}
+\hypertarget{class_i_stuff_1_1_manager_a9b898107c919a3ba73f60278c9c05742}{\index{I\-Stuff\-::\-Manager@{I\-Stuff\-::\-Manager}!actual\-\_\-object@{actual\-\_\-object}}
+\index{actual\-\_\-object@{actual\-\_\-object}!IStuff::Manager@{I\-Stuff\-::\-Manager}}
+\subsubsection[{actual\-\_\-object}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Object} I\-Stuff\-::\-Manager\-::actual\-\_\-object\hspace{0.3cm}{\ttfamily [private]}}}\label{class_i_stuff_1_1_manager_a9b898107c919a3ba73f60278c9c05742}
 
 
-Definition at line 56 of file manager.\-cpp.
+Definition at line 43 of file manager.\-h.
+
+\hypertarget{class_i_stuff_1_1_manager_aae57c3ee778cb782dc8dc954a6667c73}{\index{I\-Stuff\-::\-Manager@{I\-Stuff\-::\-Manager}!database@{database}}
+\index{database@{database}!IStuff::Manager@{I\-Stuff\-::\-Manager}}
+\subsubsection[{database}]{\setlength{\rightskip}{0pt plus 5cm}Database$\ast$ I\-Stuff\-::\-Manager\-::database\hspace{0.3cm}{\ttfamily [private]}}}\label{class_i_stuff_1_1_manager_aae57c3ee778cb782dc8dc954a6667c73}
+
+
+Definition at line 44 of file manager.\-h.
+
+\hypertarget{class_i_stuff_1_1_manager_a3cacb02ece1a4938e7754ad553c91a74}{\index{I\-Stuff\-::\-Manager@{I\-Stuff\-::\-Manager}!frames\-\_\-tracked\-\_\-count@{frames\-\_\-tracked\-\_\-count}}
+\index{frames\-\_\-tracked\-\_\-count@{frames\-\_\-tracked\-\_\-count}!IStuff::Manager@{I\-Stuff\-::\-Manager}}
+\subsubsection[{frames\-\_\-tracked\-\_\-count}]{\setlength{\rightskip}{0pt plus 5cm}int I\-Stuff\-::\-Manager\-::frames\-\_\-tracked\-\_\-count\hspace{0.3cm}{\ttfamily [private]}}}\label{class_i_stuff_1_1_manager_a3cacb02ece1a4938e7754ad553c91a74}
+
+
+When this reaches R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-P\-E\-R\-I\-O\-D, a new recognition is done. 
+
+
+
+Definition at line 40 of file manager.\-h.
+
+\hypertarget{class_i_stuff_1_1_manager_a4c465ff50b8eddde0e5fd8b4d3e37bbc}{\index{I\-Stuff\-::\-Manager@{I\-Stuff\-::\-Manager}!M\-S\-G\-\_\-\-R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-E\-N\-D@{M\-S\-G\-\_\-\-R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-E\-N\-D}}
+\index{M\-S\-G\-\_\-\-R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-E\-N\-D@{M\-S\-G\-\_\-\-R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-E\-N\-D}!IStuff::Manager@{I\-Stuff\-::\-Manager}}
+\subsubsection[{M\-S\-G\-\_\-\-R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-E\-N\-D}]{\setlength{\rightskip}{0pt plus 5cm}const int I\-Stuff\-::\-Manager\-::\-M\-S\-G\-\_\-\-R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-E\-N\-D = 2\hspace{0.3cm}{\ttfamily [static]}}}\label{class_i_stuff_1_1_manager_a4c465ff50b8eddde0e5fd8b4d3e37bbc}
+
+
+Definition at line 31 of file manager.\-h.
+
+\hypertarget{class_i_stuff_1_1_manager_af7f9a2cc3c53b7cf351a12f179230da7}{\index{I\-Stuff\-::\-Manager@{I\-Stuff\-::\-Manager}!M\-S\-G\-\_\-\-R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-S\-T\-A\-R\-T@{M\-S\-G\-\_\-\-R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-S\-T\-A\-R\-T}}
+\index{M\-S\-G\-\_\-\-R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-S\-T\-A\-R\-T@{M\-S\-G\-\_\-\-R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-S\-T\-A\-R\-T}!IStuff::Manager@{I\-Stuff\-::\-Manager}}
+\subsubsection[{M\-S\-G\-\_\-\-R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-S\-T\-A\-R\-T}]{\setlength{\rightskip}{0pt plus 5cm}const int I\-Stuff\-::\-Manager\-::\-M\-S\-G\-\_\-\-R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-S\-T\-A\-R\-T = 1\hspace{0.3cm}{\ttfamily [static]}}}\label{class_i_stuff_1_1_manager_af7f9a2cc3c53b7cf351a12f179230da7}
+
+
+Definition at line 30 of file manager.\-h.
+
+\hypertarget{class_i_stuff_1_1_manager_a9b4234320a01a049bc10f9f13d612fc4}{\index{I\-Stuff\-::\-Manager@{I\-Stuff\-::\-Manager}!object\-\_\-update@{object\-\_\-update}}
+\index{object\-\_\-update@{object\-\_\-update}!IStuff::Manager@{I\-Stuff\-::\-Manager}}
+\subsubsection[{object\-\_\-update}]{\setlength{\rightskip}{0pt plus 5cm}boost\-::shared\-\_\-mutex I\-Stuff\-::\-Manager\-::object\-\_\-update\hspace{0.3cm}{\ttfamily [private]}}}\label{class_i_stuff_1_1_manager_a9b4234320a01a049bc10f9f13d612fc4}
+
+
+Definition at line 41 of file manager.\-h.
+
+\hypertarget{class_i_stuff_1_1_manager_a58f0beb39eea21e78a8983e5954065c3}{\index{I\-Stuff\-::\-Manager@{I\-Stuff\-::\-Manager}!R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-P\-E\-R\-I\-O\-D@{R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-P\-E\-R\-I\-O\-D}}
+\index{R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-P\-E\-R\-I\-O\-D@{R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-P\-E\-R\-I\-O\-D}!IStuff::Manager@{I\-Stuff\-::\-Manager}}
+\subsubsection[{R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-P\-E\-R\-I\-O\-D}]{\setlength{\rightskip}{0pt plus 5cm}const int I\-Stuff\-::\-Manager\-::\-R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-P\-E\-R\-I\-O\-D = 20\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}}\label{class_i_stuff_1_1_manager_a58f0beb39eea21e78a8983e5954065c3}
+
+
+Definition at line 35 of file manager.\-h.
+
+\hypertarget{class_i_stuff_1_1_manager_ac039aa2e611b04595e4ff69d3534b4cc}{\index{I\-Stuff\-::\-Manager@{I\-Stuff\-::\-Manager}!recognizer@{recognizer}}
+\index{recognizer@{recognizer}!IStuff::Manager@{I\-Stuff\-::\-Manager}}
+\subsubsection[{recognizer}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Recognizer} I\-Stuff\-::\-Manager\-::recognizer\hspace{0.3cm}{\ttfamily [private]}}}\label{class_i_stuff_1_1_manager_ac039aa2e611b04595e4ff69d3534b4cc}
+
+
+Definition at line 45 of file manager.\-h.
+
+\hypertarget{class_i_stuff_1_1_manager_a0228682f317a86ce7057b86e9d229ac6}{\index{I\-Stuff\-::\-Manager@{I\-Stuff\-::\-Manager}!T\-A\-G@{T\-A\-G}}
+\index{T\-A\-G@{T\-A\-G}!IStuff::Manager@{I\-Stuff\-::\-Manager}}
+\subsubsection[{T\-A\-G}]{\setlength{\rightskip}{0pt plus 5cm}const char Manager\-::\-T\-A\-G = \char`\"{}Mng\char`\"{}\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}}\label{class_i_stuff_1_1_manager_a0228682f317a86ce7057b86e9d229ac6}
+
+
+Definition at line 34 of file manager.\-h.
+
+\hypertarget{class_i_stuff_1_1_manager_a3d313f62a1cfe606098fdcb6f1c748ee}{\index{I\-Stuff\-::\-Manager@{I\-Stuff\-::\-Manager}!tracker@{tracker}}
+\index{tracker@{tracker}!IStuff::Manager@{I\-Stuff\-::\-Manager}}
+\subsubsection[{tracker}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Tracker} I\-Stuff\-::\-Manager\-::tracker\hspace{0.3cm}{\ttfamily [private]}}}\label{class_i_stuff_1_1_manager_a3d313f62a1cfe606098fdcb6f1c748ee}
+
+
+Definition at line 46 of file manager.\-h.
 
 
 
