@@ -50,6 +50,8 @@ namespace IStuff
 			/* Other methods */
 			Object recognizeFrame(cv::Mat);
 			bool backgroundRecognizeFrame(cv::Mat, Manager*);
+
+			void sendMessage(int, void*, void* = NULL);
 	};
 }
 

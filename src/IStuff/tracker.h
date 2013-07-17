@@ -6,7 +6,7 @@
  * @date 2013-07-17
  */
 
-#ifndef I_STUF_TRACKER_H__
+#ifndef I_STUFF_TRACKER_H__
 #define I_STUFF_TRACKER_H__
 
 #include <iostream>
@@ -14,7 +14,6 @@
 
 #include <boost/thread.hpp>
 #include <boost/chrono.hpp>
-#include <boost/thread/shared_mutex.hpp>
 
 #include "opencv2/imgproc/imgproc.hpp"
 #include "opencv2/nonfree/nonfree.hpp"
@@ -32,7 +31,6 @@ namespace IStuff
 			const static char TAG[];
 
 			std::auto_ptr<boost::thread> running;
-			//boost::thread* running;
 			boost::shared_mutex object_update,
 													history_update;
 
@@ -48,31 +46,27 @@ namespace IStuff
 			virtual ~Tracker();
 
 			/* Setters */
-			void setObject(Object);
 
 			/* Getters */
 			Object getObject();
 			bool isRunning() const;
 
 			/* Other methods */
-
-			// BOZZE
-			// traccia l'oggetto interno tra l'ultimo frame e quello passato
 			void trackFrame(cv::Mat);
-
-			// avverte il tracker che è iniziato un riconoscimento su questo frame
-			void recognitionStarted(cv::Mat);
-			// avverte il tracker che è finisto il riconoscimento
-			void recognitionEnded(Object);
+			void sendMessage(int, void*, void* = NULL);
 
 		private:
-			// traccia l'oggetto passato tra i frames passati
+			/* Setters */
+			void setObject(Object);
+
+			/* Other methods */
 			Object trackFrame(cv::Mat, cv::Mat, Object);
 
-			// lavora per attualizzare l'oggetto 
 			void actualizeObject(Object);
 			bool backgroundActualizeObject(Object);
 	};
 }
+
+#include "manager.h"
 
 #endif /* defined I_STUFF_TRACKER_H__ */

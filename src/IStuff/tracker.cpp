@@ -36,17 +36,14 @@ Tracker::~Tracker()
 
 /**
  * @brief Updates the Object used by the tracker.
- * @todo Change to private, if possible.
  *
- * @param new_object
+ * @param new_object The new Object.
  */
 void Tracker::setObject(Object new_object)
 {
-	object_update.lock();
+	unique_lock<shared_mutex> lock(object_update);
 
 	actual_object = new_object;
-
-	object_update.unlock();
 
 	if (debug)
 		cerr << TAG << ": Object updated.\n";
@@ -61,13 +58,9 @@ void Tracker::setObject(Object new_object)
  */
 Object Tracker::getObject()
 {
-	object_update.lock_shared();
+	shared_lock<shared_mutex> lock(object_update);
 
-	Object copy = actual_object;
-
-	object_update.unlock_shared();
-
-	return copy;
+	return actual_object;
 }
 
 /**
@@ -83,60 +76,6 @@ bool Tracker::isRunning() const
 
 /* Other methods */
 
-/**
- * @brief Method to inform this Tracker that a recognition has started.
- * @details This causes the other methods to start saving the frames,
- *	if they aren't already. This also resets a counter used to discard possible
- *	unactualized frames when the recognition ends.
- *
- * @param[in] current_frame	The frame used for the recognition.
- */
-void Tracker::recognitionStarted(Mat current_frame)
-{
-	history_update.lock();
-
-	frame_history.push(current_frame);
-	frames_tracked_count = 0;
-
-	history_update.unlock();
-}
-
-/**
- * @brief Method to inform this Tracker that the last recognition has ended.
- * @details This causes the Tracker to start actualizing the new Object using
- *	the frames captured during the recognition process.
- *	If the actualization was already happening, the process is interrupted,
- *	the unactualized frames are discarded and the current object is substituted
- *	before restarting the actualization.
- *
- * @param[in] new_object	The Object obtained from the recognition.
- */
-void Tracker::recognitionEnded(Object new_object)
-{
-	if (isRunning())
-	{
-		if (debug)
-			cerr << TAG << ": Stopping current actualization.\n";
-
-		// I know the thread will quit when it reaches the interruption point,
-		// so I can let it finish its execution.
-		running->interrupt();
-		running = auto_ptr<thread>(new thread());
-
-
-		history_update.lock();
-
-		while (frame_history.size() > frames_tracked_count)
-			frame_history.pop();
-
-		history_update.unlock();
-
-
-		setObject(new_object);
-	}
-
-	backgroundActualizeObject(new_object);
-}
 
 /**
  * @brief Tracks the current object between the last frame and this one.
@@ -155,12 +94,16 @@ void Tracker::trackFrame(Mat new_frame)
 
 	last_frame = new_frame;
 
-	history_update.lock();
+	{
+		upgrade_lock<shared_mutex> lock(history_update);
 
-	if (frame_history.size())
-		frame_history.push(new_frame);
+		if (frame_history.size())
+		{
+			upgrade_to_unique_lock<shared_mutex> unique_lock(lock);
 
-	history_update.unlock();
+			frame_history.push(new_frame);
+		}
+	}
 
 	setObject(trackFrame(old_frame, new_frame, getObject()));
 }
@@ -195,38 +138,44 @@ Object Tracker::trackFrame(Mat old_frame, Mat new_frame, Object old_object)
  */
 void Tracker::actualizeObject(Object old_object)
 {
-	history_update.lock();
-
-	if (frame_history.empty())
-		return;
-
-	Mat old_frame = frame_history.front(),
+	Mat old_frame,
 			new_frame;
-	frame_history.pop();
 
-	history_update.unlock();
+	// Synchronized
+	{
+		upgrade_lock<shared_mutex> lock(history_update);
+
+		if (frame_history.empty())
+			return;
+
+		old_frame = frame_history.front();
+
+		upgrade_to_unique_lock<shared_mutex> unique_lock(lock);
+		frame_history.pop();
+	}
 
 	while (true)
 	{
 		try
 		{
-			history_update.lock();
-
-			if (frame_history.size())
+			// Synchronized
 			{
-				new_frame = frame_history.front();
-				frame_history.pop();
+				upgrade_lock<shared_mutex> lock(history_update);
 
-				history_update.unlock();
-			}
-			else
-			{
-				history_update.unlock();
+				if (frame_history.size())
+				{
+					new_frame = frame_history.front();
 
-				if (debug)
-					cerr << TAG << ": Actualization finished.\n";
+					upgrade_to_unique_lock<shared_mutex> unique_lock(lock);
+					frame_history.pop();
+				}
+				else
+				{
+					if (debug)
+						cerr << TAG << ": Actualization finished.\n";
 
-				return;
+					return;
+				}
 			}
 
 			// For concurrent execution:
@@ -282,3 +231,68 @@ bool Tracker::backgroundActualizeObject(Object old_object)
 
 	return true;
 }
+
+/**
+ * @brief Method to send messages to this Tracker.
+ * @details Managed messages:<br />
+ *	<dl>
+ *		<dt>MSG_RECOGNITION_START</dt>
+ *		<dd>data: cv::Mat<br />
+ *		This causes the other methods to start saving the frames,
+ *		if they aren't already. This also resets a counter used to discard possible
+ *		unactualized frames when the recognition ends.</dd>
+ *		<dt>MSG_RECOGNITION_END</dt>
+ *		<dd>data: Object<br />
+ *		This causes the Tracker to start actualizing the new Object using
+ *		the frames captured during the recognition process.<br />
+ *		If the actualization was already happening, the process is interrupted,
+ *		the unactualized frames are discarded and the current object is substituted
+ *		before restarting the actualization.</dd>
+ *	</dl>
+ *
+ * @param[in] msg				The message identifier.
+ * @param[in] data			The data related to the message.
+ * @param[in] reply_to	The sender of the message (optional).
+ */
+void Tracker::sendMessage(int msg, void* data, void* reply_to)
+{
+	switch (msg)
+	{
+		case Manager::MSG_RECOGNITION_START:
+			// Synchronized
+			{
+				unique_lock<shared_mutex> lock(history_update);
+
+				frame_history.push(*(Mat*)data);
+				frames_tracked_count = 0;
+			}
+			break;
+		case Manager::MSG_RECOGNITION_END:
+			if (isRunning())
+			{
+				if (debug)
+					cerr << TAG << ": Stopping current actualization.\n";
+
+				// I know the thread will quit when it reaches the interruption point,
+				// so I can let it finish its execution.
+				running->interrupt();
+				running = auto_ptr<thread>(new thread());
+
+				// Synchronized
+				{
+					unique_lock<shared_mutex> lock(history_update);
+
+					while (frame_history.size() > frames_tracked_count)
+						frame_history.pop();
+				}
+
+				setObject(*(Object*)data);
+			}
+
+			backgroundActualizeObject(*(Object*)data);
+			break;
+		default:
+			break;
+	}
+}
+

@@ -44,19 +44,6 @@ void Manager::setDatabase(Database* database)
 	this->database = database;
 }
 
-/**
- * @brief Changes the current description of the object.
- * @details Since it is used by the recognition thread, it is syncrhonized
- *	using the RWL pattern.
- *
- * @param[in] new_object	The new description of the object.
- */
-void Manager::setObject(Object new_object)
-{
-	// REVIEW: change these methods into messages exchange
-	tracker.recognitionEnded(new_object);
-}
-
 /* Getters */
 
 /**
@@ -87,9 +74,7 @@ void Manager::elaborateFrame(Mat frame)
 		if (debug)
 			cerr << TAG << ": Recognizing.\n";
 
-		frames_tracked_count = 0;
-		recognizer.backgroundRecognizeFrame(frame, this);
-		tracker.recognitionStarted(frame);
+		sendMessage(MSG_RECOGNITION_START, &frame);
 	}
 
 	if (debug)
@@ -109,7 +94,45 @@ void Manager::elaborateFrame(Mat frame)
  *
  * @return A copy of the input frame, with the Object painted on it.
  */
-Mat paintObject(Mat frame)
+Mat Manager::paintObject(Mat frame)
 {
 	return frame;
 }
+
+/**
+ * @brief Method to send messages to this Manager.
+ * @details Managed messages:<br />
+ *	<dl>
+ *		<dt>MSG_RECOGNITION_START</dt>
+ *		<dd>data: cv::Mat<br />
+ *		This message is forwarded to both the Recognizer (to make it start the
+ *		recognization) and the Tracker (to alert it).<br />
+ *		This also resets the counter of frames tracked from last recognition.</dd>
+ *		<dt>MSG_RECOGNITION_END</dt>
+ *		<dd>data: Object<br />
+ *		This message is forwarded to the Tracker, to update its Object.</dd>
+ *	</dl>
+ *
+ * @param[in] msg				The message identifier.
+ * @param[in] data			The data related to the message.
+ * @param[in] reply_to	The sender of the message (optional).
+ */
+void Manager::sendMessage(int msg, void* data, void* reply_to)
+{
+	switch (msg)
+	{
+		case MSG_RECOGNITION_START:
+			frames_tracked_count = 0;
+
+			recognizer.sendMessage(msg, data, this);
+			tracker.sendMessage(msg, data);
+
+			break;
+		case MSG_RECOGNITION_END:
+			tracker.sendMessage(msg, data);
+			break;
+		default:
+			break;
+	}
+}
+
