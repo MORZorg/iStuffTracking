@@ -31,7 +31,7 @@ namespace IStuff
 		private:
 			const static char TAG[];
 
-			boost::thread* running;
+			std::auto_ptr<boost::thread> running;
 
 			Database* matcher;
 

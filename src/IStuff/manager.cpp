@@ -24,8 +24,6 @@ const char Manager::TAG[] = "Mng";
 Manager::Manager()
 {
 	frames_tracked_count = RECOGNITION_PERIOD;
-	recognizer = new Recognizer();
-	//tracker = new Tracker();
 }
 
 Manager::~Manager()
@@ -55,14 +53,8 @@ void Manager::setDatabase(Database* database)
  */
 void Manager::setObject(Object new_object)
 {
-	object_update.lock();
-
-	actual_object = new_object;
-
-	object_update.unlock();
-
-	if (debug)
-		cerr << TAG << ": Object updated.\n";
+	// REVIEW: change these methods into messages exchange
+	tracker.recognitionEnded(new_object);
 }
 
 /* Getters */
@@ -76,13 +68,7 @@ void Manager::setObject(Object new_object)
  */
 Object Manager::getObject()
 {
-	object_update.lock_shared();
-
-	Object copy = actual_object;
-
-	object_update.unlock_shared();
-
-	return copy;
+	return tracker.getObject();
 }
 
 /* Other methods */
@@ -96,26 +82,24 @@ Object Manager::getObject()
  */
 void Manager::elaborateFrame(Mat frame)
 {
-	if (frames_tracked_count >= RECOGNITION_PERIOD && !recognizer->isRunning())
+	if (frames_tracked_count >= RECOGNITION_PERIOD && !recognizer.isRunning())
 	{
 		if (debug)
 			cerr << TAG << ": Recognizing.\n";
 
 		frames_tracked_count = 0;
-		recognizer->backgroundRecognizeFrame(frame, this);
+		recognizer.backgroundRecognizeFrame(frame, this);
+		tracker.recognitionStarted(frame);
 	}
-	else
-	{
-		if (debug)
-			cerr << TAG << ": Tracking " << frames_tracked_count << ".\n";
 
-		if (frames_tracked_count < RECOGNITION_PERIOD)
-			frames_tracked_count++;
+	if (debug)
+		cerr << TAG << ": Tracking " << frames_tracked_count << ".\n";
 
-		// TODO
-		//tracker->track(frame);
-		usleep(100);
-	}
+	if (frames_tracked_count < RECOGNITION_PERIOD)
+		frames_tracked_count++;
+
+	// TODO
+	tracker.trackFrame(frame);
 }
 
 /**

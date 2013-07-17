@@ -26,7 +26,7 @@ const char Recognizer::TAG[] = "Rec";
  */
 Recognizer::Recognizer()
 {
-	running = new thread();
+	running = auto_ptr<thread>(new thread());
 
 	if (debug)
 		cerr << TAG << " constructed.\n";
@@ -50,20 +50,24 @@ void Recognizer::setDatabase(Database* matcher)
 /* Getters */
 
 /**
- * @brief Checks whether this ObjectRecognizer has a thread up and running.
+ * @brief Checks whether this Recognizer has a thread up and running.
  *
  * @return `true` if recognizing, `false` otherwise.
  */
 bool Recognizer::isRunning() const
 {
 	// HACK: Bad way around to check if a thread has finished running.
-	return running->try_join_for(chrono::nanoseconds(0));
+	return running->try_join_for(chrono::nanoseconds(0)) && running->joinable();
 }
 
 /* Other methods */
 
 /**
- * @brief Function 
+ * @brief Recognizes an Object into a frame.
+ *
+ * @param[in] frame	The frame to be searched for an Object.
+ *
+ * @return The object found inside the given frame.
  */
 Object Recognizer::recognizeFrame(Mat frame)
 {
@@ -79,6 +83,14 @@ Object Recognizer::recognizeFrame(Mat frame)
 	return Object();
 }
 
+/**
+ * @brief Method to do the recognization process in a separate thread.
+ *
+ * @param[in] frame			The frame to be searched for an Object.
+ * @param[in] reference	The reference to the Manager to inform of the result.
+ *
+ * @return `true` if the thread is started, `false` if it was already running.
+ */
 bool Recognizer::backgroundRecognizeFrame(Mat frame, Manager* reference)
 {
 	if (isRunning())
@@ -93,11 +105,11 @@ bool Recognizer::backgroundRecognizeFrame(Mat frame, Manager* reference)
 		cerr << TAG << ": Starting in background.\n";
 
 	// NOTE: "[=]" means "all used variables are captured in the lambda".
-	running = new thread([=]()
+	running = auto_ptr<thread>(new thread([=]()
 			{
 				Object new_object = recognizeFrame(frame);
 				reference->setObject(new_object);
-			});
+			}));
 
 	return true;
 }
