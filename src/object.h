@@ -28,9 +28,9 @@ namespace IStuff
 	{
 		/* Attributes */
 		private:
-		const static char TAG[];
+			const static char TAG[];
 
-		std::map< Label, std::vector<cv::Point2f> > description;
+			std::map< Label, std::vector<cv::Point2f> > description;
 
 		/* Methods */
 		public:

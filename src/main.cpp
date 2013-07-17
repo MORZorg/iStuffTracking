@@ -80,13 +80,20 @@ int main( int argc, char* argv[] )
 	if (debug)
 		cerr << "Flags parsed. Starting.\n";
 
+	IStuff::Database* db;
+	
 	try {
-		//string dbName = "Aragorna";
-		IStuff::Database db( dbName, dbDir );
+		db = new IStuff::Database( dbName, dbDir );
 	} catch( IStuff::DBCreationException& e ) {
 		cout << e.what() << endl;
 		return -1;
+	} catch( IStuff::DBLoadingException& e ) {
+		cout << e.what() << endl;
+		return -1;
 	}
+
+	Mat match = imread( "match_sample/Camera360_2013_7_17_125225.jpg" );
+	IStuff::Object test = db -> match( match );
 
 	/*namedWindow( "Input", CV_WINDOW_AUTOSIZE );
 	namedWindow( "Output", CV_WINDOW_AUTOSIZE );

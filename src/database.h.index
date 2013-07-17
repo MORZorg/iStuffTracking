@@ -23,18 +23,12 @@
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/features2d/features2d.hpp"
 #include "opencv2/nonfree/nonfree.hpp"
+#include "opencv2/flann/flann.hpp"
 
 // Boost libraries
 #include "boost/filesystem.hpp"
 #include "boost/lambda/bind.hpp"
 #include "boost/foreach.hpp"
-
-#include "boost/archive/binary_oarchive.hpp"
-#include "boost/archive/binary_iarchive.hpp"
-
-#include "boost/serialization/map.hpp"
-#include "serialize_mat.h"
-
 
 extern bool debug;
 
@@ -45,7 +39,7 @@ namespace IStuff {
 		private:
 			std::string dbPath;
 			std::string dbName;
-			std::map< Label, cv::Mat > descriptorDB;
+			std::map< Label, cv::flann::Index > descriptorDB;
 
 		public:
 			Database( std::string, std::string = "image_sample/" );
@@ -68,12 +62,6 @@ namespace IStuff {
 	class DBLoadingException: public std::exception {
 		public: virtual const char* what() const throw() {
 			return "***Error in Database loading, database seems to exist but files are missing***\n";
-		}
-	};
-
-	class DBSavingException: public std::exception {
-		public: virtual const char* what() const throw() {
-			return "***Error in Database saving***\n";
 		}
 	};
 };

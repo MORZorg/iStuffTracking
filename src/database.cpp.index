@@ -25,11 +25,15 @@ namespace fs = boost::filesystem;
 Database::Database( string _dbName, string imagesPath ) :
 	dbPath( "database/" ), dbName( _dbName )
 {
+	// Initializing database
+	descriptorDB = map< Label, flann::Index >();
+
 	// Check for database existence
-	string dbFileName = dbPath + dbName + ".sbra";
-	ifstream file_check( dbFileName.c_str(), ios::binary );
+	string dbDirName = dbPath + dbName;
 	
-	if( !file_check ) {
+	fs::path fullPath = fs::system_complete( fs::path( dbDirName ) );
+	
+	if( !fs::exists( fullPath ) || !fs::is_directory( fullPath ) ) {
 		if( debug )
 			cerr << _dbName << " doesn't exists. Start creating it" << endl;
 
@@ -86,63 +90,18 @@ Object Database::match( Mat frame ) {
 
 	Object matchingObject = Object();
 
-	// FLANNMatcher, for his usage is not needed the instantiation of an Index
-	FlannBasedMatcher matcher;
+	// Temporary objects for multiple match
+	Mat outIndices, outDistances;
 
-	// Temporary object for multiple matches
-	vector< DMatch > matches;
-
-	// For every entry in the map I try to find good matches and draw it (debug only)
-	for( map< Label, Mat >::iterator it = descriptorDB.begin(); it != descriptorDB.end(); it++ ) {
+	// For every entry in the map I try to find a match and draw it
+	for( map< Label, flann::Index >::iterator it = descriptorDB.begin(); it != descriptorDB.end(); it++ ) {
 		if( debug )
 			cerr << "\tMatching over label " << it -> first << endl;
 
-		matcher.match( frameDescriptors, it -> second, matches );
+		it -> second.knnSearch( frameDescriptors, outIndices, outDistances, 2, flann::SearchParams( 8 ) );
 
-		// Find the good matches throught distance analysis
-		double max_dist = 0, min_dist = 100;
-
-		for( int i = 0; i < frameDescriptors.rows; i++ ) {
-			double dist = matches[ i ].distance;
-
-		    min_dist = ( dist < min_dist ? dist : min_dist );
-		    max_dist = ( dist > min_dist ? dist : max_dist );
-		}
-
-		if( debug )
-			cerr << "\tMaximum match distance is " << max_dist << endl
- 				 << "\tMinimum match distance is " << min_dist << endl;
-
-		// Consider good matches only those in which the distance is less than 3/2 * min_dist
-		std::vector< DMatch > good_matches;
-
-		for( int i = 0; i < frameDescriptors.rows; i++ )
-			if( matches[ i ].distance <= 1.5 * min_dist )
-				good_matches.push_back( matches[ i ] );
-
-		// Draw the good matches retrieving the sample images from the original folder
-		if( debug ) {
-			// Retrieve informations about the original sample
-			Mat originalSample = imread( "image_sample/" + it -> first );
-			vector< KeyPoint > sampleKeypoints;
-
-			// Detect the keypoints in the actual image
-			featureDetector -> detect( originalSample, sampleKeypoints );
-
-			// Draw stuff
-			Mat img_matches;
-
-			drawMatches( frame, frameKeypoints, originalSample, sampleKeypoints, good_matches, img_matches, Scalar::all(-1), Scalar::all(-1), vector< char >(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS );
-
-			// Print
-			string matchesPath = "output_sample/" + it -> first;
-			imwrite( matchesPath, img_matches );
-
-			// Print out something
-			for( int i = 0; i < good_matches.size(); i++ ) {
-				printf( "\tGood Match [%d] Keypoint 1: %d  -- Keypoint 2: %d  \n", i, good_matches[i].queryIdx, good_matches[i].trainIdx );
-			}
-		}
+		//Mat img_matches;
+		//drawMatches( frame, 
 	}
 
 	return matchingObject;
@@ -152,19 +111,36 @@ Object Database::match( Mat frame ) {
  * @brief	Load existing database and fill the map 
  */
 void Database::load() {
+	// Iterate over the directory which should contain the selected DB
+	// If the directory cannot be opened, throws exception
+	string dbDirName = dbPath + dbName;
+
 	if( debug )
-		cerr << "Loading database\n";
+		cerr << "Loading database from " << dbDirName << endl;
 
-	string dbFileName = dbPath + dbName + ".sbra";
-	ifstream f( dbFileName.c_str(), ios::binary );
-
-	if( f.fail() )
-		throw DBLoadingException();
-	else if( debug )
-		cerr << "\tLoading from " << dbFileName << endl;
+	fs::path fullPath = fs::system_complete( fs::path( dbDirName ) );
 	
-	boost::archive::binary_iarchive iarch( f );
-	iarch >> descriptorDB;
+	if( !fs::exists( fullPath ) || !fs::is_directory( fullPath ) )
+		throw DBLoadingException(); 
+	
+	// If there are no files in the given directory then throw an exception
+	int file_count = std::count_if(
+			fs::directory_iterator( fullPath ),
+			fs::directory_iterator(),
+			bind( static_cast< bool(*)( const fs::path& ) > ( fs::is_regular_file ), 
+			bind( &fs::directory_entry::path, boost::lambda::_1 ) ) );	
+
+	if( file_count == 0 )
+		throw DBLoadingException(); 
+
+	fs::directory_iterator end_iter;
+	
+	for( fs::directory_iterator it( fullPath ); it != end_iter; ++it ) {
+		cerr << "\tLoading from " << it -> path().filename()  << endl;
+
+		flann::Index loadedIndex( Mat(), flann::SavedIndexParams( it -> path().string() ) );
+		descriptorDB[ it -> path().filename().string() ] = loadedIndex;
+	}
 
 	if( debug )
 		cerr << "\tLoad successfull" << endl;
@@ -239,8 +215,13 @@ void Database::build( string imagesPath ) {
 		if( debug )
 			cerr << "\tDescriptors extracted" << endl;
 
+		flann::Index newIndex( descriptors, flann::KDTreeIndexParams() );
+
+		if( debug )
+			cerr << "\tNow inserting" << endl;
+
 		//descriptorDB.insert( pair< Label, flann::Index >( it -> path().filename().string(), newIndex ) );
-		descriptorDB[ it -> path().filename().string() ] = descriptors; 
+		descriptorDB[ it -> path().filename().string() ] = newIndex;
 
 		if( debug )
 			cerr << "\tDataBase updated" << endl;
@@ -259,30 +240,40 @@ void Database::build( string imagesPath ) {
 
 			cerr << "\tReiterating" << endl << endl;
 		}
+
+		//samples.push_back( load );
+
+		//imshow( "Loading..", load );
+		//waitKey();
 	}
 
 	// Now that the descriptorDB structure is generated, i serialize it for future usage
-	save();
+	//save();
 }
 
 /**
- * @brief	Writes the database to a file in the default directory 
+ * @brief	Writes the database to a set of files in the default directory
+ * @details	A directory with the name of the database is created. In that directory
+			one file per label is created containing the correspondent Index
  */
 void Database::save() {
 	if( debug )
 		cerr << "Saving the created database" << endl;
 
-	string dbFileName = dbPath + dbName + ".sbra";
-	ofstream f( dbFileName.c_str(), ios::binary );
+	string dbDirName= dbPath + dbName + "/";
+	fs::create_directory( dbDirName );
 
-	if( f.fail() )
-		throw DBSavingException();
-	else if( debug )
-		cerr << "\tSaving to " << dbFileName << endl;
+	if( debug )
+		cerr << "\tDirectory " << dbDirName << " created" << endl;
 
-	boost::archive::binary_oarchive oarch( f );
-	oarch << descriptorDB;
-	
+	for( map< Label, flann::Index >::iterator it = descriptorDB.begin(); it != descriptorDB.end(); it++ ) {
+		string actualFile = dbDirName + it -> first + ".sbra";
+
+		cerr << "\tSaving " << actualFile << endl;
+
+		it -> second.save( actualFile.c_str() );
+	}
+
 	if( debug )
 		cerr << "\tSave successfull" << endl;
 }
