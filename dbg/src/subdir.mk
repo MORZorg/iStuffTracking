@@ -2,14 +2,17 @@
 CPP_SRCS += \
 ../src/main.cpp \
 ../src/database.cpp \
+../src/object.cpp \
 
 OBJS += \
 ./src/main.o \
 ./src/database.o \
+./src/object.o \
 
 CPP_DEPS += \
 ./src/main.d \
 ./src/database.d \
+./src/object.d \
 
 # Each subdirectory must supply rules for building sources it contributes
 src/%.o: ../src/%.cpp

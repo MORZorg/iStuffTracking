@@ -3,7 +3,7 @@
  * @brief	Definition for Database class
  * @class	Database
  * @author	Mattia Rizzini
- * @version	0.1.0
+ * @version	0.1.2
  * @date	2013-07-14
  */
 
@@ -82,10 +82,10 @@ Database::~Database() {
  * @retval	A Rect which encloses the object in the frame reference system
  			or an empty Rect if nothing is found
  */
-Rect Database::match( Mat frame ) {
-	Rect encloser( 0, 0, 0, 0 );
+Object Database::match( Mat frame ) {
+	Object emptyOne = Object();
 
-	return encloser;
+	return emptyOne;
 }
 
 /**
@@ -143,7 +143,7 @@ void Database::build( string imagesPath ) {
 	Mat load, descriptors;
 	vector< KeyPoint > keypoints;
 
-	// If there are no images in the given directory then error
+	// If there are no images in the given directory then throw an exception
 	int file_count = std::count_if(
 			fs::directory_iterator( fullPath ),
 			fs::directory_iterator(),
@@ -167,6 +167,7 @@ void Database::build( string imagesPath ) {
 		if( debug ) {
 			cerr << "\tImage loaded. Showing.." << endl;
 
+			//namedWindow( "Loaded image" );
 			//imshow( "Loaded image", load );
 		}
 

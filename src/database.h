@@ -2,7 +2,7 @@
  * @file	object_database.h
  * @brief	Library for Database class
  * @author	Mattia Rizzini
- * @version	0.1.0
+ * @version	0.1.2
  * @date	2013-07-14
  */
 
@@ -15,6 +15,9 @@
 #include <vector>
 #include <string>
 #include <map>
+
+// Custom header files
+#include "object.h"
 
 // OpenCV libraries
 #include "opencv2/highgui/highgui.hpp"
@@ -34,7 +37,7 @@
 extern bool debug;
 
 namespace IStuff {
-	typedef std::string Label;
+	//typedef std::string Label;
 
 	class Database {
 		private:
@@ -46,7 +49,7 @@ namespace IStuff {
 			Database( std::string, std::string = "image_sample/" );
 			virtual ~Database();
 			
-			cv::Rect match( cv::Mat );
+			Object match( cv::Mat );
 
 		private:
 			void load();
@@ -56,7 +59,7 @@ namespace IStuff {
 
 	class DBCreationException: public std::exception {
 		public: virtual const char* what() const throw() {
-			return "Error in Database creation, no files in given directory or wrong path given.";
+			return "***Error in Database creation, no files in given directory or wrong path given***\n";
 		}
 	};
 };
