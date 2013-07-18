@@ -332,7 +332,7 @@ void Database::build( string imagesPath ) {
 	matcher.train();
 
 	// Now that the structures are filled, save them to a file for future usage
-	save();
+	//save();
 }
 
 /**

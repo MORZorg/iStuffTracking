@@ -25,7 +25,7 @@ int main( int argc, char* argv[] )
 {
 	int i = 0;
 
-	string dbName = "Aragorn",
+	string dbName,
 				 dbDir = "image_sample/clean/";
 
 	// Command line flags parsing, mostly debug level
@@ -147,7 +147,7 @@ void printHelp()
 	cout << "\t-dN\tShow debug messages.\n"
 		<< "\t\tWhere N is an optional integer ranging from 0 to SBRA.\n"
 		<< "\t\tWith 0 indicating the most verbose debug possible.\n";
-	cout << "\t--database databaseName\tLoad databaseName.\n";
+	cout << "\t--database databaseName\tLoad databaseName. (necessary)\n";
 	cout << "\t--folder folderName\tIndicates where to find images\n"
 		<< "\t\tfor database creation.\n";
 }
