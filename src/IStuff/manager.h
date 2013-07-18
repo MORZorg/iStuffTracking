@@ -14,6 +14,7 @@
 #include "opencv2/core/core.hpp"
 
 #include "object.h"
+#include "database.h"
 #include "recognizer.h"
 #include "tracker.h"
 
@@ -21,8 +22,6 @@ extern bool debug;
 
 namespace IStuff
 {
-	class Database;
-
 	class Manager
 	{
 		/* Attributes */
@@ -41,7 +40,6 @@ namespace IStuff
 			boost::shared_mutex object_update;
 
 			Object actual_object;
-			Database* database;
 			Recognizer recognizer;
 			Tracker tracker;
 

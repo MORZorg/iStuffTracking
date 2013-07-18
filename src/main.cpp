@@ -116,7 +116,7 @@ int main( int argc, char* argv[] )
 
 	Manager manager;
 	manager.setDatabase(db);
-  
+
   // Show the image captured from the camera in the window and repeat
   while (true)
   {
@@ -125,7 +125,6 @@ int main( int argc, char* argv[] )
     capture >> frame;
 
 		manager.elaborateFrame(frame);
-		waitKey(0);
 		frame = manager.paintObject(frame);
 
     imshow("Camera", frame);

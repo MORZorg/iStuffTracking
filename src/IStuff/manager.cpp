@@ -41,7 +41,7 @@ Manager::~Manager()
 void Manager::setDatabase(Database* database)
 {
 	frames_tracked_count = RECOGNITION_PERIOD;
-	this->database = database;
+	recognizer.setDatabase(database);
 }
 
 /* Getters */
