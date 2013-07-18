@@ -1,8 +1,8 @@
 /**
- * @file	object_database.h
+ * @file	database.h
  * @brief	Library for Database class
  * @author	Mattia Rizzini
- * @version	0.1.2
+ * @version	0.1.3
  * @date	2013-07-14
  */
 
@@ -33,25 +33,24 @@
 #include "boost/archive/binary_oarchive.hpp"
 #include "boost/archive/binary_iarchive.hpp"
 
-#include "boost/serialization/map.hpp"
-#include "serialize_mat.h"
+#include "boost/serialization/vector.hpp"
+#include "serialize_opencv.h"
 
 #include "boost/lexical_cast.hpp"
 
 extern bool debug;
 
 namespace IStuff {
-	//typedef std::string Label;
-
 	class Database {
 		private:
 			std::string dbPath;
 			std::string dbName;
 
+			cv::FlannBasedMatcher matcher;
+			std::vector< Label > labelDB;
 			std::vector< std::vector< cv::Point2f > > cornersDB;
 			std::vector< std::vector< cv::KeyPoint > > keypointDB;
 			std::vector< cv::Mat > descriptorDB;
-			std::vector< Label > labelDB;
 
 		public:
 			Database( std::string, std::string = "image_sample/" );

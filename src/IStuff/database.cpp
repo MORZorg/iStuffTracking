@@ -1,9 +1,9 @@
 /**
- * @file	object_database.cpp
+ * @file	database.cpp
  * @brief	Definition for Database class
  * @class	Database
  * @author	Mattia Rizzini
- * @version	0.1.2
+ * @version	0.1.3
  * @date	2013-07-14
  */
 
@@ -17,10 +17,11 @@ namespace fs = boost::filesystem;
 
 /**
  * @brief	Constructor
- * @details	If the name passed matches an existing DB it loads it, \
- 			otherwise it creates it 
- * @param[in] _dbName	The name of the DB to be loaded
- * @param[in] imagesPath	The position of the images from which the descriptors are to be taken
+ * @details	If the name passed matches an existing DB it loads it,
+ * 			otherwise it creates it 
+ * @param[in] _dbName The name of the DB to be loaded
+ * @param[in] imagesPath The position of the sample images from which
+ * 			the descriptors are to be taken
  */
 Database::Database( string _dbName, string imagesPath ) :
 	dbPath( "database/" ), dbName( _dbName )
@@ -55,12 +56,12 @@ Database::~Database() {
 
 /**
  * @brief	Search for descriptors matching in passed frame
- * @details	Given an image, searches for the descriptors in the database \
- 			and returns a rectangle enclosing the matched object
+ * @details	Given an image, searches for the descriptors in the database
+ *			and returns a rectangle enclosing the matched object
  * @param[in] frame	The image to search into
- * @retval	A Rect which encloses the object in the frame reference system
- 			or an empty Rect if nothing is found
- */
+ * @retval	An Object containing an association between the labels and the
+ * 			areas in which every label is found
+ * */
 Object Database::match( Mat frame ) {
 	if( debug )
 		cerr << "Start matching\n";
@@ -88,15 +89,15 @@ Object Database::match( Mat frame ) {
 
 	Object matchingObject = Object();
 
-	// FLANNMatcher, for his usage is not needed the instantiation of an Index
-	FlannBasedMatcher matcher;
+	// I use the matcher already trained to perform a descriptor match
+	/*FlannBasedMatcher matcher;
 
 	// Matcher training
 	matcher.add( descriptorDB );
 	matcher.train();
 
 	if( debug )
-		cerr << "\tMatcher Trained\n";
+		cerr << "\tMatcher Trained\n";*/
 
 	// Matches vector
 	vector< vector< DMatch > > matches;
@@ -164,21 +165,8 @@ Object Database::match( Mat frame ) {
 
 		// Calculate homography mask and add it to the matchingObject
 		Mat H = findHomography( labelPoints, framePoints, CV_RANSAC );
-		
-		/*if( debug ) {
-			for( int j = 0; j < labelPoints.size(); j++ )
-				cerr << "\t\t\tSource points" << j << ": " << labelPoints[ j ] << endl
-					 << "\t\t\tFrame points" << j << ": " << framePoints[ j ] << endl;
-
-			cerr << endl << H << endl;
-		}*/
 
 		perspectiveTransform( cornersDB[ i ], labelCorners, H );
-
-		if( debug )
-			for( int j = 0; j < labelCorners.size(); j++ )
-				cerr << "\t\t\tCoordinate ori " << j << ": " << cornersDB[ i ][ j ] << endl
-					 << "\t\t\tCoordinate per " << j << ": " << labelCorners[ j ] << endl;
 
 		// Debug drawing
 		if( debug ) {
@@ -187,9 +175,6 @@ Object Database::match( Mat frame ) {
 			line( imgMatches, labelCorners[1], labelCorners[2], Scalar( 0, 255, 0 ), 4 );
 			line( imgMatches, labelCorners[2], labelCorners[3], Scalar( 0, 255, 0 ), 4 );
 			line( imgMatches, labelCorners[3], labelCorners[0], Scalar( 0, 255, 0 ), 4 );
-
-			/*for( int j = 0; j < framePoints.size(); j++ )
-				circle( imgMatches, framePoints[ i ], 3, Scalar( 255, 0, 0 ) );*/
 
 			imwrite( "output_sample/" + labelDB[ i ] + ".jpg", imgMatches );
 		}
@@ -221,19 +206,30 @@ void Database::load() {
 	else if( debug )
 		cerr << "\tLoading from " << dbFileName << endl;
 	
-	boost::archive::binary_iarchive iarch( f );
+	/*boost::archive::binary_iarchive iarch( f );
+	iarch >> labelDB;
+	iarch >> keypointDB;
 	iarch >> descriptorDB;
+	iarch >> cornersDB;*/
 
 	if( debug )
 		cerr << "\tLoad successfull" << endl;
+
+	matcher.add( descriptorDB );
+	matcher.train();
+
+	if( debug )
+		cerr << "\tMatcher train successfull" << endl;
 }
 
 /**
- * @brief	Create a new kd-tree and save it to a file
- * @details	Loaded the images contained in the argument path, \
- 			detects the SIFT features, turns them in descriptors \
- 			and save these to the kd-tree representing the database. \
- 			Also saves the database into a file
+ * @brief	Creates the database from the sample images
+ * @details	Loaded the images contained in the argument path
+ * 			generate a set of labels, detects the SIFT features
+ * 			and descriptors for every sample and associate them to
+ * 			every label, then trains a matcher with the descriptors
+ * 			and save everything in the corresponding structures.
+ * 			Also save the database into a file
  * @param[in] imagesPath	The path containing the source images
  */
 void Database::build( string imagesPath ) {
@@ -279,13 +275,6 @@ void Database::build( string imagesPath ) {
 	
 		load = imread( it -> path().string() );
 
-		if( debug ) {
-			cerr << "\tImage loaded. Showing.." << endl;
-
-			//namedWindow( "Loaded image" );
-			//imshow( "Loaded image", load );
-		}
-
 		// Detect the keypoints in the actual image
 		featureDetector -> detect( load, keypoints );
 
@@ -298,13 +287,14 @@ void Database::build( string imagesPath ) {
 
 		if( debug )
 			cerr << "\tDescriptors extracted\n"
-	 			 << "\t\tSaving label, keypoints, descriptors and sample corners\n";
+	 			 << "\t\tSaving label, keypoints and sample corners\n";
 
 		string labelName = dbName + "Label" + boost::lexical_cast<std::string>( labelCounter++ );
 
 		labelDB.push_back( labelName ); 
 		keypointDB.push_back( keypoints );
-		descriptorDB.push_back( descriptors) ;
+
+		descriptorDB.push_back( descriptors );
 
 		// The corner of the image will be required to find the correspondent boundaries in the sample 
 		vector< Point2f > sampleCorners( 4 );
@@ -335,8 +325,14 @@ void Database::build( string imagesPath ) {
 		}
 	}
 
-	// Now that the descriptorDB structure is generated, i serialize it for future usage
-	//save();
+	// Now train the matcher
+	// NOTE the descriptorDB is stored anyway because it is used to train a new matcher
+	// after a Database load from file
+	matcher.add( descriptorDB );
+	matcher.train();
+
+	// Now that the structures are filled, save them to a file for future usage
+	save();
 }
 
 /**
@@ -354,8 +350,11 @@ void Database::save() {
 	else if( debug )
 		cerr << "\tSaving to " << dbFileName << endl;
 
-	boost::archive::binary_oarchive oarch( f );
+	/*boost::archive::binary_oarchive oarch( f );
+	oarch << labelDB;
+	oarch << keypointDB;
 	oarch << descriptorDB;
+	oarch << cornersDB;*/
 	
 	if( debug )
 		cerr << "\tSave successfull" << endl;

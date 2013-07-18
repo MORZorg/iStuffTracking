@@ -3,7 +3,7 @@
  * @brief Main file
  * @author Maurizio Zucchelli
  * @author Mattia Rizzini
- * @version 0.1.1-dbtest
+ * @version 0.1.2
  * @date 2013-07-13
  */
 
