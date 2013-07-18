@@ -11,13 +11,10 @@
 
 #include <iostream>
 
-#include "database.h"
-
-#include "opencv2/imgproc/imgproc.hpp"
+#include "opencv2/core/core.hpp"
 #include "opencv2/highgui/highgui.hpp"
 
 #include "IStuff/manager.h"
-//#include "IStuff/database.h"
 
 bool debug;
 

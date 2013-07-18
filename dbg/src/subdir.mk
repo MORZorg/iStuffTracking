@@ -1,18 +1,12 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
-../src/main.cpp \
-../src/database.cpp \
-../src/object.cpp \
+						../src/main.cpp \
 
 OBJS += \
-./src/main.o \
-./src/database.o \
-./src/object.o \
+				./src/main.o \
 
 CPP_DEPS += \
-./src/main.d \
-./src/database.d \
-./src/object.d \
+						./src/main.d \
 
 # Each subdirectory must supply rules for building sources it contributes
 src/%.o: ../src/%.cpp
@@ -21,3 +15,4 @@ src/%.o: ../src/%.cpp
 	$(CXX) `pkg-config --cflags opencv` -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
+

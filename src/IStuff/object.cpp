@@ -66,3 +66,30 @@ vector<Point2f> Object::getMask(const Label label) const
 	return description.at(label);
 }
 
+/* Other methods */
+
+/**
+ * @brief Paints the various masks of the IStuff::Object on the frame.
+ *
+ * @param[in] frame The frame on which the IStuff::Object must be painted.
+ *
+ * @return A copy of the input frame, with the IStuff::Object painted on it.
+ */
+Mat Object::paint(Mat frame)
+{
+	if (description.empty())
+		return frame;
+
+	for (auto label : description)
+	{
+		vector<Point2f> mask = label.second;
+
+		for (int i = 0; i < mask.size() - 1; i++ )
+			line(frame, mask[i], mask[i+1], Scalar(0, 255, 0), 4);
+
+		line(frame, mask.back(), mask.front(), Scalar(0, 255, 0), 4);
+	}
+
+	return frame;
+}
+

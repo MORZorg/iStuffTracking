@@ -13,7 +13,7 @@
 #include <map>
 #include <vector>
 
-#include "opencv2/imgproc/imgproc.hpp"
+#include "opencv2/core/core.hpp"
 
 extern bool debug;
 
@@ -44,6 +44,9 @@ namespace IStuff
 
 			/* Getters */
 			std::vector<cv::Point2f> getMask(const Label) const;
+
+			/* Other methods */
+			cv::Mat paint(cv::Mat);
 	};
 }
 

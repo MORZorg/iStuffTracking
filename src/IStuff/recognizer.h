@@ -17,13 +17,13 @@
 #include "opencv2/imgproc/imgproc.hpp"
 
 #include "object.h"
+#include "database.h"
 
 extern bool debug;
 
 namespace IStuff
 {
 	class Manager;
-	class Database;
 	
 	class Recognizer
 	{

@@ -25,26 +25,33 @@ int main( int argc, char* argv[] )
 {
 	int i = 0;
 
-	string dbName = "Aragorn", dbDir = "image_sample/clean/";
+	string dbName = "Aragorn",
+				 dbDir = "image_sample/clean/";
 
 	// Command line flags parsing, mostly debug level
 	while (++i < argc)
 	{
-    	if ( argv[i][0] != '-' )
+    	if (argv[i][0] != '-')
 		{
 			printHelp();
 			exit(1);
 		}
 
-		if ( argv[i][1] == '-' )
+		if (argv[i][1] == '-')
 		{
-			if (!strcmp(argv[i] + 2, "help")) {
+			argv[i] += 2;
+
+			if (!strcmp(argv[i], "help")) {
 				printHelp();
 				return 0;
-			} else if( !strcmp( argv[i] + 2, "database" ) ) {
-				dbName = argv[ ++i ];
-			} else if( !strcmp( argv[i] + 2, "folder" ) ) {
-				dbDir = argv[ ++i ];
+			}
+			else if(!strcmp(argv[i], "database"))
+			{
+				dbName = argv[++i];
+			}
+			else if(!strcmp(argv[i], "folder"))
+			{
+				dbDir = argv[++i];
 			}
 
 		}
@@ -83,61 +90,51 @@ int main( int argc, char* argv[] )
 
 	IStuff::Database* db;
 	
-	try {
-		db = new IStuff::Database( dbName, dbDir );
-	} catch( IStuff::DBCreationException& e ) {
+	try
+	{
+		db = new IStuff::Database(dbName, dbDir);
+	}
+	catch ( IStuff::DBCreationException& e )
+	{
 		cout << e.what() << endl;
-		return -1;
-	} catch( IStuff::DBLoadingException& e ) {
+		exit(2);
+	}
+	catch (IStuff::DBLoadingException& e)
+	{
 		cout << e.what() << endl;
-		return -1;
-	} catch( IStuff::DBSavingException& e ) {
+		exit(2);
+	}
+	catch (IStuff::DBSavingException& e)
+	{
 		cout << e.what() << endl;
-		return -1;
+		exit(2);
 	}
 
-	Mat match = imread( "match_sample/CIMG3732.JPG" );
-	IStuff::Object test = db -> match( match );
+  namedWindow("Camera", CV_WINDOW_AUTOSIZE);
 
-	/*namedWindow( "Input", CV_WINDOW_AUTOSIZE );
-	namedWindow( "Output", CV_WINDOW_AUTOSIZE );
+  VideoCapture capture = VideoCapture(CV_CAP_ANY);
 
-	VideoCapture capture( CV_CAP_ANY ); //= VideoCapture(CV_CAP_ANY);
-	 
-	Mat frame, output_frame;
+	Manager manager;
+	manager.setDatabase(db);
+  
+  // Show the image captured from the camera in the window and repeat
+  while (true)
+  {
+    // Get one frame
+    Mat frame;
+    capture >> frame;
 
-	int key = -1;
-	
-	// Check if the stream is opened
-	if( capture.isOpened() ) {
-		// Show the image captured from the camera in the window and repeat
-		while( key == -1 )
-		{
-			capture >> frame;
+		manager.elaborateFrame(frame);
+		waitKey(0);
+		frame = manager.paintObject(frame);
 
-			if( frame.empty() ) {
-				cerr << "Capture error. Exiting" << endl;
-				break;
-			}
+    imshow("Camera", frame);
+  }
 
-			imshow( "Input", frame );
+  capture.release();
+  destroyWindow("Camera");
 
-			// Elaborate frame	
-			output_frame = frame;
-
-			imshow( "Output", output_frame );
-
-			key = waitKey( 5 );
-		}
-	} else
-		cerr << "Source interfacing error. Exiting" << endl;
-
-	capture.release();
-
-	destroyWindow("Input");
-	destroyWindow("Output");*/
-
-	return 0;
+  return 0;
 }
 
 /**

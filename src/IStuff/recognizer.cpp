@@ -74,13 +74,12 @@ Object Recognizer::recognizeFrame(Mat frame)
 	if (debug)
 		cerr << TAG << ": Recognizing frame.\n";
 
-	// TODO
-	sleep(1);
+	Object result = matcher->match(frame);
 
 	if (debug)
 		cerr << TAG << ": Frame recognized.\n";
 
-	return Object();
+	return result;
 }
 
 /**

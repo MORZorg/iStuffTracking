@@ -88,13 +88,13 @@ void Manager::elaborateFrame(Mat frame)
 /**
  * @brief Paints the various masks of the IStuff::Object on the frame.
  *
- * @param[in] frame	The frame on which che IStuff::Object must be painted.
+ * @param[in] frame	The frame on which the IStuff::Object must be painted.
  *
  * @return A copy of the input frame, with the IStuff::Object painted on it.
  */
 Mat Manager::paintObject(Mat frame)
 {
-	return frame;
+	return tracker.getObject().paint(frame);
 }
 
 /**
