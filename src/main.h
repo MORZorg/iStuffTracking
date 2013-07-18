@@ -11,6 +11,8 @@
 
 #include <iostream>
 
+#include "database.h"
+
 #include "opencv2/imgproc/imgproc.hpp"
 #include "opencv2/highgui/highgui.hpp"
 
@@ -19,7 +21,7 @@
 
 bool debug;
 
-int main(int, char**);
+int main( int, char** );
 
 void printHelp();
 
