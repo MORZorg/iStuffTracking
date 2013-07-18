@@ -1,18 +1,21 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
 						../src/IStuff/object.cpp \
+						../src/IStuff/fakable_queue.cpp \
 						../src/IStuff/manager.cpp \
 						../src/IStuff/recognizer.cpp \
 						../src/IStuff/tracker.cpp \
 
 OBJS += \
 				./src/IStuff/object.o \
+				./src/IStuff/fakable_queue.o \
 				./src/IStuff/manager.o \
 				./src/IStuff/recognizer.o \
 				./src/IStuff/tracker.o \
 
 CPP_DEPS += \
 						./src/IStuff/object.d \
+						./src/IStuff/fakable_queue.d \
 						./src/IStuff/manager.d \
 						./src/IStuff/recognizer.d \
 						./src/IStuff/tracker.d \

@@ -104,17 +104,7 @@ void Tracker::trackFrame(cv::Mat new_frame)
 	if (debug)
 		cerr << TAG << ": Tracking external object.\n";
 
-	// Synchronized
-	{
-		upgrade_lock<shared_mutex> lock(history_update);
-
-		if (frame_history.size())
-		{
-			upgrade_to_unique_lock<shared_mutex> unique_lock(lock);
-
-			frame_history.push(new_frame);
-		}
-	}
+	frame_history.enqueue(new_frame);
 
 	Mat old_frame = getLastFrame();
 	Object old_object = getObject(),
@@ -156,43 +146,32 @@ void Tracker::actualizeObject(Object old_object)
 	Mat old_frame,
 			new_frame;
 
-	// Synchronized
+	try
 	{
-		upgrade_lock<shared_mutex> lock(history_update);
-
-		if (frame_history.empty())
-			return;
-
-		old_frame = frame_history.front();
-
-		upgrade_to_unique_lock<shared_mutex> unique_lock(lock);
-		frame_history.pop();
+		old_frame = frame_history.dequeue();
+	}
+	catch (const out_of_range&)
+	{
+		// Nothing to actualize
+		return;
 	}
 
 	while (true)
 	{
 		try
 		{
-			// Synchronized
-			{
-				upgrade_lock<shared_mutex> lock(history_update);
+			new_frame = frame_history.dequeue();
+		}
+		catch (const out_of_range&)
+		{
+			if (debug)
+				cerr << TAG << ": Actualization finished.\n";
 
-				if (frame_history.empty())
-				{
-					if (debug)
-						cerr << TAG << ": Actualization finished.\n";
+			return;
+		}
 
-					return;
-				}
-				else
-				{
-					new_frame = frame_history.front();
-
-					upgrade_to_unique_lock<shared_mutex> unique_lock(lock);
-					frame_history.pop();
-				}
-			}
-
+		try
+		{
 			// For concurrent execution:
 			// Avoid doing the computationally expensive part if there's been an
 			// interruption_request.
@@ -205,8 +184,6 @@ void Tracker::actualizeObject(Object old_object)
 			this_thread::interruption_point();
 			
 			setObject(old_object, new_frame);
-
-			old_frame = new_frame;
 		}
 		catch (const boost::thread_interrupted&)
 		{
@@ -215,6 +192,8 @@ void Tracker::actualizeObject(Object old_object)
 
 			return;
 		}
+
+		old_frame = new_frame;
 	}
 }
 
@@ -279,8 +258,7 @@ void Tracker::sendMessage(int msg, void* data, void* reply_to)
 			{
 				unique_lock<shared_mutex> lock(history_update);
 
-				frame_history.push(*(Mat*)data);
-				frames_tracked_count = 0;
+				frame_history.start(*(Mat*)data);
 			}
 			break;
 		case Manager::MSG_RECOGNITION_END:
@@ -294,17 +272,10 @@ void Tracker::sendMessage(int msg, void* data, void* reply_to)
 				running->interrupt();
 				running = auto_ptr<thread>(new thread());
 
-				// Synchronized
-				{
-					unique_lock<shared_mutex> lock(history_update);
-
-					while (frame_history.size() > frames_tracked_count)
-						frame_history.pop();
-
-					setObject(*(Object*)data, frame_history.front());
-				}
+				setObject(*(Object*)data, frame_history.getStarter());
 			}
 
+			frame_history.discard();
 			backgroundActualizeObject(*(Object*)data);
 			break;
 		default:

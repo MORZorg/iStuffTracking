@@ -10,7 +10,6 @@
 #define I_STUFF_TRACKER_H__
 
 #include <iostream>
-#include <queue>
 
 #include <boost/thread.hpp>
 #include <boost/chrono.hpp>
@@ -19,6 +18,7 @@
 #include "opencv2/nonfree/nonfree.hpp"
 
 #include "object.h"
+#include "fakable_queue.h"
 
 extern bool debug;
 
@@ -36,7 +36,7 @@ namespace IStuff
 
 			Object actual_object;
 			cv::Mat last_frame;
-			std::queue<cv::Mat> frame_history;
+			FakableQueue frame_history;
 			int frames_tracked_count;
 
 		/* Methods */
