@@ -57,7 +57,10 @@ namespace IStuff
 
 		private:
 			/* Setters */
-			void setObject(Object);
+			void setObject(Object, cv::Mat);
+
+			/* Getters */
+			cv::Mat getLastFrame();
 
 			/* Other methods */
 			Object trackFrame(cv::Mat, cv::Mat, Object);

@@ -36,14 +36,17 @@ Tracker::~Tracker()
 
 /**
  * @brief Updates the IStuff::Object used by the IStuff::Tracker.
+ * @details This is operation is done as an atomic operation.
  *
- * @param[in] new_object The new IStuff::Object.
+ * @param[in] new_object	The new IStuff::Object.
+ * @param[in] frame				The frame the IStuff::Object is referred to.
  */
-void Tracker::setObject(Object new_object)
+void Tracker::setObject(Object new_object, Mat frame)
 {
 	unique_lock<shared_mutex> lock(object_update);
 
 	actual_object = new_object;
+	last_frame = frame;
 
 	if (debug)
 		cerr << TAG << ": Object updated.\n";
@@ -61,6 +64,18 @@ Object Tracker::getObject()
 	shared_lock<shared_mutex> lock(object_update);
 
 	return actual_object;
+}
+
+/**
+ * @brief Returns the frame related to the IStuff::Object tracked.
+ *
+ * @return The last frame tracked.
+ */
+Mat Tracker::getLastFrame()
+{
+	shared_lock<shared_mutex> lock(object_update);
+
+	return last_frame;
 }
 
 /**
@@ -89,10 +104,6 @@ void Tracker::trackFrame(cv::Mat new_frame)
 	if (debug)
 		cerr << TAG << ": Tracking external object.\n";
 
-	Mat old_frame = last_frame;
-
-	last_frame = new_frame;
-
 	// Synchronized
 	{
 		upgrade_lock<shared_mutex> lock(history_update);
@@ -105,7 +116,11 @@ void Tracker::trackFrame(cv::Mat new_frame)
 		}
 	}
 
-	setObject(trackFrame(old_frame, new_frame, getObject()));
+	Mat old_frame = getLastFrame();
+	Object old_object = getObject(),
+				 new_object = trackFrame(old_frame, new_frame, old_object);
+
+	setObject(new_object, new_frame);
 }
 
 /**
@@ -162,19 +177,19 @@ void Tracker::actualizeObject(Object old_object)
 			{
 				upgrade_lock<shared_mutex> lock(history_update);
 
-				if (frame_history.size())
-				{
-					new_frame = frame_history.front();
-
-					upgrade_to_unique_lock<shared_mutex> unique_lock(lock);
-					frame_history.pop();
-				}
-				else
+				if (frame_history.empty())
 				{
 					if (debug)
 						cerr << TAG << ": Actualization finished.\n";
 
 					return;
+				}
+				else
+				{
+					new_frame = frame_history.front();
+
+					upgrade_to_unique_lock<shared_mutex> unique_lock(lock);
+					frame_history.pop();
 				}
 			}
 
@@ -189,7 +204,7 @@ void Tracker::actualizeObject(Object old_object)
 			// Avoid saving if there's been an interruption_request.
 			this_thread::interruption_point();
 			
-			setObject(old_object);
+			setObject(old_object, new_frame);
 
 			old_frame = new_frame;
 		}
@@ -247,8 +262,8 @@ bool Tracker::backgroundActualizeObject(Object old_object)
  *		IStuff::Object using the frames captured during the recognition
  *		process.<br />
  *		If the actualization was already happening, the process is interrupted,
- *		the unactualized frames are discarded and the current IStuff::Object is
- *		substituted before restarting the actualization.</dd>
+ *		the old unactualized frames are discarded and the current IStuff::Object
+ *		is substituted before restarting the actualization.</dd>
  *	</dl>
  *
  * @param[in] msg				The message identifier.
@@ -285,9 +300,9 @@ void Tracker::sendMessage(int msg, void* data, void* reply_to)
 
 					while (frame_history.size() > frames_tracked_count)
 						frame_history.pop();
-				}
 
-				setObject(*(Object*)data);
+					setObject(*(Object*)data, frame_history.front());
+				}
 			}
 
 			backgroundActualizeObject(*(Object*)data);
