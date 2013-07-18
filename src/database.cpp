@@ -65,6 +65,8 @@ Object Database::match( Mat frame ) {
 	if( debug )
 		cerr << "Start matching\n";
 
+	initModule_nonfree();
+
 	// Compute descriptors of frame
 	// SIFT detector and extractor
 	Ptr< FeatureDetector > featureDetector = FeatureDetector::create( "SIFT" );
@@ -109,8 +111,8 @@ Object Database::match( Mat frame ) {
 	// lower than the distance of the relatively worst match
 	std::vector< DMatch > good_matches;
 
-	for( int i = 0; i < std::min( frameDescriptors.rows - 1, (int)matches.size() ); i++ )
-		if( matches[ i ][ 0 ].distance < 0.6 * matches[ i ][ 1 ].distance )
+	for( int i = 0; i < (int)matches.size(); i++ )
+		if( matches[ i ][ 0 ].distance < 0.8 * matches[ i ][ 1 ].distance )
 				good_matches.push_back( matches[ i ][ 0 ] );
 
 	// Prints out the good matching keypoints and draws them
@@ -124,14 +126,14 @@ Object Database::match( Mat frame ) {
 		Mat img_keypoints;
 		drawKeypoints( frame, frameKeypoints, img_keypoints, Scalar::all( -1 ), DrawMatchesFlags::DEFAULT );
 
-		string outsbra = "keypoints_sample/AragornFrame.jpg";
+		string outsbra = "keypoints_sample/" + dbName + "Frame.jpg";
 
 		imwrite( outsbra, img_keypoints );
 	}
 
 	// For every label in the database, extract the points and search homography mask
 	for( int i = 0; i < labelDB.size(); i++ ) {
-		vector< Point2f > labelPoints, scenePoints;
+		vector< Point2f > labelPoints, framePoints;
 		vector< Point2f > labelCorners;
 		bool active = false;
 
@@ -143,8 +145,8 @@ Object Database::match( Mat frame ) {
 		for( int j = 0; j < good_matches.size(); j++ )
 			if( good_matches[ j ].imgIdx == i ) {
 				active = true;
-				labelPoints.push_back( keypointDB[ i ][ good_matches[ j ].queryIdx ].pt );
-				scenePoints.push_back( keypointDB[ i ][ good_matches[ j ].trainIdx ].pt );
+				labelPoints.push_back( keypointDB[ i ][ good_matches[ j ].trainIdx ].pt );
+				framePoints.push_back( frameKeypoints[ good_matches[ j ].queryIdx ].pt );
 			}
 
 		if( debug )
@@ -161,21 +163,33 @@ Object Database::match( Mat frame ) {
 			cerr << "\t\tCalculating homography mask\n";
 
 		// Calculate homography mask and add it to the matchingObject
-		Mat H = findHomography( labelPoints, scenePoints, CV_RANSAC );
+		Mat H = findHomography( labelPoints, framePoints, CV_RANSAC );
+		
+		/*if( debug ) {
+			for( int j = 0; j < labelPoints.size(); j++ )
+				cerr << "\t\t\tSource points" << j << ": " << labelPoints[ j ] << endl
+					 << "\t\t\tFrame points" << j << ": " << framePoints[ j ] << endl;
+
+			cerr << endl << H << endl;
+		}*/
 
 		perspectiveTransform( cornersDB[ i ], labelCorners, H );
 
 		if( debug )
 			for( int j = 0; j < labelCorners.size(); j++ )
-				cerr << "\t\t\tCoordinate " << j << ": " << labelCorners[ j ] << endl;
+				cerr << "\t\t\tCoordinate ori " << j << ": " << cornersDB[ i ][ j ] << endl
+					 << "\t\t\tCoordinate per " << j << ": " << labelCorners[ j ] << endl;
 
 		// Debug drawing
 		if( debug ) {
-			Mat imgMatches = frame;
-			line( imgMatches, labelCorners[0] + cornersDB[ i ][ 2 ], labelCorners[1] + cornersDB[ i ][ 2 ], Scalar( 0, 255, 0 ), 4 );
-			line( imgMatches, labelCorners[1] + cornersDB[ i ][ 2 ], labelCorners[2] + cornersDB[ i ][ 2 ], Scalar( 0, 255, 0 ), 4 );
-			line( imgMatches, labelCorners[2] + cornersDB[ i ][ 2 ], labelCorners[3] + cornersDB[ i ][ 2 ], Scalar( 0, 255, 0 ), 4 );
-			line( imgMatches, labelCorners[3] + cornersDB[ i ][ 2 ], labelCorners[0] + cornersDB[ i ][ 2 ], Scalar( 0, 255, 0 ), 4 );
+			Mat imgMatches = frame.clone();
+			line( imgMatches, labelCorners[0], labelCorners[1], Scalar( 0, 255, 0 ), 4 );
+			line( imgMatches, labelCorners[1], labelCorners[2], Scalar( 0, 255, 0 ), 4 );
+			line( imgMatches, labelCorners[2], labelCorners[3], Scalar( 0, 255, 0 ), 4 );
+			line( imgMatches, labelCorners[3], labelCorners[0], Scalar( 0, 255, 0 ), 4 );
+
+			/*for( int j = 0; j < framePoints.size(); j++ )
+				circle( imgMatches, framePoints[ i ], 3, Scalar( 255, 0, 0 ) );*/
 
 			imwrite( "output_sample/" + labelDB[ i ] + ".jpg", imgMatches );
 		}
