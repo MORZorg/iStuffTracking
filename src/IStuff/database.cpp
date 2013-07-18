@@ -66,127 +66,84 @@ Object Database::match( Mat frame ) {
 	if( debug )
 		cerr << "Start matching\n";
 
-	initModule_nonfree();
+	Mat img_object = imread("./image_sample/mail/mail.png", CV_LOAD_IMAGE_GRAYSCALE);
+	//Mat img_scene = imread("./match_sample/sample.png", CV_LOAD_IMAGE_GRAYSCALE);
+	Mat img_scene;
+	cvtColor(frame, img_scene, CV_RGB2GRAY);
 
-	// Compute descriptors of frame
-	// SIFT detector and extractor
-	Ptr< FeatureDetector > featureDetector = FeatureDetector::create( "SIFT" );
-	Ptr< DescriptorExtractor > featureExtractor = DescriptorExtractor::create( "SIFT" );
-	
-	// Temporary containers
-	Mat frameDescriptors;
-	vector< KeyPoint > frameKeypoints;
+	//-- Step 1: Detect the keypoints using SURF Detector
+	int minHessian = 400;
 
-	// Detect the keypoints in the actual image
-	featureDetector -> detect( frame, frameKeypoints );
+	SurfFeatureDetector detector( minHessian );
 
-	// Compute the 128 dimension SIFT descriptor at each keypoint detected
-	// Each row in descriptors corresponds to the SIFT descriptor for each keypoint
-	featureExtractor -> compute( frame, frameKeypoints, frameDescriptors );
+	std::vector<KeyPoint> keypoints_object, keypoints_scene;
 
-	if( debug )
-		cerr << "\tFrame descriptors and keypoints computed\n";
+	detector.detect( img_object, keypoints_object );
+	detector.detect( img_scene, keypoints_scene );
 
-	Object matchingObject = Object();
+	//-- Step 2: Calculate descriptors (feature vectors)
+	SurfDescriptorExtractor extractor;
 
-	// I use the matcher already trained to perform a descriptor match
-	/*FlannBasedMatcher matcher;
+	Mat descriptors_object, descriptors_scene;
 
-	// Matcher training
-	matcher.add( descriptorDB );
-	matcher.train();
+	extractor.compute( img_object, keypoints_object, descriptors_object );
+	extractor.compute( img_scene, keypoints_scene, descriptors_scene );
 
-	if( debug )
-		cerr << "\tMatcher Trained\n";*/
+	//-- Step 3: Matching descriptor vectors using FLANN matcher
+	FlannBasedMatcher matcher;
 
-	// Matches vector
-	vector< vector< DMatch > > matches;
+	std::vector< std::vector<DMatch> > matches;
+	matcher.knnMatch( descriptors_object, descriptors_scene, matches, 2 );
 
-	matcher.knnMatch( frameDescriptors, matches, 2 );
-
-	if( debug )
-		cerr << "\tMatches found\n";
-	
-	// The knnMatch method returns the two best matches for every descriptor
-	// I keep only the best and only when the distance of the very best is significantly
-	// lower than the distance of the relatively worst match
 	std::vector< DMatch > good_matches;
-
-	for( int i = 0; i < (int)matches.size(); i++ )
-		if( matches[ i ][ 0 ].distance < 0.8 * matches[ i ][ 1 ].distance )
-				good_matches.push_back( matches[ i ][ 0 ] );
-
-	// Prints out the good matching keypoints and draws them
-	if( debug ) {
-		for( int i = 0; i < good_matches.size(); i++ )
-			cerr <<"\tGood match #" << i
-					<< "\n\t\tqueryDescriptorIndex: " << good_matches[ i ].queryIdx
-					<< "\n\t\ttrainDescriptorIndex: " << good_matches[ i ].trainIdx
-					<< "\n\t\ttrainImageIndex: " << good_matches[ i ].imgIdx << " (" << labelDB[ good_matches[ i ].imgIdx ] << ")\n\n";
-
-		Mat img_keypoints;
-		drawKeypoints( frame, frameKeypoints, img_keypoints, Scalar::all( -1 ), DrawMatchesFlags::DEFAULT );
-
-		string outsbra = "keypoints_sample/" + dbName + "Frame.jpg";
-
-		imwrite( outsbra, img_keypoints );
+	//Neares-Neighbour-Distance-Ratio
+	std::vector<DMatch> NNDR_matches;
+	double NNDR_ratio = 0.85;	
+	for( unsigned int i = 0; i < matches.size(); i++ ) 
+	{
+		if( matches[ i ][ 0 ].distance <= NNDR_ratio * matches[ i ][ 1 ].distance ) 
+		{
+			good_matches.push_back( matches[ i ][ 0 ]);
+		}
 	}
 
-	// For every label in the database, extract the points and search homography mask
-	for( int i = 0; i < labelDB.size(); i++ ) {
-		vector< Point2f > labelPoints, framePoints;
-		vector< Point2f > labelCorners;
-		bool active = false;
+	Mat img_matches;
+	drawMatches( img_object, keypoints_object, img_scene, keypoints_scene,
+			good_matches, img_matches, Scalar::all(-1), Scalar::all(-1),
+			vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS );
 
-		if( debug )
-			cerr << "\tSearching mask for label " << labelDB[ i ] << endl;
+	//-- Localize the object
+	std::vector<Point2f> obj;
+	std::vector<Point2f> scene;
 
-		// If there is at least one good match in the actual label, mark the label
-		// as active and add the points to the lists
-		for( int j = 0; j < good_matches.size(); j++ )
-			if( good_matches[ j ].imgIdx == i ) {
-				active = true;
-				labelPoints.push_back( keypointDB[ i ][ good_matches[ j ].trainIdx ].pt );
-				framePoints.push_back( frameKeypoints[ good_matches[ j ].queryIdx ].pt );
-			}
-
-		if( debug )
-			cerr << "\t\tFound " << labelPoints.size() << " keypoints in this mask\n";
-
-		if( !active || labelPoints.size() < 4 ) {
-			if( debug )
-				cerr << "\t\t\tToo few keypoints, passing to next mask..\n";
-
-			continue;
-		}
-
-		if( debug )
-			cerr << "\t\tCalculating homography mask\n";
-
-		// Calculate homography mask and add it to the matchingObject
-		Mat H = findHomography( labelPoints, framePoints, CV_RANSAC );
-
-		perspectiveTransform( cornersDB[ i ], labelCorners, H );
-
-		// Debug drawing
-		if( debug ) {
-			Mat imgMatches = frame.clone();
-			line( imgMatches, labelCorners[0], labelCorners[1], Scalar( 0, 255, 0 ), 4 );
-			line( imgMatches, labelCorners[1], labelCorners[2], Scalar( 0, 255, 0 ), 4 );
-			line( imgMatches, labelCorners[2], labelCorners[3], Scalar( 0, 255, 0 ), 4 );
-			line( imgMatches, labelCorners[3], labelCorners[0], Scalar( 0, 255, 0 ), 4 );
-
-			imwrite( "output_sample/" + labelDB[ i ] + ".jpg", imgMatches );
-		}
-
-		if( debug )
-			cerr << "\t\tMask calculated, adding current label to output Object\n";
-
-		matchingObject.setLabel( labelDB[ i ], labelCorners );
+	for( int i = 0; i < good_matches.size(); i++ )
+	{
+		//-- Get the keypoints from the good matches
+		obj.push_back( keypoints_object[ good_matches[i].queryIdx ].pt );
+		scene.push_back( keypoints_scene[ good_matches[i].trainIdx ].pt );
 	}
 
-	if( debug )
-		cerr << "\n\tMatching done. Returning the object\n\n";
+	Mat H = findHomography( obj, scene, CV_RANSAC );
+
+	//-- Get the corners from the image_1 ( the object to be "detected" )
+	std::vector<Point2f> obj_corners(4);
+	obj_corners[0] = cvPoint(0,0); obj_corners[1] = cvPoint( img_object.cols, 0 );
+	obj_corners[2] = cvPoint( img_object.cols, img_object.rows ); obj_corners[3] = cvPoint( 0, img_object.rows );
+	std::vector<Point2f> scene_corners(4);
+
+	perspectiveTransform( obj_corners, scene_corners, H);
+
+	//-- Draw lines between the corners (the mapped object in the scene - image_2 )
+	line( img_matches, scene_corners[0] + Point2f( img_object.cols, 0), scene_corners[1] + Point2f( img_object.cols, 0), Scalar(0, 255, 0), 4 );
+	line( img_matches, scene_corners[1] + Point2f( img_object.cols, 0), scene_corners[2] + Point2f( img_object.cols, 0), Scalar( 0, 255, 0), 4 );
+	line( img_matches, scene_corners[2] + Point2f( img_object.cols, 0), scene_corners[3] + Point2f( img_object.cols, 0), Scalar( 0, 255, 0), 4 );
+	line( img_matches, scene_corners[3] + Point2f( img_object.cols, 0), scene_corners[0] + Point2f( img_object.cols, 0), Scalar( 0, 255, 0), 4 );
+
+	//-- Show detected matches
+	imshow( "Good Matches & Object detection", img_matches );
+
+	Object matchingObject;
+	matchingObject.setLabel("prova", scene_corners);
 
 	return matchingObject;
 }

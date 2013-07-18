@@ -80,16 +80,18 @@ Mat Object::paint(Mat frame)
 	if (description.empty())
 		return frame;
 
+	Mat result = frame.clone();
+
 	for (auto label : description)
 	{
 		vector<Point2f> mask = label.second;
 
 		for (int i = 0; i < mask.size() - 1; i++ )
-			line(frame, mask[i], mask[i+1], Scalar(0, 255, 0), 4);
+			line(result, mask[i], mask[i+1], Scalar(0, 255, 0), 4);
 
-		line(frame, mask.back(), mask.front(), Scalar(0, 255, 0), 4);
+		line(result, mask[mask.size()-1], mask[0], Scalar(0, 255, 0), 4);
 	}
 
-	return frame;
+	return result;
 }
 

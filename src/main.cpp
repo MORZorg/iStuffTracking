@@ -117,6 +117,8 @@ int main( int argc, char* argv[] )
 	Manager manager;
 	manager.setDatabase(db);
 
+	Mat dummy = imread("./match_sample/sample.png");
+
   // Show the image captured from the camera in the window and repeat
   while (true)
   {
