@@ -452,8 +452,14 @@ void Database::build( string imagesPath ) {
 	fs::directory_iterator end_iter;
 
 	// SIFT detector and extractor
-	Ptr< FeatureDetector > featureDetector = FeatureDetector::create( "SURF" );
-	Ptr< DescriptorExtractor > featureExtractor = DescriptorExtractor::create( "SURF" );
+	//Ptr< FeatureDetector > featureDetector = FeatureDetector::create( "SURF" );
+	//Ptr< DescriptorExtractor > featureExtractor = DescriptorExtractor::create( "SURF" );
+	
+	// SURF detector and extractor
+	int minHessian = 400;
+	
+	SurfFeatureDetector featureDetector( minHessian );
+	SurfDescriptorExtractor featureExtractor;
 	
 	// Temporary containers
 	Mat load, descriptors;
@@ -483,14 +489,14 @@ void Database::build( string imagesPath ) {
 		load = imread( it -> path().string(), CV_LOAD_IMAGE_GRAYSCALE );
 
 		// Detect the keypoints in the actual image
-		featureDetector -> detect( load, keypoints );
+		featureDetector.detect( load, keypoints );
 
 		if( debug )
 			cerr << "\tFeatures detected" << endl;
 
 		// Compute the 128 dimension SIFT descriptor at each keypoint detected
 		// Each row in descriptors corresponds to the SIFT descriptor for each keypoint
-		featureExtractor -> compute( load, keypoints, descriptors );
+		featureExtractor.compute( load, keypoints, descriptors );
 
 		if( debug )
 			cerr << "\tDescriptors extracted\n"

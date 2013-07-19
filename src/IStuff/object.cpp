@@ -80,9 +80,10 @@ Mat Object::paint(Mat frame)
 	if (description.empty())
 		return frame;
 
-	for (auto label : description)
+	//for (auto label : description)
+	for( map< Label, vector< Point2f > >::iterator label = description.begin(); label != description.end(); label++ )
 	{
-		vector<Point2f> mask = label.second;
+		vector<Point2f> mask = (*label).second;
 
 		for (int i = 0; i < mask.size() - 1; i++ )
 			line(frame, mask[i], mask[i+1], Scalar(0, 255, 0), 4);
