@@ -15,6 +15,7 @@
 #include <boost/chrono.hpp>
 
 #include "opencv2/imgproc/imgproc.hpp"
+#include "opencv2/video/video.hpp"
 #include "opencv2/nonfree/nonfree.hpp"
 
 #include "object.h"

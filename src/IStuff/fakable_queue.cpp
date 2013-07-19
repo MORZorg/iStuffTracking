@@ -19,7 +19,7 @@ using namespace boost;
 using namespace cv;
 using namespace IStuff;
 
-const char FakableQueue::TAG[] = "Fkq";
+const char FakableQueue::TAG[] = "\0Fkq";
 
 /* Constructors and Destructors */
 

@@ -127,8 +127,20 @@ Object Tracker::trackFrame(cv::Mat old_frame, cv::Mat new_frame, Object old_obje
 	if (debug)
 		cerr << TAG << ": Tracking object.\n";
 
-	// TODO
-	usleep(1000);
+	/*
+	for (Label label : old_object.getLabels())
+	{
+		vector<Point2f> new_mask;
+		vector<uchar> status;
+		vector<float> err;
+
+		calcOpticalFlowPyrLK(old_frame, new_frame,
+												 old_object.getMask(label), new_mask,
+												 status, err);
+		old_object.setLabel(label, new_mask);
+	}
+	*/
+	usleep(10000);
 
 	return old_object;
 }

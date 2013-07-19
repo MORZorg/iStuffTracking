@@ -44,6 +44,7 @@ namespace IStuff
 
 			/* Getters */
 			std::vector<cv::Point2f> getMask(const Label) const;
+			std::vector<Label> getLabels() const;
 
 			/* Other methods */
 			cv::Mat paint(cv::Mat);

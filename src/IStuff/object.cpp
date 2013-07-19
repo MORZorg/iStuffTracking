@@ -66,6 +66,21 @@ vector<Point2f> Object::getMask(const Label label) const
 	return description.at(label);
 }
 
+/**
+ * @brief Returns a list of all the IStuff::Label associated to this object.
+ *
+ * @return A std::vector containing the IStuff::Label.
+ */
+vector<Label> Object::getLabels() const
+{
+	vector<Label> result;
+	
+	for (auto entry : description)
+		result.push_back(entry.first);
+
+	return result;
+}
+
 /* Other methods */
 
 /**

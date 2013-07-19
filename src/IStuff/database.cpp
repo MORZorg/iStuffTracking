@@ -66,7 +66,7 @@ Object Database::match( Mat frame ) {
 	if( debug )
 		cerr << "Start matching\n";
 
-	Mat img_object = imread("./image_sample/mail/mail.png", CV_LOAD_IMAGE_GRAYSCALE);
+	Mat img_object = imread("./image_sample/mail/box.jpg", CV_LOAD_IMAGE_GRAYSCALE);
 	//Mat img_scene = imread("./match_sample/sample.png", CV_LOAD_IMAGE_GRAYSCALE);
 	Mat img_scene;
 	cvtColor(frame, img_scene, CV_RGB2GRAY);
