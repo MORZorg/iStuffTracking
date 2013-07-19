@@ -130,6 +130,8 @@ int main( int argc, char* argv[] )
 		frame = manager.paintObject(frame);
 
     imshow("Camera", frame);
+
+		waitKey(0);
   }
 
   capture.release();

@@ -55,6 +55,129 @@ Database::~Database() {
 }
 
 /**
+ * @brief Another attempt of match
+ */
+Object Database::match( Mat frame ) {
+	if( debug )
+		cerr << "Start matching\n";
+
+	Object matchingObject;
+
+	// Convert frame in grayscale
+	Mat scene;
+	cvtColor( frame, scene, CV_RGB2GRAY );
+
+	// Calculate SURF keypoints and descriptors
+	int minHessian = 400;
+
+	SurfFeatureDetector featureDetector( minHessian );
+	SurfDescriptorExtractor featureExtractor;
+
+	vector< KeyPoint > sceneKeypoints;
+	Mat sceneDescriptors;
+
+	featureDetector.detect( scene, sceneKeypoints );
+	featureExtractor.compute( scene, sceneKeypoints, sceneDescriptors );
+
+	if( debug )
+		cerr << "\t\tFrame keypoints and descriptors computed\n";
+
+	// Matching..
+	vector< vector< DMatch > > matches;
+	vector< DMatch > goodMatches;
+
+	matcher.knnMatch( sceneDescriptors, matches, 2 );
+
+	if( debug )
+		cerr << "\t\t" << matches.size() << " matches found, start filtering the good ones\n";
+
+	double NNDRRatio = 0.85;
+
+	for( int i = 0; i < matches.size(); i++ )
+		if( matches[ i ][ 0 ].distance <= NNDRRatio * matches[ i ][ 1 ].distance )
+			goodMatches.push_back( matches[ i ][ 0 ] );
+
+	if( debug )
+		cerr << "\t\t" << goodMatches.size() << " good matches found, starting object localization\n";
+	
+	// Object localization
+	// Prints out the good matching keypoints and draws them
+	if( debug ) {
+		for( int i = 0; i < goodMatches.size(); i++ )
+			cerr <<"\tGood match #" << i
+					<< "\n\t\tsceneDescriptorIndex: " << goodMatches[ i ].queryIdx
+					<< "\n\t\tsampleDescriptorIndex: " << goodMatches[ i ].trainIdx
+					<< "\n\t\tsampleImageIndex: " << goodMatches[ i ].imgIdx << " (" << labelDB[ goodMatches[ i ].imgIdx ] << ")\n\n";
+
+		Mat imgKeypoints;
+		drawKeypoints( scene, sceneKeypoints, imgKeypoints, Scalar::all( -1 ), DrawMatchesFlags::DEFAULT );
+
+		string outsbra = "keypoints_sample/" + dbName + "Frame.jpg";
+
+		imwrite( outsbra, imgKeypoints );
+	}
+
+	// For every label analyze the matches and process a
+	for( int i = 0; i < labelDB.size(); i++ ) {
+		vector< Point2f > labelPoints, scenePoints;
+		vector< Point2f > labelCorners;
+		bool active = false;
+
+		if( debug )
+			cerr << "\tSearching mask for label " << labelDB[ i ] << endl;
+
+		// If there is at least one good match in the actual label, mark the label
+		// as active and add the points to the lists
+		for( int j = 0; j < goodMatches.size(); j++ )
+			if( goodMatches[ j ].imgIdx == i ) {
+				active = true;
+				labelPoints.push_back( keypointDB[ i ][ goodMatches[ j ].trainIdx ].pt );
+				scenePoints.push_back( sceneKeypoints[ goodMatches[ j ].queryIdx ].pt );
+			}
+
+		if( debug )
+			cerr << "\t\tFound " << labelPoints.size() << " keypoints in this label\n";
+
+		if( !active || labelPoints.size() < 4 ) {
+			if( debug )
+				cerr << "\t\t\tToo few keypoints, passing to next label..\n";
+
+			continue;
+		}
+
+		if( debug )
+			cerr << "\t\tCalculating homography mask\n";
+
+		// Calculate homography mask and add it to the matchingObject
+		Mat H = findHomography( labelPoints, scenePoints, CV_RANSAC );
+
+		perspectiveTransform( cornersDB[ i ], labelCorners, H );
+
+		// Debug drawing
+		if( debug ) {
+			Mat imgMatches = frame.clone();
+			line( imgMatches, labelCorners[0], labelCorners[1], Scalar( 0, 255, 0 ), 4 );
+			line( imgMatches, labelCorners[1], labelCorners[2], Scalar( 0, 255, 0 ), 4 );
+			line( imgMatches, labelCorners[2], labelCorners[3], Scalar( 0, 255, 0 ), 4 );
+			line( imgMatches, labelCorners[3], labelCorners[0], Scalar( 0, 255, 0 ), 4 );
+
+			imwrite( "output_sample/" + labelDB[ i ] + ".jpg", imgMatches );
+		}
+
+		if( debug )
+			cerr << "\t\tMask calculated, adding current label to output Object\n";
+
+		matchingObject.setLabel( labelDB[ i ], labelCorners );
+	}
+
+	if( debug )
+		cerr << "\n\tMatching done. Returning the object\n\n";
+
+	return matchingObject;
+	
+}
+
+/**
  * @brief	Search for descriptors matching in passed frame
  * @details	Given an image, searches for the descriptors in the database
  *			and returns a rectangle enclosing the matched object
@@ -62,91 +185,124 @@ Database::~Database() {
  * @retval	An Object containing an association between the labels and the
  * 			areas in which every label is found
  * */
-Object Database::match( Mat frame ) {
+/*Object Database::match( Mat frame ) {
 	if( debug )
 		cerr << "Start matching\n";
 
-	Mat img_object = imread("./image_sample/mail/box.jpg", CV_LOAD_IMAGE_GRAYSCALE);
-	//Mat img_scene = imread("./match_sample/sample.png", CV_LOAD_IMAGE_GRAYSCALE);
-	Mat img_scene;
-	cvtColor(frame, img_scene, CV_RGB2GRAY);
+	//initModule_nonfree();
 
-	//-- Step 1: Detect the keypoints using SURF Detector
-	int minHessian = 400;
+	// Compute descriptors of frame
+	// SIFT detector and extractor
+	Ptr< FeatureDetector > featureDetector = FeatureDetector::create( "SIFT" );
+	Ptr< DescriptorExtractor > featureExtractor = DescriptorExtractor::create( "SIFT" );
+	
+	// Temporary containers
+	Mat frameDescriptors;
+	vector< KeyPoint > frameKeypoints;
 
-	SurfFeatureDetector detector( minHessian );
+	// Detect the keypoints in the actual image
+	featureDetector -> detect( frame, frameKeypoints );
 
-	std::vector<KeyPoint> keypoints_object, keypoints_scene;
+	// Compute the 128 dimension SIFT descriptor at each keypoint detected
+	// Each row in descriptors corresponds to the SIFT descriptor for each keypoint
+	featureExtractor -> compute( frame, frameKeypoints, frameDescriptors );
 
-	detector.detect( img_object, keypoints_object );
-	detector.detect( img_scene, keypoints_scene );
+	if( debug )
+		cerr << "\tFrame descriptors (" << frameDescriptors.rows << ") and keypoints (" << frameKeypoints.size() << ") computed\n";
 
-	//-- Step 2: Calculate descriptors (feature vectors)
-	SurfDescriptorExtractor extractor;
+	Object matchingObject = Object();
 
-	Mat descriptors_object, descriptors_scene;
+	// I use the matcher already trained to perform a descriptor match
+	vector< vector< DMatch > > matches;
 
-	extractor.compute( img_object, keypoints_object, descriptors_object );
-	extractor.compute( img_scene, keypoints_scene, descriptors_scene );
+	matcher.knnMatch( frameDescriptors, matches, 2 );
 
-	//-- Step 3: Matching descriptor vectors using FLANN matcher
-	FlannBasedMatcher matcher;
-
-	std::vector< std::vector<DMatch> > matches;
-	matcher.knnMatch( descriptors_object, descriptors_scene, matches, 2 );
-
+	if( debug )
+		cerr << "\tMatches found\n";
+	
+	// The knnMatch method returns the two best matches for every descriptor
+	// I keep only the best and only when the distance of the very best is significantly
+	// lower than the distance of the relatively worst match
 	std::vector< DMatch > good_matches;
-	//Neares-Neighbour-Distance-Ratio
-	std::vector<DMatch> NNDR_matches;
-	double NNDR_ratio = 0.85;	
-	for( unsigned int i = 0; i < matches.size(); i++ ) 
-	{
-		if( matches[ i ][ 0 ].distance <= NNDR_ratio * matches[ i ][ 1 ].distance ) 
-		{
-			good_matches.push_back( matches[ i ][ 0 ]);
+
+	for( int i = 0; i < (int)matches.size(); i++ )
+		if( matches[ i ][ 0 ].distance < 0.9 * matches[ i ][ 1 ].distance )
+				good_matches.push_back( matches[ i ][ 0 ] );
+
+	// Prints out the good matching keypoints and draws them
+	if( debug ) {
+		for( int i = 0; i < good_matches.size(); i++ )
+			cerr <<"\tGood match #" << i
+					<< "\n\t\tframeDescriptorIndex: " << good_matches[ i ].queryIdx
+					<< "\n\t\tsampleDescriptorIndex: " << good_matches[ i ].trainIdx
+					<< "\n\t\tsampleImageIndex: " << good_matches[ i ].imgIdx << " (" << labelDB[ good_matches[ i ].imgIdx ] << ")\n\n";
+
+		Mat img_keypoints;
+		drawKeypoints( frame, frameKeypoints, img_keypoints, Scalar::all( -1 ), DrawMatchesFlags::DEFAULT );
+
+		string outsbra = "keypoints_sample/" + dbName + "Frame.jpg";
+
+		imwrite( outsbra, img_keypoints );
+	}
+
+	// For every label analyze the matches and process a
+	for( int i = 0; i < labelDB.size(); i++ ) {
+		vector< Point2f > labelPoints, framePoints;
+		vector< Point2f > labelCorners;
+		bool active = false;
+
+		if( debug )
+			cerr << "\tSearching mask for label " << labelDB[ i ] << endl;
+
+		// If there is at least one good match in the actual label, mark the label
+		// as active and add the points to the lists
+		for( int j = 0; j < good_matches.size(); j++ )
+			if( good_matches[ j ].imgIdx == i ) {
+				active = true;
+				labelPoints.push_back( keypointDB[ i ][ good_matches[ j ].trainIdx ].pt );
+				framePoints.push_back( frameKeypoints[ good_matches[ j ].queryIdx ].pt );
+			}
+
+		if( debug )
+			cerr << "\t\tFound " << labelPoints.size() << " keypoints in this label\n";
+
+		if( !active || labelPoints.size() < 4 ) {
+			if( debug )
+				cerr << "\t\t\tToo few keypoints, passing to next label..\n";
+
+			continue;
 		}
+
+		if( debug )
+			cerr << "\t\tCalculating homography mask\n";
+
+		// Calculate homography mask and add it to the matchingObject
+		Mat H = findHomography( labelPoints, framePoints, CV_RANSAC );
+
+		perspectiveTransform( cornersDB[ i ], labelCorners, H );
+
+		// Debug drawing
+		if( debug ) {
+			Mat imgMatches = frame.clone();
+			line( imgMatches, labelCorners[0], labelCorners[1], Scalar( 0, 255, 0 ), 4 );
+			line( imgMatches, labelCorners[1], labelCorners[2], Scalar( 0, 255, 0 ), 4 );
+			line( imgMatches, labelCorners[2], labelCorners[3], Scalar( 0, 255, 0 ), 4 );
+			line( imgMatches, labelCorners[3], labelCorners[0], Scalar( 0, 255, 0 ), 4 );
+
+			imwrite( "output_sample/" + labelDB[ i ] + ".jpg", imgMatches );
+		}
+
+		if( debug )
+			cerr << "\t\tMask calculated, adding current label to output Object\n";
+
+		matchingObject.setLabel( labelDB[ i ], labelCorners );
 	}
 
-	Mat img_matches;
-	drawMatches( img_object, keypoints_object, img_scene, keypoints_scene,
-			good_matches, img_matches, Scalar::all(-1), Scalar::all(-1),
-			vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS );
-
-	//-- Localize the object
-	std::vector<Point2f> obj;
-	std::vector<Point2f> scene;
-
-	for( int i = 0; i < good_matches.size(); i++ )
-	{
-		//-- Get the keypoints from the good matches
-		obj.push_back( keypoints_object[ good_matches[i].queryIdx ].pt );
-		scene.push_back( keypoints_scene[ good_matches[i].trainIdx ].pt );
-	}
-
-	Mat H = findHomography( obj, scene, CV_RANSAC );
-
-	//-- Get the corners from the image_1 ( the object to be "detected" )
-	std::vector<Point2f> obj_corners(4);
-	obj_corners[0] = cvPoint(0,0); obj_corners[1] = cvPoint( img_object.cols, 0 );
-	obj_corners[2] = cvPoint( img_object.cols, img_object.rows ); obj_corners[3] = cvPoint( 0, img_object.rows );
-	std::vector<Point2f> scene_corners(4);
-
-	perspectiveTransform( obj_corners, scene_corners, H);
-
-	//-- Draw lines between the corners (the mapped object in the scene - image_2 )
-	line( img_matches, scene_corners[0] + Point2f( img_object.cols, 0), scene_corners[1] + Point2f( img_object.cols, 0), Scalar(0, 255, 0), 4 );
-	line( img_matches, scene_corners[1] + Point2f( img_object.cols, 0), scene_corners[2] + Point2f( img_object.cols, 0), Scalar( 0, 255, 0), 4 );
-	line( img_matches, scene_corners[2] + Point2f( img_object.cols, 0), scene_corners[3] + Point2f( img_object.cols, 0), Scalar( 0, 255, 0), 4 );
-	line( img_matches, scene_corners[3] + Point2f( img_object.cols, 0), scene_corners[0] + Point2f( img_object.cols, 0), Scalar( 0, 255, 0), 4 );
-
-	//-- Show detected matches
-	imshow( "Good Matches & Object detection", img_matches );
-
-	Object matchingObject;
-	matchingObject.setLabel("prova", scene_corners);
+	if( debug )
+		cerr << "\n\tMatching done. Returning the object\n\n";
 
 	return matchingObject;
-}
+}*/
 
 /**
  * @brief	Load existing database and fill the map 
@@ -155,19 +311,113 @@ void Database::load() {
 	if( debug )
 		cerr << "Loading database\n";
 
-	string dbFileName = dbPath + dbName + ".sbra";
-	ifstream f( dbFileName.c_str(), ios::binary );
+	string dbFileName = dbPath + dbName;
 
-	if( f.fail() )
+	ifstream label( ( dbFileName + "label.sbra" ).c_str(), ios::binary );
+	ifstream desc( ( dbFileName + "desc.sbra" ).c_str(), ios::binary );
+	
+	ifstream kp( ( dbFileName + "kp.sbra" ).c_str(), ios::in );
+	ifstream corn( ( dbFileName + "corn.sbra" ).c_str(), ios::in );
+
+	if( label.fail() || kp.fail() || desc.fail() || corn.fail() )
 		throw DBLoadingException();
 	else if( debug )
 		cerr << "\tLoading from " << dbFileName << endl;
-	
-	/*boost::archive::binary_iarchive iarch( f );
-	iarch >> labelDB;
-	iarch >> keypointDB;
-	iarch >> descriptorDB;
-	iarch >> cornersDB;*/
+
+	boost::archive::binary_iarchive labelarch( label );
+	labelarch >> labelDB;
+
+	if( debug )
+		cerr << "\t\tLabels loaded\n";
+
+	boost::archive::binary_iarchive descarch( desc );
+	descarch >> descriptorDB;
+
+	if( debug )
+		cerr << "\t\tDescriptors loaded\n";
+
+	/*boost::archive::binary_iarchive kparch( kp );
+	kparch >> keypointDB;
+
+	boost::archive::binary_iarchive cornarch( corn );
+	cornarch >> cornersDB;*/
+
+	// Very very awful loading
+	// keypointDB. Discard the first line as I expect it to be a Label marker
+	string line;
+	kp >> line;
+
+	while( true ) {
+		vector< KeyPoint > temp = vector< KeyPoint >();
+		string x, y, size, angle, response, octave, class_id;
+
+		if( debug )
+			cerr << "\t\t\tLine " << line << endl;
+
+		while( class_id.compare( "Label" ) && kp >> x ) {
+			if( !x.compare( "Label" ) ) {
+				line = x;
+				break;
+			}
+
+			kp >> y >> size >> angle >> response >> octave >> class_id;
+
+			temp.push_back(	KeyPoint(
+					::atof( ( x ).c_str() ),
+					::atof( ( y ).c_str() ),
+					::atof( ( size ).c_str() ),
+					::atof( ( angle ).c_str() ),
+					::atof( ( response ).c_str() ),
+					atoi( ( octave ).c_str() ),
+					atoi( ( class_id ).c_str() ) ) );
+			
+			if( debug )
+				cerr << "\t\t\tPoint " << temp[ temp.size() - 1 ].pt << endl;
+		} 
+
+		keypointDB.push_back( temp );
+
+		if( kp.eof() )
+			break;
+	}
+
+	if( debug )
+		cerr << "\t\tKeypoints loaded\n";
+
+	corn >> line;
+
+	// cornerDB. Much easier due to the content nature
+	while( true ) {
+		vector< Point2f > temp = vector< Point2f >();
+		string x, y;
+
+		if( debug )
+			cerr << "\t\t\tLine " << line << endl;
+
+		while( y.compare( "Corners" ) && corn >> x ) {
+			if( !x.compare( "Corners" ) ) {
+				line = x;
+				break;
+			}
+
+			corn >> y;
+
+			temp.push_back(	Point2f(
+					::atof( ( x ).c_str() ),
+					::atof( ( y ).c_str() ) ) );
+			
+			if( debug )
+				cerr << "\t\t\tPoint " << temp[ temp.size() - 1 ] << endl;
+		}
+
+		cornersDB.push_back( temp );
+
+		if( corn.eof() )
+			break;
+	}
+
+	if( debug )
+		cerr << "\t\tCorners loaded\n";
 
 	if( debug )
 		cerr << "\tLoad successfull" << endl;
@@ -176,7 +426,7 @@ void Database::load() {
 	matcher.train();
 
 	if( debug )
-		cerr << "\tMatcher train successfull" << endl;
+		cerr << "\tMatcher trained successfully" << endl;
 }
 
 /**
@@ -202,8 +452,8 @@ void Database::build( string imagesPath ) {
 	fs::directory_iterator end_iter;
 
 	// SIFT detector and extractor
-	Ptr< FeatureDetector > featureDetector = FeatureDetector::create( "SIFT" );
-	Ptr< DescriptorExtractor > featureExtractor = DescriptorExtractor::create( "SIFT" );
+	Ptr< FeatureDetector > featureDetector = FeatureDetector::create( "SURF" );
+	Ptr< DescriptorExtractor > featureExtractor = DescriptorExtractor::create( "SURF" );
 	
 	// Temporary containers
 	Mat load, descriptors;
@@ -230,7 +480,7 @@ void Database::build( string imagesPath ) {
 			cerr << it -> path().filename() << endl;
 		}
 	
-		load = imread( it -> path().string() );
+		load = imread( it -> path().string(), CV_LOAD_IMAGE_GRAYSCALE );
 
 		// Detect the keypoints in the actual image
 		featureDetector -> detect( load, keypoints );
@@ -246,7 +496,7 @@ void Database::build( string imagesPath ) {
 			cerr << "\tDescriptors extracted\n"
 	 			 << "\t\tSaving label, keypoints and sample corners\n";
 
-		string labelName = dbName + "Label" + boost::lexical_cast<std::string>( labelCounter++ );
+		string labelName = dbName + "Label" + boost::lexical_cast< string >( labelCounter++ );
 
 		labelDB.push_back( labelName ); 
 		keypointDB.push_back( keypoints );
@@ -289,7 +539,7 @@ void Database::build( string imagesPath ) {
 	matcher.train();
 
 	// Now that the structures are filled, save them to a file for future usage
-	//save();
+	save();
 }
 
 /**
@@ -299,20 +549,57 @@ void Database::save() {
 	if( debug )
 		cerr << "Saving the created database" << endl;
 
-	string dbFileName = dbPath + dbName + ".sbra";
-	ofstream f( dbFileName.c_str(), ios::binary );
+	string dbFileName = dbPath + dbName;
 
-	if( f.fail() )
+	// Empty file for existence check
+	ofstream ex( ( dbFileName + ".sbra" ).c_str(), ios::out );
+	ex << "SBRA!";
+	ex.close();
+
+	ofstream label( ( dbFileName + "label.sbra" ).c_str(), ios::binary );
+	ofstream desc( ( dbFileName + "desc.sbra" ).c_str(), ios::binary );
+
+	ofstream kp( ( dbFileName + "kp.sbra" ).c_str(), ios::out );
+	ofstream corn( ( dbFileName + "corn.sbra" ).c_str(), ios::out );
+
+	if( label.fail() || kp.fail() || desc.fail() || corn.fail() )
 		throw DBSavingException();
 	else if( debug )
 		cerr << "\tSaving to " << dbFileName << endl;
 
-	/*boost::archive::binary_oarchive oarch( f );
-	oarch << labelDB;
-	oarch << keypointDB;
-	oarch << descriptorDB;
-	oarch << cornersDB;*/
+	boost::archive::binary_oarchive labelarch( label );
+	labelarch << labelDB;
+
+	boost::archive::binary_oarchive descarch( desc );
+	descarch << descriptorDB;
+
+	/*boost::archive::binary_oarchive kparch( kp );
+	kparch << keypointDB;
+
+	boost::archive::binary_oarchive cornarch( corn );
+	cornarch << cornersDB;*/
+
+	// Very very awful saving
+	// keypointDB
+	for( vector< vector< KeyPoint > >::iterator it = keypointDB.begin(); it != keypointDB.end(); it++ ) {
+		kp << "Label" << endl;
+
+		for( vector< KeyPoint >::iterator jt = ( *it ).begin(); jt != ( *it ).end(); jt++ )
+			kp << ( *jt ).pt.x << " " << ( *jt ).pt.y << " " << ( *jt ).size << " " << ( *jt ).angle << " " << ( *jt ).response << " " << ( *jt ).octave << " " << ( *jt ).class_id << endl;
+	}
 	
+	// cornerDB
+	for( vector< vector< Point2f > >::iterator it = cornersDB.begin(); it != cornersDB.end(); it++ ) {
+		corn << "Corners" << endl;
+		for( vector< Point2f >::iterator jt = ( *it ).begin(); jt != ( *it ).end(); jt++ )
+			corn << ( *jt ).x << " " << ( *jt ).y << endl;
+	}
+	
+	label.close();
+	desc.close();
+	kp.close();
+	corn.close();
+
 	if( debug )
 		cerr << "\tSave successfull" << endl;
 }

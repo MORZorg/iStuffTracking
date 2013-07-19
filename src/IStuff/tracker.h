@@ -32,13 +32,14 @@ namespace IStuff
 			const static char TAG[];
 
 			std::auto_ptr<boost::thread> running;
-			boost::shared_mutex object_update,
-													history_update;
+			boost::shared_mutex object_update;
 
 			Object actual_object;
 			cv::Mat last_frame;
 			FakableQueue frame_history;
 			int frames_tracked_count;
+
+			cv::Ptr<cv::FeatureDetector> detector;
 
 		/* Methods */
 		public:

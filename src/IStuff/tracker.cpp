@@ -25,6 +25,8 @@ Tracker::Tracker()
 {
 	running = auto_ptr<thread>(new thread());
 
+	detector = FeatureDetector::create("GFTT");
+
 	if (debug)
 		cerr << TAG << " constructed.\n";
 }
@@ -130,6 +132,9 @@ Object Tracker::trackFrame(cv::Mat old_frame, cv::Mat new_frame, Object old_obje
 	/*
 	for (Label label : old_object.getLabels())
 	{
+		if (debug)
+			cerr << TAG << ": \tLabel: " << label << endl;
+
 		vector<Point2f> new_mask;
 		vector<uchar> status;
 		vector<float> err;
@@ -137,10 +142,79 @@ Object Tracker::trackFrame(cv::Mat old_frame, cv::Mat new_frame, Object old_obje
 		calcOpticalFlowPyrLK(old_frame, new_frame,
 												 old_object.getMask(label), new_mask,
 												 status, err);
-		old_object.setLabel(label, new_mask);
+
+		if (debug)
+			cerr << TAG << ": \tOld: " << old_object.getMask(label) << endl
+					 << "\t\tNew: " << new_mask << endl;
+
+		bool keep_mask = true;
+		for (uchar i : status)
+			keep_mask &= i;
+
+		if (debug)
+			cerr << TAG << ": \tKeep: " << keep_mask << endl;
+
+		if (keep_mask)
+			old_object.setLabel(label, new_mask);
+		else
+			old_object.removeLabel(label);
 	}
 	*/
-	usleep(10000);
+
+	vector<uchar> status;
+
+	        
+	// Maschera..?
+	if (m_mask.rows != new_frame.rows || m_mask.cols != new_frame.cols)
+		m_mask.create(new_frame.rows, new_frame.cols, CV_8UC1);
+
+	// prevPts..?
+	if (m_prevPts.size() > 0)
+	{
+		calcOpticalFlowPyrLK(m_prevImg, m_nextImg, m_prevPts, m_nextPts, m_status, m_error);
+	}
+
+	m_mask = Scalar(255);
+
+	vector<Point2f> trackedPts;
+
+	// Tengo solo quelli rimasti
+	for (size_t i=0; i < status.size(); i++)
+	{
+		if (status[i])
+		{
+			trackedPts.push_back(m_nextPts[i]);
+
+			cv::circle(m_mask, m_prevPts[i], 15, cv::Scalar(0), CV_FILLED);
+			cv::line(outputFrame, m_prevPts[i], m_nextPts[i], CV_RGB(0,250,0));
+			cv::circle(outputFrame, m_nextPts[i], 3, CV_RGB(0,250,0), CV_FILLED);
+		}
+	}
+
+	bool needDetectAdditionalPoints = trackedPts.size() < m_maxNumberOfPoints;
+	if (needDetectAdditionalPoints)
+	{
+		m_detector->detect(m_nextImg, m_nextKeypoints, m_mask);
+		int pointsToDetect = m_maxNumberOfPoints - trackedPts.size();
+
+		if (m_nextKeypoints.size() > pointsToDetect)
+		{
+			std::random_shuffle(m_nextKeypoints.begin(), m_nextKeypoints.end());
+			m_nextKeypoints.resize(pointsToDetect);
+		}
+
+		std::cout << "Detected additional " << m_nextKeypoints.size() << " points" << std::endl;
+
+		for (size_t i=0; i<m_nextKeypoints.size(); i++)
+		{
+			trackedPts.push_back(m_nextKeypoints[i].pt);
+			cv::circle(outputFrame, m_nextKeypoints[i].pt, 5, cv::Scalar(255,0,255), -1);
+		}
+	}
+
+	m_prevPts = trackedPts;
+	m_nextImg.copyTo(m_prevImg);
+}
 
 	return old_object;
 }
@@ -266,12 +340,7 @@ void Tracker::sendMessage(int msg, void* data, void* reply_to)
 	switch (msg)
 	{
 		case Manager::MSG_RECOGNITION_START:
-			// Synchronized
-			{
-				unique_lock<shared_mutex> lock(history_update);
-
-				frame_history.start(*(Mat*)data);
-			}
+			frame_history.start(*(Mat*)data);
 			break;
 		case Manager::MSG_RECOGNITION_END:
 			if (isRunning())
@@ -283,9 +352,11 @@ void Tracker::sendMessage(int msg, void* data, void* reply_to)
 				// so I can let it finish its execution.
 				running->interrupt();
 				running = auto_ptr<thread>(new thread());
-
-				setObject(*(Object*)data, frame_history.getStarter());
 			}
+
+			// This setObject is useful only if the thread was running or the
+			// frame_history is made by a single frame.
+			setObject(*(Object*)data, frame_history.getStarter());
 
 			frame_history.discard();
 			backgroundActualizeObject(*(Object*)data);

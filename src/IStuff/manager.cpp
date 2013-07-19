@@ -81,7 +81,6 @@ void Manager::elaborateFrame(Mat frame)
 	if (frames_tracked_count < RECOGNITION_PERIOD)
 		frames_tracked_count++;
 
-	// TODO
 	tracker.trackFrame(frame);
 }
 
