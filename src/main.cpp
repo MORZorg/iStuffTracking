@@ -25,8 +25,7 @@ int main( int argc, char* argv[] )
 {
 	int i = 0;
 
-	string dbName,
-				 dbDir = "image_sample/clean/";
+	string dbName, dbDir = "image_sample/clean/";
 
 	// Command line flags parsing, mostly debug level
 	while (++i < argc)
@@ -110,30 +109,30 @@ int main( int argc, char* argv[] )
 		exit(2);
 	}
 
-  namedWindow("Camera", CV_WINDOW_AUTOSIZE);
+	namedWindow( "Camera", CV_WINDOW_AUTOSIZE );
 
-  VideoCapture capture = VideoCapture(CV_CAP_ANY);
+	VideoCapture capture = VideoCapture( -1 );
 
 	Manager manager;
 	manager.setDatabase(db);
 
-  // Show the image captured from the camera in the window and repeat
-  while (true)
-  {
-    // Get one frame
-    Mat frame;
-    capture >> frame;
+	// Show the image captured from the camera in the window and repeat
+	while (true)
+	{
+		// Get one frame
+		Mat frame;
+		capture >> frame;
 
 		manager.elaborateFrame(frame);
 		frame = manager.paintObject(frame);
 
-    imshow("Camera", frame);
-  }
+		imshow("Camera", frame);
+	}
 
-  capture.release();
-  destroyWindow("Camera");
+	capture.release();
+	destroyWindow("Camera");
 
-  return 0;
+	return 0;
 }
 
 /**

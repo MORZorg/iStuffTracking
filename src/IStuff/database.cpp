@@ -466,14 +466,14 @@ void Database::build( string imagesPath ) {
 	vector< KeyPoint > keypoints;
 
 	// If there are no images in the given directory then throw an exception
-	int file_count = std::count_if(
+	/*int file_count = std::count_if(
 			fs::directory_iterator( fullPath ),
 			fs::directory_iterator(),
 			bind( static_cast< bool(*)( const fs::path& ) > ( fs::is_regular_file ), 
 			bind( &fs::directory_entry::path, boost::lambda::_1 ) ) );	
 
 	if( file_count == 0 )
-		throw DBCreationException(); 
+		throw DBCreationException();*/
 	
 	int labelCounter = 0;
 
