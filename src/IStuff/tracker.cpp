@@ -39,7 +39,8 @@ void Tracker::setObject(Object new_object)
 	detector->detect(original_frame, key_pts);
 
 	if (debug)
-		cerr << TAG << ": found " << key_pts.size() << " keypoints.\n";
+		cerr << TAG << ": Found " << key_pts.size() << " keypoints.\n";
+
 
 	if (key_pts.empty())
 	{
@@ -47,40 +48,38 @@ void Tracker::setObject(Object new_object)
 
 		original_object = new_object;
 		original_frame = future_frame;
-		original_pts = vector<Point2f>();
+
 		return;
 	}
 
-	vector<Point2f> new_pts;
-
 	for (Label label : new_object.getLabels())
 	{
-		vector<Point2f> mask = new_object.getMask(label);
-		for (Point2f object_pt : mask)
+		vector<Point2f> mask = new_object.getMask(label),
+										adjusted_mask;
+
+		for (Point2f a_pt : mask)
 		{
 			float min_dist = FLT_MAX;
-			size_t min = 0;
-			for (size_t i = 0; i < key_pts.size(); i++)
+			Point2f min;
+			for (KeyPoint a_kp : key_pts)
 			{
-				float dist = norm(object_pt - key_pts[i].pt);
+				float dist = norm(a_pt - a_kp.pt);
 				if (dist < min_dist)
 				{
+					min = a_kp.pt;
 					min_dist = dist;
-					min = i;
 				}
 			}
 
-			float nndr_ratio = 0.85;
-			bool valid = true;
-			for (Point2f a_pt : original_pts)
-				if (min_dist >= nndr_ratio * norm(a_pt - key_pts[min].pt))
-				{
-					valid = false;
-					return;
-				}
-					
-			if (valid)
-				new_pts.push_back(key_pts[min].pt);
+			adjusted_mask.push_back(min);		
+		}
+
+		new_object.setLabel(label, adjusted_mask);
+
+		if (debug)
+		{
+			cerr << TAG << ": Mask changed from " << mask
+					 << " to " << adjusted_mask << endl;
 		}
 	}
 
@@ -88,7 +87,6 @@ void Tracker::setObject(Object new_object)
 
 	original_object = new_object;
 	original_frame = future_frame;
-	original_pts = new_pts;
 }
 
 /* Getters */
@@ -110,59 +108,48 @@ Object Tracker::trackFrame(cv::Mat new_frame)
 	Mat old_frame;
 	Object old_object,
 				 new_object;
-	vector<Point2f> old_pts,
-									new_pts;
 
 	// Synchronized
 	{
 		shared_lock<shared_mutex> lock(object_update);
 
-		old_frame = original_frame;
+		old_frame = original_frame.clone();
 		old_object = original_object;
-		old_pts = original_pts;
 	}
-
-	if (old_pts.empty())
-		return Object();
-
-	vector<uchar> status;
-	vector<float> error;
-	vector<Point2f> tracked_pts;
-	calcOpticalFlowPyrLK(old_frame, new_frame,
-											 old_pts, tracked_pts,
-											 status, error);
 
 	for (Label label : old_object.getLabels())
 	{
 		vector<Point2f> old_mask = old_object.getMask(label),
-										new_mask;
-		for (Point2f object_pt : old_mask)
-		{
-			float min_dist = new_frame.rows * new_frame.rows
-										 + new_frame.cols * new_frame.cols;
-			size_t min = 0;
-			for (size_t i = 0; i < old_pts.size(); i++)
+										new_mask,
+										tracked_pts;
+		vector<uchar> status;
+		vector<float> error;
+
+		calcOpticalFlowPyrLK(old_frame, new_frame,
+												 old_mask, tracked_pts,
+												 status, error);
+
+		for (size_t i = 0; i < tracked_pts.size(); i++)
+			if (status[i])
 			{
-				float dist = norm(object_pt - old_pts[i]);
-				if (dist < min_dist)
+				new_mask.push_back(tracked_pts[i]);
+
+				if (debug)
 				{
-					min_dist = dist;
-					min = i;
+					line(new_frame, old_mask[i], tracked_pts[i], Scalar(0, 0, 255));
+					circle(new_frame, old_mask[i], 5, Scalar(255, 0, 0));
+					circle(new_frame, tracked_pts[i], 5, Scalar(0, 255, 0));
 				}
 			}
 
-			if (status[min])
-			{
-				new_mask.push_back(tracked_pts[min]);
-
-				line(new_frame, old_pts[min], tracked_pts[min], Scalar(0, 0, 255));
-				circle(new_frame, old_pts[min], 5, Scalar(255, 0, 0));
-				circle(new_frame, tracked_pts[min], 5, Scalar(0, 255, 0));
-			}
-		}
-
 		if (new_mask.size())
 			new_object.setLabel(label, new_mask);
+
+		if (debug)
+		{
+			cerr << TAG << ": Mask obtained from " << old_mask
+					 << ": " << new_mask << endl;
+		}
 	}
 
 	return new_object;
@@ -200,7 +187,7 @@ void Tracker::sendMessage(int msg, void* data, void* reply_to)
 			{
 				unique_lock<shared_mutex> lock(object_update);
 
-				future_frame = *(Mat*)data;
+				future_frame = (*(Mat*)data).clone();
 			}
 			break;
 		case Manager::MSG_RECOGNITION_END:

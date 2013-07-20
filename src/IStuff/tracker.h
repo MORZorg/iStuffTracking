@@ -34,7 +34,6 @@ namespace IStuff
 
 			Object original_object;
 			cv::Mat original_frame;
-			std::vector<cv::Point2f> original_pts;
 			cv::Mat future_frame;
 
 			cv::Ptr<cv::FeatureDetector> detector;
