@@ -21,7 +21,7 @@ using namespace IStuff;
  *
  * @return 
  */
-int main( int argc, char* argv[] )
+int main(int argc, char* argv[])
 {
 	int i = 0;
 
@@ -31,7 +31,7 @@ int main( int argc, char* argv[] )
 	// Command line flags parsing, mostly debug level
 	while (++i < argc)
 	{
-    	if (argv[i][0] != '-')
+		if (argv[i][0] != '-')
 		{
 			printHelp();
 			exit(1);
@@ -62,30 +62,39 @@ int main( int argc, char* argv[] )
 		}
 		else
 		{
-			if (argv[i][1] == 'd')
+			string extended_command;
+			switch (argv[i][1])
 			{
-				// Debug
-				switch (argv[i][2])
-				{
-					case 0:
-					case '0':
-						cerr << "Full debug on.\n";
-						debug = true;
-					case '1':
-						cerr << "Sbra debug on.\n";
-						break;
-					default:
-						cerr << "Undefined debug mode.\n";
-						printHelp();
-						exit(1);
-				}
-			}
-			else
-			{
-				// No other flags yet.
-				cerr << "Undefined flag.\n";
-				printHelp();
-				exit(1);
+				case 'd':
+					// Debug
+					switch (argv[i][2])
+					{
+						case 0:
+						case '0':
+							cerr << "Full debug on.\n";
+							debug = true;
+						case '1':
+							cerr << "Sbra debug on.\n";
+							break;
+						default:
+							cerr << "Undefined debug mode.\n";
+							printHelp();
+							exit(1);
+					}
+					break;
+				case 'f':
+					extended_command = "--folder";
+					argv[i--] = &extended_command[0];
+					break;
+				case 'v':
+					extended_command = "--video";
+					argv[i--] = &extended_command[0];
+					break;
+				default:
+					// No other flags yet.
+					cerr << "Undefined flag.\n";
+					printHelp();
+					exit(1);
 			}
 		}
 	}
@@ -117,24 +126,14 @@ int main( int argc, char* argv[] )
 
 	int key = -1;
 
-	if( !video ) {
-		namedWindow( "Camera", CV_WINDOW_AUTOSIZE );
+	Manager manager;
+	manager.setDatabase(db);
 
-		VideoCapture capture = VideoCapture( -1 );
+	if (!video)
+	{
+		namedWindow("Camera", CV_WINDOW_AUTOSIZE);
 
-<<<<<<< HEAD
-	Mat dummy = imread("./match_sample/sample.png");
-
-  // Show the image captured from the camera in the window and repeat
-  while (true)
-  {
-    // Get one frame
-    Mat frame;
-    capture >> frame;
-=======
-		Manager manager;
-		manager.setDatabase(db);
->>>>>>> master
+		VideoCapture capture = VideoCapture(CV_CAP_ANY);
 
 		// Show the image captured from the camera in the window and repeat
 		while (true)
@@ -143,27 +142,22 @@ int main( int argc, char* argv[] )
 			Mat frame;
 			capture >> frame;
 
-<<<<<<< HEAD
-    imshow("Camera", frame);
-
-		//waitKey(0);
-  }
-=======
 			manager.elaborateFrame(frame);
 			frame = manager.paintObject(frame);
 
 			imshow("Camera", frame);
+
+			//waitKey(0);
 		}
->>>>>>> master
 
 		capture.release();
 		destroyWindow("Camera");
-	} else {
+	}
+	else
+	{
 		namedWindow( "Video", CV_WINDOW_AUTOSIZE );
 
 		VideoCapture capture = VideoCapture( videoSrc );
-
-		Object o;
 
 		// Show the image captured from the camera in the window and repeat
 		while( key == -1 )
@@ -177,8 +171,8 @@ int main( int argc, char* argv[] )
 				break;
 			}
 
-			o = db -> match( frame );
-			frame = o.paint( frame );
+			manager.elaborateFrame(frame);
+			frame = manager.paintObject(frame);
 
 			imshow( "Video", frame );
 
