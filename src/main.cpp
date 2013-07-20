@@ -99,7 +99,7 @@ int main( int argc, char* argv[] )
 	{
 		db = new IStuff::Database(dbName, dbDir);
 	}
-	catch ( IStuff::DBCreationException& e )
+	catch (IStuff::DBCreationException& e)
 	{
 		cout << e.what() << endl;
 		exit(2);
@@ -122,8 +122,19 @@ int main( int argc, char* argv[] )
 
 		VideoCapture capture = VideoCapture( -1 );
 
+<<<<<<< HEAD
+	Mat dummy = imread("./match_sample/sample.png");
+
+  // Show the image captured from the camera in the window and repeat
+  while (true)
+  {
+    // Get one frame
+    Mat frame;
+    capture >> frame;
+=======
 		Manager manager;
 		manager.setDatabase(db);
+>>>>>>> master
 
 		// Show the image captured from the camera in the window and repeat
 		while (true)
@@ -132,11 +143,18 @@ int main( int argc, char* argv[] )
 			Mat frame;
 			capture >> frame;
 
+<<<<<<< HEAD
+    imshow("Camera", frame);
+
+		//waitKey(0);
+  }
+=======
 			manager.elaborateFrame(frame);
 			frame = manager.paintObject(frame);
 
 			imshow("Camera", frame);
 		}
+>>>>>>> master
 
 		capture.release();
 		destroyWindow("Camera");

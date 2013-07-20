@@ -12,9 +12,9 @@
 #include <iostream>
 
 #include <boost/thread.hpp>
-#include <boost/chrono.hpp>
 
 #include "opencv2/imgproc/imgproc.hpp"
+#include "opencv2/video/video.hpp"
 #include "opencv2/nonfree/nonfree.hpp"
 
 #include "object.h"
@@ -30,14 +30,13 @@ namespace IStuff
 		private:
 			const static char TAG[];
 
-			std::auto_ptr<boost::thread> running;
-			boost::shared_mutex object_update,
-													history_update;
+			boost::shared_mutex object_update;
 
-			Object actual_object;
-			cv::Mat last_frame;
-			FakableQueue frame_history;
-			int frames_tracked_count;
+			Object original_object;
+			cv::Mat original_frame;
+			cv::Mat future_frame;
+
+			cv::Ptr<cv::FeatureDetector> detector;
 
 		/* Methods */
 		public:
@@ -48,25 +47,12 @@ namespace IStuff
 			/* Setters */
 
 			/* Getters */
-			Object getObject();
-			bool isRunning() const;
 
 			/* Other methods */
-			void trackFrame(cv::Mat);
+			Object trackFrame(cv::Mat);
 			void sendMessage(int, void*, void* = NULL);
-
 		private:
-			/* Setters */
-			void setObject(Object, cv::Mat);
-
-			/* Getters */
-			cv::Mat getLastFrame();
-
-			/* Other methods */
-			Object trackFrame(cv::Mat, cv::Mat, Object);
-
-			void actualizeObject(Object);
-			bool backgroundActualizeObject(Object);
+			void setObject(Object);
 	};
 }
 
