@@ -36,7 +36,7 @@ Tracker::~Tracker()
 void Tracker::setObject(Object new_object)
 {
 	vector<KeyPoint> key_pts;
-	detector->detect(original_frame, key_pts);
+	detector->detect(future_frame, key_pts);
 
 	if (debug)
 		cerr << TAG << ": Found " << key_pts.size() << " keypoints.\n";
@@ -47,17 +47,18 @@ void Tracker::setObject(Object new_object)
 		unique_lock<shared_mutex> lock(object_update);
 
 		original_object = new_object;
-		original_frame = future_frame;
+		original_frame = future_frame.clone();
 
 		return;
 	}
 
 	for (Label label : new_object.getLabels())
 	{
-		vector<Point2f> mask = new_object.getMask(label),
+		vector<Point2f> contour_mask = new_object.getMask(label),
 										adjusted_mask;
+		Mat mask = Mat(future_frame.size(), CV_8UC1);
 
-		for (Point2f a_pt : mask)
+		for (Point2f a_pt : contour_mask)
 		{
 			float min_dist = FLT_MAX;
 			Point2f min;
