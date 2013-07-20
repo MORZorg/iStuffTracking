@@ -117,6 +117,7 @@ Object Database::match( Mat frame ) {
 		imwrite( outsbra, imgKeypoints );
 	}
 
+
 	// For every label analyze the matches and process a
 	for( int i = 0; i < labelDB.size(); i++ ) {
 		vector< Point2f > labelPoints, scenePoints;
@@ -164,10 +165,30 @@ Object Database::match( Mat frame ) {
 			imwrite( "output_sample/" + labelDB[ i ] + ".jpg", imgMatches );
 		}
 
-		if( debug )
-			cerr << "\t\tMask calculated, adding current label to output Object\n";
+		// If the calculated area is less than a fifth
+		// than the original one, I don't consider the label as valid
+		float area = 0, labelArea = 0;
 
-		matchingObject.setLabel( labelDB[ i ], labelCorners );
+		for( int j = 0; j < labelCorners.size() - 1; j++ ) {
+			area += labelCorners[ j ].x * labelCorners[ j + 1 ].y - labelCorners[ j + 1 ].x * labelCorners[ j ].y;
+			labelArea += cornersDB[ i ][ j ].x * cornersDB[ i ][ j + 1 ].y - cornersDB[ i ][ j + 1 ].x * cornersDB[ i ][ j ].y;
+
+		}
+
+		area += labelCorners[ labelCorners.size() - 1 ].x * labelCorners[ 0 ].y - labelCorners[ 0 ].x * labelCorners[ labelCorners.size() - 1 ].y;
+		labelArea += cornersDB[ i ][ labelCorners.size() - 1 ].x * cornersDB[ i ][ 0 ].y - cornersDB[ i ][ 0 ].x * cornersDB[ i ][ labelCorners.size() - 1 ].y;
+
+		area /= 2;
+		labelArea /= 2;
+
+
+		if( area > labelArea / 5 ) {
+			if( debug )
+				cerr << "\t\tMask calculated, adding current label to output Object\n";
+
+			matchingObject.setLabel( labelDB[ i ], labelCorners );
+		} else if( debug )
+			cerr << "\t\tLabel not valid\n";
 	}
 
 	if( debug )

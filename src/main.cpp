@@ -25,7 +25,8 @@ int main( int argc, char* argv[] )
 {
 	int i = 0;
 
-	string dbName, dbDir = "image_sample/clean/";
+	bool video = false;
+	string dbName, dbDir = "image_sample/clean/", videoSrc;
 
 	// Command line flags parsing, mostly debug level
 	while (++i < argc)
@@ -43,6 +44,11 @@ int main( int argc, char* argv[] )
 			if (!strcmp(argv[i], "help")) {
 				printHelp();
 				return 0;
+			}
+			else if(!strcmp(argv[i], "video" ))
+			{
+				video = true;
+				videoSrc = argv[++i];
 			}
 			else if(!strcmp(argv[i], "database"))
 			{
@@ -109,28 +115,62 @@ int main( int argc, char* argv[] )
 		exit(2);
 	}
 
-	namedWindow( "Camera", CV_WINDOW_AUTOSIZE );
+	int key = -1;
 
-	VideoCapture capture = VideoCapture( -1 );
+	if( !video ) {
+		namedWindow( "Camera", CV_WINDOW_AUTOSIZE );
 
-	Manager manager;
-	manager.setDatabase(db);
+		VideoCapture capture = VideoCapture( -1 );
 
-	// Show the image captured from the camera in the window and repeat
-	while (true)
-	{
-		// Get one frame
-		Mat frame;
-		capture >> frame;
+		Manager manager;
+		manager.setDatabase(db);
 
-		manager.elaborateFrame(frame);
-		frame = manager.paintObject(frame);
+		// Show the image captured from the camera in the window and repeat
+		while (true)
+		{
+			// Get one frame
+			Mat frame;
+			capture >> frame;
 
-		imshow("Camera", frame);
+			manager.elaborateFrame(frame);
+			frame = manager.paintObject(frame);
+
+			imshow("Camera", frame);
+		}
+
+		capture.release();
+		destroyWindow("Camera");
+	} else {
+		namedWindow( "Video", CV_WINDOW_AUTOSIZE );
+
+		VideoCapture capture = VideoCapture( videoSrc );
+
+		Manager manager;
+		manager.setDatabase(db);
+
+		// Show the image captured from the camera in the window and repeat
+		while( key == -1 )
+		{
+			// Get one frame
+			Mat frame;
+			capture >> frame;
+
+			if( frame.empty() ) {
+				cerr << "Capture error or video ended. Exiting..\n";
+				break;
+			}
+
+			manager.elaborateFrame(frame);
+			frame = manager.paintObject(frame);
+
+			imshow( "Video", frame );
+
+			key = waitKey( 30 );
+		}
+
+		capture.release();
+		destroyWindow( "Video" );
 	}
-
-	capture.release();
-	destroyWindow("Camera");
 
 	return 0;
 }
@@ -148,5 +188,6 @@ void printHelp()
 	cout << "\t--database databaseName\tLoad databaseName. (necessary)\n";
 	cout << "\t--folder folderName\tIndicates where to find images\n"
 		<< "\t\tfor database creation.\n";
+	cout << "\t--video videoSrc\tUse video instead of camera\n";
 }
 
