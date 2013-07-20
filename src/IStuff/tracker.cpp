@@ -23,7 +23,9 @@ const char Tracker::TAG[] = "Trk";
  */
 Tracker::Tracker()
 {
-	detector = FeatureDetector::create("GFTT");
+	detector = FeatureDetector::create("FAST");
+
+	running = auto_ptr<thread>(new thread());
 
 	if (debug)
 		cerr << TAG << " constructed.\n";
@@ -67,6 +69,17 @@ void Tracker::setObject(Object new_object)
 
 /* Getters */
 
+/**
+ * @brief Checks whether this IStuff::Tracker has a thread up and running.
+ *
+ * @return `true` if tracking, `false` otherwise.
+ */
+bool Tracker::isRunning() const
+{
+	// HACK: Bad way around to check if a thread has finished running.
+	return running->try_join_for(chrono::nanoseconds(0)) && running->joinable();
+}
+
 /* Other methods */
 
 /**
@@ -103,6 +116,9 @@ Object Tracker::trackFrame(cv::Mat new_frame)
 		vector<uchar> status;
 		vector<float> error;
 
+		if (old_mask.empty())
+			break;
+
 		calcOpticalFlowPyrLK(old_frame, new_frame,
 												 features[label], tracked_pts,
 												 status, error);
@@ -115,6 +131,9 @@ Object Tracker::trackFrame(cv::Mat new_frame)
 				old_pts.push_back(features[label][i]);
 				new_pts.push_back(tracked_pts[i]);
 			}
+
+		if (new_pts.empty())
+			break;
 		
 		Mat H = findHomography(old_pts, new_pts, CV_RANSAC);
 		perspectiveTransform(old_mask, new_mask, H);
@@ -126,6 +145,37 @@ Object Tracker::trackFrame(cv::Mat new_frame)
 	}
 
 	return new_object;
+}
+
+/**
+ * @brief Method to do the tracking process in a separate thread.
+ *
+ * @param[in] frame			The frame to be tracked for an IStuff::Object.
+ * @param[in] reference	The reference to the IStuff::Manager to inform of the result.
+ *
+ * @return `true` if the thread is started, `false` if it was already running.
+ */
+bool Tracker::backgroundTrackFrame(Mat frame, Manager* reference)
+{
+	if (isRunning())
+	{
+		if (debug)
+			cerr << TAG << ": Already started in background!\n";
+
+		return false;
+	}
+
+	if (debug)
+		cerr << TAG << ": Starting in background.\n";
+
+	// NOTE: "[=]" means "all used variables are captured in the lambda".
+	running = auto_ptr<thread>(new thread([=]()
+			{
+				Object new_object = trackFrame(frame);
+				reference->sendMessage(Manager::MSG_TRACKING_END, &new_object);
+			}));
+
+	return true;
 }
 
 /**
@@ -163,9 +213,18 @@ void Tracker::sendMessage(int msg, void* data, void* reply_to)
 				future_frame = (*(Mat*)data).clone();
 			}
 			break;
+
 		case Manager::MSG_RECOGNITION_END:
 			setObject(*(Object*)data);
 			break;
+
+		case Manager::MSG_TRACKING_START:
+			backgroundTrackFrame(*(Mat*)data, (Manager*)reply_to);
+			break;
+
+		case Manager::MSG_TRACKING_END:
+			break;
+
 		default:
 			break;
 	}

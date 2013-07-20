@@ -82,6 +82,7 @@ void Manager::elaborateFrame(Mat frame)
 		frames_tracked_count++;
 
 	actual_object = tracker.trackFrame(frame);
+	//sendMessage(MSG_TRACKING_START, &frame);
 }
 
 /**
@@ -93,6 +94,8 @@ void Manager::elaborateFrame(Mat frame)
  */
 Mat Manager::paintObject(Mat frame)
 {
+	unique_lock<shared_mutex> lock(object_update);
+
 	return actual_object.paint(frame);
 }
 
@@ -123,11 +126,25 @@ void Manager::sendMessage(int msg, void* data, void* reply_to)
 
 			recognizer.sendMessage(msg, data, this);
 			tracker.sendMessage(msg, data);
-
 			break;
+
 		case MSG_RECOGNITION_END:
 			tracker.sendMessage(msg, data);
 			break;
+
+		case MSG_TRACKING_START:
+			tracker.sendMessage(msg, data, this);
+			break;
+
+		case MSG_TRACKING_END:
+			// Syncrhonized
+			{
+				shared_lock<shared_mutex> lock(object_update);
+
+				actual_object = *(Object*)data;
+			}
+			break;
+			
 		default:
 			break;
 	}

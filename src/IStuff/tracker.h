@@ -24,12 +24,15 @@ extern bool debug;
 
 namespace IStuff
 {
+	class Manager;
+
 	class Tracker
 	{
 		/* Attributes */
 		private:
 			const static char TAG[];
 
+			std::auto_ptr<boost::thread> running;
 			boost::shared_mutex object_update;
 
 			Object original_object;
@@ -48,12 +51,14 @@ namespace IStuff
 			/* Setters */
 
 			/* Getters */
+			bool isRunning() const;
 
 			/* Other methods */
 			Object trackFrame(cv::Mat);
 			void sendMessage(int, void*, void* = NULL);
 		private:
 			void setObject(Object);
+			bool backgroundTrackFrame(cv::Mat, Manager* reference);
 	};
 }
 

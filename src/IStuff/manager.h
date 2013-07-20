@@ -13,6 +13,8 @@
 
 #include "opencv2/core/core.hpp"
 
+#include <boost/thread.hpp>
+
 #include "object.h"
 #include "database.h"
 #include "recognizer.h"
@@ -28,10 +30,12 @@ namespace IStuff
 		public:
 			const static int MSG_RECOGNITION_START = 1;
 			const static int MSG_RECOGNITION_END	 = 2;
+			const static int MSG_TRACKING_START		 = 3;
+			const static int MSG_TRACKING_END			 = 4;
 
 		private:
 			const static char TAG[];
-			const static int RECOGNITION_PERIOD = 20;
+			const static int RECOGNITION_PERIOD = 15;
 
 			/**
 			 * @brief When this reaches RECOGNITION_PERIOD, a new recognition is done.

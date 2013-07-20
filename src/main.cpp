@@ -136,7 +136,7 @@ int main(int argc, char* argv[])
 		VideoCapture capture = VideoCapture(CV_CAP_ANY);
 
 		// Show the image captured from the camera in the window and repeat
-		while (true)
+		while (key == -1)
 		{
 			// Get one frame
 			Mat frame;
@@ -147,7 +147,7 @@ int main(int argc, char* argv[])
 
 			imshow("Camera", frame);
 
-			waitKey(0);
+			key = waitKey(1);
 		}
 
 		capture.release();
