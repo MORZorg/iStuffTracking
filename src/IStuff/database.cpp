@@ -370,7 +370,7 @@ void Database::build( string imagesPath ) {
 	Mat load, descriptors;
 	vector< KeyPoint > keypoints;
 
-	int labelCounter = 0;
+	//int labelCounter = 0;
 
 	// Random color generator for label coloring
 	boost::mt19937 rng( time( 0 ) );
@@ -400,7 +400,8 @@ void Database::build( string imagesPath ) {
 			cerr << "\tDescriptors extracted\n"
 	 			 << "\t\tSaving label, keypoints and sample corners\n";
 
-		string labelName = dbName + "Label" + boost::lexical_cast< string >( labelCounter++ );
+		//string labelName = dbName + "Label" + boost::lexical_cast< string >( labelCounter++ );
+		string labelName = it -> path().filename().string();
 
 		labelDB.push_back( labelName ); 
 
