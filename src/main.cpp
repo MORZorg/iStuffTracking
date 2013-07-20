@@ -94,7 +94,7 @@ int main( int argc, char* argv[] )
 	{
 		db = new IStuff::Database(dbName, dbDir);
 	}
-	catch ( IStuff::DBCreationException& e )
+	catch (IStuff::DBCreationException& e)
 	{
 		cout << e.what() << endl;
 		exit(2);
@@ -131,7 +131,7 @@ int main( int argc, char* argv[] )
 
     imshow("Camera", frame);
 
-		waitKey(0);
+		//waitKey(0);
   }
 
   capture.release();

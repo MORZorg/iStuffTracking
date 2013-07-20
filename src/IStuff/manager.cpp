@@ -53,7 +53,7 @@ void Manager::setDatabase(Database* database)
  */
 Object Manager::getObject()
 {
-	return tracker.getObject();
+	return actual_object;
 }
 
 /* Other methods */
@@ -81,7 +81,7 @@ void Manager::elaborateFrame(Mat frame)
 	if (frames_tracked_count < RECOGNITION_PERIOD)
 		frames_tracked_count++;
 
-	tracker.trackFrame(frame);
+	actual_object = tracker.trackFrame(frame);
 }
 
 /**
@@ -93,7 +93,7 @@ void Manager::elaborateFrame(Mat frame)
  */
 Mat Manager::paintObject(Mat frame)
 {
-	return tracker.getObject().paint(frame);
+	return actual_object.paint(frame);
 }
 
 /**
