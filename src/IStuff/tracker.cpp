@@ -35,59 +35,34 @@ Tracker::~Tracker()
 /* Setters */
 void Tracker::setObject(Object new_object)
 {
-	vector<KeyPoint> key_pts;
-	detector->detect(future_frame, key_pts);
-
-	if (debug)
-		cerr << TAG << ": Found " << key_pts.size() << " keypoints.\n";
-
-
-	if (key_pts.empty())
-	{
-		unique_lock<shared_mutex> lock(object_update);
-
-		original_object = new_object;
-		original_frame = future_frame.clone();
-
-		return;
-	}
-
+	map<Label, vector<Point2f> > new_features;
 	for (Label label : new_object.getLabels())
 	{
 		vector<Point2f> contour_mask = new_object.getMask(label),
 										adjusted_mask;
-		Mat mask = Mat(future_frame.size(), CV_8UC1);
+		vector<Point> vertexes;
+		Mat(contour_mask).copyTo(vertexes);
 
-		for (Point2f a_pt : contour_mask)
-		{
-			float min_dist = FLT_MAX;
-			Point2f min;
-			for (KeyPoint a_kp : key_pts)
-			{
-				float dist = norm(a_pt - a_kp.pt);
-				if (dist < min_dist)
-				{
-					min = a_kp.pt;
-					min_dist = dist;
-				}
-			}
+		Mat mask = Mat(future_frame.size(), CV_8UC1, Scalar(0));
+		fillConvexPoly(mask, &vertexes[0], contour_mask.size(), Scalar(255));
 
-			adjusted_mask.push_back(min);		
-		}
-
-		new_object.setLabel(label, adjusted_mask, new_object.getColor(label));
+		vector<KeyPoint> key_pts;
+		detector->detect(future_frame, key_pts, mask);
 
 		if (debug)
-		{
-			cerr << TAG << ": Mask changed from " << mask
-					 << " to " << adjusted_mask << endl;
-		}
+			cerr << TAG << ": Found " << key_pts.size() << " keypoints.\n";
+
+		vector<Point2f> features;
+		for (KeyPoint a_kp : key_pts)
+			features.push_back(a_kp.pt);
+		new_features[label] = features;
 	}
 
 	unique_lock<shared_mutex> lock(object_update);
 
 	original_object = new_object;
 	original_frame = future_frame;
+	original_features = new_features;
 }
 
 /* Getters */
@@ -109,6 +84,7 @@ Object Tracker::trackFrame(cv::Mat new_frame)
 	Mat old_frame;
 	Object old_object,
 				 new_object;
+	map<Label, vector<Point2f> > features;
 
 	// Synchronized
 	{
@@ -116,6 +92,7 @@ Object Tracker::trackFrame(cv::Mat new_frame)
 
 		old_frame = original_frame.clone();
 		old_object = original_object;
+		features = original_features;
 	}
 
 	for (Label label : old_object.getLabels())
@@ -127,30 +104,25 @@ Object Tracker::trackFrame(cv::Mat new_frame)
 		vector<float> error;
 
 		calcOpticalFlowPyrLK(old_frame, new_frame,
-												 old_mask, tracked_pts,
+												 features[label], tracked_pts,
 												 status, error);
 
+		vector<Point2f> old_pts,
+										new_pts;
 		for (size_t i = 0; i < tracked_pts.size(); i++)
 			if (status[i])
 			{
-				new_mask.push_back(tracked_pts[i]);
-
-				if (debug)
-				{
-					line(new_frame, old_mask[i], tracked_pts[i], Scalar(0, 0, 255));
-					circle(new_frame, old_mask[i], 5, Scalar(255, 0, 0));
-					circle(new_frame, tracked_pts[i], 5, Scalar(0, 255, 0));
-				}
+				old_pts.push_back(features[label][i]);
+				new_pts.push_back(tracked_pts[i]);
 			}
-
-		if (new_mask.size())
-			new_object.setLabel(label, new_mask, old_object.getColor(label));
+		
+		Mat H = findHomography(old_pts, new_pts, CV_RANSAC);
+		perspectiveTransform(old_mask, new_mask, H);
 
 		if (debug)
-		{
-			cerr << TAG << ": Mask obtained from " << old_mask
-					 << ": " << new_mask << endl;
-		}
+			cerr << TAG << ": Mask obtained: " << new_mask << endl;
+
+		new_object.setLabel(label, new_mask, old_object.getColor(label));
 	}
 
 	return new_object;
