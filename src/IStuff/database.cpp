@@ -91,7 +91,8 @@ Object Database::match( Mat frame ) {
 	vector< vector< DMatch > > matches;
 	vector< DMatch > goodMatches;
 
-	matcher.knnMatch( sceneDescriptors, matches, 2 );
+	//matcher.knnMatch( sceneDescriptors, matches, 2 );
+	bfmatcher.knnMatch( sceneDescriptors, matches, 2 );
 
 	if( debug )
 		cerr << "\t\t" << matches.size() << " matches found, start filtering the good ones\n";
@@ -330,6 +331,9 @@ void Database::load() {
 	matcher.add( descriptorDB );
 	matcher.train();
 
+	bfmatcher.add( descriptorDB );
+	bfmatcher.train();
+
 	if( debug )
 		cerr << "\tMatcher trained successfully" << endl;
 }
@@ -440,6 +444,9 @@ void Database::build( string imagesPath ) {
 	// after a Database load from file
 	matcher.add( descriptorDB );
 	matcher.train();
+
+	bfmatcher.add( descriptorDB );
+	bfmatcher.train();
 
 	// Now that the structures are filled, save them to a file for future usage
 	save();

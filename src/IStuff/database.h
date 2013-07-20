@@ -50,6 +50,7 @@ namespace IStuff {
 			std::string dbName;
 
 			cv::FlannBasedMatcher matcher;
+			cv::BFMatcher bfmatcher;
 			std::vector< Label > labelDB;
 			std::vector< cv::Scalar > labelColor;
 			std::vector< std::vector< cv::Point2f > > cornersDB;
