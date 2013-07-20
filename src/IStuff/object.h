@@ -29,8 +29,9 @@ namespace IStuff
 		/* Attributes */
 		private:
 			const static char TAG[];
-
+			
 			std::map< Label, std::vector<cv::Point2f> > description;
+			std::map< Label, cv::Scalar > color;
 
 		/* Methods */
 		public:
@@ -39,7 +40,7 @@ namespace IStuff
 			virtual ~Object();
 			
 			/* Setters */
-			void setLabel(const Label, const std::vector<cv::Point2f>);
+			void setLabel(const Label, const std::vector<cv::Point2f>, const cv::Scalar);
 			void removeLabel(const Label);
 
 			/* Getters */

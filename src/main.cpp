@@ -145,8 +145,7 @@ int main( int argc, char* argv[] )
 
 		VideoCapture capture = VideoCapture( videoSrc );
 
-		Manager manager;
-		manager.setDatabase(db);
+		Object o;
 
 		// Show the image captured from the camera in the window and repeat
 		while( key == -1 )
@@ -160,8 +159,8 @@ int main( int argc, char* argv[] )
 				break;
 			}
 
-			manager.elaborateFrame(frame);
-			frame = manager.paintObject(frame);
+			o = db -> match( frame );
+			frame = o.paint( frame );
 
 			imshow( "Video", frame );
 

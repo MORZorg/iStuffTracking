@@ -34,6 +34,8 @@
 #include "boost/archive/binary_oarchive.hpp"
 #include "boost/archive/binary_iarchive.hpp"
 
+#include "boost/random.hpp"
+
 #include "boost/serialization/vector.hpp"
 #include "serialize_opencv.h"
 
@@ -49,6 +51,7 @@ namespace IStuff {
 
 			cv::FlannBasedMatcher matcher;
 			std::vector< Label > labelDB;
+			std::vector< cv::Scalar > labelColor;
 			std::vector< std::vector< cv::Point2f > > cornersDB;
 			std::vector< std::vector< cv::KeyPoint > > keypointDB;
 			std::vector< cv::Mat > descriptorDB;

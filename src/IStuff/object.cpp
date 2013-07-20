@@ -36,9 +36,11 @@ Object::~Object()
  * @param[in] label	the IStuff::Label to be changed or added.
  * @param[in] mask	The new mask to be associated.
  */
-void Object::setLabel(const Label label, const vector<Point2f> mask)
+void Object::setLabel(const Label label, const vector<Point2f> mask, const Scalar _color)
 {
 	description[label] = mask;
+
+	color[ label ] = _color;
 }
 
 /**
@@ -80,15 +82,19 @@ Mat Object::paint(Mat frame)
 	if (description.empty())
 		return frame;
 
+	int vertCount = 1;
+
 	//for (auto label : description)
 	for( map< Label, vector< Point2f > >::iterator label = description.begin(); label != description.end(); label++ )
 	{
 		vector<Point2f> mask = (*label).second;
 
 		for (int i = 0; i < mask.size() - 1; i++ )
-			line(frame, mask[i], mask[i+1], Scalar(0, 255, 0), 4);
+			line(frame, mask[i], mask[i+1], color[ ( *label ).first ], 4);
 
-		line(frame, mask.back(), mask.front(), Scalar(0, 255, 0), 4);
+		line(frame, mask.back(), mask.front(), color[ ( *label ).first ], 4);
+
+		putText( frame, ( *label ).first, Point( 0, 30 * vertCount++ ), FONT_HERSHEY_PLAIN, 1, color[ ( *label ).first ], 2 );
 	}
 
 	return frame;
