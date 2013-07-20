@@ -36,9 +36,12 @@ Object::~Object()
  * @param[in] label	the IStuff::Label to be changed or added.
  * @param[in] mask	The new mask to be associated.
  */
-void Object::setLabel(const Label label, const vector<Point2f> mask)
+void Object::setLabel(const Label label,
+											const vector<Point2f> mask,
+											const Scalar color)
 {
-	description[label] = mask;
+	this->description[label] = mask;
+	this->color[label] = color;
 }
 
 /**
@@ -64,6 +67,11 @@ void Object::removeLabel(const Label label)
 vector<Point2f> Object::getMask(const Label label) const
 {
 	return description.at(label);
+}
+
+Scalar Object::getColor(const Label label) const
+{
+	return color.at(label);
 }
 
 /**
@@ -95,18 +103,21 @@ Mat Object::paint(Mat frame)
 	if (description.empty())
 		return frame;
 
-	Mat result = frame.clone();
+	int vertCount = 1;
 
-	for (auto label : description)
+	//for (auto label : description)
+	for( map< Label, vector< Point2f > >::iterator label = description.begin(); label != description.end(); label++ )
 	{
-		vector<Point2f> mask = label.second;
+		vector<Point2f> mask = (*label).second;
 
 		for (int i = 0; i < mask.size() - 1; i++ )
-			line(result, mask[i], mask[i+1], Scalar(0, 255, 0), 4);
+			line(frame, mask[i], mask[i+1], color[ ( *label ).first ], 4);
 
-		line(result, mask[mask.size()-1], mask[0], Scalar(0, 255, 0), 4);
+		line(frame, mask.back(), mask.front(), color[ ( *label ).first ], 4);
+
+		putText( frame, ( *label ).first, Point( 0, 30 * vertCount++ ), FONT_HERSHEY_PLAIN, 1, color[ ( *label ).first ], 2 );
 	}
 
-	return result;
+	return frame;
 }
 

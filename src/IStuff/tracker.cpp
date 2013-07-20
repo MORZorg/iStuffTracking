@@ -74,7 +74,7 @@ void Tracker::setObject(Object new_object)
 			adjusted_mask.push_back(min);		
 		}
 
-		new_object.setLabel(label, adjusted_mask);
+		new_object.setLabel(label, adjusted_mask, new_object.getColor(label));
 
 		if (debug)
 		{
@@ -143,7 +143,7 @@ Object Tracker::trackFrame(cv::Mat new_frame)
 			}
 
 		if (new_mask.size())
-			new_object.setLabel(label, new_mask);
+			new_object.setLabel(label, new_mask, old_object.getColor(label));
 
 		if (debug)
 		{

@@ -18,7 +18,6 @@
 #include "opencv2/nonfree/nonfree.hpp"
 
 #include "object.h"
-#include "fakable_queue.h"
 
 extern bool debug;
 

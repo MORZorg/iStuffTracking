@@ -55,8 +55,13 @@ Database::~Database() {
 }
 
 /**
- * @brief Another attempt of match
- */
+ * @brief	Search for descriptors matching in passed frame
+ * @details	Given an image, searches for the descriptors in the database
+ *			and returns a rectangle enclosing the matched object
+ * @param[in] frame	The image to search into
+ * @retval	An Object containing an association between the labels and the
+ * 			areas in which every label is found
+ * */
 Object Database::match( Mat frame ) {
 	if( debug )
 		cerr << "Start matching\n";
@@ -118,6 +123,7 @@ Object Database::match( Mat frame ) {
 		imwrite( outsbra, imgKeypoints );
 	}
 
+
 	// For every label analyze the matches and process a
 	for( int i = 0; i < labelDB.size(); i++ ) {
 		vector< Point2f > labelPoints, scenePoints;
@@ -165,10 +171,28 @@ Object Database::match( Mat frame ) {
 			imwrite( "output_sample/" + labelDB[ i ] + ".jpg", imgMatches );
 		}
 
-		if( debug )
-			cerr << "\t\tMask calculated, adding current label to output Object\n";
+		// If the calculated area is less than a fifth
+		// than the original one, I don't consider the label as valid
+		float area = 0, labelArea = 0;
 
-		matchingObject.setLabel( labelDB[ i ], labelCorners );
+		for( int j = 0; j < labelCorners.size() - 1; j++ ) {
+			area += labelCorners[ j ].x * labelCorners[ j + 1 ].y - labelCorners[ j + 1 ].x * labelCorners[ j ].y;
+			labelArea += cornersDB[ i ][ j ].x * cornersDB[ i ][ j + 1 ].y - cornersDB[ i ][ j + 1 ].x * cornersDB[ i ][ j ].y;
+		}
+
+		area += labelCorners[ labelCorners.size() - 1 ].x * labelCorners[ 0 ].y - labelCorners[ 0 ].x * labelCorners[ labelCorners.size() - 1 ].y;
+		labelArea += cornersDB[ i ][ labelCorners.size() - 1 ].x * cornersDB[ i ][ 0 ].y - cornersDB[ i ][ 0 ].x * cornersDB[ i ][ labelCorners.size() - 1 ].y;
+
+		area /= 2;
+		labelArea /= 2;
+
+		if( area > labelArea / 5 ) {
+			if( debug )
+				cerr << "\t\tMask calculated, adding current label to output Object\n";
+
+			matchingObject.setLabel( labelDB[ i ], labelCorners, labelColor[ i ] );
+		} else if( debug )
+			cerr << "\t\tLabel not valid\n";
 	}
 
 	if( debug )
@@ -177,133 +201,6 @@ Object Database::match( Mat frame ) {
 	return matchingObject;
 	
 }
-
-/**
- * @brief	Search for descriptors matching in passed frame
- * @details	Given an image, searches for the descriptors in the database
- *			and returns a rectangle enclosing the matched object
- * @param[in] frame	The image to search into
- * @retval	An Object containing an association between the labels and the
- * 			areas in which every label is found
- * */
-/*Object Database::match( Mat frame ) {
-	if( debug )
-		cerr << "Start matching\n";
-
-	//initModule_nonfree();
-
-	// Compute descriptors of frame
-	// SIFT detector and extractor
-	Ptr< FeatureDetector > featureDetector = FeatureDetector::create( "SIFT" );
-	Ptr< DescriptorExtractor > featureExtractor = DescriptorExtractor::create( "SIFT" );
-	
-	// Temporary containers
-	Mat frameDescriptors;
-	vector< KeyPoint > frameKeypoints;
-
-	// Detect the keypoints in the actual image
-	featureDetector -> detect( frame, frameKeypoints );
-
-	// Compute the 128 dimension SIFT descriptor at each keypoint detected
-	// Each row in descriptors corresponds to the SIFT descriptor for each keypoint
-	featureExtractor -> compute( frame, frameKeypoints, frameDescriptors );
-
-	if( debug )
-		cerr << "\tFrame descriptors (" << frameDescriptors.rows << ") and keypoints (" << frameKeypoints.size() << ") computed\n";
-
-	Object matchingObject = Object();
-
-	// I use the matcher already trained to perform a descriptor match
-	vector< vector< DMatch > > matches;
-
-	matcher.knnMatch( frameDescriptors, matches, 2 );
-
-	if( debug )
-		cerr << "\tMatches found\n";
-	
-	// The knnMatch method returns the two best matches for every descriptor
-	// I keep only the best and only when the distance of the very best is significantly
-	// lower than the distance of the relatively worst match
-	std::vector< DMatch > good_matches;
-
-	for( int i = 0; i < (int)matches.size(); i++ )
-		if( matches[ i ][ 0 ].distance < 0.9 * matches[ i ][ 1 ].distance )
-				good_matches.push_back( matches[ i ][ 0 ] );
-
-	// Prints out the good matching keypoints and draws them
-	if( debug ) {
-		for( int i = 0; i < good_matches.size(); i++ )
-			cerr <<"\tGood match #" << i
-					<< "\n\t\tframeDescriptorIndex: " << good_matches[ i ].queryIdx
-					<< "\n\t\tsampleDescriptorIndex: " << good_matches[ i ].trainIdx
-					<< "\n\t\tsampleImageIndex: " << good_matches[ i ].imgIdx << " (" << labelDB[ good_matches[ i ].imgIdx ] << ")\n\n";
-
-		Mat img_keypoints;
-		drawKeypoints( frame, frameKeypoints, img_keypoints, Scalar::all( -1 ), DrawMatchesFlags::DEFAULT );
-
-		string outsbra = "keypoints_sample/" + dbName + "Frame.jpg";
-
-		imwrite( outsbra, img_keypoints );
-	}
-
-	// For every label analyze the matches and process a
-	for( int i = 0; i < labelDB.size(); i++ ) {
-		vector< Point2f > labelPoints, framePoints;
-		vector< Point2f > labelCorners;
-		bool active = false;
-
-		if( debug )
-			cerr << "\tSearching mask for label " << labelDB[ i ] << endl;
-
-		// If there is at least one good match in the actual label, mark the label
-		// as active and add the points to the lists
-		for( int j = 0; j < good_matches.size(); j++ )
-			if( good_matches[ j ].imgIdx == i ) {
-				active = true;
-				labelPoints.push_back( keypointDB[ i ][ good_matches[ j ].trainIdx ].pt );
-				framePoints.push_back( frameKeypoints[ good_matches[ j ].queryIdx ].pt );
-			}
-
-		if( debug )
-			cerr << "\t\tFound " << labelPoints.size() << " keypoints in this label\n";
-
-		if( !active || labelPoints.size() < 4 ) {
-			if( debug )
-				cerr << "\t\t\tToo few keypoints, passing to next label..\n";
-
-			continue;
-		}
-
-		if( debug )
-			cerr << "\t\tCalculating homography mask\n";
-
-		// Calculate homography mask and add it to the matchingObject
-		Mat H = findHomography( labelPoints, framePoints, CV_RANSAC );
-
-		perspectiveTransform( cornersDB[ i ], labelCorners, H );
-
-		// Debug drawing
-		if( debug ) {
-			Mat imgMatches = frame.clone();
-			line( imgMatches, labelCorners[0], labelCorners[1], Scalar( 0, 255, 0 ), 4 );
-			line( imgMatches, labelCorners[1], labelCorners[2], Scalar( 0, 255, 0 ), 4 );
-			line( imgMatches, labelCorners[2], labelCorners[3], Scalar( 0, 255, 0 ), 4 );
-			line( imgMatches, labelCorners[3], labelCorners[0], Scalar( 0, 255, 0 ), 4 );
-
-			imwrite( "output_sample/" + labelDB[ i ] + ".jpg", imgMatches );
-		}
-
-		if( debug )
-			cerr << "\t\tMask calculated, adding current label to output Object\n";
-
-		matchingObject.setLabel( labelDB[ i ], labelCorners );
-	}
-
-	if( debug )
-		cerr << "\n\tMatching done. Returning the object\n\n";
-
-	return matchingObject;
-}*/
 
 /**
  * @brief	Load existing database and fill the map 
@@ -316,7 +213,7 @@ void Database::load() {
 
 	ifstream label( ( dbFileName + "label.sbra" ).c_str(), ios::binary );
 	ifstream desc( ( dbFileName + "desc.sbra" ).c_str(), ios::binary );
-	
+
 	ifstream kp( ( dbFileName + "kp.sbra" ).c_str(), ios::in );
 	ifstream corn( ( dbFileName + "corn.sbra" ).c_str(), ios::in );
 
@@ -327,6 +224,14 @@ void Database::load() {
 
 	boost::archive::binary_iarchive labelarch( label );
 	labelarch >> labelDB;
+	
+	// Color generation
+	boost::mt19937 rng( time( 0 ) );
+	boost::uniform_int<> colorRange( 0, 255 );
+	boost::variate_generator< boost::mt19937, boost::uniform_int<> > color( rng, colorRange );
+
+	for( int i = 0; i < labelDB.size(); i++ )
+		labelColor.push_back( Scalar( color(), color(), color() ) );
 
 	if( debug )
 		cerr << "\t\tLabels loaded\n";
@@ -455,29 +360,24 @@ void Database::build( string imagesPath ) {
 
 	fs::directory_iterator end_iter;
 
-	// SIFT detector and extractor
-	Ptr< FeatureDetector > featureDetector = FeatureDetector::create( "SURF" );
-	Ptr< DescriptorExtractor > featureExtractor = DescriptorExtractor::create( "SURF" );
+	// SURF detector and extractor
+	int minHessian = 400;
+	
+	SurfFeatureDetector featureDetector( minHessian );
+	SurfDescriptorExtractor featureExtractor;
 	
 	// Temporary containers
 	Mat load, descriptors;
 	vector< KeyPoint > keypoints;
 
-	// If there are no images in the given directory then throw an exception
-	int file_count = std::count_if(
-			fs::directory_iterator( fullPath ),
-			fs::directory_iterator(),
-			bind( static_cast< bool(*)( const fs::path& ) > ( fs::is_regular_file ), 
-			bind( &fs::directory_entry::path, boost::lambda::_1 ) ) );	
-
-	if( file_count == 0 )
-		throw DBCreationException(); 
-	
 	int labelCounter = 0;
 
-	// For every image, calculate the descriptor, index them with a flann::Index and
-	// add the Index to the map
-	// As key the source image name
+	// Random color generator for label coloring
+	boost::mt19937 rng( time( 0 ) );
+	boost::uniform_int<> colorRange( 0, 255 );
+	boost::variate_generator< boost::mt19937, boost::uniform_int<> > color( rng, colorRange );
+
+	// For every image generate a new label and save the various informations
 	for( fs::directory_iterator it( fullPath ); it != end_iter; ++it ) {
 		if( debug ) {
 			cerr << "\tTreating a new image: ";
@@ -487,14 +387,14 @@ void Database::build( string imagesPath ) {
 		load = imread( it -> path().string(), CV_LOAD_IMAGE_GRAYSCALE );
 
 		// Detect the keypoints in the actual image
-		featureDetector -> detect( load, keypoints );
+		featureDetector.detect( load, keypoints );
 
 		if( debug )
 			cerr << "\tFeatures detected" << endl;
 
 		// Compute the 128 dimension SIFT descriptor at each keypoint detected
 		// Each row in descriptors corresponds to the SIFT descriptor for each keypoint
-		featureExtractor -> compute( load, keypoints, descriptors );
+		featureExtractor.compute( load, keypoints, descriptors );
 
 		if( debug )
 			cerr << "\tDescriptors extracted\n"
@@ -503,6 +403,9 @@ void Database::build( string imagesPath ) {
 		string labelName = dbName + "Label" + boost::lexical_cast< string >( labelCounter++ );
 
 		labelDB.push_back( labelName ); 
+
+		labelColor.push_back( Scalar( color(), color(), color() ) );
+		
 		keypointDB.push_back( keypoints );
 
 		descriptorDB.push_back( descriptors );
