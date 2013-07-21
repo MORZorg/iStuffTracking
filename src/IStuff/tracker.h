@@ -19,6 +19,7 @@
 #include "opencv2/nonfree/nonfree.hpp"
 
 #include "object.h"
+#include "fakable_queue.h"
 
 extern bool debug;
 
@@ -26,21 +27,25 @@ namespace IStuff
 {
 	class Manager;
 
+	typedef std::map< Label, std::vector<cv::Point2f> > Features;
+
 	class Tracker
 	{
 		/* Attributes */
 		private:
 			const static char TAG[];
 
-			std::auto_ptr<boost::thread> running;
-			boost::shared_mutex object_update;
+			std::auto_ptr<boost::thread> m_thread;
+			bool m_running;
+			boost::shared_mutex m_object_mutex;
 
-			Object original_object;
-			cv::Mat original_frame;
-			std::map<Label, std::vector<cv::Point2f> > original_features;
-			cv::Mat future_frame;
+			Object m_object;
+			cv::Mat m_frame;
+			Features m_features;
 
-			cv::Ptr<cv::FeatureDetector> detector;
+			FakableQueue m_history;
+
+			cv::Ptr<cv::FeatureDetector> m_detector;
 
 		/* Methods */
 		public:
@@ -57,8 +62,15 @@ namespace IStuff
 			Object trackFrame(cv::Mat);
 			void sendMessage(int, void*, void* = NULL);
 		private:
+			/* Setters */
 			void setObject(Object);
-			void setObject(Object, cv::Mat);
+			void setObject(Object, cv::Mat, Features);
+			void setRunning(bool);
+
+			/* Other methods */
+			Features calcFeatures(Object, cv::Mat);
+			Object trackFrame(cv::Mat, cv::Mat, Object, Features);
+			void actualizeObject(Object);
 			bool backgroundTrackFrame(cv::Mat, Manager*);
 	};
 }

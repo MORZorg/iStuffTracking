@@ -31,6 +31,13 @@ Manager::~Manager()
 
 /* Setters */
 
+void Manager::setObject(const Object object)
+{
+	unique_lock<shared_mutex> lock(object_update);
+
+	actual_object = object;
+}
+
 /**
  * @brief Changes the IStuff::Database used to identify the IStuff::Object.
  * @details This means that with high probability a different IStuff::Object
@@ -53,6 +60,8 @@ void Manager::setDatabase(Database* database)
  */
 Object Manager::getObject()
 {
+	shared_lock<shared_mutex> lock(object_update);
+
 	return actual_object;
 }
 
@@ -67,7 +76,8 @@ Object Manager::getObject()
  */
 void Manager::elaborateFrame(Mat frame)
 {
-	if (frames_tracked_count >= RECOGNITION_PERIOD && !recognizer.isRunning())
+	if ((getObject().empty() || frames_tracked_count >= RECOGNITION_PERIOD)
+			&& !recognizer.isRunning())
 	{
 		if (debug)
 			cerr << TAG << ": Recognizing.\n";
@@ -81,7 +91,7 @@ void Manager::elaborateFrame(Mat frame)
 	if (frames_tracked_count < RECOGNITION_PERIOD)
 		frames_tracked_count++;
 
-	actual_object = tracker.trackFrame(frame);
+	setObject(tracker.trackFrame(frame));
 	//sendMessage(MSG_TRACKING_START, &frame);
 }
 
@@ -94,9 +104,7 @@ void Manager::elaborateFrame(Mat frame)
  */
 Mat Manager::paintObject(Mat frame)
 {
-	unique_lock<shared_mutex> lock(object_update);
-
-	return actual_object.paint(frame);
+	return getObject().paint(frame);
 }
 
 /**

@@ -31,9 +31,10 @@ namespace IStuff
 		private:
 			const static char TAG[];
 
-			std::auto_ptr<boost::thread> running;
+			std::auto_ptr<boost::thread> m_thread;
+			bool m_running;
 
-			Database* matcher;
+			Database* m_matcher;
 
 		/* Methods */
 		public:
@@ -52,6 +53,10 @@ namespace IStuff
 			bool backgroundRecognizeFrame(cv::Mat, Manager*);
 
 			void sendMessage(int, void*, void* = NULL);
+
+		private:
+			/* Setters */
+			void setRunning(bool);
 	};
 }
 

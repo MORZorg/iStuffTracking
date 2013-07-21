@@ -44,6 +44,7 @@ namespace IStuff
 			void removeLabel(const Label);
 
 			/* Getters */
+			bool empty() const;
 			std::vector<cv::Point2f> getMask(const Label) const;
 			cv::Scalar getColor(const Label) const;
 			std::vector<Label> getLabels() const;

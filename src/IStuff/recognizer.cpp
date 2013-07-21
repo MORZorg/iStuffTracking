@@ -26,7 +26,8 @@ const char Recognizer::TAG[] = "Rec";
  */
 Recognizer::Recognizer()
 {
-	running = auto_ptr<thread>(new thread());
+	//m_thread = auto_ptr<thread>(new thread());
+	setRunning(false);
 
 	if (debug)
 		cerr << TAG << " constructed.\n";
@@ -44,7 +45,12 @@ Recognizer::~Recognizer()
  */
 void Recognizer::setDatabase(Database* matcher)
 {
-	this->matcher = matcher;
+	m_matcher = matcher;
+}
+
+void Recognizer::setRunning(bool running)
+{
+	m_running = running;
 }
 
 /* Getters */
@@ -56,8 +62,7 @@ void Recognizer::setDatabase(Database* matcher)
  */
 bool Recognizer::isRunning() const
 {
-	// HACK: Bad way around to check if a thread has finished running.
-	return running->try_join_for(chrono::nanoseconds(0)) && running->joinable();
+	return m_running;
 }
 
 /* Other methods */
@@ -74,7 +79,7 @@ Object Recognizer::recognizeFrame(Mat frame)
 	if (debug)
 		cerr << TAG << ": Recognizing frame.\n";
 
-	Object result = matcher->match(frame);
+	Object result = m_matcher->match(frame);
 
 	if (debug)
 		cerr << TAG << ": Frame recognized.\n";
@@ -104,10 +109,14 @@ bool Recognizer::backgroundRecognizeFrame(Mat frame, Manager* reference)
 		cerr << TAG << ": Starting in background.\n";
 
 	// NOTE: "[=]" means "all used variables are captured in the lambda".
-	running = auto_ptr<thread>(new thread([=]()
+	m_thread = auto_ptr<thread>(new thread([=]()
 			{
+				setRunning(true);
+
 				Object new_object = recognizeFrame(frame);
 				reference->sendMessage(Manager::MSG_RECOGNITION_END, &new_object);
+
+				setRunning(false);
 			}));
 
 	return true;

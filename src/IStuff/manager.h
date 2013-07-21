@@ -64,6 +64,10 @@ namespace IStuff
 			cv::Mat paintObject(cv::Mat);
 
 			void sendMessage(int, void*, void* = NULL);
+
+		private:
+			/* Setters */
+			void setObject(const Object);
 	};
 }
 

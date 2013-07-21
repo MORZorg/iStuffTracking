@@ -56,6 +56,11 @@ void Object::removeLabel(const Label label)
 
 /* Getters */
 
+bool Object::empty() const
+{
+	return description.empty();
+}
+
 /**
  * @brief Returns the mask associated to a IStuff::Label.
  * @throw std::out_of_range If the IStuff::Label searched does not exist.
