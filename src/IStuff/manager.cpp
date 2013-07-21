@@ -79,13 +79,13 @@ void Manager::elaborateFrame(Mat frame)
 	if ((getObject().empty() || frames_tracked_count >= RECOGNITION_PERIOD)
 			&& !recognizer.isRunning())
 	{
-		if (debug)
+		if (hl_debug)
 			cerr << TAG << ": Recognizing.\n";
 
 		sendMessage(MSG_RECOGNITION_START, &frame);
 	}
 
-	if (debug)
+	if (hl_debug)
 		cerr << TAG << ": Tracking " << frames_tracked_count << ".\n";
 
 	if (frames_tracked_count < RECOGNITION_PERIOD)
@@ -137,6 +137,9 @@ void Manager::sendMessage(int msg, void* data, void* reply_to)
 			break;
 
 		case MSG_RECOGNITION_END:
+			if (hl_debug)
+				cerr << TAG << ": Recognition finished.\n";
+
 			tracker.sendMessage(msg, data);
 			break;
 

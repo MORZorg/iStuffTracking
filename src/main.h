@@ -16,7 +16,8 @@
 
 #include "IStuff/manager.h"
 
-bool debug;
+bool debug,
+		 hl_debug;
 
 int main( int, char** );
 

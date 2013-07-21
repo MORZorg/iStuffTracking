@@ -20,7 +20,8 @@
 #include "recognizer.h"
 #include "tracker.h"
 
-extern bool debug;
+extern bool debug,
+						hl_debug;
 
 namespace IStuff
 {

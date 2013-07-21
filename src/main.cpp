@@ -74,7 +74,8 @@ int main(int argc, char* argv[])
 							cerr << "Full debug on.\n";
 							debug = true;
 						case '1':
-							cerr << "Sbra debug on.\n";
+							cerr << "High level debug on.\n";
+							hl_debug = true;
 							break;
 						default:
 							cerr << "Undefined debug mode.\n";
