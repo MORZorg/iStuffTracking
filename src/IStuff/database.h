@@ -41,6 +41,9 @@
 
 #include "boost/lexical_cast.hpp"
 
+// DIP course library
+#include "transform.h"
+
 extern bool debug;
 
 namespace IStuff {
@@ -67,6 +70,7 @@ namespace IStuff {
 			void load();
 			void build( std::string );
 			void save();
+			cv::Mat featureReduction( cv::Mat, cv::Ptr< cv::FeatureDetector >, cv::Ptr< cv::DescriptorExtractor > );
 	};
 
 	class DBCreationException: public std::exception {

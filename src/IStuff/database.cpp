@@ -69,8 +69,7 @@ Object Database::match( Mat frame ) {
 	Object matchingObject;
 
 	// Convert frame in grayscale
-	Mat scene;
-	cvtColor( frame, scene, CV_RGB2GRAY );
+	Mat scene = frame;
 
 	// Calculate SURF keypoints and descriptors
 	int minHessian = 400;
@@ -92,12 +91,12 @@ Object Database::match( Mat frame ) {
 	vector< DMatch > goodMatches;
 
 	//matcher.knnMatch( sceneDescriptors, matches, 2 );
-	bfmatcher.knnMatch( sceneDescriptors, matches, 2 );
+	matcher.knnMatch( sceneDescriptors, matches, 2 );
 
 	if( debug )
 		cerr << "\t\t" << matches.size() << " matches found, start filtering the good ones\n";
 
-	double NNDRRatio = 0.85;
+	double NNDRRatio = 0.6;
 
 	for( int i = 0; i < matches.size(); i++ )
 		if( matches[ i ][ 0 ].distance <= NNDRRatio * matches[ i ][ 1 ].distance )
@@ -200,6 +199,239 @@ Object Database::match( Mat frame ) {
 
 	return matchingObject;
 	
+}
+
+/**
+ * @brief	Creates the database from the sample images
+ * @details	Loaded the images contained in the argument path
+ * 			generate a set of labels, detects the SIFT features
+ * 			and descriptors for every sample and associate them to
+ * 			every label, then trains a matcher with the descriptors
+ * 			and save everything in the corresponding structures.
+ * 			Also save the database into a file
+ * @param[in] imagesPath	The path containing the source images
+ */
+void Database::build( string imagesPath ) {
+	// Use boost to iterate over a directory content
+	fs::path fullPath = fs::system_complete( fs::path( imagesPath ) );
+
+	if( debug )
+		cerr << "Loading images from " << fullPath << endl;
+
+	if( !fs::exists( fullPath ) || !fs::is_directory( fullPath ) )
+		throw DBCreationException(); 
+
+	fs::directory_iterator end_iter;
+
+	// SURF detector and extractor
+	//int minHessian = 400;
+	
+	//SurfFeatureDetector featureDetector( minHessian );
+	//SurfDescriptorExtractor featureExtractor;
+	
+	Ptr< FeatureDetector > featureDetector = FeatureDetector::create( "SURF" );
+	Ptr< DescriptorExtractor > featureExtractor = DescriptorExtractor::create( "SURF" );
+	
+	// Temporary containers
+	Mat load, descriptors;
+	vector< KeyPoint > keypoints;
+
+	int labelCounter = 0;
+
+	// Random color generator for label coloring
+	boost::mt19937 rng( time( 0 ) );
+	boost::uniform_int<> colorRange( 0, 255 );
+	boost::variate_generator< boost::mt19937, boost::uniform_int<> > color( rng, colorRange );
+
+	// For every image generate a new label and save the various informations
+	for( fs::directory_iterator it( fullPath ); it != end_iter; ++it ) {
+		if( debug ) {
+			cerr << "\tTreating a new image: ";
+			cerr << it -> path().filename() << endl;
+		}
+	
+		load = imread( it -> path().string() );
+
+		if( debug )
+			cerr << "\tCalling the reduced descriptor set calculator\n";
+
+		// Detect the keypoints in the actual image
+		featureDetector -> detect( load, keypoints );
+
+		descriptors = featureReduction( load, featureDetector, featureExtractor );
+
+		if( debug )
+			cerr << "\tFeatures and descriptors computed. Saving everything.\n";
+
+		// Label name and color generation
+		/*string labelName = dbName + "Label" + boost::lexical_cast< string >( labelCounter++ );
+
+		labelDB.push_back( labelName ); 
+
+		labelColor.push_back( Scalar( color(), color(), color() ) );
+		
+		// Saving keypoints and descriptors
+		keypointDB.push_back( keypoints );
+		descriptorDB.push_back( descriptors );
+
+		// The corner of the image will be required to find the correspondent boundaries in the sample 
+		vector< Point2f > sampleCorners( 4 );
+
+		sampleCorners[ 0 ] = cvPoint( 0, 0 );
+		sampleCorners[ 1 ] = cvPoint( load.cols, 0 );
+		sampleCorners[ 2 ] = cvPoint( load.cols, load.rows );
+		sampleCorners[ 3 ] = cvPoint( 0, load.rows );
+
+		cornersDB.push_back( sampleCorners );
+
+		if( debug )
+			cerr << "\tDataBase updated" << endl;
+
+		// Draw the keypoints for debug purposes
+		if( debug ) {
+			Mat outputImage;
+			drawKeypoints( load, keypoints, outputImage, Scalar( 255, 0, 0 ), DrawMatchesFlags::DEFAULT );
+
+			string outsbra = "keypoints_sample/" + it -> path().filename().string();
+			cerr << "\tShowing image " << outsbra << endl;
+
+			imwrite( outsbra, outputImage );
+			//imshow( "Loaded keypoints", outputImage );
+			//waitKey();
+
+			cerr << "\tReiterating" << endl << endl;
+		}*/
+	}
+
+	// Now train the matcher
+	// NOTE the descriptorDB is stored anyway because it is used to train a new matcher
+	// after a Database load from file
+	/*matcher.add( descriptorDB );
+	matcher.train();
+
+	bfmatcher.add( descriptorDB );
+	bfmatcher.train();
+
+	// Now that the structures are filled, save them to a file for future usage
+	save();*/
+}
+
+/**
+ * @brief	Feature reduction
+ * @details	Given an image and a feature extractor, compute various affine transformations of
+ * 			the image and extract descriptors from every transformation, then keeps only
+ * 			the features shared with the varios transformed versions and returns them.
+ * @param[in] frame	The image to consider
+ * @param[in] featureDetector
+ * @param[in] descriptorExtracotr
+ * @retval	The reduced set of descriptors 
+ */
+Mat Database::featureReduction( Mat image, Ptr< FeatureDetector > featureDetector, Ptr< DescriptorExtractor > descriptorExtractor ) {
+	Mat reducedDescriptors;
+	vector< Mat > affineImages;
+	vector< Mat > affineDescriptors;
+
+	// Calculate some affine transformation of the frame and compute the various descriptors
+	Mat affineTemp;
+
+	// Rescale 2x
+	resize( image, affineTemp, Size( 0, 0 ), 2, 2 );
+
+	affineImages.push_back( affineTemp );
+
+	// Rescale 1/2x
+	resize( image, affineTemp, Size( 0, 0 ), 0.5, 0.5 );
+
+	affineImages.push_back( affineTemp );
+
+	// Rotation 25°
+	float angle = -25 * M_PI / 360;
+	affineTemp = rotation( image, angle );
+
+	affineImages.push_back( affineTemp );
+
+	// Rotation 50°
+	angle = -50 * M_PI / 360;
+	affineTemp = rotation( image, angle );
+
+	affineImages.push_back( affineTemp );
+	
+	// Y-axis flip
+	flip( image, affineTemp, 1 );
+
+	affineImages.push_back( affineTemp );
+
+	// Skew
+	angle = 25 * M_PI / 360;
+	affineTemp = rotation( affineTemp, angle );
+
+	affineImages.push_back( affineTemp );
+
+	// Perspective change
+	Point2f srcPoints[4], dstPoints[4];
+
+	srcPoints[0] = Point2f( 0, 0 );
+	srcPoints[1] = Point2f( image.cols, 0 );
+	srcPoints[2] = Point2f( 0, image.rows );
+	srcPoints[3] = Point2f( image.cols, image.rows );
+
+	dstPoints[0] = Point2f( 0, 0 );
+	dstPoints[1] = Point2f( image.cols, 0 );
+	dstPoints[2] = Point2f( (float)image.cols / 3, image.rows );
+	dstPoints[3] = Point2f( (float)image.cols * 2/3, image.rows );
+
+	Mat transformMatrix = getPerspectiveTransform( srcPoints, dstPoints );
+	warpPerspective( image, affineTemp, transformMatrix, image.size() );
+
+	affineImages.push_back( affineTemp );
+	
+	// Computing descriptors for the original image and all the affine transformed
+	vector< KeyPoint > kpTemp;
+	Mat descTemp;
+	Mat originalDesc;
+
+	featureDetector -> detect( image, kpTemp );
+	descriptorExtractor -> compute( image, kpTemp, originalDesc );
+
+	for( vector< Mat >::iterator aff = affineImages.begin(); aff != affineImages.end(); aff++ ) {
+		featureDetector -> detect( ( *aff ), kpTemp );
+		descriptorExtractor -> compute( ( *aff ), kpTemp, descTemp );
+
+		affineDescriptors.push_back( descTemp );
+	}
+
+	// Confronting descriptors, keeping only the one belonging to the original image who are found in more than 2/3 of the images
+	for( int i = 0; i < originalDesc.rows; i++ ) {
+		int found_count = 0;
+		Mat descriptor = originalDesc.row( i );
+
+		for( vector< Mat >::iterator desc = affineDescriptors.begin(); desc != affineDescriptors.end(); desc++ )
+			for( int j = 0; j < ( *desc ).rows; j++ ) {
+				Mat comparation;
+				
+				compare( descriptor, ( *desc ).row( j ), comparation, CMP_EQ );
+
+				if( countNonZero( comparation ) == 0 ) {
+					found_count++;
+					break;
+				}
+			}
+
+		//if( debug )
+		//	cerr << "\t\tFound " << found_count << " occurrences of this descriptor\n";
+
+		if( found_count == affineDescriptors.size() ) {
+			reducedDescriptors.push_back( descriptor );
+
+			//if( debug )
+			//	cerr << "\t\tEnough. Adding it to the list\n";
+		}
+	}
+
+	if( debug )
+		cerr << "\t\t" << reducedDescriptors.rows << " of " << originalDesc.rows << " kept\n";
+
+	return reducedDescriptors;
 }
 
 /**
@@ -336,120 +568,6 @@ void Database::load() {
 
 	if( debug )
 		cerr << "\tMatcher trained successfully" << endl;
-}
-
-/**
- * @brief	Creates the database from the sample images
- * @details	Loaded the images contained in the argument path
- * 			generate a set of labels, detects the SIFT features
- * 			and descriptors for every sample and associate them to
- * 			every label, then trains a matcher with the descriptors
- * 			and save everything in the corresponding structures.
- * 			Also save the database into a file
- * @param[in] imagesPath	The path containing the source images
- */
-void Database::build( string imagesPath ) {
-	// Use boost to iterate over a directory content
-	fs::path fullPath = fs::system_complete( fs::path( imagesPath ) );
-
-	if( debug )
-		cerr << "Loading images from " << fullPath << endl;
-
-	if( !fs::exists( fullPath ) || !fs::is_directory( fullPath ) )
-		throw DBCreationException(); 
-
-	fs::directory_iterator end_iter;
-
-	// SURF detector and extractor
-	int minHessian = 400;
-	
-	SurfFeatureDetector featureDetector( minHessian );
-	SurfDescriptorExtractor featureExtractor;
-	
-	// Temporary containers
-	Mat load, descriptors;
-	vector< KeyPoint > keypoints;
-
-	int labelCounter = 0;
-
-	// Random color generator for label coloring
-	boost::mt19937 rng( time( 0 ) );
-	boost::uniform_int<> colorRange( 0, 255 );
-	boost::variate_generator< boost::mt19937, boost::uniform_int<> > color( rng, colorRange );
-
-	// For every image generate a new label and save the various informations
-	for( fs::directory_iterator it( fullPath ); it != end_iter; ++it ) {
-		if( debug ) {
-			cerr << "\tTreating a new image: ";
-			cerr << it -> path().filename() << endl;
-		}
-	
-		load = imread( it -> path().string(), CV_LOAD_IMAGE_GRAYSCALE );
-
-		// Detect the keypoints in the actual image
-		featureDetector.detect( load, keypoints );
-
-		if( debug )
-			cerr << "\tFeatures detected" << endl;
-
-		// Compute the 128 dimension SIFT descriptor at each keypoint detected
-		// Each row in descriptors corresponds to the SIFT descriptor for each keypoint
-		featureExtractor.compute( load, keypoints, descriptors );
-
-		if( debug )
-			cerr << "\tDescriptors extracted\n"
-	 			 << "\t\tSaving label, keypoints and sample corners\n";
-
-		string labelName = dbName + "Label" + boost::lexical_cast< string >( labelCounter++ );
-
-		labelDB.push_back( labelName ); 
-
-		labelColor.push_back( Scalar( color(), color(), color() ) );
-		
-		keypointDB.push_back( keypoints );
-
-		descriptorDB.push_back( descriptors );
-
-		// The corner of the image will be required to find the correspondent boundaries in the sample 
-		vector< Point2f > sampleCorners( 4 );
-
-		sampleCorners[ 0 ] = cvPoint( 0, 0 );
-		sampleCorners[ 1 ] = cvPoint( load.cols, 0 );
-		sampleCorners[ 2 ] = cvPoint( load.cols, load.rows );
-		sampleCorners[ 3 ] = cvPoint( 0, load.rows );
-
-		cornersDB.push_back( sampleCorners );
-
-		if( debug )
-			cerr << "\tDataBase updated" << endl;
-
-		// Draw the keypoints for debug purposes
-		if( debug ) {
-			Mat outputImage;
-			drawKeypoints( load, keypoints, outputImage, Scalar( 255, 0, 0 ), DrawMatchesFlags::DEFAULT );
-
-			string outsbra = "keypoints_sample/" + it -> path().filename().string();
-			cerr << "\tShowing image " << outsbra << endl;
-
-			imwrite( outsbra, outputImage );
-			//imshow( "Loaded keypoints", outputImage );
-			//waitKey();
-
-			cerr << "\tReiterating" << endl << endl;
-		}
-	}
-
-	// Now train the matcher
-	// NOTE the descriptorDB is stored anyway because it is used to train a new matcher
-	// after a Database load from file
-	matcher.add( descriptorDB );
-	matcher.train();
-
-	bfmatcher.add( descriptorDB );
-	bfmatcher.train();
-
-	// Now that the structures are filled, save them to a file for future usage
-	save();
 }
 
 /**
