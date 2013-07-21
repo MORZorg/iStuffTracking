@@ -72,16 +72,14 @@ Object Database::match( Mat frame ) {
 	Mat scene = frame;
 
 	// Calculate SURF keypoints and descriptors
-	int minHessian = 400;
-
-	SurfFeatureDetector featureDetector( minHessian );
-	SurfDescriptorExtractor featureExtractor;
+	Ptr< FeatureDetector > featureDetector = FeatureDetector::create( "SURF" );
+	Ptr< DescriptorExtractor > featureExtractor = DescriptorExtractor::create( "SURF" );
 
 	vector< KeyPoint > sceneKeypoints;
 	Mat sceneDescriptors;
 
-	featureDetector.detect( scene, sceneKeypoints );
-	featureExtractor.compute( scene, sceneKeypoints, sceneDescriptors );
+	featureDetector -> detect( scene, sceneKeypoints );
+	featureExtractor -> compute( scene, sceneKeypoints, sceneDescriptors );
 
 	if( debug )
 		cerr << "\t\tFrame keypoints and descriptors computed\n";
@@ -224,11 +222,6 @@ void Database::build( string imagesPath ) {
 	fs::directory_iterator end_iter;
 
 	// SURF detector and extractor
-	//int minHessian = 400;
-	
-	//SurfFeatureDetector featureDetector( minHessian );
-	//SurfDescriptorExtractor featureExtractor;
-	
 	Ptr< FeatureDetector > featureDetector = FeatureDetector::create( "SURF" );
 	Ptr< DescriptorExtractor > featureExtractor = DescriptorExtractor::create( "SURF" );
 	
@@ -264,7 +257,7 @@ void Database::build( string imagesPath ) {
 			cerr << "\tFeatures and descriptors computed. Saving everything.\n";
 
 		// Label name and color generation
-		/*string labelName = dbName + "Label" + boost::lexical_cast< string >( labelCounter++ );
+		string labelName = dbName + "Label" + boost::lexical_cast< string >( labelCounter++ );
 
 		labelDB.push_back( labelName ); 
 
@@ -300,20 +293,20 @@ void Database::build( string imagesPath ) {
 			//waitKey();
 
 			cerr << "\tReiterating" << endl << endl;
-		}*/
+		}
 	}
 
 	// Now train the matcher
 	// NOTE the descriptorDB is stored anyway because it is used to train a new matcher
 	// after a Database load from file
-	/*matcher.add( descriptorDB );
+	matcher.add( descriptorDB );
 	matcher.train();
 
-	bfmatcher.add( descriptorDB );
-	bfmatcher.train();
+	//bfmatcher.add( descriptorDB );
+	//bfmatcher.train();
 
 	// Now that the structures are filled, save them to a file for future usage
-	save();*/
+	save();
 }
 
 /**

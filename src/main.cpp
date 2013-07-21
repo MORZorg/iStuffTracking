@@ -115,7 +115,7 @@ int main( int argc, char* argv[] )
 		exit(2);
 	}
 
-	/*int key = -1;
+	int key = -1;
 
 	if( !video ) {
 		namedWindow( "Camera", CV_WINDOW_AUTOSIZE );
@@ -164,12 +164,12 @@ int main( int argc, char* argv[] )
 
 			imshow( "Video", frame );
 
-			key = waitKey( 30 );
+			key = waitKey( 10 );
 		}
 
 		capture.release();
 		destroyWindow( "Video" );
-	}*/
+	}
 
 	return 0;
 }

@@ -1,5 +1,5 @@
-#ifndef TRANSFORM_H
-#define TRANSFORM_H
+#ifndef TRANSFORM_H__
+#define TRANSFORM_H__
 
 #include <cmath>
 #include "opencv2/highgui/highgui.hpp"
