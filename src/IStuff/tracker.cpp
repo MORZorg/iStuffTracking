@@ -35,7 +35,20 @@ Tracker::~Tracker()
 {}
 
 /* Setters */
+
 void Tracker::setObject(Object new_object)
+{
+	Mat new_frame;
+	{
+		shared_lock<shared_mutex> lock(object_update);
+
+		new_frame = future_frame;
+	}
+
+	setObject(new_object, new_frame);
+}
+
+void Tracker::setObject(Object new_object, Mat new_frame)
 {
 	map<Label, vector<Point2f> > new_features;
 	for (Label label : new_object.getLabels())
@@ -45,11 +58,11 @@ void Tracker::setObject(Object new_object)
 		vector<Point> vertexes;
 		Mat(contour_mask).copyTo(vertexes);
 
-		Mat mask = Mat(future_frame.size(), CV_8UC1, Scalar(0));
+		Mat mask = Mat(new_frame.size(), CV_8UC1, Scalar(0));
 		fillConvexPoly(mask, &vertexes[0], contour_mask.size(), Scalar(255));
 
 		vector<KeyPoint> key_pts;
-		detector->detect(future_frame, key_pts, mask);
+		detector->detect(new_frame, key_pts, mask);
 
 		if (debug)
 			cerr << TAG << ": Found " << key_pts.size() << " keypoints.\n";
@@ -63,7 +76,7 @@ void Tracker::setObject(Object new_object)
 	unique_lock<shared_mutex> lock(object_update);
 
 	original_object = new_object;
-	original_frame = future_frame;
+	original_frame = new_frame;
 	original_features = new_features;
 }
 
@@ -116,7 +129,7 @@ Object Tracker::trackFrame(cv::Mat new_frame)
 		vector<uchar> status;
 		vector<float> error;
 
-		if (old_mask.empty())
+		if (old_mask.empty() || features[label].empty())
 			break;
 
 		calcOpticalFlowPyrLK(old_frame, new_frame,
@@ -135,8 +148,11 @@ Object Tracker::trackFrame(cv::Mat new_frame)
 		if (new_pts.empty())
 			break;
 		
-		Mat H = findHomography(old_pts, new_pts, CV_RANSAC);
-		perspectiveTransform(old_mask, new_mask, H);
+		Mat H = estimateRigidTransform(old_pts, new_pts, true);
+		if (H.empty())
+			break;
+
+		transform(old_mask, new_mask, H);
 
 		if (debug)
 			cerr << TAG << ": Mask obtained: " << new_mask << endl;
@@ -144,6 +160,7 @@ Object Tracker::trackFrame(cv::Mat new_frame)
 		new_object.setLabel(label, new_mask, old_object.getColor(label));
 	}
 
+	setObject(new_object, new_frame.clone());
 	return new_object;
 }
 

@@ -58,7 +58,8 @@ namespace IStuff
 			void sendMessage(int, void*, void* = NULL);
 		private:
 			void setObject(Object);
-			bool backgroundTrackFrame(cv::Mat, Manager* reference);
+			void setObject(Object, cv::Mat);
+			bool backgroundTrackFrame(cv::Mat, Manager*);
 	};
 }
 

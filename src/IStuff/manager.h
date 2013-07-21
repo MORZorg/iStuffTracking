@@ -35,7 +35,7 @@ namespace IStuff
 
 		private:
 			const static char TAG[];
-			const static int RECOGNITION_PERIOD = 15;
+			const static int RECOGNITION_PERIOD = 50;
 
 			/**
 			 * @brief When this reaches RECOGNITION_PERIOD, a new recognition is done.
