@@ -28,6 +28,12 @@ namespace IStuff
 		cv::Point2f position;
 		cv::Scalar color;
 
+<<<<<<< HEAD
+		Label( std::string _name, cv::Point2f _position, cv::Scalar _color ) : name( _name ), position( _position ), color( _color ) {}
+
+		inline bool operator == ( const Label &o ) const {
+			return name == o.name;
+=======
 		Label( std::string _name, cv::Point2f _position, cv::Scalar _color )
 			: name( _name ), position( _position ), color( _color )
 		{}
@@ -35,6 +41,7 @@ namespace IStuff
 		inline bool operator == (const Label &other) const
 		{
 			return name == other.name;
+>>>>>>> labelTracking
 		}
 	};
 
@@ -53,7 +60,12 @@ namespace IStuff
 			virtual ~Object();
 			
 			/* Setters */
+<<<<<<< HEAD
+			void setLabel(const std::string, const cv::Point2f, const cv::Scalar);
+			void setLabel(const Label);
+=======
 			void addLabel(const Label);
+>>>>>>> labelTracking
 
 			/* Getters */
 			bool empty() const;
