@@ -27,6 +27,8 @@ namespace IStuff
 {
 	class Manager;
 
+	typedef std::vector<cv::Point2f> Features;
+
 	class Tracker
 	{
 		/* Attributes */
@@ -36,13 +38,13 @@ namespace IStuff
 
 			std::auto_ptr<boost::thread> m_thread;
 			bool m_running = false;
-			boost::shared_mutex m_object_mutex;
+			boost::mutex m_object_mutex;
 
 			Object m_object;
 			cv::Mat m_frame;
-			std::vector<cv::Point2f> m_features;
-
-			FakableQueue m_history;
+			Features m_features,
+							 m_saved_features;
+			std::vector<uchar> m_saved_features_status;
 
 			cv::Ptr<cv::FeatureDetector> m_detector;
 
@@ -62,14 +64,13 @@ namespace IStuff
 			void sendMessage(int, void*, void* = NULL);
 		private:
 			/* Setters */
-			void setObject(Object, cv::Mat, std::vector<cv::Point2f>);
 			void setRunning(bool);
 
 			/* Other methods */
-			Object trackFrame(cv::Mat, cv::Mat, Object,
-												std::vector<cv::Point2f>* = new std::vector<cv::Point2f>(),
-												std::vector<cv::Point2f>* = new std::vector<cv::Point2f>());
-			void actualizeObject(Object);
+			Features calcFeatures(cv::Mat);
+			Features calcFeatures(cv::Mat, cv::Mat, Features);
+			void updateFeatures(std::vector<uchar>* = NULL);
+			Object updateObject(Features, Features, Object);
 			bool backgroundTrackFrame(cv::Mat, Manager*);
 	};
 }

@@ -138,6 +138,14 @@ Object Database::match( Mat frame ) {
 	// labels associated to the sample
 	vector< Point2f > samplePoints, scenePoints;
 
+	if (goodMatches.size() < 4)
+	{
+		if (debug)
+			cerr << "\tNo object found.\n";
+
+		return matchingObject;
+	}
+
 	for( int i = 0; i < goodMatches.size(); i++ )
 		if( goodMatches[ i ].imgIdx == maxSample ) {
 			samplePoints.push_back( keypointDB[ maxSample ][ goodMatches[ i ].trainIdx ].pt );
