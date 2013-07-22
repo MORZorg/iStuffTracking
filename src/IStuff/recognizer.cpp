@@ -137,7 +137,6 @@ bool Recognizer::backgroundRecognizeFrame(Mat frame, Manager* reference)
  */
 void Recognizer::sendMessage(int msg, void* data, void* reply_to)
 {
-	//Object tmp;
 	switch (msg)
 	{
 		case Manager::MSG_RECOGNITION_START:
