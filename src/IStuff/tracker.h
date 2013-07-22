@@ -19,6 +19,7 @@
 #include "opencv2/nonfree/nonfree.hpp"
 
 #include "object.h"
+#include "fakable_queue.h"
 
 extern bool debug;
 
@@ -39,12 +40,11 @@ namespace IStuff
 
 			Object m_object;
 			cv::Mat m_frame;
+			std::vector<cv::Point2f> m_features;
 
-			bool m_track_history = false;
-			std::vector<cv::Point2f> m_history;
+			FakableQueue m_history;
 
 			cv::Ptr<cv::FeatureDetector> m_detector;
-			cv::Ptr<cv::DescriptorMatcher> m_matcher;
 
 		/* Methods */
 		public:
@@ -62,11 +62,14 @@ namespace IStuff
 			void sendMessage(int, void*, void* = NULL);
 		private:
 			/* Setters */
-			void setObject(Object);
-			void setObject(Object, cv::Mat);
+			void setObject(Object, cv::Mat, std::vector<cv::Point2f>);
 			void setRunning(bool);
 
 			/* Other methods */
+			Object trackFrame(cv::Mat, cv::Mat, Object,
+												std::vector<cv::Point2f>* = new std::vector<cv::Point2f>(),
+												std::vector<cv::Point2f>* = new std::vector<cv::Point2f>());
+			void actualizeObject(Object);
 			bool backgroundTrackFrame(cv::Mat, Manager*);
 	};
 }
