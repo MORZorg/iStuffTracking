@@ -5,7 +5,6 @@ CPP_SRCS += \
 						../src/IStuff/manager.cpp \
 						../src/IStuff/recognizer.cpp \
 						../src/IStuff/tracker.cpp \
-						../src/IStuff/fakable_queue.cpp \
 
 OBJS += \
 				./src/IStuff/object.o \
@@ -13,7 +12,6 @@ OBJS += \
 				./src/IStuff/manager.o \
 				./src/IStuff/recognizer.o \
 				./src/IStuff/tracker.o \
-				./src/IStuff/fakable_queue.o \
 
 CPP_DEPS += \
 						./src/IStuff/object.d \
@@ -21,7 +19,6 @@ CPP_DEPS += \
 						./src/IStuff/manager.d \
 						./src/IStuff/recognizer.d \
 						./src/IStuff/tracker.d \
-						./src/IStuff/fakable_queue.d \
 
 
 # Each subdirectory must supply rules for building sources it contributes

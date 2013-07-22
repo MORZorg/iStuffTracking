@@ -3,7 +3,7 @@
  * @class IStuff::Tracker
  * @brief Class used to track objects in a video stream.
  * @author Maurizio Zucchelli
- * @version 0.1.0
+ * @version 0.5.0
  * @date 2013-07-17
  */
 
@@ -23,9 +23,10 @@ const char Tracker::TAG[] = "Trk";
  */
 Tracker::Tracker()
 {
-	m_detector = FeatureDetector::create("FAST");
-
 	setRunning(false);
+
+	m_detector = FeatureDetector::create("FAST");
+	m_matcher = DescriptorMatcher::create("FlannBased");
 
 	if (debug)
 		cerr << TAG << " constructed.\n";
@@ -111,79 +112,46 @@ Object Tracker::trackFrame(Mat old_frame, Mat new_frame,
 	if (debug)
 		cerr << TAG << ": Tracking object.\n";
 
-	Object new_object;
-	for (Label label : old_object.getLabels())
+	vector<KeyPoint> key_pts;
+	m_detector->detect(old_frame, key_pts);
+
+	if (debug)
+		cerr << TAG << ": Found " << key_pts.size() << " keypoints.\n";
+
+	vector<Point2f> old_features,
+									new_features;
+	KeyPoint::convert(key_pts, old_features);
+
+	calcOpticalFlowPyrLK(old_frame, new_frame,
+												old_features, new_features,
+												status, error);
+
+	// filter by status..
+
+	vector<Label> labels = old_object.getLabels();
+	vector<Point2f> old_positions;
+	for (Label a_label : labels)
+		old_positions.push_back(a_label.position);
+
+	vector< vector<DMatch> > matches;
+	m_matcher->knnMatch(Mat(old_features), Mat(old_positions),
+											matches, NEAREST_FEATURES_COUNT);
+
+	for (vector<DMatch> a_label_matches : matches)
 	{
-		vector<Point2f> old_mask = old_object.getMask(label),
-										new_mask,
-										tracked_pts;
-		vector<uchar> status;
-		vector<float> error;
+		label new_label = labels[a_label_matches[0].trainIdx;
+		Point2f mean;
+		for (DMatch a_match : a_label_matches)
+			mean += old_features[a_match.queryIdx]
+						- new_label.position;
+		mean /= a_label_matches.size();
 
-		if (old_mask.empty() || old_features[label].empty())
-			break;
-
-		calcOpticalFlowPyrLK(old_frame, new_frame,
-												 old_features[label], tracked_pts,
-												 status, error);
-
-		vector<Point2f> old_pts,
-										new_pts;
-		for (size_t i = 0; i < tracked_pts.size(); i++)
-			if (status[i])
-			{
-				old_pts.push_back(old_features[label][i]);
-				new_pts.push_back(tracked_pts[i]);
-			}
-
-		if (new_pts.empty())
-			break;
-		
-		Mat H = estimateRigidTransform(old_pts, new_pts, true);
-		if (H.empty())
-			break;
-
-		transform(old_mask, new_mask, H);
-
-		if (debug)
-			cerr << TAG << ": Mask obtained: " << new_mask << endl;
-
-		new_object.setLabel(label, new_mask, old_object.getColor(label));
+		new_label.position += mean;
+		new_object.addLabel(new_label);
 	}
 
 	return new_object;
 }
-
-Features Tracker::calcFeatures(Object new_object, Mat new_frame)
-{
-	if (debug)
-		cerr << TAG << ": Calculating features.\n";
-
-	Features new_features;
-	for (Label label : new_object.getLabels())
-	{
-		vector<Point2f> contour_mask = new_object.getMask(label),
-										adjusted_mask;
-		vector<Point> vertexes;
-		Mat(contour_mask).copyTo(vertexes);
-
-		Mat mask = Mat(new_frame.size(), CV_8UC1, Scalar(0));
-		fillConvexPoly(mask, &vertexes[0], vertexes.size(), Scalar(255));
-
-		vector<KeyPoint> key_pts;
-		m_detector->detect(new_frame, key_pts, mask);
-
-		if (debug)
-			cerr << TAG << ": Found " << key_pts.size() << " keypoints.\n";
-
-		vector<Point2f> features;
-		for (KeyPoint a_kp : key_pts)
-			features.push_back(a_kp.pt);
-		new_features[label] = features;
-	}
-
-	return new_features;
-}	
 
 void Tracker::actualizeObject(Object new_object)
 {
@@ -289,11 +257,15 @@ void Tracker::sendMessage(int msg, void* data, void* reply_to)
 	switch (msg)
 	{
 		case Manager::MSG_RECOGNITION_START:
-			m_history.start( (*(Mat*)data).clone() );
+			// Synchronized
+			{
+				unique_lock<shared_mutex> lock(m_object_mutex);
+
+				m_history.clear();
+			}
 			break;
 
 		case Manager::MSG_RECOGNITION_END:
-			//actualizeObject(*(Object*)data);
 			setObject(*(Object*)data);
 			break;
 
