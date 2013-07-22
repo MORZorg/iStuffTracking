@@ -34,12 +34,14 @@ namespace IStuff
 			const static int NEAREST_FEATURES_COUNT = 10;
 
 			std::auto_ptr<boost::thread> m_thread;
-			bool m_running;
+			bool m_running = false;
 			boost::shared_mutex m_object_mutex;
 
 			Object m_object;
 			cv::Mat m_frame;
-			std::vector<Point2f> m_history;
+
+			bool m_track_history = false;
+			std::vector<cv::Point2f> m_history;
 
 			cv::Ptr<cv::FeatureDetector> m_detector;
 			cv::Ptr<cv::DescriptorMatcher> m_matcher;
@@ -61,12 +63,10 @@ namespace IStuff
 		private:
 			/* Setters */
 			void setObject(Object);
-			void setObject(Object, cv::Mat, Features);
+			void setObject(Object, cv::Mat);
 			void setRunning(bool);
 
 			/* Other methods */
-			Object trackFrame(cv::Mat, cv::Mat, Object, Features);
-			void actualizeObject(Object);
 			bool backgroundTrackFrame(cv::Mat, Manager*);
 	};
 }

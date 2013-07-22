@@ -23,8 +23,6 @@ const char Tracker::TAG[] = "Trk";
  */
 Tracker::Tracker()
 {
-	setRunning(false);
-
 	m_detector = FeatureDetector::create("FAST");
 	m_matcher = DescriptorMatcher::create("FlannBased");
 
@@ -39,19 +37,38 @@ Tracker::~Tracker()
 
 void Tracker::setObject(Object new_object)
 {
-	Mat new_frame = m_history.getStarter();
-	Features new_features = calcFeatures(new_object, new_frame);
+	vector<Point2f> history;
+	Mat frame;
 
-	setObject(new_object, new_frame, new_features);
+	// Syncrhonized
+	{
+		unique_lock<shared_mutex> lock(m_object_mutex);
+
+		history = m_history;
+		frame = m_frame.clone();
+	}
+
+	Point2f mean;
+	for (Point2f a_point : history)
+		mean + a_point;
+	mean = mean * (1. / history.size());
+
+	Object actualized_object;
+	for (Label a_label : new_object.getLabels())
+	{
+		a_label.position += mean;
+		actualized_object.addLabel(a_label);
+	}
+
+	setObject(actualized_object, frame);
 }
 
-void Tracker::setObject(Object new_object, Mat new_frame, Features new_features)
+void Tracker::setObject(Object new_object, Mat new_frame)
 {
 	unique_lock<shared_mutex> lock(m_object_mutex);
 
 	m_object = new_object;
 	m_frame = new_frame.clone();
-	m_features = new_features;
 }
 
 void Tracker::setRunning(bool running)
@@ -85,10 +102,6 @@ Object Tracker::trackFrame(Mat new_frame)
 	Mat old_frame;
 	Object old_object,
 				 new_object;
-	Features old_features,
-					 new_features;
-
-	m_history.enqueue(new_frame);
 
 	// Synchronized
 	{
@@ -96,19 +109,8 @@ Object Tracker::trackFrame(Mat new_frame)
 
 		old_frame = m_frame.clone();
 		old_object = m_object;
-		old_features = m_features;
 	}
 
-	new_object = trackFrame(old_frame, new_frame, old_object, old_features);
-	new_features = calcFeatures(new_object, new_frame);
-	setObject(new_object, new_frame, new_features);
-
-	return new_object;
-}
-
-Object Tracker::trackFrame(Mat old_frame, Mat new_frame,
-													 Object old_object, Features old_features)
-{
 	if (debug)
 		cerr << TAG << ": Tracking object.\n";
 
@@ -122,11 +124,18 @@ Object Tracker::trackFrame(Mat old_frame, Mat new_frame,
 									new_features;
 	KeyPoint::convert(key_pts, old_features);
 
+	vector<uchar> status;
+	vector<double> error;
 	calcOpticalFlowPyrLK(old_frame, new_frame,
-												old_features, new_features,
-												status, error);
+											 old_features, new_features,
+											 status, error);
 
-	// filter by status..
+	for (int i = status.size()-1; i >= 0; i--)
+		if (!status[i])
+		{
+			old_features.erase(old_features.begin() + i);
+			new_features.erase(new_features.begin() + i);
+		}
 
 	vector<Label> labels = old_object.getLabels();
 	vector<Point2f> old_positions;
@@ -139,59 +148,31 @@ Object Tracker::trackFrame(Mat old_frame, Mat new_frame,
 
 	for (vector<DMatch> a_label_matches : matches)
 	{
-		label new_label = labels[a_label_matches[0].trainIdx;
 		Point2f mean;
 		for (DMatch a_match : a_label_matches)
-			mean += old_features[a_match.queryIdx]
-						- new_label.position;
-		mean /= a_label_matches.size();
+			mean += new_features[a_match.queryIdx]
+						- old_features[a_match.trainIdx];
+		mean = mean * (1. / a_label_matches.size());
 
+		Label new_label = labels[a_label_matches[0].trainIdx];
 		new_label.position += mean;
 		new_object.addLabel(new_label);
 	}
 
-	return new_object;
-}
+	Point2f mean;
+	for (size_t i = 0; i < old_features.size(); i++)
+		mean += new_features[i] - old_features[i];
+	mean = mean * (1. / old_features.size());
 
-void Tracker::actualizeObject(Object new_object)
-{
-	if (debug)
-		cerr << TAG << ": Actualizing frame.\n";
-
-	m_history.discard();
-
-	Mat old_frame,
-			new_frame = m_history.getStarter();
-	Object old_object;
-	Features old_features,
-					 new_features = calcFeatures(new_object, new_frame);
-
-	while (true)
+	// Synchronized
 	{
-		try
-		{
-			old_frame = new_frame;
-			new_frame = m_history.dequeue();
-		}
-		catch (const out_of_range&)
-		{
-			if (debug)
-				cerr << ": Actualization ended.\n";
+		unique_lock<shared_mutex> lock(m_object_mutex);
 
-			break;
-		}
-
-		if (debug)
-			cerr << ": New actualization step.\n";
-
-		old_object = new_object;
-		old_features = new_features;
-
-		new_object = trackFrame(old_frame, new_frame, old_object, old_features);
-		new_features = calcFeatures(new_object, new_frame);
+		if (m_history.size())
+			m_history.push_back(mean);
 	}
 
-	setObject(new_object, new_frame, new_features);
+	return new_object;
 }
 
 /**
@@ -261,6 +242,7 @@ void Tracker::sendMessage(int msg, void* data, void* reply_to)
 			{
 				unique_lock<shared_mutex> lock(m_object_mutex);
 
+				m_track_history = true;
 				m_history.clear();
 			}
 			break;

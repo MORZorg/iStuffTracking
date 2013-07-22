@@ -23,16 +23,18 @@ namespace IStuff
 	/**
 	 * @brief Label relative to a view of an Object.
 	 */
-	typedef struct Label {
+	struct Label {
 		std::string name;
 		cv::Point2f position;
 		cv::Scalar color;
 
-		Label( std::string _name, cv::Point2f _position, cv::Scalar _color ) :
-			name( _name ), position( _position ), color( _color ) {}
+		Label( std::string _name, cv::Point2f _position, cv::Scalar _color )
+			: name( _name ), position( _position ), color( _color )
+		{}
 
-		inline bool operator == ( const Label &o ) const {
-			return name == o.name;
+		inline bool operator == (const Label &other) const
+		{
+			return name == other.name;
 		}
 	};
 
