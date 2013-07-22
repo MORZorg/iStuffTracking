@@ -109,7 +109,7 @@ Object Database::match( Mat frame ) {
 			cerr <<"\tGood match #" << i
 					<< "\n\t\tsceneDescriptorIndex: " << goodMatches[ i ].queryIdx
 					<< "\n\t\tsampleDescriptorIndex: " << goodMatches[ i ].trainIdx
-					<< "\n\t\tsampleImageIndex: " << goodMatches[ i ].imgIdx << ")\n\n";
+					<< "\n\t\tsampleImageIndex: " << goodMatches[ i ].imgIdx << "\n\n";
 
 		Mat imgKeypoints;
 		drawKeypoints( scene, sceneKeypoints, imgKeypoints, Scalar::all( -1 ), DrawMatchesFlags::DEFAULT );
@@ -120,24 +120,23 @@ Object Database::match( Mat frame ) {
 	}
 
 	// I consider only the sample with the biggest number of matches
-	vector< int > bestSample( labelDB.size() + 1, 0 );
+	vector< int > bestSample( labelDB.size(), 0 );
 
 	for( vector< DMatch >::iterator m = goodMatches.begin(); m != goodMatches.end(); m++ )
 		bestSample[ ( *m ).imgIdx ]++;
 
-	int maxSample = 1;
+	int maxSample = 0;
 
-	for( int i = 2; i < bestSample.size(); i++ )
+	for( int i = 1; i < bestSample.size(); i++ )
 		if( bestSample[ i ] > bestSample[ maxSample ] )
 			maxSample = i;
 
 	if( debug )
-		cerr << "\t\tBest sample is #" << maxSample << endl;
+		cerr << "\tBest sample is #" << maxSample << endl;
 
 	// Analyze the keypoints found for the sample to estimate homography and apply that to the
 	// labels associated to the sample
 	vector< Point2f > samplePoints, scenePoints;
-	vector< Point2f > sampleCorners;
 
 	for( int i = 0; i < goodMatches.size(); i++ )
 		if( goodMatches[ i ].imgIdx == maxSample ) {
@@ -148,11 +147,18 @@ Object Database::match( Mat frame ) {
 	// Calculate homography mask, apply transformation to the label points and add the labels to the object 
 	Mat H = findHomography( samplePoints, scenePoints, CV_RANSAC );
 
-	perspectiveTransform( labelDB[ maxSample ], sampleCorners, H );
+	if( debug )
+		cerr << "\tHomography matrix calculated, mapping " << labelDB[ maxSample ].size() << " label points\n";
 
-	for( int i = 0; i < sampleCorners.size(); i++ ) {
-		matchingObject.setLabel( labelDB[ maxSample ][ i ].name, sampleCorners[ i ], labelDB[ maxSample ][ i ].color );
-	}
+	vector< Point2f > mappedPoints, re;
+
+	for( vector< Label >::iterator point = labelDB[ maxSample ].begin(); point != labelDB[ maxSample ].end(); point++ )
+		mappedPoints.push_back( ( *point ).position );
+
+	perspectiveTransform( mappedPoints, re, H );
+
+	for( int i = 0; i < mappedPoints.size(); i++ )
+		matchingObject.addLabel( Label( labelDB[ maxSample ][ i ].name, re[ i ], labelDB[ maxSample ][ i ].color ) );
 
 	if( debug )
 		cerr << "\n\tMatching done. Returning the object\n\n";
@@ -200,25 +206,20 @@ void Database::build( string imagesPath ) {
 	for( fs::directory_iterator it( fullPath ); it != end_iter; ++it ) {
 		fs::path extension = fs::extension( it -> path() );
 
-		if( !( extension.string() == "jpg" || extension.string() == "png" ) ) {
+		if( !( extension == ".jpg" || extension == ".png" ) ) {
 			if( debug )
-				cerr << "\tNot an image, skipping..\n";
+				cerr << "\t" << extension << " not an image extension, skipping..\n";
 
 			continue;
 		}
 
 		if( debug ) {
 			cerr << "\tTreating a new image: ";
-			cerr << it -> path().filename() << endl;
+			cerr << it -> path().stem() << endl;
 		}
 	
-		ifstream loadLabels( it -> path().stem().string() + ".lbl", ios::in );
-
 		load = imread( it -> path().string() );
-
-		if( !load.data || loadLabels.fail() )
-			throw DBCreationException();
-
+		
 		// Detect the keypoints in the actual image
 		featureDetector -> detect( load, keypoints );
 
@@ -233,6 +234,13 @@ void Database::build( string imagesPath ) {
 
 		string labelName = it -> path().stem().string();
 
+		string labelFileName = it -> path().parent_path().string() + "/" + it -> path().stem().string() + ".lbl";
+
+		ifstream loadLabels( labelFileName, ios::in );
+
+		if( debug )
+			cerr << "\tLoading labels from file " << labelFileName << endl;
+
 		// Read the labels associated to this image from the .lbl file
 		vector< Label > localLabels;
 		string name, x, y;
@@ -240,13 +248,16 @@ void Database::build( string imagesPath ) {
 		while( loadLabels >> name ) {
 			loadLabels >> x >> y;
 
+			if( debug )
+				cerr << "\t\tLoading labed " << name << " " << x << " " << y << endl;
+
 			localLabels.push_back( Label( name, Point2f( ::atof( ( x ).c_str() ), ::atof( ( y ).c_str() ) ), Scalar( color(), color(), color() ) ) );
 		}
 
 		labelDB.push_back( localLabels );
 
 		if( debug )
-			cerr << "\tLabel read\n";
+			cerr << "\tLabels loaded\n";
 
 		keypointDB.push_back( keypoints );
 
