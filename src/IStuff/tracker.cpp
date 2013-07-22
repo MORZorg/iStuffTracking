@@ -23,7 +23,7 @@ const char Tracker::TAG[] = "Trk";
  */
 Tracker::Tracker()
 {
-	m_detector = FeatureDetector::create("FAST");
+	m_detector = FeatureDetector::create("GFTT");
 	m_matcher = DescriptorMatcher::create("FlannBased");
 
 	if (debug)
@@ -44,19 +44,20 @@ void Tracker::setObject(Object new_object)
 	{
 		unique_lock<shared_mutex> lock(m_object_mutex);
 
+		m_track_history = false;
 		history = m_history;
 		frame = m_frame.clone();
 	}
 
-	Point2f mean;
+	Point2f mean = Point(0, 0);
 	for (Point2f a_point : history)
-		mean + a_point;
+		mean += a_point;
 	mean = mean * (1. / history.size());
 
 	Object actualized_object;
 	for (Label a_label : new_object.getLabels())
 	{
-		a_label.position += mean;
+		//a_label.position += mean;
 		actualized_object.addLabel(a_label);
 	}
 
@@ -99,13 +100,13 @@ bool Tracker::isRunning() const
  */
 Object Tracker::trackFrame(Mat new_frame)
 {
+	unique_lock<shared_mutex> lock(m_object_mutex);
 	Mat old_frame;
-	Object old_object,
-				 new_object;
+	Object old_object;
 
 	// Synchronized
 	{
-		shared_lock<shared_mutex> lock(m_object_mutex);
+		//shared_lock<shared_mutex> lock(m_object_mutex);
 
 		old_frame = m_frame.clone();
 		old_object = m_object;
@@ -114,21 +115,32 @@ Object Tracker::trackFrame(Mat new_frame)
 	if (debug)
 		cerr << TAG << ": Tracking object.\n";
 
-	vector<KeyPoint> key_pts;
-	m_detector->detect(old_frame, key_pts);
+	vector<KeyPoint> key_points;
+	m_detector->detect(old_frame, key_points);
 
 	if (debug)
-		cerr << TAG << ": Found " << key_pts.size() << " keypoints.\n";
+		cerr << TAG << ": Found " << key_points.size() << " keypoints.\n";
+
+	if (key_points.empty())
+	{
+		m_frame = new_frame.clone();
+		//setObject(old_object, new_frame);
+		return old_object;
+	}
 
 	vector<Point2f> old_features,
 									new_features;
-	KeyPoint::convert(key_pts, old_features);
+	for (KeyPoint a_key_point : key_points)
+		old_features.push_back(a_key_point.pt);
 
 	vector<uchar> status;
-	vector<double> error;
+	vector<float> error;
 	calcOpticalFlowPyrLK(old_frame, new_frame,
 											 old_features, new_features,
 											 status, error);
+
+	if (debug)
+		cerr << TAG << ": Points tracked.\n";
 
 	for (int i = status.size()-1; i >= 0; i--)
 		if (!status[i])
@@ -136,6 +148,13 @@ Object Tracker::trackFrame(Mat new_frame)
 			old_features.erase(old_features.begin() + i);
 			new_features.erase(new_features.begin() + i);
 		}
+
+	if (debug)
+		cerr << TAG << ": " << new_features.size() << "points remained.\n";
+
+	/*
+	if (old_object.empty())
+		return old_object;
 
 	vector<Label> labels = old_object.getLabels();
 	vector<Point2f> old_positions;
@@ -146,6 +165,7 @@ Object Tracker::trackFrame(Mat new_frame)
 	m_matcher->knnMatch(Mat(old_features), Mat(old_positions),
 											matches, NEAREST_FEATURES_COUNT);
 
+	Object new_object;
 	for (vector<DMatch> a_label_matches : matches)
 	{
 		Point2f mean;
@@ -158,7 +178,9 @@ Object Tracker::trackFrame(Mat new_frame)
 		new_label.position += mean;
 		new_object.addLabel(new_label);
 	}
+	*/
 
+	// Update the movement history
 	Point2f mean;
 	for (size_t i = 0; i < old_features.size(); i++)
 		mean += new_features[i] - old_features[i];
@@ -166,13 +188,24 @@ Object Tracker::trackFrame(Mat new_frame)
 
 	// Synchronized
 	{
-		unique_lock<shared_mutex> lock(m_object_mutex);
+		//unique_lock<shared_mutex> lock(m_object_mutex);
 
-		if (m_history.size())
+		if (m_track_history)
 			m_history.push_back(mean);
 	}
 
-	return new_object;
+	Object new_object;
+	for (Label a_label : old_object.getLabels())
+	{
+		a_label.position += mean;
+		new_object.addLabel(a_label);
+	}
+
+	m_object = new_object;
+	m_frame = new_frame.clone();
+
+	//setObject(new_object, new_frame);
+	return old_object;
 }
 
 /**
@@ -238,6 +271,9 @@ void Tracker::sendMessage(int msg, void* data, void* reply_to)
 	switch (msg)
 	{
 		case Manager::MSG_RECOGNITION_START:
+			if (debug)
+				cerr << TAG << ": Starting history saving.\n";
+
 			// Synchronized
 			{
 				unique_lock<shared_mutex> lock(m_object_mutex);
@@ -248,6 +284,9 @@ void Tracker::sendMessage(int msg, void* data, void* reply_to)
 			break;
 
 		case Manager::MSG_RECOGNITION_END:
+			if (debug)
+				cerr << TAG << ": Finished history saving.\n";
+
 			setObject(*(Object*)data);
 			break;
 

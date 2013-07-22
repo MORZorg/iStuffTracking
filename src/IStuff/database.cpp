@@ -236,7 +236,7 @@ void Database::build( string imagesPath ) {
 
 		string labelFileName = it -> path().parent_path().string() + "/" + it -> path().stem().string() + ".lbl";
 
-		ifstream loadLabels( labelFileName, ios::in );
+		ifstream loadLabels( labelFileName.c_str(), ios::in );
 
 		if( debug )
 			cerr << "\tLoading labels from file " << labelFileName << endl;

@@ -82,14 +82,16 @@ Mat Object::paint(Mat frame)
 
 	int vertCount = 1;
 
-	//for (auto label : description)
-	for( vector< Label >::iterator label = labels.begin(); label != labels.end(); label++ )
+	Mat result = frame.clone();
+	for(Label a_label : labels)
 	{
-		circle( frame, (*label).position, 5, (*label).color, 1 );
+		circle( result, a_label.position, 5, a_label.color, 1 );
 
-		putText( frame, ( *label ).name, Point2f( (*label).position.x + 10, (*label).position.y + 10 ), FONT_HERSHEY_DUPLEX, 2, ( *label ).color, 3 );
+		putText( result, a_label.name,
+						 Point2f( a_label.position.x + 10, a_label.position.y + 10 ),
+						 FONT_HERSHEY_DUPLEX, 2, a_label.color, 3 );
 	}
 
-	return frame;
+	return result;
 }
 
