@@ -31,7 +31,7 @@ namespace IStuff
 		Label( std::string _name, cv::Point2f _position, cv::Scalar _color ) : name( _name ), position( _position ), color( _color ) {}
 
 		inline bool operator == ( const Label &o ) const {
-			return name == o.name;
+			return strcmp( name, o.name ) == 0;
 		}
 	};
 
@@ -51,6 +51,7 @@ namespace IStuff
 			
 			/* Setters */
 			void setLabel(const std::string, const cv::Point2f, const cv::Scalar);
+			void setLabel(const Label);
 
 			/* Getters */
 			bool empty() const;

@@ -69,8 +69,7 @@ Object Database::match( Mat frame ) {
 	Object matchingObject;
 
 	// Convert frame in grayscale
-	Mat scene;
-	cvtColor( frame, scene, CV_RGB2GRAY );
+	Mat scene = frame;
 
 	// Calculate SURF keypoints and descriptors
 	Ptr< FeatureDetector > featureDetector = FeatureDetector::create( "SURF" );
@@ -110,7 +109,7 @@ Object Database::match( Mat frame ) {
 			cerr <<"\tGood match #" << i
 					<< "\n\t\tsceneDescriptorIndex: " << goodMatches[ i ].queryIdx
 					<< "\n\t\tsampleDescriptorIndex: " << goodMatches[ i ].trainIdx
-					<< "\n\t\tsampleImageIndex: " << goodMatches[ i ].imgIdx << " (" << labelDB[ goodMatches[ i ].imgIdx ] << ")\n\n";
+					<< "\n\t\tsampleImageIndex: " << goodMatches[ i ].imgIdx << ")\n\n";
 
 		Mat imgKeypoints;
 		drawKeypoints( scene, sceneKeypoints, imgKeypoints, Scalar::all( -1 ), DrawMatchesFlags::DEFAULT );
@@ -120,46 +119,40 @@ Object Database::match( Mat frame ) {
 		imwrite( outsbra, imgKeypoints );
 	}
 
-	// I consider only the label with the biggest number of matches
-	vector< int > bestLabel( labelDB.size() + 1, 0 );
+	// I consider only the sample with the biggest number of matches
+	vector< int > bestSample( labelDB.size() + 1, 0 );
 
 	for( vector< DMatch >::iterator m = goodMatches.begin(); m != goodMatches.end(); m++ )
-		bestLabel[ ( *m ).imgIdx ]++;
+		bestSample[ ( *m ).imgIdx ]++;
 
-	int maxLabel = 1;
+	int maxSample = 1;
 
-	for( int i = 2; i < bestLabel.size(); i++ )
-		if( bestLabel[ i ] > bestLabel[ maxLabel ] )
-			maxLabel = i;
-
-	if( debug )
-		cerr << "\t\tBest label is label " << labelDB[ maxLabel ] << " with " << bestLabel[ maxLabel ] << " matches\n";
-
-	// For every label analyze the matches and process a
-	vector< Point2f > labelPoints, scenePoints;
-	vector< Point2f > labelCorners;
+	for( int i = 2; i < bestSample.size(); i++ )
+		if( bestSample[ i ] > bestSample[ maxSample ] )
+			maxSample = i;
 
 	if( debug )
-		cerr << "\tSearching mask for label " << labelDB[ maxLabel ] << endl;
+		cerr << "\t\tBest sample is #" << maxSample << endl;
 
-	// If there is at least one good match in the actual label, mark the label
-	// as active and add the points to the lists
+	// Analyze the keypoints found for the sample to estimate homography and apply that to the
+	// labels associated to the sample
+	vector< Point2f > samplePoints, scenePoints;
+	vector< Point2f > sampleCorners;
+
 	for( int i = 0; i < goodMatches.size(); i++ )
-		if( goodMatches[ i ].imgIdx == maxLabel ) {
-			labelPoints.push_back( keypointDB[ maxLabel ][ goodMatches[ i ].trainIdx ].pt );
+		if( goodMatches[ i ].imgIdx == maxSample ) {
+			samplePoints.push_back( keypointDB[ maxSample ][ goodMatches[ i ].trainIdx ].pt );
 			scenePoints.push_back( sceneKeypoints[ goodMatches[ i ].queryIdx ].pt );
 		}
 
-	if( debug )
-		cerr << "\t\tFound " << labelPoints.size() << " keypoints in this label\n" 
-			 << "\t\tCalculating homography mask\n";
+	// Calculate homography mask, apply transformation to the label points and add the labels to the object 
+	Mat H = findHomography( samplePoints, scenePoints, CV_RANSAC );
 
-	// Calculate homography mask and add it to the matchingObject
-	Mat H = findHomography( labelPoints, scenePoints, CV_RANSAC );
+	perspectiveTransform( labelDB[ maxSample ], sampleCorners, H );
 
-	perspectiveTransform( cornersDB[ maxLabel ], labelCorners, H );
-
-	matchingObject.setLabel( labelDB[ maxLabel ], labelCorners[ 0 ], labelColor[ maxLabel ] );
+	for( int i = 0; i < sampleCorners.size(); i++ ) {
+		matchingObject.setLabel( labelDB[ maxSample ][ i ].name, sampleCorners[ i ], labelDB[ maxSample ][ i ].color );
+	}
 
 	if( debug )
 		cerr << "\n\tMatching done. Returning the object\n\n";
@@ -171,7 +164,7 @@ Object Database::match( Mat frame ) {
 /**
  * @brief	Creates the database from the sample images
  * @details	Loaded the images contained in the argument path
- * 			generate a set of labels, detects the SIFT features
+ * 			generate a set of labels, detects the SURF features
  * 			and descriptors for every sample and associate them to
  * 			every label, then trains a matcher with the descriptors
  * 			and save everything in the corresponding structures.
@@ -198,8 +191,6 @@ void Database::build( string imagesPath ) {
 	Mat load, descriptors;
 	vector< KeyPoint > keypoints;
 
-	//int labelCounter = 0;
-
 	// Random color generator for label coloring
 	boost::mt19937 rng( time( 0 ) );
 	boost::uniform_int<> colorRange( 0, 255 );
@@ -207,12 +198,26 @@ void Database::build( string imagesPath ) {
 
 	// For every image generate a new label and save the various informations
 	for( fs::directory_iterator it( fullPath ); it != end_iter; ++it ) {
+		fs::path extension = fs::extension( it -> path() );
+
+		if( !( extension.string() == "jpg" || extension.string() == "png" ) ) {
+			if( debug )
+				cerr << "\tNot an image, skipping..\n";
+
+			continue;
+		}
+
 		if( debug ) {
 			cerr << "\tTreating a new image: ";
 			cerr << it -> path().filename() << endl;
 		}
 	
-		load = imread( it -> path().string(), CV_LOAD_IMAGE_GRAYSCALE );
+		ifstream loadLabels( it -> path().stem().string() + ".lbl", ios::in );
+
+		load = imread( it -> path().string() );
+
+		if( !load.data || loadLabels.fail() )
+			throw DBCreationException();
 
 		// Detect the keypoints in the actual image
 		featureDetector -> detect( load, keypoints );
@@ -220,34 +225,32 @@ void Database::build( string imagesPath ) {
 		if( debug )
 			cerr << "\tFeatures detected" << endl;
 
-		// Compute the 128 dimension SIFT descriptor at each keypoint detected
-		// Each row in descriptors corresponds to the SIFT descriptor for each keypoint
+		// Compute SURF descriptors
 		featureExtractor -> compute( load, keypoints, descriptors );
 
 		if( debug )
-			cerr << "\tDescriptors extracted\n"
-	 			 << "\t\tSaving label, keypoints and sample corners\n";
+			cerr << "\tDescriptors extracted\n";
 
-		//string labelName = dbName + "Label" + boost::lexical_cast< string >( labelCounter++ );
-		string labelName = it -> path().filename().string();
+		string labelName = it -> path().stem().string();
 
-		labelDB.push_back( labelName ); 
+		// Read the labels associated to this image from the .lbl file
+		vector< Label > localLabels;
+		string name, x, y;
 
-		labelColor.push_back( Scalar( color(), color(), color() ) );
-		
+		while( loadLabels >> name ) {
+			loadLabels >> x >> y;
+
+			localLabels.push_back( Label( name, Point2f( ::atof( ( x ).c_str() ), ::atof( ( y ).c_str() ) ), Scalar( color(), color(), color() ) ) );
+		}
+
+		labelDB.push_back( localLabels );
+
+		if( debug )
+			cerr << "\tLabel read\n";
+
 		keypointDB.push_back( keypoints );
 
 		descriptorDB.push_back( descriptors );
-
-		// The corner of the image will be required to find the correspondent boundaries in the sample 
-		vector< Point2f > sampleCorners( 4 );
-
-		sampleCorners[ 0 ] = cvPoint( 0, 0 );
-		sampleCorners[ 1 ] = cvPoint( load.cols, 0 );
-		sampleCorners[ 2 ] = cvPoint( load.cols, load.rows );
-		sampleCorners[ 3 ] = cvPoint( 0, load.rows );
-
-		cornersDB.push_back( sampleCorners );
 
 		if( debug )
 			cerr << "\tDataBase updated" << endl;
@@ -275,7 +278,7 @@ void Database::build( string imagesPath ) {
 	matcher.train();
 
 	// Now that the structures are filled, save them to a file for future usage
-	save();
+	//save();
 }
 
 /**
@@ -301,14 +304,6 @@ void Database::load() {
 	boost::archive::binary_iarchive labelarch( label );
 	labelarch >> labelDB;
 	
-	// Color generation
-	boost::mt19937 rng( time( 0 ) );
-	boost::uniform_int<> colorRange( 0, 255 );
-	boost::variate_generator< boost::mt19937, boost::uniform_int<> > color( rng, colorRange );
-
-	for( int i = 0; i < labelDB.size(); i++ )
-		labelColor.push_back( Scalar( color(), color(), color() ) );
-
 	if( debug )
 		cerr << "\t\tLabels loaded\n";
 
@@ -385,7 +380,7 @@ void Database::load() {
 				cerr << "\t\t\tPoint " << temp[ temp.size() - 1 ] << endl;
 		}
 
-		cornersDB.push_back( temp );
+		//cornersDB.push_back( temp );
 
 		if( corn.eof() )
 			break;
@@ -445,11 +440,11 @@ void Database::save() {
 	}
 	
 	// cornerDB
-	for( vector< vector< Point2f > >::iterator it = cornersDB.begin(); it != cornersDB.end(); it++ ) {
+	/*for( vector< vector< Point2f > >::iterator it = cornersDB.begin(); it != cornersDB.end(); it++ ) {
 		corn << "Corners" << endl;
 		for( vector< Point2f >::iterator jt = ( *it ).begin(); jt != ( *it ).end(); jt++ )
 			corn << ( *jt ).x << " " << ( *jt ).y << endl;
-	}
+	}*/
 	
 	label.close();
 	desc.close();

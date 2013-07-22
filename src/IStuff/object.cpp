@@ -42,6 +42,17 @@ void Object::setLabel(const string label, const Point2f mask, const Scalar color
 	labels.push_back( Label( label, mask, color ) );
 }
 
+/**
+ * @brief Changes a IStuff::Label of this IStuff::Object to represent a different mask.
+ * @details If the IStuff::Label isn't currently part of the IStuff::Object,
+ *	it is added.
+ *
+ * @param[in] label	the label to be added 
+ */
+void Object::setLabel(const Label label) {
+	labels.push_back( label );
+}
+
 /* Getters */
 
 bool Object::empty() const
