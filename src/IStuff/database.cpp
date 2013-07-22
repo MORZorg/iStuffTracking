@@ -159,18 +159,7 @@ Object Database::match( Mat frame ) {
 
 	perspectiveTransform( cornersDB[ maxLabel ], labelCorners, H );
 
-	// Debug drawing
-	if( debug ) {
-		Mat imgMatches = frame.clone();
-		line( imgMatches, labelCorners[0], labelCorners[1], Scalar( 0, 255, 0 ), 4 );
-		line( imgMatches, labelCorners[1], labelCorners[2], Scalar( 0, 255, 0 ), 4 );
-		line( imgMatches, labelCorners[2], labelCorners[3], Scalar( 0, 255, 0 ), 4 );
-		line( imgMatches, labelCorners[3], labelCorners[0], Scalar( 0, 255, 0 ), 4 );
-
-		imwrite( "output_sample/" + labelDB[ maxLabel ] + ".jpg", imgMatches );
-	}
-	
-	matchingObject.setLabel( labelDB[ maxLabel ], labelCorners, labelColor[ maxLabel ] );
+	matchingObject.setLabel( labelDB[ maxLabel ], labelCorners[ 0 ], labelColor[ maxLabel ] );
 
 	if( debug )
 		cerr << "\n\tMatching done. Returning the object\n\n";
@@ -410,9 +399,6 @@ void Database::load() {
 
 	matcher.add( descriptorDB );
 	matcher.train();
-
-	bfmatcher.add( descriptorDB );
-	bfmatcher.train();
 
 	if( debug )
 		cerr << "\tMatcher trained successfully" << endl;
