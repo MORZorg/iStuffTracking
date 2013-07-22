@@ -50,7 +50,6 @@ namespace IStuff {
 			std::string dbName;
 
 			cv::FlannBasedMatcher matcher;
-			cv::BFMatcher bfmatcher;
 			std::vector< Label > labelDB;
 			std::vector< cv::Scalar > labelColor;
 			std::vector< std::vector< cv::Point2f > > cornersDB;
@@ -64,8 +63,8 @@ namespace IStuff {
 			Object match( cv::Mat );
 
 		private:
-			void load();
 			void build( std::string );
+			void load();
 			void save();
 	};
 

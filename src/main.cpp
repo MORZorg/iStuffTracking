@@ -172,10 +172,10 @@ int main(int argc, char* argv[])
 				break;
 			}
 
-			//Object o = db -> match( frame );
-			//frame = o.paint( frame );
-			manager.elaborateFrame(frame);
-			frame = manager.paintObject(frame);
+			Object o = db -> match( frame );
+			frame = o.paint( frame );
+			//manager.elaborateFrame(frame);
+			//frame = manager.paintObject(frame);
 
 			imshow( "Video", frame );
 

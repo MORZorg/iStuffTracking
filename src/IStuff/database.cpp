@@ -73,16 +73,14 @@ Object Database::match( Mat frame ) {
 	cvtColor( frame, scene, CV_RGB2GRAY );
 
 	// Calculate SURF keypoints and descriptors
-	int minHessian = 400;
-
-	SurfFeatureDetector featureDetector( minHessian );
-	SurfDescriptorExtractor featureExtractor;
+	Ptr< FeatureDetector > featureDetector = FeatureDetector::create( "SURF" );
+	Ptr< DescriptorExtractor > featureExtractor = DescriptorExtractor::create( "SURF" );
 
 	vector< KeyPoint > sceneKeypoints;
 	Mat sceneDescriptors;
 
-	featureDetector.detect( scene, sceneKeypoints );
-	featureExtractor.compute( scene, sceneKeypoints, sceneDescriptors );
+	featureDetector -> detect( scene, sceneKeypoints );
+	featureExtractor -> compute( scene, sceneKeypoints, sceneDescriptors );
 
 	if( debug )
 		cerr << "\t\tFrame keypoints and descriptors computed\n";
@@ -91,13 +89,12 @@ Object Database::match( Mat frame ) {
 	vector< vector< DMatch > > matches;
 	vector< DMatch > goodMatches;
 
-	//matcher.knnMatch( sceneDescriptors, matches, 2 );
-	bfmatcher.knnMatch( sceneDescriptors, matches, 2 );
+	matcher.knnMatch( sceneDescriptors, matches, 2 );
 
 	if( debug )
 		cerr << "\t\t" << matches.size() << " matches found, start filtering the good ones\n";
 
-	double NNDRRatio = 0.85;
+	double NNDRRatio = 0.6;
 
 	for( int i = 0; i < matches.size(); i++ )
 		if( matches[ i ][ 0 ].distance <= NNDRRatio * matches[ i ][ 1 ].distance )
@@ -123,83 +120,173 @@ Object Database::match( Mat frame ) {
 		imwrite( outsbra, imgKeypoints );
 	}
 
+	// I consider only the label with the biggest number of matches
+	vector< int > bestLabel( labelDB.size() + 1, 0 );
+
+	for( vector< DMatch >::iterator m = goodMatches.begin(); m != goodMatches.end(); m++ )
+		bestLabel[ ( *m ).imgIdx ]++;
+
+	int maxLabel = 1;
+
+	for( int i = 2; i < bestLabel.size(); i++ )
+		if( bestLabel[ i ] > bestLabel[ maxLabel ] )
+			maxLabel = i;
+
+	if( debug )
+		cerr << "\t\tBest label is label " << labelDB[ maxLabel ] << " with " << bestLabel[ maxLabel ] << " matches\n";
 
 	// For every label analyze the matches and process a
-	for( int i = 0; i < labelDB.size(); i++ ) {
-		vector< Point2f > labelPoints, scenePoints;
-		vector< Point2f > labelCorners;
-		bool active = false;
+	vector< Point2f > labelPoints, scenePoints;
+	vector< Point2f > labelCorners;
 
-		if( debug )
-			cerr << "\tSearching mask for label " << labelDB[ i ] << endl;
+	if( debug )
+		cerr << "\tSearching mask for label " << labelDB[ maxLabel ] << endl;
 
-		// If there is at least one good match in the actual label, mark the label
-		// as active and add the points to the lists
-		for( int j = 0; j < goodMatches.size(); j++ )
-			if( goodMatches[ j ].imgIdx == i ) {
-				active = true;
-				labelPoints.push_back( keypointDB[ i ][ goodMatches[ j ].trainIdx ].pt );
-				scenePoints.push_back( sceneKeypoints[ goodMatches[ j ].queryIdx ].pt );
-			}
-
-		if( debug )
-			cerr << "\t\tFound " << labelPoints.size() << " keypoints in this label\n";
-
-		if( !active || labelPoints.size() < 4 ) {
-			if( debug )
-				cerr << "\t\t\tToo few keypoints, passing to next label..\n";
-
-			continue;
+	// If there is at least one good match in the actual label, mark the label
+	// as active and add the points to the lists
+	for( int i = 0; i < goodMatches.size(); i++ )
+		if( goodMatches[ i ].imgIdx == maxLabel ) {
+			labelPoints.push_back( keypointDB[ maxLabel ][ goodMatches[ i ].trainIdx ].pt );
+			scenePoints.push_back( sceneKeypoints[ goodMatches[ i ].queryIdx ].pt );
 		}
 
-		if( debug )
-			cerr << "\t\tCalculating homography mask\n";
+	if( debug )
+		cerr << "\t\tFound " << labelPoints.size() << " keypoints in this label\n" 
+			 << "\t\tCalculating homography mask\n";
 
-		// Calculate homography mask and add it to the matchingObject
-		Mat H = findHomography( labelPoints, scenePoints, CV_RANSAC );
+	// Calculate homography mask and add it to the matchingObject
+	Mat H = findHomography( labelPoints, scenePoints, CV_RANSAC );
 
-		perspectiveTransform( cornersDB[ i ], labelCorners, H );
+	perspectiveTransform( cornersDB[ maxLabel ], labelCorners, H );
 
-		// Debug drawing
-		if( debug ) {
-			Mat imgMatches = frame.clone();
-			line( imgMatches, labelCorners[0], labelCorners[1], Scalar( 0, 255, 0 ), 4 );
-			line( imgMatches, labelCorners[1], labelCorners[2], Scalar( 0, 255, 0 ), 4 );
-			line( imgMatches, labelCorners[2], labelCorners[3], Scalar( 0, 255, 0 ), 4 );
-			line( imgMatches, labelCorners[3], labelCorners[0], Scalar( 0, 255, 0 ), 4 );
+	// Debug drawing
+	if( debug ) {
+		Mat imgMatches = frame.clone();
+		line( imgMatches, labelCorners[0], labelCorners[1], Scalar( 0, 255, 0 ), 4 );
+		line( imgMatches, labelCorners[1], labelCorners[2], Scalar( 0, 255, 0 ), 4 );
+		line( imgMatches, labelCorners[2], labelCorners[3], Scalar( 0, 255, 0 ), 4 );
+		line( imgMatches, labelCorners[3], labelCorners[0], Scalar( 0, 255, 0 ), 4 );
 
-			imwrite( "output_sample/" + labelDB[ i ] + ".jpg", imgMatches );
-		}
-
-		// If the calculated area is less than a fifth
-		// than the original one, I don't consider the label as valid
-		float area = 0, labelArea = 0;
-
-		for( int j = 0; j < labelCorners.size() - 1; j++ ) {
-			area += labelCorners[ j ].x * labelCorners[ j + 1 ].y - labelCorners[ j + 1 ].x * labelCorners[ j ].y;
-			labelArea += cornersDB[ i ][ j ].x * cornersDB[ i ][ j + 1 ].y - cornersDB[ i ][ j + 1 ].x * cornersDB[ i ][ j ].y;
-		}
-
-		area += labelCorners[ labelCorners.size() - 1 ].x * labelCorners[ 0 ].y - labelCorners[ 0 ].x * labelCorners[ labelCorners.size() - 1 ].y;
-		labelArea += cornersDB[ i ][ labelCorners.size() - 1 ].x * cornersDB[ i ][ 0 ].y - cornersDB[ i ][ 0 ].x * cornersDB[ i ][ labelCorners.size() - 1 ].y;
-
-		area /= 2;
-		labelArea /= 2;
-
-		if( area > labelArea / 5 ) {
-			if( debug )
-				cerr << "\t\tMask calculated, adding current label to output Object\n";
-
-			matchingObject.setLabel( labelDB[ i ], labelCorners, labelColor[ i ] );
-		} else if( debug )
-			cerr << "\t\tLabel not valid\n";
+		imwrite( "output_sample/" + labelDB[ maxLabel ] + ".jpg", imgMatches );
 	}
+	
+	matchingObject.setLabel( labelDB[ maxLabel ], labelCorners, labelColor[ maxLabel ] );
 
 	if( debug )
 		cerr << "\n\tMatching done. Returning the object\n\n";
 
 	return matchingObject;
 	
+}
+
+/**
+ * @brief	Creates the database from the sample images
+ * @details	Loaded the images contained in the argument path
+ * 			generate a set of labels, detects the SIFT features
+ * 			and descriptors for every sample and associate them to
+ * 			every label, then trains a matcher with the descriptors
+ * 			and save everything in the corresponding structures.
+ * 			Also save the database into a file
+ * @param[in] imagesPath	The path containing the source images
+ */
+void Database::build( string imagesPath ) {
+	// Use boost to iterate over a directory content
+	fs::path fullPath = fs::system_complete( fs::path( imagesPath ) );
+
+	if( debug )
+		cerr << "Loading images from " << fullPath << endl;
+
+	if( !fs::exists( fullPath ) || !fs::is_directory( fullPath ) )
+		throw DBCreationException(); 
+
+	fs::directory_iterator end_iter;
+
+	// SURF detector and extractor
+	Ptr< FeatureDetector > featureDetector = FeatureDetector::create( "SURF" );
+	Ptr< DescriptorExtractor > featureExtractor = DescriptorExtractor::create( "SURF" );
+
+	// Temporary containers
+	Mat load, descriptors;
+	vector< KeyPoint > keypoints;
+
+	//int labelCounter = 0;
+
+	// Random color generator for label coloring
+	boost::mt19937 rng( time( 0 ) );
+	boost::uniform_int<> colorRange( 0, 255 );
+	boost::variate_generator< boost::mt19937, boost::uniform_int<> > color( rng, colorRange );
+
+	// For every image generate a new label and save the various informations
+	for( fs::directory_iterator it( fullPath ); it != end_iter; ++it ) {
+		if( debug ) {
+			cerr << "\tTreating a new image: ";
+			cerr << it -> path().filename() << endl;
+		}
+	
+		load = imread( it -> path().string(), CV_LOAD_IMAGE_GRAYSCALE );
+
+		// Detect the keypoints in the actual image
+		featureDetector -> detect( load, keypoints );
+
+		if( debug )
+			cerr << "\tFeatures detected" << endl;
+
+		// Compute the 128 dimension SIFT descriptor at each keypoint detected
+		// Each row in descriptors corresponds to the SIFT descriptor for each keypoint
+		featureExtractor -> compute( load, keypoints, descriptors );
+
+		if( debug )
+			cerr << "\tDescriptors extracted\n"
+	 			 << "\t\tSaving label, keypoints and sample corners\n";
+
+		//string labelName = dbName + "Label" + boost::lexical_cast< string >( labelCounter++ );
+		string labelName = it -> path().filename().string();
+
+		labelDB.push_back( labelName ); 
+
+		labelColor.push_back( Scalar( color(), color(), color() ) );
+		
+		keypointDB.push_back( keypoints );
+
+		descriptorDB.push_back( descriptors );
+
+		// The corner of the image will be required to find the correspondent boundaries in the sample 
+		vector< Point2f > sampleCorners( 4 );
+
+		sampleCorners[ 0 ] = cvPoint( 0, 0 );
+		sampleCorners[ 1 ] = cvPoint( load.cols, 0 );
+		sampleCorners[ 2 ] = cvPoint( load.cols, load.rows );
+		sampleCorners[ 3 ] = cvPoint( 0, load.rows );
+
+		cornersDB.push_back( sampleCorners );
+
+		if( debug )
+			cerr << "\tDataBase updated" << endl;
+
+		// Draw the keypoints for debug purposes
+		if( debug ) {
+			Mat outputImage;
+			drawKeypoints( load, keypoints, outputImage, Scalar( 255, 0, 0 ), DrawMatchesFlags::DEFAULT );
+
+			string outsbra = "keypoints_sample/" + it -> path().filename().string();
+			cerr << "\tShowing image " << outsbra << endl;
+
+			imwrite( outsbra, outputImage );
+			//imshow( "Loaded keypoints", outputImage );
+			//waitKey();
+
+			cerr << "\tReiterating" << endl << endl;
+		}
+	}
+
+	// Now train the matcher
+	// NOTE the descriptorDB is stored anyway because it is used to train a new matcher
+	// after a Database load from file
+	matcher.add( descriptorDB );
+	matcher.train();
+
+	// Now that the structures are filled, save them to a file for future usage
+	save();
 }
 
 /**
@@ -241,14 +328,7 @@ void Database::load() {
 
 	if( debug )
 		cerr << "\t\tDescriptors loaded\n";
-
-	/*boost::archive::binary_iarchive kparch( kp );
-	kparch >> keypointDB;
-
-	boost::archive::binary_iarchive cornarch( corn );
-	cornarch >> cornersDB;*/
-
-	// Very very awful loading
+	
 	// keypointDB. Discard the first line as I expect it to be a Label marker
 	string line;
 	kp >> line;
@@ -339,121 +419,6 @@ void Database::load() {
 }
 
 /**
- * @brief	Creates the database from the sample images
- * @details	Loaded the images contained in the argument path
- * 			generate a set of labels, detects the SIFT features
- * 			and descriptors for every sample and associate them to
- * 			every label, then trains a matcher with the descriptors
- * 			and save everything in the corresponding structures.
- * 			Also save the database into a file
- * @param[in] imagesPath	The path containing the source images
- */
-void Database::build( string imagesPath ) {
-	// Use boost to iterate over a directory content
-	fs::path fullPath = fs::system_complete( fs::path( imagesPath ) );
-
-	if( debug )
-		cerr << "Loading images from " << fullPath << endl;
-
-	if( !fs::exists( fullPath ) || !fs::is_directory( fullPath ) )
-		throw DBCreationException(); 
-
-	fs::directory_iterator end_iter;
-
-	// SURF detector and extractor
-	int minHessian = 400;
-	
-	SurfFeatureDetector featureDetector( minHessian );
-	SurfDescriptorExtractor featureExtractor;
-	
-	// Temporary containers
-	Mat load, descriptors;
-	vector< KeyPoint > keypoints;
-
-	//int labelCounter = 0;
-
-	// Random color generator for label coloring
-	boost::mt19937 rng( time( 0 ) );
-	boost::uniform_int<> colorRange( 0, 255 );
-	boost::variate_generator< boost::mt19937, boost::uniform_int<> > color( rng, colorRange );
-
-	// For every image generate a new label and save the various informations
-	for( fs::directory_iterator it( fullPath ); it != end_iter; ++it ) {
-		if( debug ) {
-			cerr << "\tTreating a new image: ";
-			cerr << it -> path().filename() << endl;
-		}
-	
-		load = imread( it -> path().string(), CV_LOAD_IMAGE_GRAYSCALE );
-
-		// Detect the keypoints in the actual image
-		featureDetector.detect( load, keypoints );
-
-		if( debug )
-			cerr << "\tFeatures detected" << endl;
-
-		// Compute the 128 dimension SIFT descriptor at each keypoint detected
-		// Each row in descriptors corresponds to the SIFT descriptor for each keypoint
-		featureExtractor.compute( load, keypoints, descriptors );
-
-		if( debug )
-			cerr << "\tDescriptors extracted\n"
-	 			 << "\t\tSaving label, keypoints and sample corners\n";
-
-		//string labelName = dbName + "Label" + boost::lexical_cast< string >( labelCounter++ );
-		string labelName = it -> path().filename().string();
-
-		labelDB.push_back( labelName ); 
-
-		labelColor.push_back( Scalar( color(), color(), color() ) );
-		
-		keypointDB.push_back( keypoints );
-
-		descriptorDB.push_back( descriptors );
-
-		// The corner of the image will be required to find the correspondent boundaries in the sample 
-		vector< Point2f > sampleCorners( 4 );
-
-		sampleCorners[ 0 ] = cvPoint( 0, 0 );
-		sampleCorners[ 1 ] = cvPoint( load.cols, 0 );
-		sampleCorners[ 2 ] = cvPoint( load.cols, load.rows );
-		sampleCorners[ 3 ] = cvPoint( 0, load.rows );
-
-		cornersDB.push_back( sampleCorners );
-
-		if( debug )
-			cerr << "\tDataBase updated" << endl;
-
-		// Draw the keypoints for debug purposes
-		if( debug ) {
-			Mat outputImage;
-			drawKeypoints( load, keypoints, outputImage, Scalar( 255, 0, 0 ), DrawMatchesFlags::DEFAULT );
-
-			string outsbra = "keypoints_sample/" + it -> path().filename().string();
-			cerr << "\tShowing image " << outsbra << endl;
-
-			imwrite( outsbra, outputImage );
-			//imshow( "Loaded keypoints", outputImage );
-			//waitKey();
-
-			cerr << "\tReiterating" << endl << endl;
-		}
-	}
-
-	// Now train the matcher
-	// NOTE the descriptorDB is stored anyway because it is used to train a new matcher
-	// after a Database load from file
-	matcher.add( descriptorDB );
-	matcher.train();
-
-	bfmatcher.add( descriptorDB );
-	bfmatcher.train();
-
-	// Now that the structures are filled, save them to a file for future usage
-	save();
-}
-
-/**
  * @brief	Writes the database to a file in the default directory 
  */
 void Database::save() {
@@ -483,12 +448,6 @@ void Database::save() {
 
 	boost::archive::binary_oarchive descarch( desc );
 	descarch << descriptorDB;
-
-	/*boost::archive::binary_oarchive kparch( kp );
-	kparch << keypointDB;
-
-	boost::archive::binary_oarchive cornarch( corn );
-	cornarch << cornersDB;*/
 
 	// Very very awful saving
 	// keypointDB
