@@ -289,34 +289,27 @@ void Database::build( string imagesPath ) {
 	matcher.train();
 
 	// Now that the structures are filled, save them to a file for future usage
-	//save();
+	save();
 }
 
 /**
  * @brief	Load existing database and fill the map 
  */
 void Database::load() {
-	/*if( debug )
+	if( debug )
 		cerr << "Loading database\n";
 
 	string dbFileName = dbPath + dbName;
 
-	ifstream label( ( dbFileName + "label.sbra" ).c_str(), ios::binary );
 	ifstream desc( ( dbFileName + "desc.sbra" ).c_str(), ios::binary );
 
+	ifstream label( ( dbFileName + "label.sbra" ).c_str(), ios::binary );
 	ifstream kp( ( dbFileName + "kp.sbra" ).c_str(), ios::in );
-	ifstream corn( ( dbFileName + "corn.sbra" ).c_str(), ios::in );
 
-	if( label.fail() || kp.fail() || desc.fail() || corn.fail() )
+	if( label.fail() || kp.fail() || desc.fail() )
 		throw DBLoadingException();
 	else if( debug )
 		cerr << "\tLoading from " << dbFileName << endl;
-
-	boost::archive::binary_iarchive labelarch( label );
-	labelarch >> labelDB;
-	
-	if( debug )
-		cerr << "\t\tLabels loaded\n";
 
 	boost::archive::binary_iarchive descarch( desc );
 	descarch >> descriptorDB;
@@ -324,8 +317,49 @@ void Database::load() {
 	if( debug )
 		cerr << "\t\tDescriptors loaded\n";
 	
-	// keypointDB. Discard the first line as I expect it to be a Label marker
+	// LabelDB
 	string line;
+	label >> line;
+	
+	// Random color generator for label coloring
+	boost::mt19937 rng( time( 0 ) );
+	boost::uniform_int<> colorRange( 0, 255 );
+	boost::variate_generator< boost::mt19937, boost::uniform_int<> > color( rng, colorRange );
+
+	while( true ) {
+		vector< Label > temp = vector< Label >();
+		string name, x, y;
+
+		if( debug )
+			cerr << "\t\t\tLine " << line << endl;
+
+		while( y.compare( "Sample" ) && label >> name ) {
+			if( !name.compare( "Sample" ) ) {
+				line = name;
+				break;
+			}
+
+			label >> x >> y;
+
+			temp.push_back( Label( name,
+					Point2f( ::atof( ( x ).c_str() ),
+							 ::atof( ( y ).c_str() ) ),
+					Scalar( color(), color(), color() ) ) );
+			
+			if( debug )
+				cerr << "\t\t\tLabel " << temp[ temp.size() - 1 ].name << " " << temp[ temp.size() - 1 ].position << endl;
+		} 
+
+		labelDB.push_back( temp );
+
+		if( label.eof() )
+			break;
+	}
+	
+	if( debug )
+		cerr << "\t\tLabels loaded\n\n";
+
+	// keypointDB. Discard the first line as I expect it to be a Label marker
 	kp >> line;
 
 	while( true ) {
@@ -335,8 +369,8 @@ void Database::load() {
 		if( debug )
 			cerr << "\t\t\tLine " << line << endl;
 
-		while( class_id.compare( "Label" ) && kp >> x ) {
-			if( !x.compare( "Label" ) ) {
+		while( class_id.compare( "Sample" ) && kp >> x ) {
+			if( !x.compare( "Sample" ) ) {
 				line = x;
 				break;
 			}
@@ -365,41 +399,6 @@ void Database::load() {
 	if( debug )
 		cerr << "\t\tKeypoints loaded\n";
 
-	corn >> line;
-
-	// cornerDB. Much easier due to the content nature
-	while( true ) {
-		vector< Point2f > temp = vector< Point2f >();
-		string x, y;
-
-		if( debug )
-			cerr << "\t\t\tLine " << line << endl;
-
-		while( y.compare( "Corners" ) && corn >> x ) {
-			if( !x.compare( "Corners" ) ) {
-				line = x;
-				break;
-			}
-
-			corn >> y;
-
-			temp.push_back(	Point2f(
-					::atof( ( x ).c_str() ),
-					::atof( ( y ).c_str() ) ) );
-			
-			if( debug )
-				cerr << "\t\t\tPoint " << temp[ temp.size() - 1 ] << endl;
-		}
-
-		//cornersDB.push_back( temp );
-
-		if( corn.eof() )
-			break;
-	}
-
-	if( debug )
-		cerr << "\t\tCorners loaded\n";
-
 	if( debug )
 		cerr << "\tLoad successfull" << endl;
 
@@ -407,14 +406,14 @@ void Database::load() {
 	matcher.train();
 
 	if( debug )
-		cerr << "\tMatcher trained successfully" << endl;*/
+		cerr << "\tMatcher trained successfully" << endl;
 }
 
 /**
  * @brief	Writes the database to a file in the default directory 
  */
 void Database::save() {
-	/*if( debug )
+	if( debug )
 		cerr << "Saving the created database" << endl;
 
 	string dbFileName = dbPath + dbName;
@@ -424,44 +423,39 @@ void Database::save() {
 	ex << "SBRA!";
 	ex.close();
 
-	ofstream label( ( dbFileName + "label.sbra" ).c_str(), ios::binary );
 	ofstream desc( ( dbFileName + "desc.sbra" ).c_str(), ios::binary );
 
+	ofstream label( ( dbFileName + "label.sbra" ).c_str(), ios::binary );
 	ofstream kp( ( dbFileName + "kp.sbra" ).c_str(), ios::out );
-	ofstream corn( ( dbFileName + "corn.sbra" ).c_str(), ios::out );
 
-	if( label.fail() || kp.fail() || desc.fail() || corn.fail() )
+	if( label.fail() || kp.fail() || desc.fail() )
 		throw DBSavingException();
 	else if( debug )
 		cerr << "\tSaving to " << dbFileName << endl;
 
-	boost::archive::binary_oarchive labelarch( label );
-	labelarch << labelDB;
-
 	boost::archive::binary_oarchive descarch( desc );
 	descarch << descriptorDB;
 
-	// Very very awful saving
+	// labelDB
+	for( vector< vector< Label > >::iterator it = labelDB.begin(); it != labelDB.end(); it++ ) {
+		label << "Sample" << endl;
+
+		for( vector< Label >::iterator jt = ( *it ).begin(); jt != ( *it ).end(); jt++ )
+			label << ( *jt ).name << " " << ( *jt ).position.x << " " << ( *jt ).position.y << endl;
+	}
+
 	// keypointDB
 	for( vector< vector< KeyPoint > >::iterator it = keypointDB.begin(); it != keypointDB.end(); it++ ) {
-		kp << "Label" << endl;
+		kp << "Sample" << endl;
 
 		for( vector< KeyPoint >::iterator jt = ( *it ).begin(); jt != ( *it ).end(); jt++ )
 			kp << ( *jt ).pt.x << " " << ( *jt ).pt.y << " " << ( *jt ).size << " " << ( *jt ).angle << " " << ( *jt ).response << " " << ( *jt ).octave << " " << ( *jt ).class_id << endl;
 	}
 	
-	// cornerDB
-	for( vector< vector< Point2f > >::iterator it = cornersDB.begin(); it != cornersDB.end(); it++ ) {
-		corn << "Corners" << endl;
-		for( vector< Point2f >::iterator jt = ( *it ).begin(); jt != ( *it ).end(); jt++ )
-			corn << ( *jt ).x << " " << ( *jt ).y << endl;
-	}
-	
 	label.close();
 	desc.close();
 	kp.close();
-	corn.close();
 
 	if( debug )
-		cerr << "\tSave successfull" << endl;*/
+		cerr << "\tSave successfull" << endl;
 }

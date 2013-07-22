@@ -55,7 +55,7 @@ namespace IStuff {
 			std::vector< cv::Mat > descriptorDB;
 
 		public:
-			Database( std::string, std::string = "image_sample/" );
+			Database( std::string, std::string );
 			virtual ~Database();
 
 			Object match( cv::Mat );
