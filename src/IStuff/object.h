@@ -2,7 +2,8 @@
  * @file object.h
  * @brief Header file relative to the class IStuff::Object.
  * @author Maurizio Zucchelli
- * @version 0.1.0
+ * @author Mattia Rizzini
+ * @version 0.1.1
  * @date 2013-07-16
  */
 
@@ -22,7 +23,18 @@ namespace IStuff
 	/**
 	 * @brief Label relative to a view of an Object.
 	 */
-	typedef std::string Label;
+	typedef struct Label {
+		std::string name;
+		cv::Point2f position;
+		cv::Scalar color;
+
+		Label( std::string _name, cv::Point2f _position, cv::Scalar _color ) :
+			name( _name ), position( _position ), color( _color ) {}
+
+		inline bool operator == ( const Label &o ) const {
+			return name == o.name;
+		}
+	};
 
 	class Object
 	{
@@ -30,8 +42,7 @@ namespace IStuff
 		private:
 			const static char TAG[];
 			
-			std::map< Label, std::vector<cv::Point2f> > description;
-			std::map< Label, cv::Scalar > color;
+			std::vector< Label > labels;
 
 		/* Methods */
 		public:
@@ -40,13 +51,10 @@ namespace IStuff
 			virtual ~Object();
 			
 			/* Setters */
-			void setLabel(const Label, const std::vector<cv::Point2f>, const cv::Scalar);
-			void removeLabel(const Label);
+			void addLabel(const Label);
 
 			/* Getters */
 			bool empty() const;
-			std::vector<cv::Point2f> getMask(const Label) const;
-			cv::Scalar getColor(const Label) const;
 			std::vector<Label> getLabels() const;
 
 			/* Other methods */

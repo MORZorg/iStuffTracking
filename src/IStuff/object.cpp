@@ -29,54 +29,31 @@ Object::~Object()
 /* Setters */
 
 /**
+ * @todo Update description.
  * @brief Changes a IStuff::Label of this IStuff::Object to represent a different mask.
  * @details If the IStuff::Label isn't currently part of the IStuff::Object,
  *	it is added.
  *
- * @param[in] label	the IStuff::Label to be changed or added.
- * @param[in] mask	The new mask to be associated.
+ * @param[in] label	the label name
+ * @param[in] mask	the label position
+ * @param[in] color	the label color
  */
-void Object::setLabel(const Label label,
-											const vector<Point2f> mask,
-											const Scalar color)
+void Object::addLabel(const Label label)
 {
-	this->description[label] = mask;
-	this->color[label] = color;
-}
-
-/**
- * @brief Removes a IStuff::Label from this IStuff::Object.
- *
- * @param[in] label
- */
-void Object::removeLabel(const Label label)
-{
-	description.erase(label);
+	labels.push_back(label);
 }
 
 /* Getters */
 
+/**
+ * @brief 
+ * @todo Describe.
+ *
+ * @return 
+ */
 bool Object::empty() const
 {
-	return description.empty();
-}
-
-/**
- * @brief Returns the mask associated to a IStuff::Label.
- * @throw std::out_of_range If the IStuff::Label searched does not exist.
- *
- * @param[in] label	The IStuff::Label to search for.
- *
- * @return The mask associated to the input IStuff::Label.
- */
-vector<Point2f> Object::getMask(const Label label) const
-{
-	return description.at(label);
-}
-
-Scalar Object::getColor(const Label label) const
-{
-	return color.at(label);
+	return labels.empty();
 }
 
 /**
@@ -86,18 +63,13 @@ Scalar Object::getColor(const Label label) const
  */
 vector<Label> Object::getLabels() const
 {
-	vector<Label> result;
-	
-	for (auto entry : description)
-		result.push_back(entry.first);
-
-	return result;
+	return labels;
 }
 
 /* Other methods */
 
 /**
- * @brief Paints the various masks of the IStuff::Object on the frame.
+ * @brief Paints the various IStuff::Label of the IStuff::Object on the frame.
  *
  * @param[in] frame The frame on which the IStuff::Object must be painted.
  *
@@ -105,22 +77,17 @@ vector<Label> Object::getLabels() const
  */
 Mat Object::paint(Mat frame)
 {
-	if (description.empty())
+	if (labels.empty())
 		return frame;
 
 	int vertCount = 1;
 
 	//for (auto label : description)
-	for( map< Label, vector< Point2f > >::iterator label = description.begin(); label != description.end(); label++ )
+	for( vector< Label >::iterator label = labels.begin(); label != labels.end(); label++ )
 	{
-		vector<Point2f> mask = (*label).second;
+		circle( frame, (*label).position, 5, (*label).color, 2 );
 
-		for (int i = 0; i < mask.size() - 1; i++ )
-			line(frame, mask[i], mask[i+1], color[ ( *label ).first ], 4);
-
-		line(frame, mask.back(), mask.front(), color[ ( *label ).first ], 4);
-
-		putText( frame, ( *label ).first, Point( 0, 30 * vertCount++ ), FONT_HERSHEY_PLAIN, 1, color[ ( *label ).first ], 2 );
+		putText( frame, ( *label ).name, (*label).position, FONT_HERSHEY_PLAIN, 1, ( *label ).color, 2 );
 	}
 
 	return frame;
