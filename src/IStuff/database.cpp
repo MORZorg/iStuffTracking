@@ -285,7 +285,7 @@ void Database::build( string imagesPath ) {
  * @brief	Load existing database and fill the map 
  */
 void Database::load() {
-	if( debug )
+	/*if( debug )
 		cerr << "Loading database\n";
 
 	string dbFileName = dbPath + dbName;
@@ -396,14 +396,14 @@ void Database::load() {
 	matcher.train();
 
 	if( debug )
-		cerr << "\tMatcher trained successfully" << endl;
+		cerr << "\tMatcher trained successfully" << endl;*/
 }
 
 /**
  * @brief	Writes the database to a file in the default directory 
  */
 void Database::save() {
-	if( debug )
+	/*if( debug )
 		cerr << "Saving the created database" << endl;
 
 	string dbFileName = dbPath + dbName;
@@ -440,11 +440,11 @@ void Database::save() {
 	}
 	
 	// cornerDB
-	/*for( vector< vector< Point2f > >::iterator it = cornersDB.begin(); it != cornersDB.end(); it++ ) {
+	for( vector< vector< Point2f > >::iterator it = cornersDB.begin(); it != cornersDB.end(); it++ ) {
 		corn << "Corners" << endl;
 		for( vector< Point2f >::iterator jt = ( *it ).begin(); jt != ( *it ).end(); jt++ )
 			corn << ( *jt ).x << " " << ( *jt ).y << endl;
-	}*/
+	}
 	
 	label.close();
 	desc.close();
@@ -452,5 +452,5 @@ void Database::save() {
 	corn.close();
 
 	if( debug )
-		cerr << "\tSave successfull" << endl;
+		cerr << "\tSave successfull" << endl;*/
 }
