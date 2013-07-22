@@ -85,9 +85,9 @@ Mat Object::paint(Mat frame)
 	//for (auto label : description)
 	for( vector< Label >::iterator label = labels.begin(); label != labels.end(); label++ )
 	{
-		circle( frame, (*label).position, 5, (*label).color, 2 );
+		circle( frame, (*label).position, 5, (*label).color, 1 );
 
-		putText( frame, ( *label ).name, (*label).position, FONT_HERSHEY_PLAIN, 1, ( *label ).color, 2 );
+		putText( frame, ( *label ).name, Point2f( (*label).position.x + 10, (*label).position.y + 10 ), FONT_HERSHEY_DUPLEX, 2, ( *label ).color, 3 );
 	}
 
 	return frame;
