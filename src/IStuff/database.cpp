@@ -62,14 +62,11 @@ Database::~Database() {
  * @retval	An Object containing an association between the labels and the
  * 			areas in which every label is found
  * */
-Object Database::match( Mat frame ) {
+Object Database::match( Mat scene ) {
 	if( debug )
 		cerr << "Start matching\n";
 
 	Object matchingObject;
-
-	// Convert frame in grayscale
-	Mat scene = frame;
 
 	// Calculate SURF keypoints and descriptors
 	Ptr< FeatureDetector > featureDetector = FeatureDetector::create( "SURF" );
@@ -138,19 +135,18 @@ Object Database::match( Mat frame ) {
 	// labels associated to the sample
 	vector< Point2f > samplePoints, scenePoints;
 
-	if (goodMatches.size() < 4)
-	{
-		if (debug)
-			cerr << "\tNo object found.\n";
-
-		return matchingObject;
-	}
-
 	for( int i = 0; i < goodMatches.size(); i++ )
 		if( goodMatches[ i ].imgIdx == maxSample ) {
 			samplePoints.push_back( keypointDB[ maxSample ][ goodMatches[ i ].trainIdx ].pt );
 			scenePoints.push_back( sceneKeypoints[ goodMatches[ i ].queryIdx ].pt );
 		}
+
+	if( samplePoints.size() < 4 ) {
+		if( debug )
+			cerr << "\tToo few keypoints to calculate homography, exiting..\n";
+
+		return matchingObject;
+	}
 
 	// Calculate homography mask, apply transformation to the label points and add the labels to the object 
 	Mat H = findHomography( samplePoints, scenePoints, CV_RANSAC );
