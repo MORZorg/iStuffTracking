@@ -149,7 +149,39 @@ Object Database::match( Mat scene ) {
 	}
 
 	// Calculate homography mask, apply transformation to the label points and add the labels to the object 
+	//Mat H = findHomography( samplePoints, scenePoints, CV_RANSAC );
 	Mat H = findHomography( samplePoints, scenePoints, CV_RANSAC );
+
+	// Check if H is good
+	/*bool goodH = true;
+
+	float det, N1, N2, N3;
+	
+	det = H.at<float>( 0, 0 ) * H.at<float>( 1, 1 ) - H.at<float>( 1, 0 ) * H.at<float>( 0, 1 );
+
+	if( det < 0 )
+		goodH = false;
+
+	N1 = sqrt( H.at<float>( 0, 0 ) * H.at<float>( 0, 0 ) + H.at<float>( 1, 0 ) * H.at<float>( 1, 0 ) );
+	if( N1 > 4 || N1 < 0.1 )
+		goodH = false;
+
+	N2 = sqrt( H.at<float>( 0, 1 ) * H.at<float>( 0, 1 ) + H.at<float>( 1, 1 ) * H.at<float>( 1, 1 ) );
+	if( N2 > 4 || N2 < 0.1 )
+		goodH = false;
+
+	N3 = sqrt( H.at<float>( 2, 0 ) * H.at<float>( 2, 0 ) + H.at<float>( 2, 1 ) * H.at<float>( 2, 1 ) );
+	if( N3 > 0.002 )
+		goodH = false;
+
+	cerr << goodH << " Det: " << det << " N1: " << N1 << " N2: " << N2 << " N3: " << N3 << endl;
+
+	if( !goodH ) {
+		if( debug )
+			cerr << "\tToo many outliers, homography is wrong\n";
+
+		return matchingObject;
+	}*/
 
 	if( debug )
 		cerr << "\tHomography matrix calculated, mapping " << labelDB[ maxSample ].size() << " label points\n";
