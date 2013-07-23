@@ -2,7 +2,7 @@
  * @file recognizer.h
  * @brief Header file relative to the class IStuff::Recognizer.
  * @author Maurizio Zucchelli
- * @version 0.2.0
+ * @version 0.2.1
  * @date 2013-07-14
  */
 

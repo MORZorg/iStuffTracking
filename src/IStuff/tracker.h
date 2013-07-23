@@ -2,7 +2,7 @@
  * @file tracker.h
  * @brief Header file relative to the class IStuff::Tracker.
  * @author Maurizio Zucchelli
- * @version 0.5.0
+ * @version 0.8.0
  * @date 2013-07-17
  */
 
@@ -36,8 +36,7 @@ namespace IStuff
 		private:
 			const static char TAG[];
 
-			const static int NEAREST_FEATURES_COUNT = 15;
-			const static float constexpr NNDR_RATIO = .95;
+			const static int NEAREST_FEATURES_COUNT = 10;
 			const static float constexpr IMG_RESIZE = .5;
 			const static cv::Size LK_WINDOW;
 

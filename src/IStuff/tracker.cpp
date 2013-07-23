@@ -3,7 +3,7 @@
  * @class IStuff::Tracker
  * @brief Class used to track objects in a video stream.
  * @author Maurizio Zucchelli
- * @version 0.5.0
+ * @version 0.8.0
  * @date 2013-07-17
  */
 
@@ -24,7 +24,7 @@ const Size Tracker::LK_WINDOW = cv::Size(15, 15);
  */
 Tracker::Tracker()
 {
-	m_detector = FeatureDetector::create("FAST");
+	m_detector = FeatureDetector::create("GFTT");
 	m_matcher = DescriptorMatcher::create("FlannBased");
 
 	if (debug)
@@ -165,24 +165,19 @@ Object Tracker::updateObject(Features old_features, Features new_features,
 	split(Mat(old_features), temp);
 	hconcat(temp[0], temp[1], features);
 
-	// Take N+1 nearest neighbour to be able to apply NNDR
 	vector< vector<DMatch> > matches;
-	m_matcher->knnMatch(positions, features, matches, NEAREST_FEATURES_COUNT + 1);
+	m_matcher->knnMatch(positions, features, matches, NEAREST_FEATURES_COUNT);
 
 	Object new_object;
 	for (size_t i = 0; i < matches.size(); i++) 
 	{
 		Point2f movement;
-		size_t j;
-		for (j = 0; j < NEAREST_FEATURES_COUNT; j++)
+		for (size_t j = 0; j < NEAREST_FEATURES_COUNT; j++)
 		{
 			size_t feature_index = matches[i][j].trainIdx;
 			movement += new_features[feature_index] - old_features[feature_index];
-
-			if (matches[i][j].distance < NNDR_RATIO * matches[i][j].distance)
-				break;
 		}
-		movement = movement * (1. / (j+1));
+		movement = movement * (1. / NEAREST_FEATURES_COUNT);
 
 		size_t label_index = matches[i][0].queryIdx;
 		Label new_label = labels[label_index];

@@ -6,7 +6,7 @@
  *	analyzing it to find some kind of 3D object and then updating the data used 
  *	by the requester to track it.
  * @author Maurizio Zucchelli
- * @version 0.2.0
+ * @version 0.2.1
  * @date 2013-07-14
  */
 
@@ -79,7 +79,7 @@ Object Recognizer::recognizeFrame(Mat frame)
 	if (debug)
 		cerr << TAG << ": Recognizing frame.\n";
 
-	Object result = m_matcher->match(frame);
+	Object result = m_matcher->match(frame.clone());
 
 	if (debug)
 		cerr << TAG << ": Frame recognized.\n";

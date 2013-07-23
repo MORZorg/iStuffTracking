@@ -2,7 +2,7 @@
  * @file manager.h
  * @brief Header file relative to the class IStuff::Manager
  * @author Maurizio Zucchelli
- * @version 0.1.0
+ * @version 0.3.0
  * @date 2013-07-16
  */
 

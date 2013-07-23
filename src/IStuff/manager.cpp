@@ -3,7 +3,7 @@
  * @class IStuff::Manager
  * @brief Class to manage the joint 3D Object recognition and tracking.
  * @author Maurizio Zucchelli
- * @version 0.1.0
+ * @version 0.3.0
  * @date 2013-07-16
  */
 
