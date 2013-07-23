@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">iStuffTracking
-   &#160;<span id="projectnumber">0.1.0</span>
+   &#160;<span id="projectnumber">0.2.0</span>
    </div>
   </td>
  </tr>
@@ -45,6 +45,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
@@ -70,6 +71,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -93,7 +95,7 @@ $(document).ready(function(){initNavTree('class_i_stuff_1_1_object.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -110,19 +112,20 @@ $(document).ready(function(){initNavTree('class_i_stuff_1_1_object.html','');});
 
 <p>This is the complete list of members for <a class="el" href="class_i_stuff_1_1_object.html">IStuff::Object</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="class_i_stuff_1_1_object.html#a5513b3d190ca3af9395d66c79e736f06">description</a></td><td class="entry"><a class="el" href="class_i_stuff_1_1_object.html">IStuff::Object</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_i_stuff_1_1_object.html#a469d14582bee7d25f546742d75f7eae4">getMask</a>(const Label) const </td><td class="entry"><a class="el" href="class_i_stuff_1_1_object.html">IStuff::Object</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_i_stuff_1_1_object.html#a67517bff1db601889fb6afbcd60ea17f">addLabel</a>(const Label)</td><td class="entry"><a class="el" href="class_i_stuff_1_1_object.html">IStuff::Object</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="class_i_stuff_1_1_object.html#aba86e2335f3c2b2db9be38c188bf04e4">empty</a>() const </td><td class="entry"><a class="el" href="class_i_stuff_1_1_object.html">IStuff::Object</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_i_stuff_1_1_object.html#a0667b5d7d5242bfb0489f299074d2d8e">getLabels</a>() const </td><td class="entry"><a class="el" href="class_i_stuff_1_1_object.html">IStuff::Object</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="class_i_stuff_1_1_object.html#ad70145c18310a74f5da0f8fd7cb0222e">labels</a></td><td class="entry"><a class="el" href="class_i_stuff_1_1_object.html">IStuff::Object</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_i_stuff_1_1_object.html#a40860402e64d8008fb42329df7097cdb">Object</a>()</td><td class="entry"><a class="el" href="class_i_stuff_1_1_object.html">IStuff::Object</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_i_stuff_1_1_object.html#ab9f6cf27353153dd8c9d3e55c7321f7f">removeLabel</a>(const Label)</td><td class="entry"><a class="el" href="class_i_stuff_1_1_object.html">IStuff::Object</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_i_stuff_1_1_object.html#aee004eb2e471cda24ad4a58f6ae55b41">setLabel</a>(const Label, const std::vector&lt; cv::Point2f &gt;)</td><td class="entry"><a class="el" href="class_i_stuff_1_1_object.html">IStuff::Object</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_i_stuff_1_1_object.html#a2ba8d34aa857298238f9800e1f3ddb1e">TAG</a></td><td class="entry"><a class="el" href="class_i_stuff_1_1_object.html">IStuff::Object</a></td><td class="entry"><span class="mlabel">private</span><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_i_stuff_1_1_object.html#ae8f5483f459e46687bd01e6f9977afd3">~Object</a>()</td><td class="entry"><a class="el" href="class_i_stuff_1_1_object.html">IStuff::Object</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_i_stuff_1_1_object.html#ac2a5f59638ed098379b07e7e8e3975cb">paint</a>(cv::Mat)</td><td class="entry"><a class="el" href="class_i_stuff_1_1_object.html">IStuff::Object</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_i_stuff_1_1_object.html#a2ba8d34aa857298238f9800e1f3ddb1e">TAG</a></td><td class="entry"><a class="el" href="class_i_stuff_1_1_object.html">IStuff::Object</a></td><td class="entry"><span class="mlabel">private</span><span class="mlabel">static</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_i_stuff_1_1_object.html#ae8f5483f459e46687bd01e6f9977afd3">~Object</a>()</td><td class="entry"><a class="el" href="class_i_stuff_1_1_object.html">IStuff::Object</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Thu Jul 18 2013 00:01:07 for iStuffTracking by
+    <li class="footer">Generated on Wed Jul 24 2013 01:20:17 for iStuffTracking by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
   </ul>

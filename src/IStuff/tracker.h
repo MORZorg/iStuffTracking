@@ -28,6 +28,9 @@ namespace IStuff
 {
 	class Manager;
 
+	/**
+	 * @brief An alias for a std::vector of cv::Point, used for tracking.
+	 */
 	typedef std::vector<cv::Point2f> Features;
 
 	class Tracker

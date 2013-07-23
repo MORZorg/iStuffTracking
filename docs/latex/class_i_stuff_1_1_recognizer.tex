@@ -17,8 +17,8 @@ Class used to recognize objects in a video stream.
 \begin{DoxyCompactList}\small\item\em Constructs a structure used to find 3\-D objects inside a video stream. \end{DoxyCompactList}\item 
 virtual \hyperlink{class_i_stuff_1_1_recognizer_aa0035e71951a13fe00764a54913d0e5a}{$\sim$\-Recognizer} ()
 \item 
-void \hyperlink{class_i_stuff_1_1_recognizer_a37fe89eb44d68215cab011b1962b8293}{set\-Database} (Database $\ast$)
-\begin{DoxyCompactList}\small\item\em Associates a I\-Stuff\-::\-Database to this \hyperlink{class_i_stuff_1_1_recognizer}{I\-Stuff\-::\-Recognizer}. \end{DoxyCompactList}\item 
+void \hyperlink{class_i_stuff_1_1_recognizer_a37fe89eb44d68215cab011b1962b8293}{set\-Database} (\hyperlink{class_i_stuff_1_1_database}{Database} $\ast$)
+\begin{DoxyCompactList}\small\item\em Associates a \hyperlink{class_i_stuff_1_1_database}{I\-Stuff\-::\-Database} to this \hyperlink{class_i_stuff_1_1_recognizer}{I\-Stuff\-::\-Recognizer}. \end{DoxyCompactList}\item 
 bool \hyperlink{class_i_stuff_1_1_recognizer_aac5297071c1f6ff12049a58c88bb3952}{is\-Running} () const 
 \begin{DoxyCompactList}\small\item\em Checks whether this \hyperlink{class_i_stuff_1_1_recognizer}{I\-Stuff\-::\-Recognizer} has a thread up and running. \end{DoxyCompactList}\item 
 \hyperlink{class_i_stuff_1_1_object}{Object} \hyperlink{class_i_stuff_1_1_recognizer_a6505a142d08eaf1e8f6a1f95571a4c7a}{recognize\-Frame} (cv\-::\-Mat)
@@ -27,12 +27,19 @@ bool \hyperlink{class_i_stuff_1_1_recognizer_ad4e54485be9385a287bc51670247b0cc}{
 \begin{DoxyCompactList}\small\item\em Method to do the recognization process in a separate thread. \end{DoxyCompactList}\item 
 void \hyperlink{class_i_stuff_1_1_recognizer_a1bb1a4e7045eb4d84d84dac439e9c762}{send\-Message} (int, void $\ast$, void $\ast$=N\-U\-L\-L)
 \begin{DoxyCompactList}\small\item\em Method to send messages to this \hyperlink{class_i_stuff_1_1_recognizer}{I\-Stuff\-::\-Recognizer}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_i_stuff_1_1_recognizer_a695bcf5d468066b63624c800603bf44b}{set\-Running} (bool)
+\end{DoxyCompactItemize}
 \subsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
-std\-::auto\-\_\-ptr$<$ boost\-::thread $>$ \hyperlink{class_i_stuff_1_1_recognizer_a9460f3d799e5a46ee9861f177e0d9988}{running}
+std\-::auto\-\_\-ptr$<$ boost\-::thread $>$ \hyperlink{class_i_stuff_1_1_recognizer_a54706a2dbb34a1532fcf4445ef3db5ae}{m\-\_\-thread}
 \item 
-Database $\ast$ \hyperlink{class_i_stuff_1_1_recognizer_afaba7db86af7bbf83f12472b7fc11e93}{matcher}
+bool \hyperlink{class_i_stuff_1_1_recognizer_a7bee1b5ec6e924d687d354ba7d780d7e}{m\-\_\-running}
+\item 
+\hyperlink{class_i_stuff_1_1_database}{Database} $\ast$ \hyperlink{class_i_stuff_1_1_recognizer_aee653ffc737e5b18181f785f655ed421}{m\-\_\-matcher}
 \end{DoxyCompactItemize}
 \subsection*{Static Private Attributes}
 \begin{DoxyCompactItemize}
@@ -48,7 +55,7 @@ This class manages a thread receiving a frame from an input stream, analyzing it
 Maurizio Zucchelli 
 \end{DoxyAuthor}
 \begin{DoxyVersion}{Version}
-0.\-2.\-0 
+0.\-2.\-1 
 \end{DoxyVersion}
 \begin{DoxyDate}{Date}
 2013-\/07-\/14 
@@ -84,7 +91,7 @@ Definition at line 27 of file recognizer.\-cpp.
 )\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_i_stuff_1_1_recognizer_aa0035e71951a13fe00764a54913d0e5a}
 
 
-Definition at line 35 of file recognizer.\-cpp.
+Definition at line 36 of file recognizer.\-cpp.
 
 
 
@@ -113,7 +120,7 @@ Method to do the recognization process in a separate thread.
 \end{DoxyReturn}
 
 
-Definition at line 94 of file recognizer.\-cpp.
+Definition at line 98 of file recognizer.\-cpp.
 
 \hypertarget{class_i_stuff_1_1_recognizer_aac5297071c1f6ff12049a58c88bb3952}{\index{I\-Stuff\-::\-Recognizer@{I\-Stuff\-::\-Recognizer}!is\-Running@{is\-Running}}
 \index{is\-Running@{is\-Running}!IStuff::Recognizer@{I\-Stuff\-::\-Recognizer}}
@@ -131,7 +138,7 @@ Checks whether this \hyperlink{class_i_stuff_1_1_recognizer}{I\-Stuff\-::\-Recog
 \end{DoxyReturn}
 
 
-Definition at line 57 of file recognizer.\-cpp.
+Definition at line 63 of file recognizer.\-cpp.
 
 \hypertarget{class_i_stuff_1_1_recognizer_a6505a142d08eaf1e8f6a1f95571a4c7a}{\index{I\-Stuff\-::\-Recognizer@{I\-Stuff\-::\-Recognizer}!recognize\-Frame@{recognize\-Frame}}
 \index{recognize\-Frame@{recognize\-Frame}!IStuff::Recognizer@{I\-Stuff\-::\-Recognizer}}
@@ -154,7 +161,7 @@ The \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object} found inside the 
 \end{DoxyReturn}
 
 
-Definition at line 72 of file recognizer.\-cpp.
+Definition at line 77 of file recognizer.\-cpp.
 
 \hypertarget{class_i_stuff_1_1_recognizer_a1bb1a4e7045eb4d84d84dac439e9c762}{\index{I\-Stuff\-::\-Recognizer@{I\-Stuff\-::\-Recognizer}!send\-Message@{send\-Message}}
 \index{send\-Message@{send\-Message}!IStuff::Recognizer@{I\-Stuff\-::\-Recognizer}}
@@ -187,18 +194,18 @@ Managed messages\-:\par
 \end{DoxyParams}
 
 
-Definition at line 130 of file recognizer.\-cpp.
+Definition at line 138 of file recognizer.\-cpp.
 
 \hypertarget{class_i_stuff_1_1_recognizer_a37fe89eb44d68215cab011b1962b8293}{\index{I\-Stuff\-::\-Recognizer@{I\-Stuff\-::\-Recognizer}!set\-Database@{set\-Database}}
 \index{set\-Database@{set\-Database}!IStuff::Recognizer@{I\-Stuff\-::\-Recognizer}}
 \subsubsection[{set\-Database}]{\setlength{\rightskip}{0pt plus 5cm}void Recognizer\-::set\-Database (
 \begin{DoxyParamCaption}
-\item[{Database $\ast$}]{matcher}
+\item[{{\bf Database} $\ast$}]{matcher}
 \end{DoxyParamCaption}
 )}}\label{class_i_stuff_1_1_recognizer_a37fe89eb44d68215cab011b1962b8293}
 
 
-Associates a I\-Stuff\-::\-Database to this \hyperlink{class_i_stuff_1_1_recognizer}{I\-Stuff\-::\-Recognizer}. 
+Associates a \hyperlink{class_i_stuff_1_1_database}{I\-Stuff\-::\-Database} to this \hyperlink{class_i_stuff_1_1_recognizer}{I\-Stuff\-::\-Recognizer}. 
 
 
 \begin{DoxyParams}[1]{Parameters}
@@ -207,21 +214,39 @@ Associates a I\-Stuff\-::\-Database to this \hyperlink{class_i_stuff_1_1_recogni
 \end{DoxyParams}
 
 
-Definition at line 45 of file recognizer.\-cpp.
+Definition at line 46 of file recognizer.\-cpp.
+
+\hypertarget{class_i_stuff_1_1_recognizer_a695bcf5d468066b63624c800603bf44b}{\index{I\-Stuff\-::\-Recognizer@{I\-Stuff\-::\-Recognizer}!set\-Running@{set\-Running}}
+\index{set\-Running@{set\-Running}!IStuff::Recognizer@{I\-Stuff\-::\-Recognizer}}
+\subsubsection[{set\-Running}]{\setlength{\rightskip}{0pt plus 5cm}void Recognizer\-::set\-Running (
+\begin{DoxyParamCaption}
+\item[{bool}]{running}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [private]}}}\label{class_i_stuff_1_1_recognizer_a695bcf5d468066b63624c800603bf44b}
+
+
+Definition at line 51 of file recognizer.\-cpp.
 
 
 
 \subsection{Member Data Documentation}
-\hypertarget{class_i_stuff_1_1_recognizer_afaba7db86af7bbf83f12472b7fc11e93}{\index{I\-Stuff\-::\-Recognizer@{I\-Stuff\-::\-Recognizer}!matcher@{matcher}}
-\index{matcher@{matcher}!IStuff::Recognizer@{I\-Stuff\-::\-Recognizer}}
-\subsubsection[{matcher}]{\setlength{\rightskip}{0pt plus 5cm}Database$\ast$ I\-Stuff\-::\-Recognizer\-::matcher\hspace{0.3cm}{\ttfamily [private]}}}\label{class_i_stuff_1_1_recognizer_afaba7db86af7bbf83f12472b7fc11e93}
+\hypertarget{class_i_stuff_1_1_recognizer_aee653ffc737e5b18181f785f655ed421}{\index{I\-Stuff\-::\-Recognizer@{I\-Stuff\-::\-Recognizer}!m\-\_\-matcher@{m\-\_\-matcher}}
+\index{m\-\_\-matcher@{m\-\_\-matcher}!IStuff::Recognizer@{I\-Stuff\-::\-Recognizer}}
+\subsubsection[{m\-\_\-matcher}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Database}$\ast$ I\-Stuff\-::\-Recognizer\-::m\-\_\-matcher\hspace{0.3cm}{\ttfamily [private]}}}\label{class_i_stuff_1_1_recognizer_aee653ffc737e5b18181f785f655ed421}
 
 
-Definition at line 36 of file recognizer.\-h.
+Definition at line 37 of file recognizer.\-h.
 
-\hypertarget{class_i_stuff_1_1_recognizer_a9460f3d799e5a46ee9861f177e0d9988}{\index{I\-Stuff\-::\-Recognizer@{I\-Stuff\-::\-Recognizer}!running@{running}}
-\index{running@{running}!IStuff::Recognizer@{I\-Stuff\-::\-Recognizer}}
-\subsubsection[{running}]{\setlength{\rightskip}{0pt plus 5cm}std\-::auto\-\_\-ptr$<$boost\-::thread$>$ I\-Stuff\-::\-Recognizer\-::running\hspace{0.3cm}{\ttfamily [private]}}}\label{class_i_stuff_1_1_recognizer_a9460f3d799e5a46ee9861f177e0d9988}
+\hypertarget{class_i_stuff_1_1_recognizer_a7bee1b5ec6e924d687d354ba7d780d7e}{\index{I\-Stuff\-::\-Recognizer@{I\-Stuff\-::\-Recognizer}!m\-\_\-running@{m\-\_\-running}}
+\index{m\-\_\-running@{m\-\_\-running}!IStuff::Recognizer@{I\-Stuff\-::\-Recognizer}}
+\subsubsection[{m\-\_\-running}]{\setlength{\rightskip}{0pt plus 5cm}bool I\-Stuff\-::\-Recognizer\-::m\-\_\-running\hspace{0.3cm}{\ttfamily [private]}}}\label{class_i_stuff_1_1_recognizer_a7bee1b5ec6e924d687d354ba7d780d7e}
+
+
+Definition at line 35 of file recognizer.\-h.
+
+\hypertarget{class_i_stuff_1_1_recognizer_a54706a2dbb34a1532fcf4445ef3db5ae}{\index{I\-Stuff\-::\-Recognizer@{I\-Stuff\-::\-Recognizer}!m\-\_\-thread@{m\-\_\-thread}}
+\index{m\-\_\-thread@{m\-\_\-thread}!IStuff::Recognizer@{I\-Stuff\-::\-Recognizer}}
+\subsubsection[{m\-\_\-thread}]{\setlength{\rightskip}{0pt plus 5cm}std\-::auto\-\_\-ptr$<$boost\-::thread$>$ I\-Stuff\-::\-Recognizer\-::m\-\_\-thread\hspace{0.3cm}{\ttfamily [private]}}}\label{class_i_stuff_1_1_recognizer_a54706a2dbb34a1532fcf4445ef3db5ae}
 
 
 Definition at line 34 of file recognizer.\-h.

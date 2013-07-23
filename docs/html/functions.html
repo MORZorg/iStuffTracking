@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">iStuffTracking
-   &#160;<span id="projectnumber">0.1.0</span>
+   &#160;<span id="projectnumber">0.2.0</span>
    </div>
   </td>
  </tr>
@@ -45,6 +45,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
@@ -70,6 +71,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li class="current"><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -84,19 +86,24 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="#index_a"><span>a</span></a></li>
       <li><a href="#index_b"><span>b</span></a></li>
+      <li><a href="#index_c"><span>c</span></a></li>
       <li><a href="#index_d"><span>d</span></a></li>
       <li><a href="#index_e"><span>e</span></a></li>
       <li><a href="#index_f"><span>f</span></a></li>
       <li><a href="#index_g"><span>g</span></a></li>
-      <li><a href="#index_h"><span>h</span></a></li>
       <li><a href="#index_i"><span>i</span></a></li>
+      <li><a href="#index_k"><span>k</span></a></li>
       <li><a href="#index_l"><span>l</span></a></li>
       <li><a href="#index_m"><span>m</span></a></li>
+      <li><a href="#index_n"><span>n</span></a></li>
       <li><a href="#index_o"><span>o</span></a></li>
       <li><a href="#index_p"><span>p</span></a></li>
+      <li><a href="#index_q"><span>q</span></a></li>
       <li><a href="#index_r"><span>r</span></a></li>
       <li><a href="#index_s"><span>s</span></a></li>
       <li><a href="#index_t"><span>t</span></a></li>
+      <li><a href="#index_u"><span>u</span></a></li>
+      <li><a href="#index_w"><span>w</span></a></li>
       <li><a href="#index_0x7e"><span>~</span></a></li>
     </ul>
   </div>
@@ -120,7 +127,7 @@ $(document).ready(function(){initNavTree('functions.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -135,30 +142,54 @@ $(document).ready(function(){initNavTree('functions.html','');});
 <h3><a class="anchor" id="index_a"></a>- a -</h3><ul>
 <li>actual_object
 : <a class="el" href="class_i_stuff_1_1_manager.html#a9b898107c919a3ba73f60278c9c05742">IStuff::Manager</a>
-, <a class="el" href="class_i_stuff_1_1_tracker.html#a304bacfdb3444d47018f0840c8db0106">IStuff::Tracker</a>
 </li>
-<li>actualizeObject()
-: <a class="el" href="class_i_stuff_1_1_tracker.html#aa262d69317aeaa699b42ab5a22960b07">IStuff::Tracker</a>
+<li>addLabel()
+: <a class="el" href="class_i_stuff_1_1_object.html#a67517bff1db601889fb6afbcd60ea17f">IStuff::Object</a>
 </li>
 </ul>
 
 
 <h3><a class="anchor" id="index_b"></a>- b -</h3><ul>
-<li>backgroundActualizeObject()
-: <a class="el" href="class_i_stuff_1_1_tracker.html#a3c230057ef289346b9037d315bee4a86">IStuff::Tracker</a>
-</li>
 <li>backgroundRecognizeFrame()
 : <a class="el" href="class_i_stuff_1_1_recognizer.html#ad4e54485be9385a287bc51670247b0cc">IStuff::Recognizer</a>
+</li>
+<li>backgroundTrackFrame()
+: <a class="el" href="class_i_stuff_1_1_tracker.html#a26eecfd128d97776101938b59f13c987">IStuff::Tracker</a>
+</li>
+<li>build()
+: <a class="el" href="class_i_stuff_1_1_database.html#aed93b2b7c426f730488f66d0909b1212">IStuff::Database</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_c"></a>- c -</h3><ul>
+<li>calcFeatures()
+: <a class="el" href="class_i_stuff_1_1_tracker.html#a66a0adf34335915897834cb9b2829734">IStuff::Tracker</a>
+</li>
+<li>color
+: <a class="el" href="struct_i_stuff_1_1_label.html#aaa492eddf40936c251bcd5b920e9d696">IStuff::Label</a>
 </li>
 </ul>
 
 
 <h3><a class="anchor" id="index_d"></a>- d -</h3><ul>
-<li>database
-: <a class="el" href="class_i_stuff_1_1_manager.html#aae57c3ee778cb782dc8dc954a6667c73">IStuff::Manager</a>
+<li>Database()
+: <a class="el" href="class_i_stuff_1_1_database.html#ab569353f3a7991f6eb8345a2d9d61d6b">IStuff::Database</a>
 </li>
-<li>description
-: <a class="el" href="class_i_stuff_1_1_object.html#a5513b3d190ca3af9395d66c79e736f06">IStuff::Object</a>
+<li>dbName
+: <a class="el" href="class_i_stuff_1_1_database.html#a4e8d5c6cbf4e5eaafe379cd5762fd76f">IStuff::Database</a>
+</li>
+<li>dbPath
+: <a class="el" href="class_i_stuff_1_1_database.html#ae648dcc6da59f19955681584028fef99">IStuff::Database</a>
+</li>
+<li>dequeue()
+: <a class="el" href="class_i_stuff_1_1_fakable_queue.html#a45d9c3549edcd23c87d70142db01df05">IStuff::FakableQueue</a>
+</li>
+<li>descriptorDB
+: <a class="el" href="class_i_stuff_1_1_database.html#a6af39e0cf95b7a14c331911bf388bf65">IStuff::Database</a>
+</li>
+<li>discard()
+: <a class="el" href="class_i_stuff_1_1_fakable_queue.html#a5f103ad2380d4aaf9c38c8853c3c97a9">IStuff::FakableQueue</a>
 </li>
 </ul>
 
@@ -167,65 +198,136 @@ $(document).ready(function(){initNavTree('functions.html','');});
 <li>elaborateFrame()
 : <a class="el" href="class_i_stuff_1_1_manager.html#a47f17fa372382713bcc0f37aae006745">IStuff::Manager</a>
 </li>
+<li>empty()
+: <a class="el" href="class_i_stuff_1_1_object.html#aba86e2335f3c2b2db9be38c188bf04e4">IStuff::Object</a>
+</li>
+<li>enqueue()
+: <a class="el" href="class_i_stuff_1_1_fakable_queue.html#a2d615a3f5fb3bbe26bd99694bd1a2378">IStuff::FakableQueue</a>
+</li>
 </ul>
 
 
 <h3><a class="anchor" id="index_f"></a>- f -</h3><ul>
-<li>frame_history
-: <a class="el" href="class_i_stuff_1_1_tracker.html#a5244d9783d84966bb86988e674227a8e">IStuff::Tracker</a>
+<li>FakableQueue()
+: <a class="el" href="class_i_stuff_1_1_fakable_queue.html#a22906efd165f0becf24bc4056b966fb6">IStuff::FakableQueue</a>
 </li>
 <li>frames_tracked_count
-: <a class="el" href="class_i_stuff_1_1_tracker.html#a4b61344f6dea5d440399261c8d037415">IStuff::Tracker</a>
-, <a class="el" href="class_i_stuff_1_1_manager.html#a3cacb02ece1a4938e7754ad553c91a74">IStuff::Manager</a>
+: <a class="el" href="class_i_stuff_1_1_manager.html#a3cacb02ece1a4938e7754ad553c91a74">IStuff::Manager</a>
 </li>
 </ul>
 
 
 <h3><a class="anchor" id="index_g"></a>- g -</h3><ul>
-<li>getMask()
-: <a class="el" href="class_i_stuff_1_1_object.html#a469d14582bee7d25f546742d75f7eae4">IStuff::Object</a>
+<li>getLabels()
+: <a class="el" href="class_i_stuff_1_1_object.html#a0667b5d7d5242bfb0489f299074d2d8e">IStuff::Object</a>
 </li>
 <li>getObject()
-: <a class="el" href="class_i_stuff_1_1_tracker.html#ab4419b0053b32baaa6e253aab5eef852">IStuff::Tracker</a>
-, <a class="el" href="class_i_stuff_1_1_manager.html#a80d15a0a83976f63c357f65b20387e02">IStuff::Manager</a>
+: <a class="el" href="class_i_stuff_1_1_manager.html#a80d15a0a83976f63c357f65b20387e02">IStuff::Manager</a>
 </li>
-</ul>
-
-
-<h3><a class="anchor" id="index_h"></a>- h -</h3><ul>
-<li>history_update
-: <a class="el" href="class_i_stuff_1_1_tracker.html#a7d60cb5e6f1102906ad0f3653df0f14b">IStuff::Tracker</a>
+<li>getStarter()
+: <a class="el" href="class_i_stuff_1_1_fakable_queue.html#aea66bd432f26ee1322387dc5589b721d">IStuff::FakableQueue</a>
 </li>
 </ul>
 
 
 <h3><a class="anchor" id="index_i"></a>- i -</h3><ul>
+<li>IMG_RESIZE
+: <a class="el" href="class_i_stuff_1_1_tracker.html#af0b19050495dbda2d14bdba30fd4eb9a">IStuff::Tracker</a>
+</li>
 <li>isRunning()
-: <a class="el" href="class_i_stuff_1_1_recognizer.html#aac5297071c1f6ff12049a58c88bb3952">IStuff::Recognizer</a>
-, <a class="el" href="class_i_stuff_1_1_tracker.html#adeaab8820045251bcf5a7b4f394eb568">IStuff::Tracker</a>
+: <a class="el" href="class_i_stuff_1_1_tracker.html#adeaab8820045251bcf5a7b4f394eb568">IStuff::Tracker</a>
+, <a class="el" href="class_i_stuff_1_1_recognizer.html#aac5297071c1f6ff12049a58c88bb3952">IStuff::Recognizer</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_k"></a>- k -</h3><ul>
+<li>keypointDB
+: <a class="el" href="class_i_stuff_1_1_database.html#a9e5ee68bf2517bcc87fa38b3519897ee">IStuff::Database</a>
 </li>
 </ul>
 
 
 <h3><a class="anchor" id="index_l"></a>- l -</h3><ul>
-<li>last_frame
-: <a class="el" href="class_i_stuff_1_1_tracker.html#a656020d6fe4cac1807961417192aaacb">IStuff::Tracker</a>
+<li>Label()
+: <a class="el" href="struct_i_stuff_1_1_label.html#aac1f21d615fb8b65f18c7ad76b63e6cf">IStuff::Label</a>
+</li>
+<li>labelDB
+: <a class="el" href="class_i_stuff_1_1_database.html#a6d83fe3176ec13b1847ab7600e8e230c">IStuff::Database</a>
+</li>
+<li>labels
+: <a class="el" href="class_i_stuff_1_1_object.html#ad70145c18310a74f5da0f8fd7cb0222e">IStuff::Object</a>
+</li>
+<li>LK_WINDOW
+: <a class="el" href="class_i_stuff_1_1_tracker.html#af8521ba1a18dab69b2ff367799fc2101">IStuff::Tracker</a>
+</li>
+<li>load()
+: <a class="el" href="class_i_stuff_1_1_database.html#a0d09456daeb72a2a2fb432650e55025f">IStuff::Database</a>
 </li>
 </ul>
 
 
 <h3><a class="anchor" id="index_m"></a>- m -</h3><ul>
+<li>m_detector
+: <a class="el" href="class_i_stuff_1_1_tracker.html#a7efbebcf19f9308ae8b74232d809e47a">IStuff::Tracker</a>
+</li>
+<li>m_features
+: <a class="el" href="class_i_stuff_1_1_tracker.html#a2e8d6c6201c9ea3a4d824404c917befe">IStuff::Tracker</a>
+</li>
+<li>m_frame
+: <a class="el" href="class_i_stuff_1_1_tracker.html#a174749550b4b79c8ddf91e9a744fb50d">IStuff::Tracker</a>
+</li>
+<li>m_matcher
+: <a class="el" href="class_i_stuff_1_1_recognizer.html#aee653ffc737e5b18181f785f655ed421">IStuff::Recognizer</a>
+, <a class="el" href="class_i_stuff_1_1_tracker.html#a126a9bea1a885a25b3fc734c96a052de">IStuff::Tracker</a>
+</li>
+<li>m_object
+: <a class="el" href="class_i_stuff_1_1_tracker.html#a1d7215169ee7adb0bb9f182c0aaaa311">IStuff::Tracker</a>
+</li>
+<li>m_object_mutex
+: <a class="el" href="class_i_stuff_1_1_tracker.html#a71c26a9c9d53b53cd3e6f46bfb9e1af1">IStuff::Tracker</a>
+</li>
+<li>m_running
+: <a class="el" href="class_i_stuff_1_1_recognizer.html#a7bee1b5ec6e924d687d354ba7d780d7e">IStuff::Recognizer</a>
+, <a class="el" href="class_i_stuff_1_1_tracker.html#a6859d6a02fe907e0dcc1b48b79ba0d9d">IStuff::Tracker</a>
+</li>
+<li>m_saved_features
+: <a class="el" href="class_i_stuff_1_1_tracker.html#a72081a14f4eb1193fa9800a1e37e0100">IStuff::Tracker</a>
+</li>
+<li>m_thread
+: <a class="el" href="class_i_stuff_1_1_recognizer.html#a54706a2dbb34a1532fcf4445ef3db5ae">IStuff::Recognizer</a>
+, <a class="el" href="class_i_stuff_1_1_tracker.html#a76bb227e8681e75c9d7edd561e231ab6">IStuff::Tracker</a>
+</li>
 <li>Manager()
 : <a class="el" href="class_i_stuff_1_1_manager.html#a1658ff9f18e38ccd9cb8b0b371b9c20b">IStuff::Manager</a>
 </li>
+<li>match()
+: <a class="el" href="class_i_stuff_1_1_database.html#afc2ff4e18f1b9477722889ee06a765db">IStuff::Database</a>
+</li>
 <li>matcher
-: <a class="el" href="class_i_stuff_1_1_recognizer.html#afaba7db86af7bbf83f12472b7fc11e93">IStuff::Recognizer</a>
+: <a class="el" href="class_i_stuff_1_1_database.html#a871b6feeaa1b3d1e75d3b4b8edb86a84">IStuff::Database</a>
 </li>
 <li>MSG_RECOGNITION_END
 : <a class="el" href="class_i_stuff_1_1_manager.html#a4c465ff50b8eddde0e5fd8b4d3e37bbc">IStuff::Manager</a>
 </li>
 <li>MSG_RECOGNITION_START
 : <a class="el" href="class_i_stuff_1_1_manager.html#af7f9a2cc3c53b7cf351a12f179230da7">IStuff::Manager</a>
+</li>
+<li>MSG_TRACKING_END
+: <a class="el" href="class_i_stuff_1_1_manager.html#a841fb5e820b9aa16aa8d7862362fa50b">IStuff::Manager</a>
+</li>
+<li>MSG_TRACKING_START
+: <a class="el" href="class_i_stuff_1_1_manager.html#a46dc3e50421b203bab7941bcc6e29604">IStuff::Manager</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_n"></a>- n -</h3><ul>
+<li>name
+: <a class="el" href="struct_i_stuff_1_1_label.html#a11026b588c7a66f59bf233529c9aa6ed">IStuff::Label</a>
+</li>
+<li>NEAREST_FEATURES_COUNT
+: <a class="el" href="class_i_stuff_1_1_tracker.html#a7bd424308b6879e92434378e653c8bdc">IStuff::Tracker</a>
 </li>
 </ul>
 
@@ -235,81 +337,128 @@ $(document).ready(function(){initNavTree('functions.html','');});
 : <a class="el" href="class_i_stuff_1_1_object.html#a40860402e64d8008fb42329df7097cdb">IStuff::Object</a>
 </li>
 <li>object_update
-: <a class="el" href="class_i_stuff_1_1_tracker.html#a395a42f0c4888461053315b24f9c7892">IStuff::Tracker</a>
-, <a class="el" href="class_i_stuff_1_1_manager.html#a9b4234320a01a049bc10f9f13d612fc4">IStuff::Manager</a>
+: <a class="el" href="class_i_stuff_1_1_manager.html#a9b4234320a01a049bc10f9f13d612fc4">IStuff::Manager</a>
+</li>
+<li>operator==()
+: <a class="el" href="struct_i_stuff_1_1_label.html#af37f54284d7c8f2232b1273bf6be1e96">IStuff::Label</a>
 </li>
 </ul>
 
 
 <h3><a class="anchor" id="index_p"></a>- p -</h3><ul>
+<li>paint()
+: <a class="el" href="class_i_stuff_1_1_object.html#ac2a5f59638ed098379b07e7e8e3975cb">IStuff::Object</a>
+</li>
 <li>paintObject()
 : <a class="el" href="class_i_stuff_1_1_manager.html#a5cc4e8151aa21b873786eb8c0742c3d5">IStuff::Manager</a>
+</li>
+<li>position
+: <a class="el" href="struct_i_stuff_1_1_label.html#a06b344b0151f8c836e89d885a2e96975">IStuff::Label</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_q"></a>- q -</h3><ul>
+<li>queue_mutex
+: <a class="el" href="class_i_stuff_1_1_fakable_queue.html#a463ced47c344cac9858ddb9c3a2a5fc6">IStuff::FakableQueue</a>
 </li>
 </ul>
 
 
 <h3><a class="anchor" id="index_r"></a>- r -</h3><ul>
+<li>real_queue
+: <a class="el" href="class_i_stuff_1_1_fakable_queue.html#a572a03879f073d8fa1babbfbf4b9d573">IStuff::FakableQueue</a>
+</li>
 <li>RECOGNITION_PERIOD
 : <a class="el" href="class_i_stuff_1_1_manager.html#a58f0beb39eea21e78a8983e5954065c3">IStuff::Manager</a>
 </li>
 <li>recognizeFrame()
 : <a class="el" href="class_i_stuff_1_1_recognizer.html#a6505a142d08eaf1e8f6a1f95571a4c7a">IStuff::Recognizer</a>
 </li>
-<li>Recognizer()
-: <a class="el" href="class_i_stuff_1_1_recognizer.html#a4bf77b760d8dbc50c4ef50cad433db40">IStuff::Recognizer</a>
-</li>
 <li>recognizer
 : <a class="el" href="class_i_stuff_1_1_manager.html#ac039aa2e611b04595e4ff69d3534b4cc">IStuff::Manager</a>
 </li>
-<li>removeLabel()
-: <a class="el" href="class_i_stuff_1_1_object.html#ab9f6cf27353153dd8c9d3e55c7321f7f">IStuff::Object</a>
-</li>
-<li>running
-: <a class="el" href="class_i_stuff_1_1_recognizer.html#a9460f3d799e5a46ee9861f177e0d9988">IStuff::Recognizer</a>
-, <a class="el" href="class_i_stuff_1_1_tracker.html#aa7e9ed78659336011a3ac499be0674e9">IStuff::Tracker</a>
+<li>Recognizer()
+: <a class="el" href="class_i_stuff_1_1_recognizer.html#a4bf77b760d8dbc50c4ef50cad433db40">IStuff::Recognizer</a>
 </li>
 </ul>
 
 
 <h3><a class="anchor" id="index_s"></a>- s -</h3><ul>
+<li>save()
+: <a class="el" href="class_i_stuff_1_1_database.html#a3aae61eb0bc2fa65398f809cc5aa1065">IStuff::Database</a>
+</li>
+<li>saved_queue
+: <a class="el" href="class_i_stuff_1_1_fakable_queue.html#a4204d286617b6b3e9c1732946e06d0ad">IStuff::FakableQueue</a>
+</li>
 <li>sendMessage()
-: <a class="el" href="class_i_stuff_1_1_manager.html#adaef1575710c20ad769c23bb55d2144c">IStuff::Manager</a>
-, <a class="el" href="class_i_stuff_1_1_recognizer.html#a1bb1a4e7045eb4d84d84dac439e9c762">IStuff::Recognizer</a>
+: <a class="el" href="class_i_stuff_1_1_recognizer.html#a1bb1a4e7045eb4d84d84dac439e9c762">IStuff::Recognizer</a>
 , <a class="el" href="class_i_stuff_1_1_tracker.html#a931b4e57f59d6a0f38d78bb34ab2332b">IStuff::Tracker</a>
+, <a class="el" href="class_i_stuff_1_1_manager.html#adaef1575710c20ad769c23bb55d2144c">IStuff::Manager</a>
 </li>
 <li>setDatabase()
 : <a class="el" href="class_i_stuff_1_1_recognizer.html#a37fe89eb44d68215cab011b1962b8293">IStuff::Recognizer</a>
 , <a class="el" href="class_i_stuff_1_1_manager.html#aa91ba11affc3ec961acaf81fc5c5e62d">IStuff::Manager</a>
 </li>
-<li>setLabel()
-: <a class="el" href="class_i_stuff_1_1_object.html#aee004eb2e471cda24ad4a58f6ae55b41">IStuff::Object</a>
-</li>
 <li>setObject()
-: <a class="el" href="class_i_stuff_1_1_tracker.html#a0a65a60fae69f48ad3cc3b7581128c3d">IStuff::Tracker</a>
+: <a class="el" href="class_i_stuff_1_1_manager.html#a3cc212bd05afe4bdffada9dd35994c61">IStuff::Manager</a>
+</li>
+<li>setRunning()
+: <a class="el" href="class_i_stuff_1_1_recognizer.html#a695bcf5d468066b63624c800603bf44b">IStuff::Recognizer</a>
+, <a class="el" href="class_i_stuff_1_1_tracker.html#a0f512d1134b48840d65547bc60d2dd7d">IStuff::Tracker</a>
+</li>
+<li>start()
+: <a class="el" href="class_i_stuff_1_1_fakable_queue.html#acb05a50ab738a9df2cccf7b697c199ca">IStuff::FakableQueue</a>
 </li>
 </ul>
 
 
 <h3><a class="anchor" id="index_t"></a>- t -</h3><ul>
 <li>TAG
-: <a class="el" href="class_i_stuff_1_1_manager.html#a0228682f317a86ce7057b86e9d229ac6">IStuff::Manager</a>
-, <a class="el" href="class_i_stuff_1_1_object.html#a2ba8d34aa857298238f9800e1f3ddb1e">IStuff::Object</a>
-, <a class="el" href="class_i_stuff_1_1_tracker.html#a68ef6bf09dbf9db7a6788ed899edb28d">IStuff::Tracker</a>
+: <a class="el" href="class_i_stuff_1_1_fakable_queue.html#a0934f12df566975c8811084f54aa8247">IStuff::FakableQueue</a>
+, <a class="el" href="class_i_stuff_1_1_manager.html#a0228682f317a86ce7057b86e9d229ac6">IStuff::Manager</a>
 , <a class="el" href="class_i_stuff_1_1_recognizer.html#a90ec5deceaef320be5e825f653dcf7f1">IStuff::Recognizer</a>
-</li>
-<li>Tracker()
-: <a class="el" href="class_i_stuff_1_1_tracker.html#adf214393a14e8bf23de2fc8231e239ec">IStuff::Tracker</a>
+, <a class="el" href="class_i_stuff_1_1_tracker.html#a68ef6bf09dbf9db7a6788ed899edb28d">IStuff::Tracker</a>
+, <a class="el" href="class_i_stuff_1_1_object.html#a2ba8d34aa857298238f9800e1f3ddb1e">IStuff::Object</a>
 </li>
 <li>tracker
 : <a class="el" href="class_i_stuff_1_1_manager.html#a3d313f62a1cfe606098fdcb6f1c748ee">IStuff::Manager</a>
 </li>
+<li>Tracker()
+: <a class="el" href="class_i_stuff_1_1_tracker.html#adf214393a14e8bf23de2fc8231e239ec">IStuff::Tracker</a>
+</li>
 <li>trackFrame()
-: <a class="el" href="class_i_stuff_1_1_tracker.html#abbd2fe5afc84816d781f23ad98e8d488">IStuff::Tracker</a>
+: <a class="el" href="class_i_stuff_1_1_tracker.html#ae2ed3c100de7c3a58484628c748c926c">IStuff::Tracker</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_u"></a>- u -</h3><ul>
+<li>updateFeatures()
+: <a class="el" href="class_i_stuff_1_1_tracker.html#a2e7825806f53813c4ba1a6088dbd5a6c">IStuff::Tracker</a>
+</li>
+<li>updateObject()
+: <a class="el" href="class_i_stuff_1_1_tracker.html#a3d9b861a3cf475309dda610d68b5dbd5">IStuff::Tracker</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_w"></a>- w -</h3><ul>
+<li>what()
+: <a class="el" href="class_i_stuff_1_1_d_b_creation_exception.html#ab3d2214cbcbc3d495483bd2bce8f4d81">IStuff::DBCreationException</a>
+, <a class="el" href="class_i_stuff_1_1_d_b_saving_exception.html#a1b55277b5e63b468f1e717db118101d4">IStuff::DBSavingException</a>
+, <a class="el" href="class_i_stuff_1_1_d_b_loading_exception.html#aadb5bf6ac0fa6b4f84433261003e5e64">IStuff::DBLoadingException</a>
 </li>
 </ul>
 
 
 <h3><a class="anchor" id="index_0x7e"></a>- ~ -</h3><ul>
+<li>~Database()
+: <a class="el" href="class_i_stuff_1_1_database.html#a84d399a2ad58d69daab9b05330e1316d">IStuff::Database</a>
+</li>
+<li>~FakableQueue()
+: <a class="el" href="class_i_stuff_1_1_fakable_queue.html#a9675cd13bcaa59d614d47127c0c21d93">IStuff::FakableQueue</a>
+</li>
 <li>~Manager()
 : <a class="el" href="class_i_stuff_1_1_manager.html#a322cad25d7007438b3a043ad02253d29">IStuff::Manager</a>
 </li>
@@ -328,7 +477,7 @@ $(document).ready(function(){initNavTree('functions.html','');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Thu Jul 18 2013 00:01:07 for iStuffTracking by
+    <li class="footer">Generated on Wed Jul 24 2013 01:20:18 for iStuffTracking by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
   </ul>

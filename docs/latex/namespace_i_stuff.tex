@@ -4,8 +4,20 @@
 \subsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
+class \hyperlink{class_i_stuff_1_1_database}{Database}
+\item 
+class \hyperlink{class_i_stuff_1_1_d_b_creation_exception}{D\-B\-Creation\-Exception}
+\item 
+class \hyperlink{class_i_stuff_1_1_d_b_loading_exception}{D\-B\-Loading\-Exception}
+\item 
+class \hyperlink{class_i_stuff_1_1_d_b_saving_exception}{D\-B\-Saving\-Exception}
+\item 
+class \hyperlink{class_i_stuff_1_1_fakable_queue}{Fakable\-Queue}
+\item 
 class \hyperlink{class_i_stuff_1_1_manager}{Manager}
 \begin{DoxyCompactList}\small\item\em Class to manage the joint 3\-D \hyperlink{class_i_stuff_1_1_object}{Object} recognition and tracking. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_i_stuff_1_1_label}{Label}
+\begin{DoxyCompactList}\small\item\em \hyperlink{struct_i_stuff_1_1_label}{Label} relative to a view of an \hyperlink{class_i_stuff_1_1_object}{Object}. \end{DoxyCompactList}\item 
 class \hyperlink{class_i_stuff_1_1_object}{Object}
 \begin{DoxyCompactList}\small\item\em Class used to represent a three dimensional object. \end{DoxyCompactList}\item 
 class \hyperlink{class_i_stuff_1_1_recognizer}{Recognizer}
@@ -15,19 +27,19 @@ class \hyperlink{class_i_stuff_1_1_tracker}{Tracker}
 \subsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
-typedef std\-::string \hyperlink{namespace_i_stuff_a88882361612ef78eee4224382c8d126b}{Label}
-\begin{DoxyCompactList}\small\item\em Label relative to a view of an \hyperlink{class_i_stuff_1_1_object}{Object}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+typedef std\-::vector$<$ cv\-::\-Point2f $>$ \hyperlink{namespace_i_stuff_a2d680b8d3ea1fa53d1aa740cc669063c}{Features}
+\begin{DoxyCompactList}\small\item\em An alias for a std\-::vector of cv\-::\-Point, used for tracking. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Typedef Documentation}
-\hypertarget{namespace_i_stuff_a88882361612ef78eee4224382c8d126b}{\index{I\-Stuff@{I\-Stuff}!Label@{Label}}
-\index{Label@{Label}!IStuff@{I\-Stuff}}
-\subsubsection[{Label}]{\setlength{\rightskip}{0pt plus 5cm}typedef std\-::string {\bf I\-Stuff\-::\-Label}}}\label{namespace_i_stuff_a88882361612ef78eee4224382c8d126b}
+\hypertarget{namespace_i_stuff_a2d680b8d3ea1fa53d1aa740cc669063c}{\index{I\-Stuff@{I\-Stuff}!Features@{Features}}
+\index{Features@{Features}!IStuff@{I\-Stuff}}
+\subsubsection[{Features}]{\setlength{\rightskip}{0pt plus 5cm}typedef std\-::vector$<$cv\-::\-Point2f$>$ {\bf I\-Stuff\-::\-Features}}}\label{namespace_i_stuff_a2d680b8d3ea1fa53d1aa740cc669063c}
 
 
-Label relative to a view of an \hyperlink{class_i_stuff_1_1_object}{Object}. 
+An alias for a std\-::vector of cv\-::\-Point, used for tracking. 
 
 
 
-Definition at line 25 of file object.\-h.
+Definition at line 29 of file tracker.\-h.
 

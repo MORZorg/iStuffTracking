@@ -17,8 +17,8 @@ Class to manage the joint 3\-D \hyperlink{class_i_stuff_1_1_object}{Object} reco
 \begin{DoxyCompactList}\small\item\em Constructs the class. \end{DoxyCompactList}\item 
 virtual \hyperlink{class_i_stuff_1_1_manager_a322cad25d7007438b3a043ad02253d29}{$\sim$\-Manager} ()
 \item 
-void \hyperlink{class_i_stuff_1_1_manager_aa91ba11affc3ec961acaf81fc5c5e62d}{set\-Database} (Database $\ast$)
-\begin{DoxyCompactList}\small\item\em Changes the I\-Stuff\-::\-Database used to identify the \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object}. \end{DoxyCompactList}\item 
+void \hyperlink{class_i_stuff_1_1_manager_aa91ba11affc3ec961acaf81fc5c5e62d}{set\-Database} (\hyperlink{class_i_stuff_1_1_database}{Database} $\ast$)
+\begin{DoxyCompactList}\small\item\em Changes the \hyperlink{class_i_stuff_1_1_database}{I\-Stuff\-::\-Database} used to identify the \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object}. \end{DoxyCompactList}\item 
 \hyperlink{class_i_stuff_1_1_object}{Object} \hyperlink{class_i_stuff_1_1_manager_a80d15a0a83976f63c357f65b20387e02}{get\-Object} ()
 \begin{DoxyCompactList}\small\item\em Returns the current description of the \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object}. \end{DoxyCompactList}\item 
 void \hyperlink{class_i_stuff_1_1_manager_a47f17fa372382713bcc0f37aae006745}{elaborate\-Frame} (cv\-::\-Mat)
@@ -33,7 +33,16 @@ void \hyperlink{class_i_stuff_1_1_manager_adaef1575710c20ad769c23bb55d2144c}{sen
 static const int \hyperlink{class_i_stuff_1_1_manager_af7f9a2cc3c53b7cf351a12f179230da7}{M\-S\-G\-\_\-\-R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-S\-T\-A\-R\-T} = 1
 \item 
 static const int \hyperlink{class_i_stuff_1_1_manager_a4c465ff50b8eddde0e5fd8b4d3e37bbc}{M\-S\-G\-\_\-\-R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-E\-N\-D} = 2
+\item 
+static const int \hyperlink{class_i_stuff_1_1_manager_a46dc3e50421b203bab7941bcc6e29604}{M\-S\-G\-\_\-\-T\-R\-A\-C\-K\-I\-N\-G\-\_\-\-S\-T\-A\-R\-T} = 3
+\item 
+static const int \hyperlink{class_i_stuff_1_1_manager_a841fb5e820b9aa16aa8d7862362fa50b}{M\-S\-G\-\_\-\-T\-R\-A\-C\-K\-I\-N\-G\-\_\-\-E\-N\-D} = 4
 \end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_i_stuff_1_1_manager_a3cc212bd05afe4bdffada9dd35994c61}{set\-Object} (const \hyperlink{class_i_stuff_1_1_object}{Object})
+\begin{DoxyCompactList}\small\item\em Sets the \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object} of this \hyperlink{class_i_stuff_1_1_manager}{I\-Stuff\-::\-Manager}. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -42,8 +51,6 @@ int \hyperlink{class_i_stuff_1_1_manager_a3cacb02ece1a4938e7754ad553c91a74}{fram
 boost\-::shared\-\_\-mutex \hyperlink{class_i_stuff_1_1_manager_a9b4234320a01a049bc10f9f13d612fc4}{object\-\_\-update}
 \item 
 \hyperlink{class_i_stuff_1_1_object}{Object} \hyperlink{class_i_stuff_1_1_manager_a9b898107c919a3ba73f60278c9c05742}{actual\-\_\-object}
-\item 
-Database $\ast$ \hyperlink{class_i_stuff_1_1_manager_aae57c3ee778cb782dc8dc954a6667c73}{database}
 \item 
 \hyperlink{class_i_stuff_1_1_recognizer}{Recognizer} \hyperlink{class_i_stuff_1_1_manager_ac039aa2e611b04595e4ff69d3534b4cc}{recognizer}
 \item 
@@ -54,7 +61,7 @@ Database $\ast$ \hyperlink{class_i_stuff_1_1_manager_aae57c3ee778cb782dc8dc954a6
 \item 
 static const char \hyperlink{class_i_stuff_1_1_manager_a0228682f317a86ce7057b86e9d229ac6}{T\-A\-G} \mbox{[}$\,$\mbox{]} = \char`\"{}Mng\char`\"{}
 \item 
-static const int \hyperlink{class_i_stuff_1_1_manager_a58f0beb39eea21e78a8983e5954065c3}{R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-P\-E\-R\-I\-O\-D} = 20
+static const int \hyperlink{class_i_stuff_1_1_manager_a58f0beb39eea21e78a8983e5954065c3}{R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-P\-E\-R\-I\-O\-D} = 50
 \end{DoxyCompactItemize}
 
 
@@ -65,14 +72,14 @@ Class to manage the joint 3\-D \hyperlink{class_i_stuff_1_1_object}{Object} reco
 Maurizio Zucchelli 
 \end{DoxyAuthor}
 \begin{DoxyVersion}{Version}
-0.\-1.\-0 
+0.\-3.\-0 
 \end{DoxyVersion}
 \begin{DoxyDate}{Date}
 2013-\/07-\/16 
 \end{DoxyDate}
 
 
-Definition at line 26 of file manager.\-h.
+Definition at line 28 of file manager.\-h.
 
 
 
@@ -126,7 +133,7 @@ This function alternates the recognition to the tracking, making a new recogniti
 \end{DoxyParams}
 
 
-Definition at line 68 of file manager.\-cpp.
+Definition at line 82 of file manager.\-cpp.
 
 \hypertarget{class_i_stuff_1_1_manager_a80d15a0a83976f63c357f65b20387e02}{\index{I\-Stuff\-::\-Manager@{I\-Stuff\-::\-Manager}!get\-Object@{get\-Object}}
 \index{get\-Object@{get\-Object}!IStuff::Manager@{I\-Stuff\-::\-Manager}}
@@ -144,7 +151,7 @@ The current description of I\-Stuff\-::the \hyperlink{class_i_stuff_1_1_object}{
 \end{DoxyReturn}
 
 
-Definition at line 54 of file manager.\-cpp.
+Definition at line 66 of file manager.\-cpp.
 
 \hypertarget{class_i_stuff_1_1_manager_a5cc4e8151aa21b873786eb8c0742c3d5}{\index{I\-Stuff\-::\-Manager@{I\-Stuff\-::\-Manager}!paint\-Object@{paint\-Object}}
 \index{paint\-Object@{paint\-Object}!IStuff::Manager@{I\-Stuff\-::\-Manager}}
@@ -159,7 +166,7 @@ Paints the various masks of the \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-:
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em frame} & The frame on which che \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object} must be painted.\\
+\mbox{\tt in}  & {\em frame} & The frame on which the \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object} must be painted.\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -167,7 +174,7 @@ A copy of the input frame, with the \hyperlink{class_i_stuff_1_1_object}{I\-Stuf
 \end{DoxyReturn}
 
 
-Definition at line 95 of file manager.\-cpp.
+Definition at line 111 of file manager.\-cpp.
 
 \hypertarget{class_i_stuff_1_1_manager_adaef1575710c20ad769c23bb55d2144c}{\index{I\-Stuff\-::\-Manager@{I\-Stuff\-::\-Manager}!send\-Message@{send\-Message}}
 \index{send\-Message@{send\-Message}!IStuff::Manager@{I\-Stuff\-::\-Manager}}
@@ -203,29 +210,49 @@ Managed messages\-:\par
 \end{DoxyParams}
 
 
-Definition at line 118 of file manager.\-cpp.
+Definition at line 134 of file manager.\-cpp.
 
 \hypertarget{class_i_stuff_1_1_manager_aa91ba11affc3ec961acaf81fc5c5e62d}{\index{I\-Stuff\-::\-Manager@{I\-Stuff\-::\-Manager}!set\-Database@{set\-Database}}
 \index{set\-Database@{set\-Database}!IStuff::Manager@{I\-Stuff\-::\-Manager}}
 \subsubsection[{set\-Database}]{\setlength{\rightskip}{0pt plus 5cm}void Manager\-::set\-Database (
 \begin{DoxyParamCaption}
-\item[{Database $\ast$}]{database}
+\item[{{\bf Database} $\ast$}]{database}
 \end{DoxyParamCaption}
 )}}\label{class_i_stuff_1_1_manager_aa91ba11affc3ec961acaf81fc5c5e62d}
 
 
-Changes the I\-Stuff\-::\-Database used to identify the \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object}. 
+Changes the \hyperlink{class_i_stuff_1_1_database}{I\-Stuff\-::\-Database} used to identify the \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object}. 
 
 This means that with high probability a different \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object} will be searched for\-: the next elaboration must be a recognition.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em database} & The new I\-Stuff\-::\-Database to be used. \\
+\mbox{\tt in}  & {\em database} & The new \hyperlink{class_i_stuff_1_1_database}{I\-Stuff\-::\-Database} to be used. \\
 \hline
 \end{DoxyParams}
 
 
-Definition at line 41 of file manager.\-cpp.
+Definition at line 53 of file manager.\-cpp.
+
+\hypertarget{class_i_stuff_1_1_manager_a3cc212bd05afe4bdffada9dd35994c61}{\index{I\-Stuff\-::\-Manager@{I\-Stuff\-::\-Manager}!set\-Object@{set\-Object}}
+\index{set\-Object@{set\-Object}!IStuff::Manager@{I\-Stuff\-::\-Manager}}
+\subsubsection[{set\-Object}]{\setlength{\rightskip}{0pt plus 5cm}void Manager\-::set\-Object (
+\begin{DoxyParamCaption}
+\item[{const {\bf Object}}]{object}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [private]}}}\label{class_i_stuff_1_1_manager_a3cc212bd05afe4bdffada9dd35994c61}
+
+
+Sets the \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object} of this \hyperlink{class_i_stuff_1_1_manager}{I\-Stuff\-::\-Manager}. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em object} & The new \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object}. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 39 of file manager.\-cpp.
 
 
 
@@ -235,14 +262,7 @@ Definition at line 41 of file manager.\-cpp.
 \subsubsection[{actual\-\_\-object}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Object} I\-Stuff\-::\-Manager\-::actual\-\_\-object\hspace{0.3cm}{\ttfamily [private]}}}\label{class_i_stuff_1_1_manager_a9b898107c919a3ba73f60278c9c05742}
 
 
-Definition at line 43 of file manager.\-h.
-
-\hypertarget{class_i_stuff_1_1_manager_aae57c3ee778cb782dc8dc954a6667c73}{\index{I\-Stuff\-::\-Manager@{I\-Stuff\-::\-Manager}!database@{database}}
-\index{database@{database}!IStuff::Manager@{I\-Stuff\-::\-Manager}}
-\subsubsection[{database}]{\setlength{\rightskip}{0pt plus 5cm}Database$\ast$ I\-Stuff\-::\-Manager\-::database\hspace{0.3cm}{\ttfamily [private]}}}\label{class_i_stuff_1_1_manager_aae57c3ee778cb782dc8dc954a6667c73}
-
-
-Definition at line 44 of file manager.\-h.
+Definition at line 47 of file manager.\-h.
 
 \hypertarget{class_i_stuff_1_1_manager_a3cacb02ece1a4938e7754ad553c91a74}{\index{I\-Stuff\-::\-Manager@{I\-Stuff\-::\-Manager}!frames\-\_\-tracked\-\_\-count@{frames\-\_\-tracked\-\_\-count}}
 \index{frames\-\_\-tracked\-\_\-count@{frames\-\_\-tracked\-\_\-count}!IStuff::Manager@{I\-Stuff\-::\-Manager}}
@@ -253,56 +273,70 @@ When this reaches R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-P\-E\-R\-I\-O\-D, a new
 
 
 
-Definition at line 40 of file manager.\-h.
+Definition at line 44 of file manager.\-h.
 
 \hypertarget{class_i_stuff_1_1_manager_a4c465ff50b8eddde0e5fd8b4d3e37bbc}{\index{I\-Stuff\-::\-Manager@{I\-Stuff\-::\-Manager}!M\-S\-G\-\_\-\-R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-E\-N\-D@{M\-S\-G\-\_\-\-R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-E\-N\-D}}
 \index{M\-S\-G\-\_\-\-R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-E\-N\-D@{M\-S\-G\-\_\-\-R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-E\-N\-D}!IStuff::Manager@{I\-Stuff\-::\-Manager}}
 \subsubsection[{M\-S\-G\-\_\-\-R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-E\-N\-D}]{\setlength{\rightskip}{0pt plus 5cm}const int I\-Stuff\-::\-Manager\-::\-M\-S\-G\-\_\-\-R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-E\-N\-D = 2\hspace{0.3cm}{\ttfamily [static]}}}\label{class_i_stuff_1_1_manager_a4c465ff50b8eddde0e5fd8b4d3e37bbc}
 
 
-Definition at line 31 of file manager.\-h.
+Definition at line 33 of file manager.\-h.
 
 \hypertarget{class_i_stuff_1_1_manager_af7f9a2cc3c53b7cf351a12f179230da7}{\index{I\-Stuff\-::\-Manager@{I\-Stuff\-::\-Manager}!M\-S\-G\-\_\-\-R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-S\-T\-A\-R\-T@{M\-S\-G\-\_\-\-R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-S\-T\-A\-R\-T}}
 \index{M\-S\-G\-\_\-\-R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-S\-T\-A\-R\-T@{M\-S\-G\-\_\-\-R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-S\-T\-A\-R\-T}!IStuff::Manager@{I\-Stuff\-::\-Manager}}
 \subsubsection[{M\-S\-G\-\_\-\-R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-S\-T\-A\-R\-T}]{\setlength{\rightskip}{0pt plus 5cm}const int I\-Stuff\-::\-Manager\-::\-M\-S\-G\-\_\-\-R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-S\-T\-A\-R\-T = 1\hspace{0.3cm}{\ttfamily [static]}}}\label{class_i_stuff_1_1_manager_af7f9a2cc3c53b7cf351a12f179230da7}
 
 
-Definition at line 30 of file manager.\-h.
+Definition at line 32 of file manager.\-h.
+
+\hypertarget{class_i_stuff_1_1_manager_a841fb5e820b9aa16aa8d7862362fa50b}{\index{I\-Stuff\-::\-Manager@{I\-Stuff\-::\-Manager}!M\-S\-G\-\_\-\-T\-R\-A\-C\-K\-I\-N\-G\-\_\-\-E\-N\-D@{M\-S\-G\-\_\-\-T\-R\-A\-C\-K\-I\-N\-G\-\_\-\-E\-N\-D}}
+\index{M\-S\-G\-\_\-\-T\-R\-A\-C\-K\-I\-N\-G\-\_\-\-E\-N\-D@{M\-S\-G\-\_\-\-T\-R\-A\-C\-K\-I\-N\-G\-\_\-\-E\-N\-D}!IStuff::Manager@{I\-Stuff\-::\-Manager}}
+\subsubsection[{M\-S\-G\-\_\-\-T\-R\-A\-C\-K\-I\-N\-G\-\_\-\-E\-N\-D}]{\setlength{\rightskip}{0pt plus 5cm}const int I\-Stuff\-::\-Manager\-::\-M\-S\-G\-\_\-\-T\-R\-A\-C\-K\-I\-N\-G\-\_\-\-E\-N\-D = 4\hspace{0.3cm}{\ttfamily [static]}}}\label{class_i_stuff_1_1_manager_a841fb5e820b9aa16aa8d7862362fa50b}
+
+
+Definition at line 35 of file manager.\-h.
+
+\hypertarget{class_i_stuff_1_1_manager_a46dc3e50421b203bab7941bcc6e29604}{\index{I\-Stuff\-::\-Manager@{I\-Stuff\-::\-Manager}!M\-S\-G\-\_\-\-T\-R\-A\-C\-K\-I\-N\-G\-\_\-\-S\-T\-A\-R\-T@{M\-S\-G\-\_\-\-T\-R\-A\-C\-K\-I\-N\-G\-\_\-\-S\-T\-A\-R\-T}}
+\index{M\-S\-G\-\_\-\-T\-R\-A\-C\-K\-I\-N\-G\-\_\-\-S\-T\-A\-R\-T@{M\-S\-G\-\_\-\-T\-R\-A\-C\-K\-I\-N\-G\-\_\-\-S\-T\-A\-R\-T}!IStuff::Manager@{I\-Stuff\-::\-Manager}}
+\subsubsection[{M\-S\-G\-\_\-\-T\-R\-A\-C\-K\-I\-N\-G\-\_\-\-S\-T\-A\-R\-T}]{\setlength{\rightskip}{0pt plus 5cm}const int I\-Stuff\-::\-Manager\-::\-M\-S\-G\-\_\-\-T\-R\-A\-C\-K\-I\-N\-G\-\_\-\-S\-T\-A\-R\-T = 3\hspace{0.3cm}{\ttfamily [static]}}}\label{class_i_stuff_1_1_manager_a46dc3e50421b203bab7941bcc6e29604}
+
+
+Definition at line 34 of file manager.\-h.
 
 \hypertarget{class_i_stuff_1_1_manager_a9b4234320a01a049bc10f9f13d612fc4}{\index{I\-Stuff\-::\-Manager@{I\-Stuff\-::\-Manager}!object\-\_\-update@{object\-\_\-update}}
 \index{object\-\_\-update@{object\-\_\-update}!IStuff::Manager@{I\-Stuff\-::\-Manager}}
 \subsubsection[{object\-\_\-update}]{\setlength{\rightskip}{0pt plus 5cm}boost\-::shared\-\_\-mutex I\-Stuff\-::\-Manager\-::object\-\_\-update\hspace{0.3cm}{\ttfamily [private]}}}\label{class_i_stuff_1_1_manager_a9b4234320a01a049bc10f9f13d612fc4}
 
 
-Definition at line 41 of file manager.\-h.
+Definition at line 45 of file manager.\-h.
 
 \hypertarget{class_i_stuff_1_1_manager_a58f0beb39eea21e78a8983e5954065c3}{\index{I\-Stuff\-::\-Manager@{I\-Stuff\-::\-Manager}!R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-P\-E\-R\-I\-O\-D@{R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-P\-E\-R\-I\-O\-D}}
 \index{R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-P\-E\-R\-I\-O\-D@{R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-P\-E\-R\-I\-O\-D}!IStuff::Manager@{I\-Stuff\-::\-Manager}}
-\subsubsection[{R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-P\-E\-R\-I\-O\-D}]{\setlength{\rightskip}{0pt plus 5cm}const int I\-Stuff\-::\-Manager\-::\-R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-P\-E\-R\-I\-O\-D = 20\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}}\label{class_i_stuff_1_1_manager_a58f0beb39eea21e78a8983e5954065c3}
+\subsubsection[{R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-P\-E\-R\-I\-O\-D}]{\setlength{\rightskip}{0pt plus 5cm}const int I\-Stuff\-::\-Manager\-::\-R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-P\-E\-R\-I\-O\-D = 50\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}}\label{class_i_stuff_1_1_manager_a58f0beb39eea21e78a8983e5954065c3}
 
 
-Definition at line 35 of file manager.\-h.
+Definition at line 39 of file manager.\-h.
 
 \hypertarget{class_i_stuff_1_1_manager_ac039aa2e611b04595e4ff69d3534b4cc}{\index{I\-Stuff\-::\-Manager@{I\-Stuff\-::\-Manager}!recognizer@{recognizer}}
 \index{recognizer@{recognizer}!IStuff::Manager@{I\-Stuff\-::\-Manager}}
 \subsubsection[{recognizer}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Recognizer} I\-Stuff\-::\-Manager\-::recognizer\hspace{0.3cm}{\ttfamily [private]}}}\label{class_i_stuff_1_1_manager_ac039aa2e611b04595e4ff69d3534b4cc}
 
 
-Definition at line 45 of file manager.\-h.
+Definition at line 48 of file manager.\-h.
 
 \hypertarget{class_i_stuff_1_1_manager_a0228682f317a86ce7057b86e9d229ac6}{\index{I\-Stuff\-::\-Manager@{I\-Stuff\-::\-Manager}!T\-A\-G@{T\-A\-G}}
 \index{T\-A\-G@{T\-A\-G}!IStuff::Manager@{I\-Stuff\-::\-Manager}}
 \subsubsection[{T\-A\-G}]{\setlength{\rightskip}{0pt plus 5cm}const char Manager\-::\-T\-A\-G = \char`\"{}Mng\char`\"{}\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}}\label{class_i_stuff_1_1_manager_a0228682f317a86ce7057b86e9d229ac6}
 
 
-Definition at line 34 of file manager.\-h.
+Definition at line 38 of file manager.\-h.
 
 \hypertarget{class_i_stuff_1_1_manager_a3d313f62a1cfe606098fdcb6f1c748ee}{\index{I\-Stuff\-::\-Manager@{I\-Stuff\-::\-Manager}!tracker@{tracker}}
 \index{tracker@{tracker}!IStuff::Manager@{I\-Stuff\-::\-Manager}}
 \subsubsection[{tracker}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Tracker} I\-Stuff\-::\-Manager\-::tracker\hspace{0.3cm}{\ttfamily [private]}}}\label{class_i_stuff_1_1_manager_a3d313f62a1cfe606098fdcb6f1c748ee}
 
 
-Definition at line 46 of file manager.\-h.
+Definition at line 49 of file manager.\-h.
 
 
 

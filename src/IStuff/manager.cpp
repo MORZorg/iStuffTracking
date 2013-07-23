@@ -31,6 +31,11 @@ Manager::~Manager()
 
 /* Setters */
 
+/**
+ * @brief Sets the IStuff::Object of this IStuff::Manager.
+ *
+ * @param[in] object The new IStuff::Object.
+ */
 void Manager::setObject(const Object object)
 {
 	unique_lock<shared_mutex> lock(object_update);

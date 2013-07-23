@@ -1,5 +1,14 @@
 var searchData=
 [
+  ['m_5fdetector',['m_detector',['../class_i_stuff_1_1_tracker.html#a7efbebcf19f9308ae8b74232d809e47a',1,'IStuff::Tracker']]],
+  ['m_5ffeatures',['m_features',['../class_i_stuff_1_1_tracker.html#a2e8d6c6201c9ea3a4d824404c917befe',1,'IStuff::Tracker']]],
+  ['m_5fframe',['m_frame',['../class_i_stuff_1_1_tracker.html#a174749550b4b79c8ddf91e9a744fb50d',1,'IStuff::Tracker']]],
+  ['m_5fmatcher',['m_matcher',['../class_i_stuff_1_1_recognizer.html#aee653ffc737e5b18181f785f655ed421',1,'IStuff::Recognizer::m_matcher()'],['../class_i_stuff_1_1_tracker.html#a126a9bea1a885a25b3fc734c96a052de',1,'IStuff::Tracker::m_matcher()']]],
+  ['m_5fobject',['m_object',['../class_i_stuff_1_1_tracker.html#a1d7215169ee7adb0bb9f182c0aaaa311',1,'IStuff::Tracker']]],
+  ['m_5fobject_5fmutex',['m_object_mutex',['../class_i_stuff_1_1_tracker.html#a71c26a9c9d53b53cd3e6f46bfb9e1af1',1,'IStuff::Tracker']]],
+  ['m_5frunning',['m_running',['../class_i_stuff_1_1_recognizer.html#a7bee1b5ec6e924d687d354ba7d780d7e',1,'IStuff::Recognizer::m_running()'],['../class_i_stuff_1_1_tracker.html#a6859d6a02fe907e0dcc1b48b79ba0d9d',1,'IStuff::Tracker::m_running()']]],
+  ['m_5fsaved_5ffeatures',['m_saved_features',['../class_i_stuff_1_1_tracker.html#a72081a14f4eb1193fa9800a1e37e0100',1,'IStuff::Tracker']]],
+  ['m_5fthread',['m_thread',['../class_i_stuff_1_1_recognizer.html#a54706a2dbb34a1532fcf4445ef3db5ae',1,'IStuff::Recognizer::m_thread()'],['../class_i_stuff_1_1_tracker.html#a76bb227e8681e75c9d7edd561e231ab6',1,'IStuff::Tracker::m_thread()']]],
   ['main',['main',['../main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main(int argc, char *argv[]):&#160;main.cpp'],['../main_8h.html#a2c3f6775325c30275d11c6abee2db6a0',1,'main(int, char **):&#160;main.h']]],
   ['main_2ecpp',['main.cpp',['../main_8cpp.html',1,'']]],
   ['main_2eh',['main.h',['../main_8h.html',1,'']]],
@@ -7,7 +16,10 @@ var searchData=
   ['manager',['Manager',['../class_i_stuff_1_1_manager.html#a1658ff9f18e38ccd9cb8b0b371b9c20b',1,'IStuff::Manager']]],
   ['manager_2ecpp',['manager.cpp',['../manager_8cpp.html',1,'']]],
   ['manager_2eh',['manager.h',['../manager_8h.html',1,'']]],
-  ['matcher',['matcher',['../class_i_stuff_1_1_recognizer.html#afaba7db86af7bbf83f12472b7fc11e93',1,'IStuff::Recognizer']]],
+  ['match',['match',['../class_i_stuff_1_1_database.html#afc2ff4e18f1b9477722889ee06a765db',1,'IStuff::Database']]],
+  ['matcher',['matcher',['../class_i_stuff_1_1_database.html#a871b6feeaa1b3d1e75d3b4b8edb86a84',1,'IStuff::Database']]],
   ['msg_5frecognition_5fend',['MSG_RECOGNITION_END',['../class_i_stuff_1_1_manager.html#a4c465ff50b8eddde0e5fd8b4d3e37bbc',1,'IStuff::Manager']]],
-  ['msg_5frecognition_5fstart',['MSG_RECOGNITION_START',['../class_i_stuff_1_1_manager.html#af7f9a2cc3c53b7cf351a12f179230da7',1,'IStuff::Manager']]]
+  ['msg_5frecognition_5fstart',['MSG_RECOGNITION_START',['../class_i_stuff_1_1_manager.html#af7f9a2cc3c53b7cf351a12f179230da7',1,'IStuff::Manager']]],
+  ['msg_5ftracking_5fend',['MSG_TRACKING_END',['../class_i_stuff_1_1_manager.html#a841fb5e820b9aa16aa8d7862362fa50b',1,'IStuff::Manager']]],
+  ['msg_5ftracking_5fstart',['MSG_TRACKING_START',['../class_i_stuff_1_1_manager.html#a46dc3e50421b203bab7941bcc6e29604',1,'IStuff::Manager']]]
 ];

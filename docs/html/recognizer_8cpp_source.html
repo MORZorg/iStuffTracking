@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">iStuffTracking
-   &#160;<span id="projectnumber">0.1.0</span>
+   &#160;<span id="projectnumber">0.2.0</span>
    </div>
   </td>
  </tr>
@@ -45,6 +45,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
@@ -92,7 +93,7 @@ $(document).ready(function(){initNavTree('recognizer_8cpp_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -120,90 +121,100 @@ $(document).ready(function(){initNavTree('recognizer_8cpp_source.html','');});
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div>
 <div class="line"><a name="l00027"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_recognizer.html#a4bf77b760d8dbc50c4ef50cad433db40">   27</a></span>&#160;Recognizer::Recognizer()</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;{</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    running = auto_ptr&lt;thread&gt;(<span class="keyword">new</span> thread());</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="manager_8h.html#a398527b3e9e358c345c5047b16871957">debug</a>)</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        cerr &lt;&lt; TAG &lt;&lt; <span class="stringliteral">&quot; constructed.\n&quot;</span>;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;}</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_recognizer.html#aa0035e71951a13fe00764a54913d0e5a">   35</a></span>&#160;Recognizer::~Recognizer()</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;{}</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">/* Setters */</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
-<div class="line"><a name="l00045"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_recognizer.html#a37fe89eb44d68215cab011b1962b8293">   45</a></span>&#160;<span class="keywordtype">void</span> Recognizer::setDatabase(Database* matcher)</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;{</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    this-&gt;matcher = matcher;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;}</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">/* Getters */</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
-<div class="line"><a name="l00057"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_recognizer.html#aac5297071c1f6ff12049a58c88bb3952">   57</a></span>&#160;<span class="keywordtype">bool</span> Recognizer::isRunning()<span class="keyword"> const</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="keyword"></span>{</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="comment">// HACK: Bad way around to check if a thread has finished running.</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordflow">return</span> running-&gt;try_join_for(chrono::nanoseconds(0)) &amp;&amp; running-&gt;joinable();</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;}</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment">/* Other methods */</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
-<div class="line"><a name="l00072"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_recognizer.html#a6505a142d08eaf1e8f6a1f95571a4c7a">   72</a></span>&#160;<a class="code" href="class_i_stuff_1_1_object.html" title="Class used to represent a three dimensional object. ">Object</a> Recognizer::recognizeFrame(Mat frame)</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;{</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="manager_8h.html#a398527b3e9e358c345c5047b16871957">debug</a>)</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        cerr &lt;&lt; TAG &lt;&lt; <span class="stringliteral">&quot;: Recognizing frame.\n&quot;</span>;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="comment">// TODO</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    sleep(1);</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="manager_8h.html#a398527b3e9e358c345c5047b16871957">debug</a>)</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        cerr &lt;&lt; TAG &lt;&lt; <span class="stringliteral">&quot;: Frame recognized.\n&quot;</span>;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="class_i_stuff_1_1_object.html" title="Class used to represent a three dimensional object. ">Object</a>();</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;}</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;</div>
-<div class="line"><a name="l00094"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_recognizer.html#ad4e54485be9385a287bc51670247b0cc">   94</a></span>&#160;<span class="keywordtype">bool</span> Recognizer::backgroundRecognizeFrame(Mat frame, <a class="code" href="class_i_stuff_1_1_manager.html" title="Class to manage the joint 3D Object recognition and tracking. ">Manager</a>* reference)</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;{</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keywordflow">if</span> (isRunning())</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    {</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="manager_8h.html#a398527b3e9e358c345c5047b16871957">debug</a>)</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            cerr &lt;&lt; TAG &lt;&lt; <span class="stringliteral">&quot;: Already started in background!\n&quot;</span>;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    }</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="manager_8h.html#a398527b3e9e358c345c5047b16871957">debug</a>)</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        cerr &lt;&lt; TAG &lt;&lt; <span class="stringliteral">&quot;: Starting in background.\n&quot;</span>;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="comment">// NOTE: &quot;[=]&quot; means &quot;all used variables are captured in the lambda&quot;.</span></div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    running = auto_ptr&lt;thread&gt;(<span class="keyword">new</span> thread([=]()</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;            {</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;                <a class="code" href="class_i_stuff_1_1_object.html" title="Class used to represent a three dimensional object. ">Object</a> new_object = recognizeFrame(frame);</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;                reference-&gt;<a class="code" href="class_i_stuff_1_1_manager.html#adaef1575710c20ad769c23bb55d2144c" title="Method to send messages to this IStuff::Manager. ">sendMessage</a>(Manager::MSG_RECOGNITION_END, &amp;new_object);</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;            }));</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;}</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;</div>
-<div class="line"><a name="l00130"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_recognizer.html#a1bb1a4e7045eb4d84d84dac439e9c762">  130</a></span>&#160;<span class="keywordtype">void</span> Recognizer::sendMessage(<span class="keywordtype">int</span> msg, <span class="keywordtype">void</span>* data, <span class="keywordtype">void</span>* reply_to)</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;{</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="keywordflow">switch</span> (msg)</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    {</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;        <span class="keywordflow">case</span> Manager::MSG_RECOGNITION_START:</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;            backgroundRecognizeFrame(*(Mat*)data, (<a class="code" href="class_i_stuff_1_1_manager.html" title="Class to manage the joint 3D Object recognition and tracking. ">Manager</a>*)reply_to);</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;        <span class="keywordflow">case</span> Manager::MSG_RECOGNITION_END:</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;        <span class="keywordflow">default</span>:</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    }</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;}</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="comment">//m_thread = auto_ptr&lt;thread&gt;(new thread());</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    setRunning(<span class="keyword">false</span>);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="database_8h.html#a398527b3e9e358c345c5047b16871957">debug</a>)</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        cerr &lt;&lt; TAG &lt;&lt; <span class="stringliteral">&quot; constructed.\n&quot;</span>;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;}</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_recognizer.html#aa0035e71951a13fe00764a54913d0e5a">   36</a></span>&#160;Recognizer::~Recognizer()</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;{}</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">/* Setters */</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_recognizer.html#a37fe89eb44d68215cab011b1962b8293">   46</a></span>&#160;<span class="keywordtype">void</span> Recognizer::setDatabase(<a class="code" href="class_i_stuff_1_1_database.html">Database</a>* matcher)</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;{</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    m_matcher = matcher;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;}</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_recognizer.html#a695bcf5d468066b63624c800603bf44b">   51</a></span>&#160;<span class="keywordtype">void</span> Recognizer::setRunning(<span class="keywordtype">bool</span> running)</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;{</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    m_running = running;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;}</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment">/* Getters */</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
+<div class="line"><a name="l00063"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_recognizer.html#aac5297071c1f6ff12049a58c88bb3952">   63</a></span>&#160;<span class="keywordtype">bool</span> Recognizer::isRunning()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="keyword"></span>{</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordflow">return</span> m_running;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;}</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment">/* Other methods */</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div>
+<div class="line"><a name="l00077"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_recognizer.html#a6505a142d08eaf1e8f6a1f95571a4c7a">   77</a></span>&#160;<a class="code" href="class_i_stuff_1_1_object.html" title="Class used to represent a three dimensional object. ">Object</a> Recognizer::recognizeFrame(Mat frame)</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;{</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="database_8h.html#a398527b3e9e358c345c5047b16871957">debug</a>)</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        cerr &lt;&lt; TAG &lt;&lt; <span class="stringliteral">&quot;: Recognizing frame.\n&quot;</span>;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <a class="code" href="class_i_stuff_1_1_object.html" title="Class used to represent a three dimensional object. ">Object</a> result = m_matcher-&gt;match(frame.clone());</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="database_8h.html#a398527b3e9e358c345c5047b16871957">debug</a>)</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        cerr &lt;&lt; TAG &lt;&lt; <span class="stringliteral">&quot;: Frame recognized.\n&quot;</span>;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;}</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;</div>
+<div class="line"><a name="l00098"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_recognizer.html#ad4e54485be9385a287bc51670247b0cc">   98</a></span>&#160;<span class="keywordtype">bool</span> Recognizer::backgroundRecognizeFrame(Mat frame, <a class="code" href="class_i_stuff_1_1_manager.html" title="Class to manage the joint 3D Object recognition and tracking. ">Manager</a>* reference)</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;{</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keywordflow">if</span> (isRunning())</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    {</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="database_8h.html#a398527b3e9e358c345c5047b16871957">debug</a>)</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;            cerr &lt;&lt; TAG &lt;&lt; <span class="stringliteral">&quot;: Already started in background!\n&quot;</span>;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    }</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="database_8h.html#a398527b3e9e358c345c5047b16871957">debug</a>)</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        cerr &lt;&lt; TAG &lt;&lt; <span class="stringliteral">&quot;: Starting in background.\n&quot;</span>;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="comment">// NOTE: &quot;[=]&quot; means &quot;all used variables are captured in the lambda&quot;.</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    m_thread = auto_ptr&lt;thread&gt;(<span class="keyword">new</span> thread([=]()</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;            {</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;                setRunning(<span class="keyword">true</span>);</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;                <a class="code" href="class_i_stuff_1_1_object.html" title="Class used to represent a three dimensional object. ">Object</a> new_object = recognizeFrame(frame);</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;                reference-&gt;<a class="code" href="class_i_stuff_1_1_manager.html#adaef1575710c20ad769c23bb55d2144c" title="Method to send messages to this IStuff::Manager. ">sendMessage</a>(Manager::MSG_RECOGNITION_END, &amp;new_object);</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;                setRunning(<span class="keyword">false</span>);</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;            }));</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;}</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;</div>
+<div class="line"><a name="l00138"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_recognizer.html#a1bb1a4e7045eb4d84d84dac439e9c762">  138</a></span>&#160;<span class="keywordtype">void</span> Recognizer::sendMessage(<span class="keywordtype">int</span> msg, <span class="keywordtype">void</span>* data, <span class="keywordtype">void</span>* reply_to)</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;{</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    <span class="keywordflow">switch</span> (msg)</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    {</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;        <span class="keywordflow">case</span> Manager::MSG_RECOGNITION_START:</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;            backgroundRecognizeFrame(*(Mat*)data, (<a class="code" href="class_i_stuff_1_1_manager.html" title="Class to manage the joint 3D Object recognition and tracking. ">Manager</a>*)reply_to);</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;            <span class="comment">//tmp = recognizeFrame(*(Mat*)data);</span></div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;            <span class="comment">//((Manager*)reply_to)-&gt;sendMessage(Manager::MSG_RECOGNITION_END, &amp;tmp);</span></div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;            <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;        <span class="keywordflow">case</span> Manager::MSG_RECOGNITION_END:</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;            <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;        <span class="keywordflow">default</span>:</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;            <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    }</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;}</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_9ecd5c5c2bfeacb6e1f58c01e4ddfde2.html">IStuff</a></li><li class="navelem"><a class="el" href="recognizer_8cpp.html">recognizer.cpp</a></li>
-    <li class="footer">Generated on Thu Jul 18 2013 00:01:06 for iStuffTracking by
+    <li class="footer">Generated on Wed Jul 24 2013 01:20:17 for iStuffTracking by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
   </ul>

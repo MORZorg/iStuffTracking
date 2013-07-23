@@ -36,6 +36,11 @@ Tracker::~Tracker()
 
 /* Setters */
 
+/**
+ * @brief Method used by this IStuff::Tracker's thread to mark itself as running.
+ *
+ * @param[in] running The status to assign to the thread.
+ */
 void Tracker::setRunning(bool running)
 {
 	m_running = running;
@@ -57,6 +62,9 @@ bool Tracker::isRunning() const
 
 /**
  * @brief Tracks the current IStuff::Object between the last frame and this one.
+ * @details This method is synchronized for its whole duration, this avoids
+ *	other object updates to happen between the calculations and the internal
+ *	data update.
  * 
  * @param[in] new_frame	The frame where to track the IStuff::Object.
  *
@@ -88,6 +96,13 @@ Object Tracker::trackFrame(Mat new_frame)
 	return new_object;
 }
 
+/**
+ * @brief Method to calculate the IStuff:Features used to track IStuff::Object between frames.
+ *
+ * @param[in] frame The frame on which calculate the features.
+ *
+ * @return The IStuff::Features detected on the given frame.
+ */
 Features Tracker::calcFeatures(Mat frame)
 {
 	if (debug)
@@ -106,6 +121,15 @@ Features Tracker::calcFeatures(Mat frame)
 	return features;
 }
 
+/**
+ * @brief Method to track IStuff:Features between frames.
+ *
+ * @param[in] old_frame					The frame relative to the given IStuff::Features.
+ * @param[in] new_frame					The frame where to track the IStuff::Features.
+ * @param[in,out] old_features	The old IStuff::Features, returned erased of the untracked features.
+ *
+ * @return The IStuff::Features of the old frame relative to the new frame.
+ */
 Features Tracker::calcFeatures(Mat old_frame, Mat new_frame,
 															 Features* old_features)
 {
@@ -141,6 +165,18 @@ Features Tracker::calcFeatures(Mat old_frame, Mat new_frame,
 	return new_features;
 }
 
+/**
+ * @brief Function to update an IStuff::Object from an old position to its new one.
+ * @details This method calculates the new position by mediating the movement
+ *	of the nearest IStuff::Tracker::NEAREST_FEATURES_COUNT features to every
+ *	point of every IStuff::Label of the IStuff::Object.
+ *
+ * @param[in] old_features	The IStuff::Features relative to the IStuff::Object.
+ * @param[in] new_features	The IStuff::Features for the new IStuff:Object.
+ * @param[in] old_object		The IStuff::Object to be updated.
+ *
+ * @return	The new IStuff::Object, moved according to the IStuff::Features.
+ */
 Object Tracker::updateObject(Features old_features, Features new_features,
 														 Object old_object)
 {
@@ -229,17 +265,14 @@ bool Tracker::backgroundTrackFrame(Mat frame, Manager* reference)
  *	<dl>
  *		<dt>IStuff::Manager::MSG_RECOGNITION_START</dt>
  *		<dd>data: cv::Mat<br />
- *		This causes the other methods to start saving the frames,
- *		if they aren't already. This also resets a counter used to discard
- *		possible unactualized frames when the recognition ends.</dd>
+ *		This message's handling is synchronized.<br />
+ *		The frame received is downscaled, then IStuff::Features are calculated and
+ *		the actual IStuff::Object is updated according to this frame.
+ *		The IStuff::Features are saved for use when the recognition ends.</dd>
  *		<dt>IStuff::Manager::MSG_RECOGNITION_END</dt>
  *		<dd>data: IStuff::Object<br />
- *		This causes the IStuff::Tracker to start actualizing the new
- *		IStuff::Object using the frames captured during the recognition
- *		process.<br />
- *		If the actualization was already happening, the process is interrupted,
- *		the old unactualized frames are discarded and the current IStuff::Object
- *		is substituted before restarting the actualization.</dd>
+ *		This causes the IStuff::Tracker to actualize the new IStuff::Object by
+ *		tracking it from the saved IStuff::Features and the current ones.</dd>
  *	</dl>
  *
  * @param[in] msg				The message identifier.

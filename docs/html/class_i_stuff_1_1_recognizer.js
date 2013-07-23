@@ -7,6 +7,8 @@ var class_i_stuff_1_1_recognizer =
     [ "recognizeFrame", "class_i_stuff_1_1_recognizer.html#a6505a142d08eaf1e8f6a1f95571a4c7a", null ],
     [ "sendMessage", "class_i_stuff_1_1_recognizer.html#a1bb1a4e7045eb4d84d84dac439e9c762", null ],
     [ "setDatabase", "class_i_stuff_1_1_recognizer.html#a37fe89eb44d68215cab011b1962b8293", null ],
-    [ "matcher", "class_i_stuff_1_1_recognizer.html#afaba7db86af7bbf83f12472b7fc11e93", null ],
-    [ "running", "class_i_stuff_1_1_recognizer.html#a9460f3d799e5a46ee9861f177e0d9988", null ]
+    [ "setRunning", "class_i_stuff_1_1_recognizer.html#a695bcf5d468066b63624c800603bf44b", null ],
+    [ "m_matcher", "class_i_stuff_1_1_recognizer.html#aee653ffc737e5b18181f785f655ed421", null ],
+    [ "m_running", "class_i_stuff_1_1_recognizer.html#a7bee1b5ec6e924d687d354ba7d780d7e", null ],
+    [ "m_thread", "class_i_stuff_1_1_recognizer.html#a54706a2dbb34a1532fcf4445ef3db5ae", null ]
 ];

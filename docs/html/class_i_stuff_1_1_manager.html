@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">iStuffTracking
-   &#160;<span id="projectnumber">0.1.0</span>
+   &#160;<span id="projectnumber">0.2.0</span>
    </div>
   </td>
  </tr>
@@ -45,6 +45,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
@@ -70,6 +71,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -93,7 +95,7 @@ $(document).ready(function(){initNavTree('class_i_stuff_1_1_manager.html','');})
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -106,6 +108,7 @@ $(document).ready(function(){initNavTree('class_i_stuff_1_1_manager.html','');})
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="class_i_stuff_1_1_manager-members.html">List of all members</a>  </div>
@@ -126,8 +129,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a1658ff9f18e38ccd9cb8b0b371b9c20b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a322cad25d7007438b3a043ad02253d29"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_stuff_1_1_manager.html#a322cad25d7007438b3a043ad02253d29">~Manager</a> ()</td></tr>
 <tr class="separator:a322cad25d7007438b3a043ad02253d29"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa91ba11affc3ec961acaf81fc5c5e62d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_stuff_1_1_manager.html#aa91ba11affc3ec961acaf81fc5c5e62d">setDatabase</a> (Database *)</td></tr>
-<tr class="memdesc:aa91ba11affc3ec961acaf81fc5c5e62d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the IStuff::Database used to identify the <a class="el" href="class_i_stuff_1_1_object.html" title="Class used to represent a three dimensional object. ">IStuff::Object</a>.  <a href="#aa91ba11affc3ec961acaf81fc5c5e62d">More...</a><br/></td></tr>
+<tr class="memitem:aa91ba11affc3ec961acaf81fc5c5e62d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_stuff_1_1_manager.html#aa91ba11affc3ec961acaf81fc5c5e62d">setDatabase</a> (<a class="el" href="class_i_stuff_1_1_database.html">Database</a> *)</td></tr>
+<tr class="memdesc:aa91ba11affc3ec961acaf81fc5c5e62d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the <a class="el" href="class_i_stuff_1_1_database.html">IStuff::Database</a> used to identify the <a class="el" href="class_i_stuff_1_1_object.html" title="Class used to represent a three dimensional object. ">IStuff::Object</a>.  <a href="#aa91ba11affc3ec961acaf81fc5c5e62d">More...</a><br/></td></tr>
 <tr class="separator:aa91ba11affc3ec961acaf81fc5c5e62d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a80d15a0a83976f63c357f65b20387e02"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_i_stuff_1_1_object.html">Object</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_stuff_1_1_manager.html#a80d15a0a83976f63c357f65b20387e02">getObject</a> ()</td></tr>
 <tr class="memdesc:a80d15a0a83976f63c357f65b20387e02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current description of the <a class="el" href="class_i_stuff_1_1_object.html" title="Class used to represent a three dimensional object. ">IStuff::Object</a>.  <a href="#a80d15a0a83976f63c357f65b20387e02">More...</a><br/></td></tr>
@@ -148,6 +151,16 @@ Static Public Attributes</h2></td></tr>
 <tr class="separator:af7f9a2cc3c53b7cf351a12f179230da7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4c465ff50b8eddde0e5fd8b4d3e37bbc"><td class="memItemLeft" align="right" valign="top">static const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_stuff_1_1_manager.html#a4c465ff50b8eddde0e5fd8b4d3e37bbc">MSG_RECOGNITION_END</a> = 2</td></tr>
 <tr class="separator:a4c465ff50b8eddde0e5fd8b4d3e37bbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46dc3e50421b203bab7941bcc6e29604"><td class="memItemLeft" align="right" valign="top">static const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_stuff_1_1_manager.html#a46dc3e50421b203bab7941bcc6e29604">MSG_TRACKING_START</a> = 3</td></tr>
+<tr class="separator:a46dc3e50421b203bab7941bcc6e29604"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a841fb5e820b9aa16aa8d7862362fa50b"><td class="memItemLeft" align="right" valign="top">static const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_stuff_1_1_manager.html#a841fb5e820b9aa16aa8d7862362fa50b">MSG_TRACKING_END</a> = 4</td></tr>
+<tr class="separator:a841fb5e820b9aa16aa8d7862362fa50b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a3cc212bd05afe4bdffada9dd35994c61"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_stuff_1_1_manager.html#a3cc212bd05afe4bdffada9dd35994c61">setObject</a> (const <a class="el" href="class_i_stuff_1_1_object.html">Object</a>)</td></tr>
+<tr class="memdesc:a3cc212bd05afe4bdffada9dd35994c61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the <a class="el" href="class_i_stuff_1_1_object.html" title="Class used to represent a three dimensional object. ">IStuff::Object</a> of this <a class="el" href="class_i_stuff_1_1_manager.html" title="Class to manage the joint 3D Object recognition and tracking. ">IStuff::Manager</a>.  <a href="#a3cc212bd05afe4bdffada9dd35994c61">More...</a><br/></td></tr>
+<tr class="separator:a3cc212bd05afe4bdffada9dd35994c61"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -158,8 +171,6 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a9b4234320a01a049bc10f9f13d612fc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9b898107c919a3ba73f60278c9c05742"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_i_stuff_1_1_object.html">Object</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_stuff_1_1_manager.html#a9b898107c919a3ba73f60278c9c05742">actual_object</a></td></tr>
 <tr class="separator:a9b898107c919a3ba73f60278c9c05742"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aae57c3ee778cb782dc8dc954a6667c73"><td class="memItemLeft" align="right" valign="top">Database *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_stuff_1_1_manager.html#aae57c3ee778cb782dc8dc954a6667c73">database</a></td></tr>
-<tr class="separator:aae57c3ee778cb782dc8dc954a6667c73"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac039aa2e611b04595e4ff69d3534b4cc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_i_stuff_1_1_recognizer.html">Recognizer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_stuff_1_1_manager.html#ac039aa2e611b04595e4ff69d3534b4cc">recognizer</a></td></tr>
 <tr class="separator:ac039aa2e611b04595e4ff69d3534b4cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3d313f62a1cfe606098fdcb6f1c748ee"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_i_stuff_1_1_tracker.html">Tracker</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_stuff_1_1_manager.html#a3d313f62a1cfe606098fdcb6f1c748ee">tracker</a></td></tr>
@@ -169,16 +180,16 @@ Private Attributes</h2></td></tr>
 Static Private Attributes</h2></td></tr>
 <tr class="memitem:a0228682f317a86ce7057b86e9d229ac6"><td class="memItemLeft" align="right" valign="top">static const char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_stuff_1_1_manager.html#a0228682f317a86ce7057b86e9d229ac6">TAG</a> [] = &quot;Mng&quot;</td></tr>
 <tr class="separator:a0228682f317a86ce7057b86e9d229ac6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a58f0beb39eea21e78a8983e5954065c3"><td class="memItemLeft" align="right" valign="top">static const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_stuff_1_1_manager.html#a58f0beb39eea21e78a8983e5954065c3">RECOGNITION_PERIOD</a> = 20</td></tr>
+<tr class="memitem:a58f0beb39eea21e78a8983e5954065c3"><td class="memItemLeft" align="right" valign="top">static const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_stuff_1_1_manager.html#a58f0beb39eea21e78a8983e5954065c3">RECOGNITION_PERIOD</a> = 50</td></tr>
 <tr class="separator:a58f0beb39eea21e78a8983e5954065c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class to manage the joint 3D <a class="el" href="class_i_stuff_1_1_object.html" title="Class used to represent a three dimensional object. ">Object</a> recognition and tracking. </p>
 <dl class="section author"><dt>Author</dt><dd>Maurizio Zucchelli </dd></dl>
-<dl class="section version"><dt>Version</dt><dd>0.1.0 </dd></dl>
+<dl class="section version"><dt>Version</dt><dd>0.3.0 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2013-07-16 </dd></dl>
 
-<p>Definition at line <a class="el" href="manager_8h_source.html#l00026">26</a> of file <a class="el" href="manager_8h_source.html">manager.h</a>.</p>
+<p>Definition at line <a class="el" href="manager_8h_source.html#l00028">28</a> of file <a class="el" href="manager_8h_source.html">manager.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a1658ff9f18e38ccd9cb8b0b371b9c20b"></a>
 <div class="memitem">
@@ -248,7 +259,7 @@ Static Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="manager_8cpp_source.html#l00068">68</a> of file <a class="el" href="manager_8cpp_source.html">manager.cpp</a>.</p>
+<p>Definition at line <a class="el" href="manager_8cpp_source.html#l00082">82</a> of file <a class="el" href="manager_8cpp_source.html">manager.cpp</a>.</p>
 
 </div>
 </div>
@@ -268,7 +279,7 @@ Static Private Attributes</h2></td></tr>
 <p>Returns the current description of the <a class="el" href="class_i_stuff_1_1_object.html" title="Class used to represent a three dimensional object. ">IStuff::Object</a>. </p>
 <dl class="section return"><dt>Returns</dt><dd>The current description of IStuff::the <a class="el" href="class_i_stuff_1_1_object.html" title="Class used to represent a three dimensional object. ">Object</a>. </dd></dl>
 
-<p>Definition at line <a class="el" href="manager_8cpp_source.html#l00054">54</a> of file <a class="el" href="manager_8cpp_source.html">manager.cpp</a>.</p>
+<p>Definition at line <a class="el" href="manager_8cpp_source.html#l00066">66</a> of file <a class="el" href="manager_8cpp_source.html">manager.cpp</a>.</p>
 
 </div>
 </div>
@@ -289,13 +300,13 @@ Static Private Attributes</h2></td></tr>
 <p>Paints the various masks of the <a class="el" href="class_i_stuff_1_1_object.html" title="Class used to represent a three dimensional object. ">IStuff::Object</a> on the frame. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">frame</td><td>The frame on which che <a class="el" href="class_i_stuff_1_1_object.html" title="Class used to represent a three dimensional object. ">IStuff::Object</a> must be painted.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">frame</td><td>The frame on which the <a class="el" href="class_i_stuff_1_1_object.html" title="Class used to represent a three dimensional object. ">IStuff::Object</a> must be painted.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A copy of the input frame, with the <a class="el" href="class_i_stuff_1_1_object.html" title="Class used to represent a three dimensional object. ">IStuff::Object</a> painted on it. </dd></dl>
 
-<p>Definition at line <a class="el" href="manager_8cpp_source.html#l00095">95</a> of file <a class="el" href="manager_8cpp_source.html">manager.cpp</a>.</p>
+<p>Definition at line <a class="el" href="manager_8cpp_source.html#l00111">111</a> of file <a class="el" href="manager_8cpp_source.html">manager.cpp</a>.</p>
 
 </div>
 </div>
@@ -350,7 +361,7 @@ Static Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="manager_8cpp_source.html#l00118">118</a> of file <a class="el" href="manager_8cpp_source.html">manager.cpp</a>.</p>
+<p>Definition at line <a class="el" href="manager_8cpp_source.html#l00134">134</a> of file <a class="el" href="manager_8cpp_source.html">manager.cpp</a>.</p>
 
 </div>
 </div>
@@ -361,23 +372,57 @@ Static Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">void Manager::setDatabase </td>
           <td>(</td>
-          <td class="paramtype">Database *&#160;</td>
+          <td class="paramtype"><a class="el" href="class_i_stuff_1_1_database.html">Database</a> *&#160;</td>
           <td class="paramname"><em>database</em>)</td><td></td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Changes the IStuff::Database used to identify the <a class="el" href="class_i_stuff_1_1_object.html" title="Class used to represent a three dimensional object. ">IStuff::Object</a>. </p>
+<p>Changes the <a class="el" href="class_i_stuff_1_1_database.html">IStuff::Database</a> used to identify the <a class="el" href="class_i_stuff_1_1_object.html" title="Class used to represent a three dimensional object. ">IStuff::Object</a>. </p>
 <p>This means that with high probability a different <a class="el" href="class_i_stuff_1_1_object.html" title="Class used to represent a three dimensional object. ">IStuff::Object</a> will be searched for: the next elaboration must be a recognition.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">database</td><td>The new IStuff::Database to be used. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">database</td><td>The new <a class="el" href="class_i_stuff_1_1_database.html">IStuff::Database</a> to be used. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="manager_8cpp_source.html#l00041">41</a> of file <a class="el" href="manager_8cpp_source.html">manager.cpp</a>.</p>
+<p>Definition at line <a class="el" href="manager_8cpp_source.html#l00053">53</a> of file <a class="el" href="manager_8cpp_source.html">manager.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a3cc212bd05afe4bdffada9dd35994c61"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Manager::setObject </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_i_stuff_1_1_object.html">Object</a>&#160;</td>
+          <td class="paramname"><em>object</em>)</td><td></td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets the <a class="el" href="class_i_stuff_1_1_object.html" title="Class used to represent a three dimensional object. ">IStuff::Object</a> of this <a class="el" href="class_i_stuff_1_1_manager.html" title="Class to manage the joint 3D Object recognition and tracking. ">IStuff::Manager</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">object</td><td>The new <a class="el" href="class_i_stuff_1_1_object.html" title="Class used to represent a three dimensional object. ">IStuff::Object</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="manager_8cpp_source.html#l00039">39</a> of file <a class="el" href="manager_8cpp_source.html">manager.cpp</a>.</p>
 
 </div>
 </div>
@@ -400,29 +445,7 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="manager_8h_source.html#l00043">43</a> of file <a class="el" href="manager_8h_source.html">manager.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aae57c3ee778cb782dc8dc954a6667c73"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Database* IStuff::Manager::database</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="manager_8h_source.html#l00044">44</a> of file <a class="el" href="manager_8h_source.html">manager.h</a>.</p>
+<p>Definition at line <a class="el" href="manager_8h_source.html#l00047">47</a> of file <a class="el" href="manager_8h_source.html">manager.h</a>.</p>
 
 </div>
 </div>
@@ -446,7 +469,7 @@ Static Private Attributes</h2></td></tr>
 
 <p>When this reaches RECOGNITION_PERIOD, a new recognition is done. </p>
 
-<p>Definition at line <a class="el" href="manager_8h_source.html#l00040">40</a> of file <a class="el" href="manager_8h_source.html">manager.h</a>.</p>
+<p>Definition at line <a class="el" href="manager_8h_source.html#l00044">44</a> of file <a class="el" href="manager_8h_source.html">manager.h</a>.</p>
 
 </div>
 </div>
@@ -468,7 +491,7 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="manager_8h_source.html#l00031">31</a> of file <a class="el" href="manager_8h_source.html">manager.h</a>.</p>
+<p>Definition at line <a class="el" href="manager_8h_source.html#l00033">33</a> of file <a class="el" href="manager_8h_source.html">manager.h</a>.</p>
 
 </div>
 </div>
@@ -490,7 +513,51 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="manager_8h_source.html#l00030">30</a> of file <a class="el" href="manager_8h_source.html">manager.h</a>.</p>
+<p>Definition at line <a class="el" href="manager_8h_source.html#l00032">32</a> of file <a class="el" href="manager_8h_source.html">manager.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a841fb5e820b9aa16aa8d7862362fa50b"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int IStuff::Manager::MSG_TRACKING_END = 4</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="manager_8h_source.html#l00035">35</a> of file <a class="el" href="manager_8h_source.html">manager.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a46dc3e50421b203bab7941bcc6e29604"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int IStuff::Manager::MSG_TRACKING_START = 3</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="manager_8h_source.html#l00034">34</a> of file <a class="el" href="manager_8h_source.html">manager.h</a>.</p>
 
 </div>
 </div>
@@ -512,7 +579,7 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="manager_8h_source.html#l00041">41</a> of file <a class="el" href="manager_8h_source.html">manager.h</a>.</p>
+<p>Definition at line <a class="el" href="manager_8h_source.html#l00045">45</a> of file <a class="el" href="manager_8h_source.html">manager.h</a>.</p>
 
 </div>
 </div>
@@ -524,7 +591,7 @@ Static Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const int IStuff::Manager::RECOGNITION_PERIOD = 20</td>
+          <td class="memname">const int IStuff::Manager::RECOGNITION_PERIOD = 50</td>
         </tr>
       </table>
   </td>
@@ -534,7 +601,7 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="manager_8h_source.html#l00035">35</a> of file <a class="el" href="manager_8h_source.html">manager.h</a>.</p>
+<p>Definition at line <a class="el" href="manager_8h_source.html#l00039">39</a> of file <a class="el" href="manager_8h_source.html">manager.h</a>.</p>
 
 </div>
 </div>
@@ -556,7 +623,7 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="manager_8h_source.html#l00045">45</a> of file <a class="el" href="manager_8h_source.html">manager.h</a>.</p>
+<p>Definition at line <a class="el" href="manager_8h_source.html#l00048">48</a> of file <a class="el" href="manager_8h_source.html">manager.h</a>.</p>
 
 </div>
 </div>
@@ -578,7 +645,7 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="manager_8h_source.html#l00034">34</a> of file <a class="el" href="manager_8h_source.html">manager.h</a>.</p>
+<p>Definition at line <a class="el" href="manager_8h_source.html#l00038">38</a> of file <a class="el" href="manager_8h_source.html">manager.h</a>.</p>
 
 </div>
 </div>
@@ -600,7 +667,7 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="manager_8h_source.html#l00046">46</a> of file <a class="el" href="manager_8h_source.html">manager.h</a>.</p>
+<p>Definition at line <a class="el" href="manager_8h_source.html#l00049">49</a> of file <a class="el" href="manager_8h_source.html">manager.h</a>.</p>
 
 </div>
 </div>
@@ -614,7 +681,7 @@ Static Private Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_i_stuff.html">IStuff</a></li><li class="navelem"><a class="el" href="class_i_stuff_1_1_manager.html">Manager</a></li>
-    <li class="footer">Generated on Thu Jul 18 2013 00:01:07 for iStuffTracking by
+    <li class="footer">Generated on Wed Jul 24 2013 01:20:17 for iStuffTracking by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
   </ul>

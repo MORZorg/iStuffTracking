@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">iStuffTracking
-   &#160;<span id="projectnumber">0.1.0</span>
+   &#160;<span id="projectnumber">0.2.0</span>
    </div>
   </td>
  </tr>
@@ -45,6 +45,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
@@ -70,6 +71,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -93,7 +95,7 @@ $(document).ready(function(){initNavTree('class_i_stuff_1_1_recognizer.html','')
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -105,6 +107,7 @@ $(document).ready(function(){initNavTree('class_i_stuff_1_1_recognizer.html','')
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="class_i_stuff_1_1_recognizer-members.html">List of all members</a>  </div>
@@ -125,8 +128,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a4bf77b760d8dbc50c4ef50cad433db40"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa0035e71951a13fe00764a54913d0e5a"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_stuff_1_1_recognizer.html#aa0035e71951a13fe00764a54913d0e5a">~Recognizer</a> ()</td></tr>
 <tr class="separator:aa0035e71951a13fe00764a54913d0e5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a37fe89eb44d68215cab011b1962b8293"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_stuff_1_1_recognizer.html#a37fe89eb44d68215cab011b1962b8293">setDatabase</a> (Database *)</td></tr>
-<tr class="memdesc:a37fe89eb44d68215cab011b1962b8293"><td class="mdescLeft">&#160;</td><td class="mdescRight">Associates a IStuff::Database to this <a class="el" href="class_i_stuff_1_1_recognizer.html" title="Class used to recognize objects in a video stream. ">IStuff::Recognizer</a>.  <a href="#a37fe89eb44d68215cab011b1962b8293">More...</a><br/></td></tr>
+<tr class="memitem:a37fe89eb44d68215cab011b1962b8293"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_stuff_1_1_recognizer.html#a37fe89eb44d68215cab011b1962b8293">setDatabase</a> (<a class="el" href="class_i_stuff_1_1_database.html">Database</a> *)</td></tr>
+<tr class="memdesc:a37fe89eb44d68215cab011b1962b8293"><td class="mdescLeft">&#160;</td><td class="mdescRight">Associates a <a class="el" href="class_i_stuff_1_1_database.html">IStuff::Database</a> to this <a class="el" href="class_i_stuff_1_1_recognizer.html" title="Class used to recognize objects in a video stream. ">IStuff::Recognizer</a>.  <a href="#a37fe89eb44d68215cab011b1962b8293">More...</a><br/></td></tr>
 <tr class="separator:a37fe89eb44d68215cab011b1962b8293"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aac5297071c1f6ff12049a58c88bb3952"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_stuff_1_1_recognizer.html#aac5297071c1f6ff12049a58c88bb3952">isRunning</a> () const </td></tr>
 <tr class="memdesc:aac5297071c1f6ff12049a58c88bb3952"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether this <a class="el" href="class_i_stuff_1_1_recognizer.html" title="Class used to recognize objects in a video stream. ">IStuff::Recognizer</a> has a thread up and running.  <a href="#aac5297071c1f6ff12049a58c88bb3952">More...</a><br/></td></tr>
@@ -141,12 +144,19 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a1bb1a4e7045eb4d84d84dac439e9c762"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method to send messages to this <a class="el" href="class_i_stuff_1_1_recognizer.html" title="Class used to recognize objects in a video stream. ">IStuff::Recognizer</a>.  <a href="#a1bb1a4e7045eb4d84d84dac439e9c762">More...</a><br/></td></tr>
 <tr class="separator:a1bb1a4e7045eb4d84d84dac439e9c762"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a695bcf5d468066b63624c800603bf44b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_stuff_1_1_recognizer.html#a695bcf5d468066b63624c800603bf44b">setRunning</a> (bool)</td></tr>
+<tr class="separator:a695bcf5d468066b63624c800603bf44b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a9460f3d799e5a46ee9861f177e0d9988"><td class="memItemLeft" align="right" valign="top">std::auto_ptr&lt; boost::thread &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_stuff_1_1_recognizer.html#a9460f3d799e5a46ee9861f177e0d9988">running</a></td></tr>
-<tr class="separator:a9460f3d799e5a46ee9861f177e0d9988"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afaba7db86af7bbf83f12472b7fc11e93"><td class="memItemLeft" align="right" valign="top">Database *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_stuff_1_1_recognizer.html#afaba7db86af7bbf83f12472b7fc11e93">matcher</a></td></tr>
-<tr class="separator:afaba7db86af7bbf83f12472b7fc11e93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54706a2dbb34a1532fcf4445ef3db5ae"><td class="memItemLeft" align="right" valign="top">std::auto_ptr&lt; boost::thread &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_stuff_1_1_recognizer.html#a54706a2dbb34a1532fcf4445ef3db5ae">m_thread</a></td></tr>
+<tr class="separator:a54706a2dbb34a1532fcf4445ef3db5ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7bee1b5ec6e924d687d354ba7d780d7e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_stuff_1_1_recognizer.html#a7bee1b5ec6e924d687d354ba7d780d7e">m_running</a></td></tr>
+<tr class="separator:a7bee1b5ec6e924d687d354ba7d780d7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee653ffc737e5b18181f785f655ed421"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_i_stuff_1_1_database.html">Database</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_stuff_1_1_recognizer.html#aee653ffc737e5b18181f785f655ed421">m_matcher</a></td></tr>
+<tr class="separator:aee653ffc737e5b18181f785f655ed421"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-attribs"></a>
 Static Private Attributes</h2></td></tr>
@@ -157,7 +167,7 @@ Static Private Attributes</h2></td></tr>
 <div class="textblock"><p>Class used to recognize objects in a video stream. </p>
 <p>This class manages a thread receiving a frame from an input stream, analyzing it to find some kind of 3D object and then updating the data used by the requester to track it. </p>
 <dl class="section author"><dt>Author</dt><dd>Maurizio Zucchelli </dd></dl>
-<dl class="section version"><dt>Version</dt><dd>0.2.0 </dd></dl>
+<dl class="section version"><dt>Version</dt><dd>0.2.1 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2013-07-14 </dd></dl>
 
 <p>Definition at line <a class="el" href="recognizer_8h_source.html#l00028">28</a> of file <a class="el" href="recognizer_8h_source.html">recognizer.h</a>.</p>
@@ -202,7 +212,7 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="recognizer_8cpp_source.html#l00035">35</a> of file <a class="el" href="recognizer_8cpp_source.html">recognizer.cpp</a>.</p>
+<p>Definition at line <a class="el" href="recognizer_8cpp_source.html#l00036">36</a> of file <a class="el" href="recognizer_8cpp_source.html">recognizer.cpp</a>.</p>
 
 </div>
 </div>
@@ -241,7 +251,7 @@ Static Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if the thread is started, <code>false</code> if it was already running. </dd></dl>
 
-<p>Definition at line <a class="el" href="recognizer_8cpp_source.html#l00094">94</a> of file <a class="el" href="recognizer_8cpp_source.html">recognizer.cpp</a>.</p>
+<p>Definition at line <a class="el" href="recognizer_8cpp_source.html#l00098">98</a> of file <a class="el" href="recognizer_8cpp_source.html">recognizer.cpp</a>.</p>
 
 </div>
 </div>
@@ -261,7 +271,7 @@ Static Private Attributes</h2></td></tr>
 <p>Checks whether this <a class="el" href="class_i_stuff_1_1_recognizer.html" title="Class used to recognize objects in a video stream. ">IStuff::Recognizer</a> has a thread up and running. </p>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if recognizing, <code>false</code> otherwise. </dd></dl>
 
-<p>Definition at line <a class="el" href="recognizer_8cpp_source.html#l00057">57</a> of file <a class="el" href="recognizer_8cpp_source.html">recognizer.cpp</a>.</p>
+<p>Definition at line <a class="el" href="recognizer_8cpp_source.html#l00063">63</a> of file <a class="el" href="recognizer_8cpp_source.html">recognizer.cpp</a>.</p>
 
 </div>
 </div>
@@ -288,7 +298,7 @@ Static Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The <a class="el" href="class_i_stuff_1_1_object.html" title="Class used to represent a three dimensional object. ">IStuff::Object</a> found inside the given frame. </dd></dl>
 
-<p>Definition at line <a class="el" href="recognizer_8cpp_source.html#l00072">72</a> of file <a class="el" href="recognizer_8cpp_source.html">recognizer.cpp</a>.</p>
+<p>Definition at line <a class="el" href="recognizer_8cpp_source.html#l00077">77</a> of file <a class="el" href="recognizer_8cpp_source.html">recognizer.cpp</a>.</p>
 
 </div>
 </div>
@@ -339,7 +349,7 @@ Static Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="recognizer_8cpp_source.html#l00130">130</a> of file <a class="el" href="recognizer_8cpp_source.html">recognizer.cpp</a>.</p>
+<p>Definition at line <a class="el" href="recognizer_8cpp_source.html#l00138">138</a> of file <a class="el" href="recognizer_8cpp_source.html">recognizer.cpp</a>.</p>
 
 </div>
 </div>
@@ -350,14 +360,14 @@ Static Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">void Recognizer::setDatabase </td>
           <td>(</td>
-          <td class="paramtype">Database *&#160;</td>
+          <td class="paramtype"><a class="el" href="class_i_stuff_1_1_database.html">Database</a> *&#160;</td>
           <td class="paramname"><em>matcher</em>)</td><td></td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Associates a IStuff::Database to this <a class="el" href="class_i_stuff_1_1_recognizer.html" title="Class used to recognize objects in a video stream. ">IStuff::Recognizer</a>. </p>
+<p>Associates a <a class="el" href="class_i_stuff_1_1_database.html">IStuff::Database</a> to this <a class="el" href="class_i_stuff_1_1_recognizer.html" title="Class used to recognize objects in a video stream. ">IStuff::Recognizer</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">matcher</td><td>The new matcher to be used. </td></tr>
@@ -365,12 +375,11 @@ Static Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="recognizer_8cpp_source.html#l00045">45</a> of file <a class="el" href="recognizer_8cpp_source.html">recognizer.cpp</a>.</p>
+<p>Definition at line <a class="el" href="recognizer_8cpp_source.html#l00046">46</a> of file <a class="el" href="recognizer_8cpp_source.html">recognizer.cpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="afaba7db86af7bbf83f12472b7fc11e93"></a>
+<a class="anchor" id="a695bcf5d468066b63624c800603bf44b"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -378,7 +387,11 @@ Static Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Database* IStuff::Recognizer::matcher</td>
+          <td class="memname">void Recognizer::setRunning </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>running</em>)</td><td></td>
+          <td></td>
         </tr>
       </table>
   </td>
@@ -388,11 +401,12 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="recognizer_8h_source.html#l00036">36</a> of file <a class="el" href="recognizer_8h_source.html">recognizer.h</a>.</p>
+<p>Definition at line <a class="el" href="recognizer_8cpp_source.html#l00051">51</a> of file <a class="el" href="recognizer_8cpp_source.html">recognizer.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a9460f3d799e5a46ee9861f177e0d9988"></a>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a class="anchor" id="aee653ffc737e5b18181f785f655ed421"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -400,7 +414,51 @@ Static Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::auto_ptr&lt;boost::thread&gt; IStuff::Recognizer::running</td>
+          <td class="memname"><a class="el" href="class_i_stuff_1_1_database.html">Database</a>* IStuff::Recognizer::m_matcher</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="recognizer_8h_source.html#l00037">37</a> of file <a class="el" href="recognizer_8h_source.html">recognizer.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a7bee1b5ec6e924d687d354ba7d780d7e"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool IStuff::Recognizer::m_running</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="recognizer_8h_source.html#l00035">35</a> of file <a class="el" href="recognizer_8h_source.html">recognizer.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a54706a2dbb34a1532fcf4445ef3db5ae"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::auto_ptr&lt;boost::thread&gt; IStuff::Recognizer::m_thread</td>
         </tr>
       </table>
   </td>
@@ -446,7 +504,7 @@ Static Private Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_i_stuff.html">IStuff</a></li><li class="navelem"><a class="el" href="class_i_stuff_1_1_recognizer.html">Recognizer</a></li>
-    <li class="footer">Generated on Thu Jul 18 2013 00:01:07 for iStuffTracking by
+    <li class="footer">Generated on Wed Jul 24 2013 01:20:17 for iStuffTracking by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
   </ul>
