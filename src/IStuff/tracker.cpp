@@ -152,53 +152,31 @@ Object Tracker::updateObject(Features old_features, Features new_features,
 	if (old_object.empty())
 		return old_object;
 
-	vector<Label> labels = old_object.getLabels();
-	vector<Point2f> old_positions;
-	for (Label a_label : labels)
-		old_positions.push_back(a_label.position);
+	vector<Point2f> movements;
+	for (size_t i = 0; i < old_features.size(); i++)
+		movements.push_back(new_features[i] - old_features[i]);
 
-	// Organize data as DescriptorMatcher wants it
-	Mat positions,
-			features,
-			temp[2];
-	split(Mat(old_positions), temp);
-	hconcat(temp[0], temp[1], positions);
-	split(Mat(old_features), temp);
-	hconcat(temp[0], temp[1], features);
+	Point2f movement;
+	size_t median_index = NEAREST_FEATURES_COUNT / 2;
+	nth_element(movements.begin(),
+			movements.begin() + median_index,
+			movements.end(),
+			[](Point2f i, Point2f j){ return i.x < j.x; });
+	movement.x = movements[median_index].x;
 
-	vector< vector<DMatch> > matches;
-	m_matcher->knnMatch(positions, features, matches, NEAREST_FEATURES_COUNT);
+	nth_element(movements.begin(),
+			movements.begin() + median_index,
+			movements.end(),
+			[](Point2f i, Point2f j){ return i.y < j.y; });
+	movement.y = movements[median_index].y;
 
 	Object new_object;
-	for (size_t i = 0; i < matches.size(); i++) 
+	vector<Label> labels = old_object.getLabels();
+	for (Label a_label : labels)
 	{
-		Point2f movement;
-		vector<Point2f> movements;
-		for (size_t j = 0; j < NEAREST_FEATURES_COUNT; j++)
-		{
-			size_t feature_index = matches[i][0].trainIdx;
-			movements.push_back(new_features[feature_index]
-													- old_features[feature_index]);
-		}
+		a_label.position += movement;
 
-		size_t median_index = NEAREST_FEATURES_COUNT / 2;
-		nth_element(movements.begin(),
-								movements.begin() + median_index,
-								movements.end(),
-								[](Point2f i, Point2f j){ return i.x < j.x; });
-		movement.x = movements[median_index].x;
-
-		nth_element(movements.begin(),
-								movements.begin() + median_index,
-								movements.end(),
-								[](Point2f i, Point2f j){ return i.y < j.y; });
-		movement.y = movements[median_index].y;
-
-
-		size_t label_index = matches[i][0].queryIdx;
-		Label new_label = labels[label_index];
-		new_label.position += movement;
-		new_object.addLabel(new_label);
+		new_object.addLabel(a_label);
 	}
 
 	return new_object;
