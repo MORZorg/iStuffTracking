@@ -79,7 +79,7 @@ Object Tracker::trackFrame(Mat new_frame)
 
 	// Syncrhonizing this whole operation ensures no writing occurs
 	// during this tracking
-	new_features = calcFeatures(old_frame, new_frame, old_features);
+	new_features = calcFeatures(old_frame, new_frame, &old_features);
 	new_object = updateObject(old_features, new_features, old_object);
 
 	m_object = new_object;
@@ -108,56 +108,48 @@ Features Tracker::calcFeatures(Mat frame)
 }
 
 Features Tracker::calcFeatures(Mat old_frame, Mat new_frame,
-															 Features old_features)
+															 Features* old_features)
 {
 	if (debug)
 		cerr << TAG << ": calcFeatures (optical flow).\n";
 
 	Features new_features;
 
-	if (old_features.empty() || new_frame.empty())
+	if (old_features->empty() || new_frame.empty())
 		return new_features;
 
 	vector<uchar> status;
 	vector<float> error;
 	calcOpticalFlowPyrLK(old_frame, new_frame,
-											 old_features, new_features,
+											 *old_features, new_features,
 											 status, error);
 
 	if (debug)
 		cerr << TAG << ": Points tracked.\n";
 
-	updateFeatures(&status);
+	Mat temp = new_frame.clone();
+	for (Point2f a_feature : m_saved_features)
+		circle(temp, a_feature, 5, Scalar(0, 255, 0));
+
 	for (int i = status.size()-1; i >= 0; i--)
 		if (!status[i])
 		{
-			old_features.erase(old_features.begin() + i);
+			old_features->erase(old_features->begin() + i);
 			new_features.erase(new_features.begin() + i);
+			m_saved_features.erase(m_saved_features.begin() + i);
 		}
+		else
+			line(temp, m_saved_features[i], new_features[i], Scalar(255, 0, 0));
+
+	for (Point2f a_feature : new_features)
+		circle(temp, a_feature, 5, Scalar(0, 255, 255));
+
+	imshow("track", temp);
 
 	if (debug)
 		cerr << TAG << ": " << new_features.size() << "points remained.\n";
 
 	return new_features;
-}
-
-void Tracker::updateFeatures(vector<uchar>* status)
-{
-	if (status)
-		for (int i = 0, j = 0;
-				i < m_saved_features_status.size() && j < status->size();
-				++i && ++j)
-		{
-			while (!m_saved_features_status[i]
-						 && ++i < m_saved_features_status.size());
-
-			if (i < m_saved_features_status.size())
-				m_saved_features_status[i] = (*status)[j];
-		}
-	else
-		for (int i = m_saved_features_status.size()-1; i >= 0; i--)
-			if (!m_saved_features_status[i])
-				m_saved_features.erase(m_saved_features.begin() + i);
 }
 
 Object Tracker::updateObject(Features old_features, Features new_features,
@@ -170,9 +162,6 @@ Object Tracker::updateObject(Features old_features, Features new_features,
 	vector<Point2f> old_positions;
 	for (Label a_label : labels)
 		old_positions.push_back(a_label.position);
-
-	if (debug)
-		cerr << "reggo\n";
 
 	vector<size_t> nearest_indexes = vector<size_t>(labels.size(), 0);
 	for (size_t i = 1; i < old_features.size(); i++)
@@ -256,6 +245,7 @@ bool Tracker::backgroundTrackFrame(Mat frame, Manager* reference)
  */
 void Tracker::sendMessage(int msg, void* data, void* reply_to)
 {
+	Features temp_features;
 	switch (msg)
 	{
 		case Manager::MSG_RECOGNITION_START:
@@ -270,9 +260,11 @@ void Tracker::sendMessage(int msg, void* data, void* reply_to)
 				// aggiorno l'oggetto tra i due frames
 				// salvo il frame
 				m_saved_features = calcFeatures(frame);
-				m_features = calcFeatures(frame, m_frame, m_saved_features);
+				temp_features = m_saved_features;
+				m_features = calcFeatures(frame, m_frame, &temp_features);
 				m_object = updateObject(m_features, m_saved_features, m_object);
 				m_frame = frame;
+				m_features = m_saved_features;
 			}
 			break;
 
@@ -281,7 +273,6 @@ void Tracker::sendMessage(int msg, void* data, void* reply_to)
 			{
 				lock_guard<mutex> lock(m_object_mutex);
 
-				updateFeatures();
 				m_object = updateObject(m_saved_features, m_features, *(Object*)data);
 			}
 			break;

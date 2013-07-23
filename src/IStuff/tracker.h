@@ -14,6 +14,7 @@
 
 #include <boost/thread.hpp>
 
+#include "opencv2/highgui/highgui.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
 #include "opencv2/video/video.hpp"
 #include "opencv2/nonfree/nonfree.hpp"
@@ -44,7 +45,6 @@ namespace IStuff
 			cv::Mat m_frame;
 			Features m_features,
 							 m_saved_features;
-			std::vector<uchar> m_saved_features_status;
 
 			cv::Ptr<cv::FeatureDetector> m_detector;
 
@@ -68,7 +68,7 @@ namespace IStuff
 
 			/* Other methods */
 			Features calcFeatures(cv::Mat);
-			Features calcFeatures(cv::Mat, cv::Mat, Features);
+			Features calcFeatures(cv::Mat, cv::Mat, Features*);
 			void updateFeatures(std::vector<uchar>* = NULL);
 			Object updateObject(Features, Features, Object);
 			bool backgroundTrackFrame(cv::Mat, Manager*);
