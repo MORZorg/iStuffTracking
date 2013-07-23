@@ -67,21 +67,22 @@ Object Tracker::trackFrame(Mat new_frame)
 	if (debug)
 		cerr << TAG << ": Tracking frame.\n";
 
-	Object old_object,
-				 new_object;
-	Mat old_frame;
-	Features old_features,
-					 new_features;
+	Object new_object;
+	Mat small_new_frame;
+	Features new_features;
+
+	resize(new_frame, small_new_frame, Size(),
+				 IMG_RESIZE, IMG_RESIZE, INTER_AREA);
 
 	lock_guard<mutex> lock(m_object_mutex);
 
 	// Syncrhonizing this whole operation ensures no writing occurs
 	// during this tracking
-	new_features = calcFeatures(m_frame, new_frame, &m_features);
+	new_features = calcFeatures(m_frame, small_new_frame, &m_features);
 	new_object = updateObject(m_features, new_features, m_object);
 
 	m_object = new_object;
-	m_frame = new_frame.clone();
+	m_frame = small_new_frame;
 	m_features = new_features;
 
 	return new_object;
@@ -116,20 +117,9 @@ Features Tracker::calcFeatures(Mat old_frame, Mat new_frame,
 	if (old_features->empty() || new_frame.empty())
 		return new_features;
 
-	// Resize for faster tracking (this also involves the later multiplication)
-	for (size_t i = 0; i < old_features->size(); i++)
-		old_features->at(i) *= .5;
-	
-	Mat small_old_frame,
-			small_new_frame;
-	resize(old_frame, small_old_frame, Size(),
-				 IMG_RESIZE, IMG_RESIZE, INTER_AREA);
-	resize(new_frame, small_new_frame, Size(),
-				 IMG_RESIZE, IMG_RESIZE, INTER_AREA);
-
 	vector<uchar> status;
 	vector<float> error;
-	calcOpticalFlowPyrLK(small_old_frame, small_new_frame,
+	calcOpticalFlowPyrLK(old_frame, new_frame,
 											 *old_features, new_features,
 											 status, error, LK_WINDOW);
 
@@ -143,11 +133,6 @@ Features Tracker::calcFeatures(Mat old_frame, Mat new_frame,
 			new_features.erase(new_features.begin() + i);
 
 			m_saved_features.erase(m_saved_features.begin() + i);
-		}
-		else
-		{
-			old_features->at(i) *= 2;
-			new_features[i] *= 2;
 		}
 
 	if (debug)
@@ -168,7 +153,7 @@ Object Tracker::updateObject(Features old_features, Features new_features,
 	vector<Label> labels = old_object.getLabels();
 	vector<Point2f> old_positions;
 	for (Label a_label : labels)
-		old_positions.push_back(a_label.position);
+		old_positions.push_back(a_label.position * .5);
 
 
 	// Organize data as DescriptorMatcher wants it
@@ -201,7 +186,7 @@ Object Tracker::updateObject(Features old_features, Features new_features,
 
 		size_t label_index = matches[i][0].queryIdx;
 		Label new_label = labels[label_index];
-		new_label.position += movement;
+		new_label.position += movement * 2;
 		new_object.addLabel(new_label);
 	}
 
@@ -276,7 +261,8 @@ void Tracker::sendMessage(int msg, void* data, void* reply_to)
 			{
 				lock_guard<mutex> lock(m_object_mutex);
 
-				Mat frame = (*(Mat*)data).clone();
+				Mat frame;
+				resize(*(Mat*)data, frame, Size(), IMG_RESIZE, IMG_RESIZE, INTER_AREA);
 
 				// Calcolo le features per il frame,
 				// traccio al contrario derivando le features relative al vecchio frame
