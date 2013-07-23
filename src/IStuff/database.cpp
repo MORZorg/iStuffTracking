@@ -1,7 +1,7 @@
 /**
  * @file	database.cpp
  * @brief	Definition for Database class
- * @class	Database
+ * @class	IStuff::Database
  * @author	Mattia Rizzini
  * @version	0.1.3
  * @date	2013-07-14

@@ -1,7 +1,7 @@
 var searchData=
 [
   ['database',['Database',['../class_i_stuff_1_1_database.html',1,'IStuff']]],
-  ['database',['Database',['../class_database.html',1,'Database'],['../class_i_stuff_1_1_database.html#ab569353f3a7991f6eb8345a2d9d61d6b',1,'IStuff::Database::Database()']]],
+  ['database',['Database',['../class_i_stuff_1_1_database.html#ab569353f3a7991f6eb8345a2d9d61d6b',1,'IStuff::Database']]],
   ['database_2ecpp',['database.cpp',['../database_8cpp.html',1,'']]],
   ['database_2eh',['database.h',['../database_8h.html',1,'']]],
   ['dbcreationexception',['DBCreationException',['../class_i_stuff_1_1_d_b_creation_exception.html',1,'IStuff']]],

@@ -28,12 +28,10 @@ void \hyperlink{class_i_stuff_1_1_tracker_a931b4e57f59d6a0f38d78bb34ab2332b}{sen
 \item 
 void \hyperlink{class_i_stuff_1_1_tracker_a0f512d1134b48840d65547bc60d2dd7d}{set\-Running} (bool)
 \begin{DoxyCompactList}\small\item\em Method used by this \hyperlink{class_i_stuff_1_1_tracker}{I\-Stuff\-::\-Tracker}'s thread to mark itself as running. \end{DoxyCompactList}\item 
-\hyperlink{namespace_i_stuff_a2d680b8d3ea1fa53d1aa740cc669063c}{Features} \hyperlink{class_i_stuff_1_1_tracker_a66a0adf34335915897834cb9b2829734}{calc\-Features} (cv\-::\-Mat)
-\item 
-\hyperlink{namespace_i_stuff_a2d680b8d3ea1fa53d1aa740cc669063c}{Features} \hyperlink{class_i_stuff_1_1_tracker_afe28de2d37bde1c290bf8405a9976563}{calc\-Features} (cv\-::\-Mat, cv\-::\-Mat, \hyperlink{namespace_i_stuff_a2d680b8d3ea1fa53d1aa740cc669063c}{Features} $\ast$)
-\item 
-void \hyperlink{class_i_stuff_1_1_tracker_a2e7825806f53813c4ba1a6088dbd5a6c}{update\-Features} (std\-::vector$<$ uchar $>$ $\ast$=N\-U\-L\-L)
-\item 
+\hyperlink{namespace_i_stuff_a2d680b8d3ea1fa53d1aa740cc669063c}{Features} \hyperlink{class_i_stuff_1_1_tracker_ac36102855dfda592ccec02f77a8eaf35}{calc\-Features} (cv\-::\-Mat)
+\begin{DoxyCompactList}\small\item\em Method to calculate the \hyperlink{namespace_i_stuff_a2d680b8d3ea1fa53d1aa740cc669063c}{I\-Stuff\-::\-Features} used to track \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object} between frames. \end{DoxyCompactList}\item 
+\hyperlink{namespace_i_stuff_a2d680b8d3ea1fa53d1aa740cc669063c}{Features} \hyperlink{class_i_stuff_1_1_tracker_afd3adb1eeef3d7337da0a3c9d9a152d2}{calc\-Features} (cv\-::\-Mat, cv\-::\-Mat, \hyperlink{namespace_i_stuff_a2d680b8d3ea1fa53d1aa740cc669063c}{Features} $\ast$)
+\begin{DoxyCompactList}\small\item\em Method to track \hyperlink{namespace_i_stuff}{I\-Stuff}\-:Features between frames. \end{DoxyCompactList}\item 
 \hyperlink{class_i_stuff_1_1_object}{Object} \hyperlink{class_i_stuff_1_1_tracker_a3d9b861a3cf475309dda610d68b5dbd5}{update\-Object} (\hyperlink{namespace_i_stuff_a2d680b8d3ea1fa53d1aa740cc669063c}{Features}, \hyperlink{namespace_i_stuff_a2d680b8d3ea1fa53d1aa740cc669063c}{Features}, \hyperlink{class_i_stuff_1_1_object}{Object})
 \begin{DoxyCompactList}\small\item\em Function to update an \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object} from an old position to its new one. \end{DoxyCompactList}\item 
 bool \hyperlink{class_i_stuff_1_1_tracker_a26eecfd128d97776101938b59f13c987}{background\-Track\-Frame} (cv\-::\-Mat, \hyperlink{class_i_stuff_1_1_manager}{Manager} $\ast$)
@@ -146,22 +144,58 @@ Method to do the tracking process in a separate thread.
 
 Definition at line 235 of file tracker.\-cpp.
 
-\hypertarget{class_i_stuff_1_1_tracker_a66a0adf34335915897834cb9b2829734}{\index{I\-Stuff\-::\-Tracker@{I\-Stuff\-::\-Tracker}!calc\-Features@{calc\-Features}}
+\hypertarget{class_i_stuff_1_1_tracker_ac36102855dfda592ccec02f77a8eaf35}{\index{I\-Stuff\-::\-Tracker@{I\-Stuff\-::\-Tracker}!calc\-Features@{calc\-Features}}
 \index{calc\-Features@{calc\-Features}!IStuff::Tracker@{I\-Stuff\-::\-Tracker}}
-\subsubsection[{calc\-Features}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Features} I\-Stuff\-::\-Tracker\-::calc\-Features (
+\subsubsection[{calc\-Features}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Features} Tracker\-::calc\-Features (
 \begin{DoxyParamCaption}
-\item[{cv\-::\-Mat}]{}
+\item[{cv\-::\-Mat}]{frame}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [private]}}}\label{class_i_stuff_1_1_tracker_a66a0adf34335915897834cb9b2829734}
-\hypertarget{class_i_stuff_1_1_tracker_afe28de2d37bde1c290bf8405a9976563}{\index{I\-Stuff\-::\-Tracker@{I\-Stuff\-::\-Tracker}!calc\-Features@{calc\-Features}}
+)\hspace{0.3cm}{\ttfamily [private]}}}\label{class_i_stuff_1_1_tracker_ac36102855dfda592ccec02f77a8eaf35}
+
+
+Method to calculate the \hyperlink{namespace_i_stuff_a2d680b8d3ea1fa53d1aa740cc669063c}{I\-Stuff\-::\-Features} used to track \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object} between frames. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em frame} & The frame on which calculate the features.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The \hyperlink{namespace_i_stuff_a2d680b8d3ea1fa53d1aa740cc669063c}{I\-Stuff\-::\-Features} detected on the given frame. 
+\end{DoxyReturn}
+
+
+Definition at line 106 of file tracker.\-cpp.
+
+\hypertarget{class_i_stuff_1_1_tracker_afd3adb1eeef3d7337da0a3c9d9a152d2}{\index{I\-Stuff\-::\-Tracker@{I\-Stuff\-::\-Tracker}!calc\-Features@{calc\-Features}}
 \index{calc\-Features@{calc\-Features}!IStuff::Tracker@{I\-Stuff\-::\-Tracker}}
-\subsubsection[{calc\-Features}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Features} I\-Stuff\-::\-Tracker\-::calc\-Features (
+\subsubsection[{calc\-Features}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Features} Tracker\-::calc\-Features (
 \begin{DoxyParamCaption}
-\item[{cv\-::\-Mat}]{, }
-\item[{cv\-::\-Mat}]{, }
-\item[{{\bf Features} $\ast$}]{}
+\item[{cv\-::\-Mat}]{old\-\_\-frame, }
+\item[{cv\-::\-Mat}]{new\-\_\-frame, }
+\item[{{\bf Features} $\ast$}]{old\-\_\-features}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [private]}}}\label{class_i_stuff_1_1_tracker_afe28de2d37bde1c290bf8405a9976563}
+)\hspace{0.3cm}{\ttfamily [private]}}}\label{class_i_stuff_1_1_tracker_afd3adb1eeef3d7337da0a3c9d9a152d2}
+
+
+Method to track \hyperlink{namespace_i_stuff}{I\-Stuff}\-:Features between frames. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em old\-\_\-frame} & The frame relative to the given \hyperlink{namespace_i_stuff_a2d680b8d3ea1fa53d1aa740cc669063c}{I\-Stuff\-::\-Features}. \\
+\hline
+\mbox{\tt in}  & {\em new\-\_\-frame} & The frame where to track the \hyperlink{namespace_i_stuff_a2d680b8d3ea1fa53d1aa740cc669063c}{I\-Stuff\-::\-Features}. \\
+\hline
+\mbox{\tt in,out}  & {\em old\-\_\-features} & The old \hyperlink{namespace_i_stuff_a2d680b8d3ea1fa53d1aa740cc669063c}{I\-Stuff\-::\-Features}, returned erased of the untracked features.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The \hyperlink{namespace_i_stuff_a2d680b8d3ea1fa53d1aa740cc669063c}{I\-Stuff\-::\-Features} of the old frame relative to the new frame. 
+\end{DoxyReturn}
+
+
+Definition at line 133 of file tracker.\-cpp.
+
 \hypertarget{class_i_stuff_1_1_tracker_adeaab8820045251bcf5a7b4f394eb568}{\index{I\-Stuff\-::\-Tracker@{I\-Stuff\-::\-Tracker}!is\-Running@{is\-Running}}
 \index{is\-Running@{is\-Running}!IStuff::Tracker@{I\-Stuff\-::\-Tracker}}
 \subsubsection[{is\-Running}]{\setlength{\rightskip}{0pt plus 5cm}bool Tracker\-::is\-Running (
@@ -200,6 +234,7 @@ Managed messages\-:\par
  This message's handling is synchronized.\par
  The frame received is downscaled, then \hyperlink{namespace_i_stuff_a2d680b8d3ea1fa53d1aa740cc669063c}{I\-Stuff\-::\-Features} are calculated and the actual \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object} is updated according to this frame. The \hyperlink{namespace_i_stuff_a2d680b8d3ea1fa53d1aa740cc669063c}{I\-Stuff\-::\-Features} are saved for use when the recognition ends. 
 \item[\hyperlink{class_i_stuff_1_1_manager_a4c465ff50b8eddde0e5fd8b4d3e37bbc}{I\-Stuff\-::\-Manager\-::\-M\-S\-G\-\_\-\-R\-E\-C\-O\-G\-N\-I\-T\-I\-O\-N\-\_\-\-E\-N\-D} ]data\-: \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object}\par
+ This message's handling is synchronized.\par
  This causes the \hyperlink{class_i_stuff_1_1_tracker}{I\-Stuff\-::\-Tracker} to actualize the new \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object} by tracking it from the saved \hyperlink{namespace_i_stuff_a2d680b8d3ea1fa53d1aa740cc669063c}{I\-Stuff\-::\-Features} and the current ones. 
 \end{DoxyDescription}
 
@@ -214,7 +249,7 @@ Managed messages\-:\par
 \end{DoxyParams}
 
 
-Definition at line 282 of file tracker.\-cpp.
+Definition at line 283 of file tracker.\-cpp.
 
 \hypertarget{class_i_stuff_1_1_tracker_a0f512d1134b48840d65547bc60d2dd7d}{\index{I\-Stuff\-::\-Tracker@{I\-Stuff\-::\-Tracker}!set\-Running@{set\-Running}}
 \index{set\-Running@{set\-Running}!IStuff::Tracker@{I\-Stuff\-::\-Tracker}}
@@ -261,13 +296,6 @@ The new \hyperlink{class_i_stuff_1_1_object}{I\-Stuff\-::\-Object} tracked in th
 
 Definition at line 73 of file tracker.\-cpp.
 
-\hypertarget{class_i_stuff_1_1_tracker_a2e7825806f53813c4ba1a6088dbd5a6c}{\index{I\-Stuff\-::\-Tracker@{I\-Stuff\-::\-Tracker}!update\-Features@{update\-Features}}
-\index{update\-Features@{update\-Features}!IStuff::Tracker@{I\-Stuff\-::\-Tracker}}
-\subsubsection[{update\-Features}]{\setlength{\rightskip}{0pt plus 5cm}void I\-Stuff\-::\-Tracker\-::update\-Features (
-\begin{DoxyParamCaption}
-\item[{std\-::vector$<$ uchar $>$ $\ast$}]{ = {\ttfamily NULL}}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [private]}}}\label{class_i_stuff_1_1_tracker_a2e7825806f53813c4ba1a6088dbd5a6c}
 \hypertarget{class_i_stuff_1_1_tracker_a3d9b861a3cf475309dda610d68b5dbd5}{\index{I\-Stuff\-::\-Tracker@{I\-Stuff\-::\-Tracker}!update\-Object@{update\-Object}}
 \index{update\-Object@{update\-Object}!IStuff::Tracker@{I\-Stuff\-::\-Tracker}}
 \subsubsection[{update\-Object}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Object} Tracker\-::update\-Object (

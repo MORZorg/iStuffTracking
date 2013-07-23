@@ -1,7 +1,6 @@
 var hierarchy =
 [
     [ "IStuff::Database", "class_i_stuff_1_1_database.html", null ],
-    [ "Database", "class_database.html", null ],
     [ "exception", null, [
       [ "IStuff::DBCreationException", "class_i_stuff_1_1_d_b_creation_exception.html", null ],
       [ "IStuff::DBLoadingException", "class_i_stuff_1_1_d_b_loading_exception.html", null ],

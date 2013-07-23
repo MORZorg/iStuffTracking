@@ -3,6 +3,11 @@
 }
 
 
+Class used to manage a synchronized double queue.  
+
+
+
+
 {\ttfamily \#include $<$fakable\-\_\-queue.\-h$>$}
 
 \subsection*{Public Member Functions}
@@ -39,6 +44,18 @@ static const char \hyperlink{class_i_stuff_1_1_fakable_queue_a0934f12df566975c88
 
 
 \subsection{Detailed Description}
+Class used to manage a synchronized double queue. 
+
+This class is used by \hyperlink{class_i_stuff_1_1_tracker}{I\-Stuff\-::\-Tracker} and it allows to address problems caused by alternated recognizations\-:\par
+ This queue manages two queues\-: one \char`\"{}real\char`\"{}, used normally, from where frames are enqueued and dequeued and one \char`\"{}fake\char`\"{}, or \char`\"{}saved\char`\"{}, used to store the frames regarding only the last recognization, where frames are just enqueued and which is substituted to the real queue when the last recognization ends. \begin{DoxyAuthor}{Author}
+Maurizio Zucchelli 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\-1.\-2 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2013-\/07-\/18 
+\end{DoxyDate}
 
 
 Definition at line 23 of file fakable\-\_\-queue.\-h.
@@ -59,7 +76,7 @@ Constructor of this class.
 
 
 
-Definition at line 29 of file fakable\-\_\-queue.\-cpp.
+Definition at line 30 of file fakable\-\_\-queue.\-cpp.
 
 \hypertarget{class_i_stuff_1_1_fakable_queue_a9675cd13bcaa59d614d47127c0c21d93}{\index{I\-Stuff\-::\-Fakable\-Queue@{I\-Stuff\-::\-Fakable\-Queue}!$\sim$\-Fakable\-Queue@{$\sim$\-Fakable\-Queue}}
 \index{$\sim$\-Fakable\-Queue@{$\sim$\-Fakable\-Queue}!IStuff::FakableQueue@{I\-Stuff\-::\-Fakable\-Queue}}
@@ -70,7 +87,7 @@ Definition at line 29 of file fakable\-\_\-queue.\-cpp.
 )\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_i_stuff_1_1_fakable_queue_a9675cd13bcaa59d614d47127c0c21d93}
 
 
-Definition at line 32 of file fakable\-\_\-queue.\-cpp.
+Definition at line 33 of file fakable\-\_\-queue.\-cpp.
 
 
 
@@ -96,7 +113,7 @@ The frame in front of the 'real' queue.
 \end{DoxyReturn}
 
 
-Definition at line 102 of file fakable\-\_\-queue.\-cpp.
+Definition at line 103 of file fakable\-\_\-queue.\-cpp.
 
 \hypertarget{class_i_stuff_1_1_fakable_queue_a5f103ad2380d4aaf9c38c8853c3c97a9}{\index{I\-Stuff\-::\-Fakable\-Queue@{I\-Stuff\-::\-Fakable\-Queue}!discard@{discard}}
 \index{discard@{discard}!IStuff::FakableQueue@{I\-Stuff\-::\-Fakable\-Queue}}
@@ -113,7 +130,7 @@ Replaces the 'real' queue with the 'saved' one.
 \item[\hyperlink{todo__todo000001}{Todo}]Find a more explicative name. \end{DoxyRefDesc}
 
 
-Definition at line 84 of file fakable\-\_\-queue.\-cpp.
+Definition at line 85 of file fakable\-\_\-queue.\-cpp.
 
 \hypertarget{class_i_stuff_1_1_fakable_queue_a2d615a3f5fb3bbe26bd99694bd1a2378}{\index{I\-Stuff\-::\-Fakable\-Queue@{I\-Stuff\-::\-Fakable\-Queue}!enqueue@{enqueue}}
 \index{enqueue@{enqueue}!IStuff::FakableQueue@{I\-Stuff\-::\-Fakable\-Queue}}
@@ -135,7 +152,7 @@ If the queue has been started, the frame is added to both the 'real' and the 'sa
 \end{DoxyParams}
 
 
-Definition at line 44 of file fakable\-\_\-queue.\-cpp.
+Definition at line 45 of file fakable\-\_\-queue.\-cpp.
 
 \hypertarget{class_i_stuff_1_1_fakable_queue_aea66bd432f26ee1322387dc5589b721d}{\index{I\-Stuff\-::\-Fakable\-Queue@{I\-Stuff\-::\-Fakable\-Queue}!get\-Starter@{get\-Starter}}
 \index{get\-Starter@{get\-Starter}!IStuff::FakableQueue@{I\-Stuff\-::\-Fakable\-Queue}}
@@ -153,7 +170,7 @@ The frame that started the queue.
 \end{DoxyReturn}
 
 
-Definition at line 125 of file fakable\-\_\-queue.\-cpp.
+Definition at line 126 of file fakable\-\_\-queue.\-cpp.
 
 \hypertarget{class_i_stuff_1_1_fakable_queue_acb05a50ab738a9df2cccf7b697c199ca}{\index{I\-Stuff\-::\-Fakable\-Queue@{I\-Stuff\-::\-Fakable\-Queue}!start@{start}}
 \index{start@{start}!IStuff::FakableQueue@{I\-Stuff\-::\-Fakable\-Queue}}
@@ -175,7 +192,7 @@ This operation resets the 'saved' queue and then performs an enqueue with the gi
 \end{DoxyParams}
 
 
-Definition at line 67 of file fakable\-\_\-queue.\-cpp.
+Definition at line 68 of file fakable\-\_\-queue.\-cpp.
 
 
 

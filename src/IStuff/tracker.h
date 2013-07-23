@@ -76,7 +76,6 @@ namespace IStuff
 			/* Other methods */
 			Features calcFeatures(cv::Mat);
 			Features calcFeatures(cv::Mat, cv::Mat, Features*);
-			void updateFeatures(std::vector<uchar>* = NULL);
 			Object updateObject(Features, Features, Object);
 			bool backgroundTrackFrame(cv::Mat, Manager*);
 	};

@@ -1,26 +1,4 @@
 \hypertarget{fakable__queue_8cpp}{\section{src/\-I\-Stuff/fakable\-\_\-queue.cpp File Reference}
 \label{fakable__queue_8cpp}\index{src/\-I\-Stuff/fakable\-\_\-queue.\-cpp@{src/\-I\-Stuff/fakable\-\_\-queue.\-cpp}}
 }
-
-
-Class used to manage a synchronized double queue.  
-
-
 {\ttfamily \#include \char`\"{}fakable\-\_\-queue.\-h\char`\"{}}\\*
-
-
-\subsection{Detailed Description}
-Class used to manage a synchronized double queue. This class is used by \hyperlink{class_i_stuff_1_1_tracker}{I\-Stuff\-::\-Tracker} and it allows to address problems caused by alternated recognizations\-:\par
- This queue manages two queues\-: one \char`\"{}real\char`\"{}, used normally, from where frames are enqueued and dequeued and one \char`\"{}fake\char`\"{}, or \char`\"{}saved\char`\"{}, used to store the frames regarding only the last recognization, where frames are just enqueued and which is substituted to the real queue when the last recognization ends. \begin{DoxyAuthor}{Author}
-Maurizio Zucchelli 
-\end{DoxyAuthor}
-\begin{DoxyVersion}{Version}
-0.\-1.\-0 
-\end{DoxyVersion}
-\begin{DoxyDate}{Date}
-2013-\/07-\/18 
-\end{DoxyDate}
-
-
-Definition in file \hyperlink{fakable__queue_8cpp_source}{fakable\-\_\-queue.\-cpp}.
-

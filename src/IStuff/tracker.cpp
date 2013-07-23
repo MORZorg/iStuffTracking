@@ -97,13 +97,13 @@ Object Tracker::trackFrame(Mat new_frame)
 }
 
 /**
- * @brief Method to calculate the IStuff:Features used to track IStuff::Object between frames.
+ * @brief Method to calculate the IStuff::Features used to track IStuff::Object between frames.
  *
  * @param[in] frame The frame on which calculate the features.
  *
  * @return The IStuff::Features detected on the given frame.
  */
-Features Tracker::calcFeatures(Mat frame)
+Features Tracker::calcFeatures(cv::Mat frame)
 {
 	if (debug)
 		cerr << TAG << ": calcFeatures (detection).\n";
@@ -130,7 +130,7 @@ Features Tracker::calcFeatures(Mat frame)
  *
  * @return The IStuff::Features of the old frame relative to the new frame.
  */
-Features Tracker::calcFeatures(Mat old_frame, Mat new_frame,
+Features Tracker::calcFeatures(cv::Mat old_frame, cv::Mat new_frame,
 															 Features* old_features)
 {
 	if (debug)
@@ -271,6 +271,7 @@ bool Tracker::backgroundTrackFrame(Mat frame, Manager* reference)
  *		The IStuff::Features are saved for use when the recognition ends.</dd>
  *		<dt>IStuff::Manager::MSG_RECOGNITION_END</dt>
  *		<dd>data: IStuff::Object<br />
+ *		This message's handling is synchronized.<br />
  *		This causes the IStuff::Tracker to actualize the new IStuff::Object by
  *		tracking it from the saved IStuff::Features and the current ones.</dd>
  *	</dl>

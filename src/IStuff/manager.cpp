@@ -119,12 +119,13 @@ Mat Manager::paintObject(Mat frame)
  *	<dl>
  *		<dt>IStuff::Manager::MSG_RECOGNITION_START</dt>
  *		<dd>data: cv::Mat<br />
- *		This message is forwarded to both the Recognizer (to make it start the
- *		recognization) and the Tracker (to alert it).<br />
+ *		This message is forwarded to both the IStuff::Recognizer (to make it
+ *		start the recognization) and the IStuff::Tracker (to alert it).<br />
  *		This also resets the counter of frames tracked from last recognition.</dd>
  *		<dt>IStuff::Manager::MSG_RECOGNITION_END</dt>
  *		<dd>data: IStuff::Object<br />
- *		This message is forwarded to the Tracker, to update its Object.</dd>
+ *		This message is forwarded to the IStuff::Tracker, to update its
+ *		IStuff::Object.</dd>
  *	</dl>
  *
  * @param[in] msg				The message identifier.

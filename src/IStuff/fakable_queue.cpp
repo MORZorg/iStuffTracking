@@ -1,5 +1,6 @@
 /**
  * @file fakable_queue.cpp
+ * @class IStuff::FakableQueue
  * @brief Class used to manage a synchronized double queue.
  * @details This class is used by IStuff::Tracker and it allows to address
  *	problems caused by alternated recognizations:<br />
@@ -8,7 +9,7 @@
  *	frames regarding only the last recognization, where frames are just enqueued
  *	and which is substituted to the real queue when the last recognization ends.
  * @author Maurizio Zucchelli
- * @version 0.1.0
+ * @version 0.1.2
  * @date 2013-07-18
  */
 
