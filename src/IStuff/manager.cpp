@@ -84,15 +84,16 @@ void Manager::elaborateFrame(Mat frame)
 
 		sendMessage(MSG_RECOGNITION_START, &frame);
 	}
+	else
+	{
+		if (hl_debug)
+			cerr << TAG << ": Tracking " << frames_tracked_count << ".\n";
 
-	if (hl_debug)
-		cerr << TAG << ": Tracking " << frames_tracked_count << ".\n";
+		if (frames_tracked_count < RECOGNITION_PERIOD)
+			frames_tracked_count++;
 
-	if (frames_tracked_count < RECOGNITION_PERIOD)
-		frames_tracked_count++;
-
-	setObject(tracker.trackFrame(frame));
-	//sendMessage(MSG_TRACKING_START, &frame);
+		setObject(tracker.trackFrame(frame));
+	}
 }
 
 /**

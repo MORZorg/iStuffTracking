@@ -15,6 +15,7 @@ using namespace cv;
 using namespace IStuff;
 
 const char Tracker::TAG[] = "Trk";
+const Size Tracker::LK_WINDOW = cv::Size(15, 15);
 
 /* Constructors and Destructors */
 
@@ -74,14 +75,10 @@ Object Tracker::trackFrame(Mat new_frame)
 
 	lock_guard<mutex> lock(m_object_mutex);
 
-	old_frame = m_frame.clone();
-	old_object = m_object;
-	old_features = m_features;
-
 	// Syncrhonizing this whole operation ensures no writing occurs
 	// during this tracking
-	new_features = calcFeatures(old_frame, new_frame, &old_features);
-	new_object = updateObject(old_features, new_features, old_object);
+	new_features = calcFeatures(m_frame, new_frame, &m_features);
+	new_object = updateObject(m_features, new_features, m_object);
 
 	m_object = new_object;
 	m_frame = new_frame.clone();
@@ -119,11 +116,22 @@ Features Tracker::calcFeatures(Mat old_frame, Mat new_frame,
 	if (old_features->empty() || new_frame.empty())
 		return new_features;
 
+	// Resize for faster tracking (this also involves the later multiplication)
+	for (size_t i = 0; i < old_features->size(); i++)
+		old_features->at(i) *= .5;
+	
+	Mat small_old_frame,
+			small_new_frame;
+	resize(old_frame, small_old_frame, Size(),
+				 IMG_RESIZE, IMG_RESIZE, INTER_AREA);
+	resize(new_frame, small_new_frame, Size(),
+				 IMG_RESIZE, IMG_RESIZE, INTER_AREA);
+
 	vector<uchar> status;
 	vector<float> error;
-	calcOpticalFlowPyrLK(old_frame, new_frame,
+	calcOpticalFlowPyrLK(small_old_frame, small_new_frame,
 											 *old_features, new_features,
-											 status, error);
+											 status, error, LK_WINDOW);
 
 	if (debug)
 		cerr << TAG << ": Points tracked.\n";
@@ -136,9 +144,14 @@ Features Tracker::calcFeatures(Mat old_frame, Mat new_frame,
 
 			m_saved_features.erase(m_saved_features.begin() + i);
 		}
+		else
+		{
+			old_features->at(i) *= 2;
+			new_features[i] *= 2;
+		}
 
 	if (debug)
-		cerr << TAG << ": " << new_features.size() << "points remained.\n";
+		cerr << TAG << ": " << new_features.size() << " points remained.\n";
 
 	return new_features;
 }
@@ -149,13 +162,14 @@ Object Tracker::updateObject(Features old_features, Features new_features,
 	if (debug)
 		cerr << TAG << ": Updating object.\n";
 
-	if (old_object.empty())
+	if (old_object.empty() || old_features.empty())
 		return old_object;
 
 	vector<Label> labels = old_object.getLabels();
 	vector<Point2f> old_positions;
 	for (Label a_label : labels)
 		old_positions.push_back(a_label.position);
+
 
 	// Organize data as DescriptorMatcher wants it
 	Mat positions,
@@ -166,8 +180,9 @@ Object Tracker::updateObject(Features old_features, Features new_features,
 	split(Mat(old_features), temp);
 	hconcat(temp[0], temp[1], features);
 
+	// Take N+1 nearest neighbour to be able to apply NNDR
 	vector< vector<DMatch> > matches;
-	m_matcher->knnMatch(positions, features, matches, NEAREST_FEATURES_COUNT);
+	m_matcher->knnMatch(positions, features, matches, NEAREST_FEATURES_COUNT + 1);
 
 	Object new_object;
 	for (size_t i = 0; i < matches.size(); i++) 
@@ -178,8 +193,11 @@ Object Tracker::updateObject(Features old_features, Features new_features,
 		{
 			size_t feature_index = matches[i][j].trainIdx;
 			movement += new_features[feature_index] - old_features[feature_index];
+
+			if (matches[i][j].distance < NNDR_RATIO * matches[i][j].distance)
+				break;
 		}
-		movement = movement * (1. / NEAREST_FEATURES_COUNT);
+		movement = movement * (1. / (j+1));
 
 		size_t label_index = matches[i][0].queryIdx;
 		Label new_label = labels[label_index];

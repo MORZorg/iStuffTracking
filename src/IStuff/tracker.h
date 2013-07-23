@@ -35,7 +35,11 @@ namespace IStuff
 		/* Attributes */
 		private:
 			const static char TAG[];
+
 			const static int NEAREST_FEATURES_COUNT = 15;
+			const static float constexpr NNDR_RATIO = .95;
+			const static float constexpr IMG_RESIZE = .5;
+			const static cv::Size LK_WINDOW;
 
 			std::auto_ptr<boost::thread> m_thread;
 			bool m_running = false;

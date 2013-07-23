@@ -150,7 +150,7 @@ int main(int argc, char* argv[])
 
 			imshow("Camera", frame);
 
-			key = waitKey(10);
+			key = waitKey(1);
 		}
 
 		capture.release();
