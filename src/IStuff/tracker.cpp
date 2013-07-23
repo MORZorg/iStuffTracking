@@ -173,9 +173,10 @@ Object Tracker::updateObject(Features old_features, Features new_features,
 	for (size_t i = 0; i < matches.size(); i++) 
 	{
 		Point2f movement;
-		for (size_t j = 0; j < NEAREST_FEATURES_COUNT; j++)
+		size_t j;
+		for (j = 0; j < NEAREST_FEATURES_COUNT; j++)
 		{
-			size_t feature_index = matches[i][0].trainIdx;
+			size_t feature_index = matches[i][j].trainIdx;
 			movement += new_features[feature_index] - old_features[feature_index];
 		}
 		movement = movement * (1. / NEAREST_FEATURES_COUNT);
