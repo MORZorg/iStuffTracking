@@ -23,7 +23,8 @@ const char Tracker::TAG[] = "Trk";
  */
 Tracker::Tracker()
 {
-	m_detector = FeatureDetector::create("GFTT");
+	m_detector = FeatureDetector::create("FAST");
+	m_matcher = DescriptorMatcher::create("FlannBased");
 
 	if (debug)
 		cerr << TAG << " constructed.\n";
@@ -127,24 +128,14 @@ Features Tracker::calcFeatures(Mat old_frame, Mat new_frame,
 	if (debug)
 		cerr << TAG << ": Points tracked.\n";
 
-	Mat temp = new_frame.clone();
-	for (Point2f a_feature : m_saved_features)
-		circle(temp, a_feature, 5, Scalar(0, 255, 0));
-
 	for (int i = status.size()-1; i >= 0; i--)
 		if (!status[i])
 		{
 			old_features->erase(old_features->begin() + i);
 			new_features.erase(new_features.begin() + i);
+
 			m_saved_features.erase(m_saved_features.begin() + i);
 		}
-		else
-			line(temp, m_saved_features[i], new_features[i], Scalar(255, 0, 0));
-
-	for (Point2f a_feature : new_features)
-		circle(temp, a_feature, 5, Scalar(0, 255, 255));
-
-	imshow("track", temp);
 
 	if (debug)
 		cerr << TAG << ": " << new_features.size() << "points remained.\n";
@@ -158,27 +149,40 @@ Object Tracker::updateObject(Features old_features, Features new_features,
 	if (debug)
 		cerr << TAG << ": Updating object.\n";
 
+	if (old_object.empty())
+		return old_object;
+
 	vector<Label> labels = old_object.getLabels();
 	vector<Point2f> old_positions;
 	for (Label a_label : labels)
 		old_positions.push_back(a_label.position);
 
-	vector<size_t> nearest_indexes = vector<size_t>(labels.size(), 0);
-	for (size_t i = 1; i < old_features.size(); i++)
-		for (size_t j = 0; j < labels.size(); j++)
-		{
-			float dist = norm(old_features[i] - old_positions[j]),
-						min = norm(old_features[ nearest_indexes[j] ] - old_positions[j]);
-			if (dist < min)
-				nearest_indexes[j] = i;
-		}
+	// Organize data as DescriptorMatcher wants it
+	Mat positions,
+			features,
+			temp[2];
+	split(Mat(old_positions), temp);
+	hconcat(temp[0], temp[1], positions);
+	split(Mat(old_features), temp);
+	hconcat(temp[0], temp[1], features);
+
+	vector< vector<DMatch> > matches;
+	m_matcher->knnMatch(positions, features, matches, NEAREST_FEATURES_COUNT);
 
 	Object new_object;
-	for (size_t i = 0; i < labels.size(); i++)
+	for (size_t i = 0; i < matches.size(); i++) 
 	{
-		Label new_label = labels[i];
-		new_label.position += new_features[nearest_indexes[i]]
-												- old_features[nearest_indexes[i]];
+		Point2f movement;
+		for (size_t j = 0; j < NEAREST_FEATURES_COUNT; j++)
+		{
+			size_t feature_index = matches[i][0].trainIdx;
+			movement += new_features[feature_index] - old_features[feature_index];
+		}
+		movement = movement * (1. / NEAREST_FEATURES_COUNT);
+
+		size_t label_index = matches[i][0].queryIdx;
+		Label new_label = labels[label_index];
+		new_label.position += movement;
 		new_object.addLabel(new_label);
 	}
 

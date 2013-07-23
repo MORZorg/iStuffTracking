@@ -35,7 +35,7 @@ namespace IStuff
 		/* Attributes */
 		private:
 			const static char TAG[];
-			const static int NEAREST_FEATURES_COUNT = 10;
+			const static int NEAREST_FEATURES_COUNT = 15;
 
 			std::auto_ptr<boost::thread> m_thread;
 			bool m_running = false;
@@ -47,6 +47,7 @@ namespace IStuff
 							 m_saved_features;
 
 			cv::Ptr<cv::FeatureDetector> m_detector;
+			cv::Ptr<cv::DescriptorMatcher> m_matcher;
 
 		/* Methods */
 		public:
