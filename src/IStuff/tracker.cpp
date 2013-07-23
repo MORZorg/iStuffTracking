@@ -173,12 +173,27 @@ Object Tracker::updateObject(Features old_features, Features new_features,
 	for (size_t i = 0; i < matches.size(); i++) 
 	{
 		Point2f movement;
+		vector<Point2f> movements;
 		for (size_t j = 0; j < NEAREST_FEATURES_COUNT; j++)
 		{
 			size_t feature_index = matches[i][0].trainIdx;
-			movement += new_features[feature_index] - old_features[feature_index];
+			movements.push_back(new_features[feature_index]
+													- old_features[feature_index]);
 		}
-		movement = movement * (1. / NEAREST_FEATURES_COUNT);
+
+		size_t median_index = NEAREST_FEATURES_COUNT / 2;
+		nth_element(movements.begin(),
+								movements.begin() + median_index,
+								movements.end(),
+								[](Point2f i, Point2f j){ return i.x < j.x; });
+		movement.x = movements[median_index].x;
+
+		nth_element(movements.begin(),
+								movements.begin() + median_index,
+								movements.end(),
+								[](Point2f i, Point2f j){ return i.y < j.y; });
+		movement.y = movements[median_index].y;
+
 
 		size_t label_index = matches[i][0].queryIdx;
 		Label new_label = labels[label_index];
