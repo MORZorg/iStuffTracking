@@ -91,7 +91,7 @@ Object Database::match( Mat scene ) {
 		cerr << "\t\t" << matches.size() << " matches found, start filtering the good ones\n";
 
 	// Keep only the matches with a significant difference in distance between the two nearest neighbours
-	double NNDRRatio = 0.5;
+	double NNDRRatio = 0.6;
 
 	for( int i = 0; i < matches.size(); i++ )
 		if( matches[ i ][ 0 ].distance <= NNDRRatio * matches[ i ][ 1 ].distance )
@@ -167,7 +167,9 @@ Object Database::match( Mat scene ) {
 	//if( debug )
 		cerr << "\tInliers ratio is " << inliersRatio << endl;
 
-	if( inliersRatio < 0.6 ) {
+	float minInlierRatio = 0.55;
+
+	if( inliersRatio < minInlierRatio ) {
 		if( debug )
 			cerr << "\tToo many outliers\n";
 
