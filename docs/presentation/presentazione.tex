@@ -1,8 +1,9 @@
 \documentclass{beamer}
 \usepackage[utf8]{inputenc}
 
-\usetheme{Copenhagen}
-\usecolortheme{whale}
+%\usetheme{Copenhagen}
+\usetheme{Antibes}
+\hypersetup{pdfstartview={Fit}}
 
 \title{Joint 3D object recognition and tracking}
 \author[Orizio, Rizzini, Zucchelli]{Orizio Riccardo,\\Rizzini Mattia,\\Zucchelli Maurizio}
@@ -14,9 +15,11 @@
 	\begin{frame}
 		\maketitle
 	\end{frame}
+
+	\section{Introduction}
 	
 	\begin{frame}
-		\frametitle{Introduction}
+		\frametitle{\insertsection}
 		The project goal is to realize a joint system of recognition and tracking
 		of some features of an object which is identified in a video.
 		These features are called \textsc{Label}.\\
@@ -26,7 +29,7 @@
 	\end{frame}
 
 	\begin{frame}
-		\frametitle{Overall structure}
+		\frametitle{\insertsection\ - Overall structure}
 		The software is designed for concurrent execution.\\
 		There is an object of class \textsc{Manager} which, given every frame
 		captured by a webcam or in a video, elaborates it in some way and retuns
@@ -34,8 +37,17 @@
 		positions.\\
 	\end{frame}
 
+	\AtBeginSection[]
+	{
+		\begin{frame}
+			\frametitle{Outline}
+			\tableofcontents[currentsection]
+		\end{frame}
+	}
+	\section{Manager}
+
 	\begin{frame}
-		\frametitle{Manager}
+		\frametitle{\insertsection}
 		The \textsc{Manager} handles two objects of class \textsc{Recognizer} and
 		\textsc{Tracker}. The first object runs a \emph{thread}.\\
 		Every $N$ frames elaborated, the \textsc{Manager} asks the
@@ -48,8 +60,10 @@
 		\textsc{Tracker}.\\
 	\end{frame}
 
+	\section{Recognition}
+
 	\begin{frame}
-		\frametitle{Recognition}
+		\frametitle{\insertsection}
 		To perform recognition, \emph{SURF} descriptors are used in place of
 		\emph{SIFT} ones because they are proved to be lighter in application.\\
 		The recognition bases itself on a \textsc{Database}.\\
@@ -60,8 +74,10 @@
 			% Maybe eccessive `textsc` for the word database? Lol.
 	\end{frame}
 
+	\subsection{Database}
+
 	\begin{frame}
-	\frametitle{Recognition - database}
+		\frametitle{\insertsection\ - \insertsubsection}
 		The \textsc{Database} training is performed through the analysis of a group
 		of sample images depicting the object from various points of view.\\
 		To every image is also associated a text file which contains the absolute
@@ -71,8 +87,10 @@
 		is then saved in three structures and serialized.\\
 	\end{frame}
 
+	\subsection{Matching}
+
 	\begin{frame}
-		\frametitle{Recognition - matching}
+		\frametitle{\insertsection\ - \insertsubsection}
 		At the end of the training or load phase, a \emph{FLANN} based matcher is
 		trained based on all the samples descriptors.\\
 		When the \textsc{Manager} asks the \textsc{Recognizer} to perform a match
@@ -85,34 +103,73 @@
 	\end{frame}
 
 	\begin{frame}
-		\frametitle{Recognition - matching}
+		\frametitle{\insertsection\ - \insertsubsection}
 		These good matches are analyzed to find out what is the sample who's got
 		more of them. That sample is the only considered and his matching keypoints
 		are extracted from the \textsc{Database}.\\
 		Then an homography matrix is calculated between the sample keypoints and the
 		ones in the frame. The matrix is used to map the positions of the
 		\textsc{Label}s in the frame. These \textsc{Label}s are added to an
-		\textsc{Object} which is returned to the manager.\\
+		\textsc{Object} which is returned to the \textsc{Manager}.\\
 	\end{frame}
 
+	\section{Tracking}
+
 	\begin{frame}
-		\frametitle{Tracking}
+		\frametitle{\insertsection}
 		The tracking of the object is divided in two principal parts:
 		\begin{enumerate}
-			\item The \emph{actualization} of the \textsc{Object} received by the
-				\textsc{Recognizer}.
 			\item The effective tracking of the \textsc{Object} between two
 				successive frames.
+			\item The \emph{actualization} of the \textsc{Object} received by the
+				\textsc{Recognizer}.
 		\end{enumerate}
 	\end{frame}
 
 	\begin{frame}
-		\frametitle{Tracking}
-		
+		\frametitle{\insertsection}
+		To track an object, \emph{GFTT} (Good Features To Track) are used:
+		these features are extremely fast to calculate and provide optimal results
+		in tracking application.\\
+		The algorithm works on the whole frame: the features are associated to the
+		new frame using Lucas-Kanade's method for \emph{optical flow} estimation,
+		then, for every \textsc{Label}, the nearest features to it are calculated
+		using a \emph{FLANN} based matcher and their movement between the frames is
+		mediated and added to the \textsc{Label}'s position.
 	\end{frame}
 
+	\subsection{Actualization}
+
 	\begin{frame}
-		\frametitle{Conclusions}
+		\frametitle{\insertsection\ - \insertsubsection}
+		The \emph{actualization} process updates the \textsc{Object} received from
+		the \textsc{Recognizer} to its position in the current frame. This is
+		necessary because of the long time required by it.\\
+		To allow an easy and fast \emph{actualization}, the \textsc{Tracker}
+		calculates and saves the features of the frame used for the recognition
+		and starts using them internally for the tracking of the other frames.\\
+		This way, when the \textsc{Object} is received, the only operation to be
+		done is the tracking from the saved features to the current features.\\
+	\end{frame}
+	
+	\subsection{Optimization}
+
+	\begin{frame}
+		\frametitle{\insertsection\ - \insertsubsection}
+		The heaviest part of the algorithm is the calculation of the \emph{optical
+		flow}. To reduce the time required, the frame is decimated of a factor
+		$2$; since the complexity of the algorithm is higher than linear, this
+		reduces the computational cost to less than $25\%$ the original time.\\
+		Also, to furtherly simplify the complexity, the whole tracker has been
+		adapted to work with decimated frames. This can be done without damaging
+		the results because both the features and the tracking algorithm are robust
+		to scaling.\\
+	\end{frame}
+
+	\section{Conclusions}
+
+	\begin{frame}
+		\frametitle{\insertsection}
 		It works, so shut up!
 	\end{frame}
 \end{document}

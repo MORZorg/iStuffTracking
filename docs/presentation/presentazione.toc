@@ -1,1 +1,10 @@
 \beamer@endinputifotherversion {3.26pt}
+\beamer@sectionintoc {1}{Introduction}{2}{0}{1}
+\beamer@sectionintoc {2}{Manager}{4}{0}{2}
+\beamer@sectionintoc {3}{Recognition}{6}{0}{3}
+\beamer@subsectionintoc {3}{1}{Database}{8}{0}{3}
+\beamer@subsectionintoc {3}{2}{Matching}{9}{0}{3}
+\beamer@sectionintoc {4}{Tracking}{11}{0}{4}
+\beamer@subsectionintoc {4}{1}{Actualization}{14}{0}{4}
+\beamer@subsectionintoc {4}{2}{Optimization}{15}{0}{4}
+\beamer@sectionintoc {5}{Conclusions}{16}{0}{5}
