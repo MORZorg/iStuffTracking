@@ -14,6 +14,7 @@
 #include <fstream>
 #include <vector>
 #include <string>
+#include <numeric>
 
 // Custom header files
 #include "object.h"

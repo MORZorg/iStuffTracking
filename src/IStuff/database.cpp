@@ -142,7 +142,9 @@ Object Database::match( Mat scene ) {
 			scenePoints.push_back( sceneKeypoints[ goodMatches[ i ].queryIdx ].pt );
 		}
 
-	if( samplePoints.size() < 4 ) {
+	int matchThreshold = 10;
+
+	if( samplePoints.size() < matchThreshold ) {
 		if( debug )
 			cerr << "\tToo few keypoints to calculate homography, exiting..\n";
 
@@ -150,7 +152,23 @@ Object Database::match( Mat scene ) {
 	}
 
 	// Calculate homography mask, apply transformation to the label points and add the labels to the object 
-	Mat H = findHomography( samplePoints, scenePoints, CV_RANSAC );
+	// However, if the number of outliers found is too high, an error is given
+	vector< uchar > inliers;
+	
+	Mat H = findHomography( samplePoints, scenePoints, CV_RANSAC, 3, inliers );
+
+	int inliersCount = accumulate( inliers.begin(), inliers.end(), 0 );
+	float inliersRatio = (float) inliersCount / inliers.size();
+
+	//if( debug )
+		cerr << "\tInliers ratio is " << inliersRatio << endl;
+
+	if( inliersRatio < 0.6 ) {
+		if( debug )
+			cerr << "\tToo many outliers\n";
+
+		return matchingObject;
+	}
 
 	if( debug )
 		cerr << "\tHomography matrix calculated, mapping " << labelDB[ maxSample ].size() << " label points\n";
