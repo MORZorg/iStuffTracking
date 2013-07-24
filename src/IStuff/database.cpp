@@ -3,7 +3,7 @@
  * @brief	Definition for Database class
  * @class	IStuff::Database
  * @author	Mattia Rizzini
- * @version	0.1.3
+ * @version	0.1.4
  * @date	2013-07-14
  */
 
@@ -56,11 +56,11 @@ Database::~Database() {
 
 /**
  * @brief	Search for descriptors matching in passed frame
- * @details	Given an image, searches for the descriptors in the database
- *			and returns a rectangle enclosing the matched object
+ * @details	Given an image, searches for descriptor matches in the database
+ *			and returns an object containing the estimated label positions
  * @param[in] frame	The image to search into
  * @retval	An Object containing an association between the labels and the
- * 			areas in which every label is found
+ * 			positions in which every label is found
  * */
 Object Database::match( Mat scene ) {
 	if( debug )
@@ -68,9 +68,9 @@ Object Database::match( Mat scene ) {
 
 	Object matchingObject;
 
-	// Calculate SURF keypoints and descriptors
-	Ptr< FeatureDetector > featureDetector = FeatureDetector::create( "SURF" );
-	Ptr< DescriptorExtractor > featureExtractor = DescriptorExtractor::create( "SURF" );
+	// Calculate SIFT keypoints and descriptors
+	Ptr< FeatureDetector > featureDetector = FeatureDetector::create( "SIFT" );
+	Ptr< DescriptorExtractor > featureExtractor = DescriptorExtractor::create( "SIFT" );
 
 	vector< KeyPoint > sceneKeypoints;
 	Mat sceneDescriptors;
@@ -90,7 +90,8 @@ Object Database::match( Mat scene ) {
 	if( debug )
 		cerr << "\t\t" << matches.size() << " matches found, start filtering the good ones\n";
 
-	double NNDRRatio = 0.6;
+	// Keep only the matches with a significant difference in distance between the two nearest neighbours
+	double NNDRRatio = 0.5;
 
 	for( int i = 0; i < matches.size(); i++ )
 		if( matches[ i ][ 0 ].distance <= NNDRRatio * matches[ i ][ 1 ].distance )
@@ -100,7 +101,7 @@ Object Database::match( Mat scene ) {
 		cerr << "\t\t" << goodMatches.size() << " good matches found, starting object localization\n";
 	
 	// Object localization
-	// Prints out the good matching keypoints and draws them
+	// Prints out the good matching keypoints and draws them for debug
 	if( debug ) {
 		for( int i = 0; i < goodMatches.size(); i++ )
 			cerr <<"\tGood match #" << i
@@ -116,7 +117,7 @@ Object Database::match( Mat scene ) {
 		imwrite( outsbra, imgKeypoints );
 	}
 
-	// I consider only the sample with the biggest number of matches
+	// I consider only the sample with the biggest number of matches (the index will be contained in maxSample)
 	vector< int > bestSample( labelDB.size(), 0 );
 
 	for( vector< DMatch >::iterator m = goodMatches.begin(); m != goodMatches.end(); m++ )
@@ -131,8 +132,8 @@ Object Database::match( Mat scene ) {
 	if( debug )
 		cerr << "\tBest sample is #" << maxSample << endl;
 
-	// Analyze the keypoints found for the sample to estimate homography and apply that to the
-	// labels associated to the sample
+	// Analyze the keypoints found for the sample to estimate homography and apply a perspectiveTransform
+	// to the labels associated to that sample
 	vector< Point2f > samplePoints, scenePoints;
 
 	for( int i = 0; i < goodMatches.size(); i++ )
@@ -149,39 +150,7 @@ Object Database::match( Mat scene ) {
 	}
 
 	// Calculate homography mask, apply transformation to the label points and add the labels to the object 
-	//Mat H = findHomography( samplePoints, scenePoints, CV_RANSAC );
 	Mat H = findHomography( samplePoints, scenePoints, CV_RANSAC );
-
-	// Check if H is good
-	/*bool goodH = true;
-
-	float det, N1, N2, N3;
-	
-	det = H.at<float>( 0, 0 ) * H.at<float>( 1, 1 ) - H.at<float>( 1, 0 ) * H.at<float>( 0, 1 );
-
-	if( det < 0 )
-		goodH = false;
-
-	N1 = sqrt( H.at<float>( 0, 0 ) * H.at<float>( 0, 0 ) + H.at<float>( 1, 0 ) * H.at<float>( 1, 0 ) );
-	if( N1 > 4 || N1 < 0.1 )
-		goodH = false;
-
-	N2 = sqrt( H.at<float>( 0, 1 ) * H.at<float>( 0, 1 ) + H.at<float>( 1, 1 ) * H.at<float>( 1, 1 ) );
-	if( N2 > 4 || N2 < 0.1 )
-		goodH = false;
-
-	N3 = sqrt( H.at<float>( 2, 0 ) * H.at<float>( 2, 0 ) + H.at<float>( 2, 1 ) * H.at<float>( 2, 1 ) );
-	if( N3 > 0.002 )
-		goodH = false;
-
-	cerr << goodH << " Det: " << det << " N1: " << N1 << " N2: " << N2 << " N3: " << N3 << endl;
-
-	if( !goodH ) {
-		if( debug )
-			cerr << "\tToo many outliers, homography is wrong\n";
-
-		return matchingObject;
-	}*/
 
 	if( debug )
 		cerr << "\tHomography matrix calculated, mapping " << labelDB[ maxSample ].size() << " label points\n";
@@ -206,11 +175,9 @@ Object Database::match( Mat scene ) {
 /**
  * @brief	Creates the database from the sample images
  * @details	Loaded the images contained in the argument path
- * 			generate a set of labels, detects the SURF features
- * 			and descriptors for every sample and associate them to
- * 			every label, then trains a matcher with the descriptors
- * 			and save everything in the corresponding structures.
- * 			Also save the database into a file
+ * 			associate to every image sample its keypoints and descriptors.
+ * 			Also loads the label positions in the samples.
+ * 			Saves everything in three structures and to a set of files
  * @param[in] imagesPath	The path containing the source images
  */
 void Database::build( string imagesPath ) {
@@ -225,9 +192,9 @@ void Database::build( string imagesPath ) {
 
 	fs::directory_iterator end_iter;
 
-	// SURF detector and extractor
-	Ptr< FeatureDetector > featureDetector = FeatureDetector::create( "SURF" );
-	Ptr< DescriptorExtractor > featureExtractor = DescriptorExtractor::create( "SURF" );
+	// SIFT detector and extractor
+	Ptr< FeatureDetector > featureDetector = FeatureDetector::create( "SIFT" );
+	Ptr< DescriptorExtractor > featureExtractor = DescriptorExtractor::create( "SIFT" );
 
 	// Temporary containers
 	Mat load, descriptors;
@@ -238,7 +205,8 @@ void Database::build( string imagesPath ) {
 	boost::uniform_int<> colorRange( 0, 255 );
 	boost::variate_generator< boost::mt19937, boost::uniform_int<> > color( rng, colorRange );
 
-	// For every image generate a new label and save the various informations
+	// For every image compute descriptors, load labels and save them
+	// Associate to every label a random color for visualization
 	for( fs::directory_iterator it( fullPath ); it != end_iter; ++it ) {
 		fs::path extension = fs::extension( it -> path() );
 
@@ -290,6 +258,8 @@ void Database::build( string imagesPath ) {
 			localLabels.push_back( Label( name, Point2f( ::atof( ( x ).c_str() ), ::atof( ( y ).c_str() ) ), Scalar( color(), color(), color() ) ) );
 		}
 
+		// Add everything to the structures
+		// The association between the structure is gained by position
 		labelDB.push_back( localLabels );
 
 		if( debug )
@@ -311,8 +281,6 @@ void Database::build( string imagesPath ) {
 			cerr << "\tShowing image " << outsbra << endl;
 
 			imwrite( outsbra, outputImage );
-			//imshow( "Loaded keypoints", outputImage );
-			//waitKey();
 
 			cerr << "\tReiterating" << endl << endl;
 		}
@@ -329,7 +297,7 @@ void Database::build( string imagesPath ) {
 }
 
 /**
- * @brief	Load existing database and fill the map 
+ * @brief	Load existing database and fill the structures
  */
 void Database::load() {
 	if( debug )
@@ -446,7 +414,7 @@ void Database::load() {
 }
 
 /**
- * @brief	Writes the database to a file in the default directory 
+ * @brief	Writes the database to a set of files in the default directory 
  */
 void Database::save() {
 	if( debug )
