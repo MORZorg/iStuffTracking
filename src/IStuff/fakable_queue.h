@@ -20,31 +20,31 @@ extern bool debug;
 
 namespace IStuff
 {
-	class FakableQueue
-	{
-		/* Attributes */
-		private:
-			const static char TAG[];
+  class FakableQueue
+  {
+    /* Attributes */
+    private:
+      const static char TAG[];
 
-			std::queue<cv::Mat> real_queue,
-													saved_queue;
-			boost::mutex queue_mutex;
+      std::queue<cv::Mat> real_queue,
+                          saved_queue;
+      boost::mutex queue_mutex;
 
-		/* Methods */
-		public:
-			/* Constructors and Destructors */
-			FakableQueue();
-			virtual ~FakableQueue();
+      /* Methods */
+    public:
+      /* Constructors and Destructors */
+      FakableQueue();
+      virtual ~FakableQueue();
 
-			/* Setters */
-			void enqueue(cv::Mat);
-			void start(cv::Mat);
-			void discard();
+      /* Setters */
+      void enqueue(cv::Mat);
+      void start(cv::Mat);
+      void discard();
 
-			/* Getters */
-			cv::Mat dequeue();
-			cv::Mat getStarter();
-	};
+      /* Getters */
+      cv::Mat dequeue();
+      cv::Mat getStarter();
+  };
 }
 
 #endif

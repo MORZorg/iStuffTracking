@@ -23,7 +23,7 @@ const char Manager::TAG[] = "Mng";
  */
 Manager::Manager()
 {
-	frames_tracked_count = RECOGNITION_PERIOD;
+  frames_tracked_count = RECOGNITION_PERIOD;
 }
 
 Manager::~Manager()
@@ -38,9 +38,9 @@ Manager::~Manager()
  */
 void Manager::setObject(const Object object)
 {
-	unique_lock<shared_mutex> lock(object_update);
+  unique_lock<shared_mutex> lock(object_update);
 
-	actual_object = object;
+  actual_object = object;
 }
 
 /**
@@ -52,8 +52,8 @@ void Manager::setObject(const Object object)
  */
 void Manager::setDatabase(Database* database)
 {
-	frames_tracked_count = RECOGNITION_PERIOD;
-	recognizer.setDatabase(database);
+  frames_tracked_count = RECOGNITION_PERIOD;
+  recognizer.setDatabase(database);
 }
 
 /* Getters */
@@ -65,9 +65,9 @@ void Manager::setDatabase(Database* database)
  */
 Object Manager::getObject()
 {
-	shared_lock<shared_mutex> lock(object_update);
+  shared_lock<shared_mutex> lock(object_update);
 
-	return actual_object;
+  return actual_object;
 }
 
 /* Other methods */
@@ -81,24 +81,24 @@ Object Manager::getObject()
  */
 void Manager::elaborateFrame(Mat frame)
 {
-	if ((getObject().empty() || frames_tracked_count >= RECOGNITION_PERIOD)
-			&& !recognizer.isRunning())
-	{
-		if (hl_debug)
-			cerr << TAG << ": Recognizing.\n";
+  if ((getObject().empty() || frames_tracked_count >= RECOGNITION_PERIOD)
+      && !recognizer.isRunning())
+  {
+    if (hl_debug)
+      cerr << TAG << ": Recognizing.\n";
 
-		sendMessage(MSG_RECOGNITION_START, &frame);
-	}
-	else
-	{
-		if (hl_debug)
-			cerr << TAG << ": Tracking " << frames_tracked_count << ".\n";
+    sendMessage(MSG_RECOGNITION_START, &frame);
+  }
+  else
+  {
+    if (hl_debug)
+      cerr << TAG << ": Tracking " << frames_tracked_count << ".\n";
 
-		if (frames_tracked_count < RECOGNITION_PERIOD)
-			frames_tracked_count++;
+    if (frames_tracked_count < RECOGNITION_PERIOD)
+      frames_tracked_count++;
 
-		setObject(tracker.trackFrame(frame));
-	}
+    setObject(tracker.trackFrame(frame));
+  }
 }
 
 /**
@@ -110,7 +110,7 @@ void Manager::elaborateFrame(Mat frame)
  */
 Mat Manager::paintObject(Mat frame)
 {
-	return getObject().paint(frame);
+  return getObject().paint(frame);
 }
 
 /**
@@ -134,37 +134,37 @@ Mat Manager::paintObject(Mat frame)
  */
 void Manager::sendMessage(int msg, void* data, void* reply_to)
 {
-	switch (msg)
-	{
-		case MSG_RECOGNITION_START:
-			frames_tracked_count = 0;
+  switch (msg)
+  {
+    case MSG_RECOGNITION_START:
+      frames_tracked_count = 0;
 
-			recognizer.sendMessage(msg, data, this);
-			tracker.sendMessage(msg, data);
-			break;
+      recognizer.sendMessage(msg, data, this);
+      tracker.sendMessage(msg, data);
+      break;
 
-		case MSG_RECOGNITION_END:
-			if (hl_debug)
-				cerr << TAG << ": Recognition finished.\n";
+    case MSG_RECOGNITION_END:
+      if (hl_debug)
+        cerr << TAG << ": Recognition finished.\n";
 
-			tracker.sendMessage(msg, data);
-			break;
+      tracker.sendMessage(msg, data);
+      break;
 
-		case MSG_TRACKING_START:
-			tracker.sendMessage(msg, data, this);
-			break;
+    case MSG_TRACKING_START:
+      tracker.sendMessage(msg, data, this);
+      break;
 
-		case MSG_TRACKING_END:
-			// Syncrhonized
-			{
-				shared_lock<shared_mutex> lock(object_update);
+    case MSG_TRACKING_END:
+      // Syncrhonized
+      {
+        shared_lock<shared_mutex> lock(object_update);
 
-				actual_object = *(Object*)data;
-			}
-			break;
-			
-		default:
-			break;
-	}
+        actual_object = *(Object*)data;
+      }
+      break;
+
+    default:
+      break;
+  }
 }
 

@@ -44,18 +44,18 @@ FakableQueue::~FakableQueue()
  */
 void FakableQueue::enqueue(Mat frame)
 {
-	if (debug)
-		cerr << TAG << ": enqueue.\n";
-	
-	lock_guard<mutex> lock(queue_mutex);
+  if (debug)
+    cerr << TAG << ": enqueue.\n";
 
-	if (real_queue.empty())
-		return;
-	else
-	{
-		real_queue.push(frame);
-		saved_queue.push(frame);
-	}
+  lock_guard<mutex> lock(queue_mutex);
+
+  if (real_queue.empty())
+    return;
+  else
+  {
+    real_queue.push(frame);
+    saved_queue.push(frame);
+  }
 }
 
 /**
@@ -67,15 +67,15 @@ void FakableQueue::enqueue(Mat frame)
  */
 void FakableQueue::start(Mat frame)
 {
-	if (debug)
-		cerr << TAG << ": start.\n";
-	
-	lock_guard<mutex> lock(queue_mutex);
-	
-	saved_queue = queue<Mat>();
+  if (debug)
+    cerr << TAG << ": start.\n";
 
-	real_queue.push(frame);
-	saved_queue.push(frame);
+  lock_guard<mutex> lock(queue_mutex);
+
+  saved_queue = queue<Mat>();
+
+  real_queue.push(frame);
+  saved_queue.push(frame);
 }
 
 /**
@@ -84,12 +84,12 @@ void FakableQueue::start(Mat frame)
  */
 void FakableQueue::discard()
 {
-	if (debug)
-		cerr << TAG << ": discard.\n";
-	
-	lock_guard<mutex> lock(queue_mutex);
-	
-	real_queue = saved_queue;
+  if (debug)
+    cerr << TAG << ": discard.\n";
+
+  lock_guard<mutex> lock(queue_mutex);
+
+  real_queue = saved_queue;
 }
 
 /* Getters */
@@ -102,20 +102,20 @@ void FakableQueue::discard()
  */
 Mat FakableQueue::dequeue()
 {
-	if (debug)
-		cerr << TAG << ": dequeue.\n";
-	
-	Mat result;
+  if (debug)
+    cerr << TAG << ": dequeue.\n";
 
-	lock_guard<mutex> lock(queue_mutex);
-	
-	if (real_queue.empty())
-		throw out_of_range("FakableQueue empty");
+  Mat result;
 
-	result = real_queue.front();
-	real_queue.pop();
+  lock_guard<mutex> lock(queue_mutex);
 
-	return result;
+  if (real_queue.empty())
+    throw out_of_range("FakableQueue empty");
+
+  result = real_queue.front();
+  real_queue.pop();
+
+  return result;
 }
 
 /**
@@ -125,12 +125,12 @@ Mat FakableQueue::dequeue()
  */
 Mat FakableQueue::getStarter()
 {
-	if (debug)
-		cerr << TAG << ": getStarter.\n";
-	
-	// Could be shared...
-	lock_guard<mutex> lock(queue_mutex);
+  if (debug)
+    cerr << TAG << ": getStarter.\n";
 
-	return saved_queue.front();
+  // Could be shared...
+  lock_guard<mutex> lock(queue_mutex);
+
+  return saved_queue.front();
 }
 
