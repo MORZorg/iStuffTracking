@@ -8,13 +8,6 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
-<link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="resize.js"></script>
-<script type="text/javascript" src="navtree.js"></script>
-<script type="text/javascript">
-  $(document).ready(initResizable);
-  $(window).load(resizeHeight);
-</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
@@ -30,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">iStuffTracking
-   &#160;<span id="projectnumber">0.2.0</span>
+   &#160;<span id="projectnumber">0.2.5</span>
    </div>
   </td>
  </tr>
@@ -73,21 +66,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
-</div><!-- top -->
-<div id="side-nav" class="ui-resizable side-nav-resizable">
-  <div id="nav-tree">
-    <div id="nav-tree-contents">
-      <div id="nav-sync" class="sync"></div>
-    </div>
-  </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
-       class="ui-resizable-handle">
-  </div>
-</div>
-<script type="text/javascript">
-$(document).ready(function(){initNavTree('tracker_8h_source.html','');});
-</script>
-<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -102,6 +80,11 @@ $(document).ready(function(){initNavTree('tracker_8h_source.html','');});
 </iframe>
 </div>
 
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_9ecd5c5c2bfeacb6e1f58c01e4ddfde2.html">IStuff</a></li>  </ul>
+</div>
+</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">tracker.h</div>  </div>
@@ -128,71 +111,67 @@ $(document).ready(function(){initNavTree('tracker_8h_source.html','');});
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">namespace </span>IStuff</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;{</div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="code" href="namespace_i_stuff.html#a2d680b8d3ea1fa53d1aa740cc669063c">   29</a></span>&#160;    <span class="keyword">class </span><a class="code" href="class_i_stuff_1_1_manager.html" title="Class to manage the joint 3D Object recognition and tracking. ">Manager</a>;</div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="code" href="namespace_i_stuff.html#a2d680b8d3ea1fa53d1aa740cc669063c">   29</a></span>&#160;  <span class="keyword">class </span><a class="code" href="class_i_stuff_1_1_manager.html" title="Class to manage the joint 3D Object recognition and tracking. ">Manager</a>;</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keyword">typedef</span> std::vector&lt;cv::Point2f&gt; <a class="code" href="namespace_i_stuff.html#a2d680b8d3ea1fa53d1aa740cc669063c" title="An alias for a std::vector of cv::Point, used for tracking. ">Features</a>;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  <span class="keyword">typedef</span> std::vector&lt;cv::Point2f&gt; <a class="code" href="namespace_i_stuff.html#a2d680b8d3ea1fa53d1aa740cc669063c" title="An alias for a std::vector of cv::Point, used for tracking. ">Features</a>;</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_tracker.html">   36</a></span>&#160;    <span class="keyword">class </span><a class="code" href="class_i_stuff_1_1_tracker.html" title="Class used to track objects in a video stream. ">Tracker</a></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    {</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="comment">/* Attributes */</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00040"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_tracker.html#a68ef6bf09dbf9db7a6788ed899edb28d">   40</a></span>&#160;            <span class="keyword">const</span> <span class="keyword">static</span> <span class="keywordtype">char</span> <a class="code" href="class_i_stuff_1_1_tracker.html#a68ef6bf09dbf9db7a6788ed899edb28d">TAG</a>[];</div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_tracker.html">   36</a></span>&#160;  <span class="keyword">class </span><a class="code" href="class_i_stuff_1_1_tracker.html" title="Class used to track objects in a video stream. ">Tracker</a></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  {</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="comment">/* Attributes */</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_tracker.html#a68ef6bf09dbf9db7a6788ed899edb28d">   40</a></span>&#160;      <span class="keyword">const</span> <span class="keyword">static</span> <span class="keywordtype">char</span> <a class="code" href="class_i_stuff_1_1_tracker.html#a68ef6bf09dbf9db7a6788ed899edb28d">TAG</a>[];</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
-<div class="line"><a name="l00042"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_tracker.html#a7bd424308b6879e92434378e653c8bdc">   42</a></span>&#160;            <span class="keyword">const</span> <span class="keyword">static</span> <span class="keywordtype">int</span> <a class="code" href="class_i_stuff_1_1_tracker.html#a7bd424308b6879e92434378e653c8bdc">NEAREST_FEATURES_COUNT</a> = 10;</div>
-<div class="line"><a name="l00043"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_tracker.html#af0b19050495dbda2d14bdba30fd4eb9a">   43</a></span>&#160;            <span class="keyword">const</span> <span class="keyword">static</span> <span class="keywordtype">float</span> constexpr <a class="code" href="class_i_stuff_1_1_tracker.html#af0b19050495dbda2d14bdba30fd4eb9a">IMG_RESIZE</a> = .5;</div>
-<div class="line"><a name="l00044"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_tracker.html#af8521ba1a18dab69b2ff367799fc2101">   44</a></span>&#160;            <span class="keyword">const</span> <span class="keyword">static</span> cv::Size <a class="code" href="class_i_stuff_1_1_tracker.html#af8521ba1a18dab69b2ff367799fc2101">LK_WINDOW</a>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_tracker.html#a7bd424308b6879e92434378e653c8bdc">   42</a></span>&#160;      <span class="keyword">const</span> <span class="keyword">static</span> <span class="keywordtype">int</span> <a class="code" href="class_i_stuff_1_1_tracker.html#a7bd424308b6879e92434378e653c8bdc">NEAREST_FEATURES_COUNT</a> = 10;</div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_tracker.html#af0b19050495dbda2d14bdba30fd4eb9a">   43</a></span>&#160;      <span class="keyword">const</span> <span class="keyword">static</span> <span class="keywordtype">float</span> constexpr <a class="code" href="class_i_stuff_1_1_tracker.html#af0b19050495dbda2d14bdba30fd4eb9a">IMG_RESIZE</a> = .5;</div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_tracker.html#af8521ba1a18dab69b2ff367799fc2101">   44</a></span>&#160;      <span class="keyword">const</span> <span class="keyword">static</span> cv::Size <a class="code" href="class_i_stuff_1_1_tracker.html#af8521ba1a18dab69b2ff367799fc2101">LK_WINDOW</a>;</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
-<div class="line"><a name="l00046"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_tracker.html#a76bb227e8681e75c9d7edd561e231ab6">   46</a></span>&#160;            std::auto_ptr&lt;boost::thread&gt; <a class="code" href="class_i_stuff_1_1_tracker.html#a76bb227e8681e75c9d7edd561e231ab6">m_thread</a>;</div>
-<div class="line"><a name="l00047"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_tracker.html#a6859d6a02fe907e0dcc1b48b79ba0d9d">   47</a></span>&#160;            <span class="keywordtype">bool</span> <a class="code" href="class_i_stuff_1_1_tracker.html#a6859d6a02fe907e0dcc1b48b79ba0d9d">m_running</a> = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00048"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_tracker.html#a71c26a9c9d53b53cd3e6f46bfb9e1af1">   48</a></span>&#160;            boost::mutex <a class="code" href="class_i_stuff_1_1_tracker.html#a71c26a9c9d53b53cd3e6f46bfb9e1af1">m_object_mutex</a>;</div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_tracker.html#a76bb227e8681e75c9d7edd561e231ab6">   46</a></span>&#160;      std::auto_ptr&lt;boost::thread&gt; <a class="code" href="class_i_stuff_1_1_tracker.html#a76bb227e8681e75c9d7edd561e231ab6">m_thread</a>;</div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_tracker.html#a6859d6a02fe907e0dcc1b48b79ba0d9d">   47</a></span>&#160;      <span class="keywordtype">bool</span> <a class="code" href="class_i_stuff_1_1_tracker.html#a6859d6a02fe907e0dcc1b48b79ba0d9d">m_running</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_tracker.html#a71c26a9c9d53b53cd3e6f46bfb9e1af1">   48</a></span>&#160;      boost::mutex <a class="code" href="class_i_stuff_1_1_tracker.html#a71c26a9c9d53b53cd3e6f46bfb9e1af1">m_object_mutex</a>;</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
-<div class="line"><a name="l00050"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_tracker.html#a1d7215169ee7adb0bb9f182c0aaaa311">   50</a></span>&#160;            <a class="code" href="class_i_stuff_1_1_object.html" title="Class used to represent a three dimensional object. ">Object</a> <a class="code" href="class_i_stuff_1_1_tracker.html#a1d7215169ee7adb0bb9f182c0aaaa311">m_object</a>;</div>
-<div class="line"><a name="l00051"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_tracker.html#a174749550b4b79c8ddf91e9a744fb50d">   51</a></span>&#160;            cv::Mat <a class="code" href="class_i_stuff_1_1_tracker.html#a174749550b4b79c8ddf91e9a744fb50d">m_frame</a>;</div>
-<div class="line"><a name="l00052"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_tracker.html#a72081a14f4eb1193fa9800a1e37e0100">   52</a></span>&#160;            <a class="code" href="namespace_i_stuff.html#a2d680b8d3ea1fa53d1aa740cc669063c" title="An alias for a std::vector of cv::Point, used for tracking. ">Features</a> <a class="code" href="class_i_stuff_1_1_tracker.html#a2e8d6c6201c9ea3a4d824404c917befe">m_features</a>,</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                             <a class="code" href="class_i_stuff_1_1_tracker.html#a72081a14f4eb1193fa9800a1e37e0100">m_saved_features</a>;</div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_tracker.html#a1d7215169ee7adb0bb9f182c0aaaa311">   50</a></span>&#160;      <a class="code" href="class_i_stuff_1_1_object.html" title="Class used to represent a three dimensional object. ">Object</a> <a class="code" href="class_i_stuff_1_1_tracker.html#a1d7215169ee7adb0bb9f182c0aaaa311">m_object</a>;</div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_tracker.html#a174749550b4b79c8ddf91e9a744fb50d">   51</a></span>&#160;      cv::Mat <a class="code" href="class_i_stuff_1_1_tracker.html#a174749550b4b79c8ddf91e9a744fb50d">m_frame</a>;</div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_tracker.html#a72081a14f4eb1193fa9800a1e37e0100">   52</a></span>&#160;      <a class="code" href="namespace_i_stuff.html#a2d680b8d3ea1fa53d1aa740cc669063c" title="An alias for a std::vector of cv::Point, used for tracking. ">Features</a> <a class="code" href="class_i_stuff_1_1_tracker.html#a2e8d6c6201c9ea3a4d824404c917befe">m_features</a>,</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;               <a class="code" href="class_i_stuff_1_1_tracker.html#a72081a14f4eb1193fa9800a1e37e0100">m_saved_features</a>;</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
-<div class="line"><a name="l00055"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_tracker.html#a7efbebcf19f9308ae8b74232d809e47a">   55</a></span>&#160;            cv::Ptr&lt;cv::FeatureDetector&gt; <a class="code" href="class_i_stuff_1_1_tracker.html#a7efbebcf19f9308ae8b74232d809e47a">m_detector</a>;</div>
-<div class="line"><a name="l00056"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_tracker.html#a126a9bea1a885a25b3fc734c96a052de">   56</a></span>&#160;            cv::Ptr&lt;cv::DescriptorMatcher&gt; <a class="code" href="class_i_stuff_1_1_tracker.html#a126a9bea1a885a25b3fc734c96a052de">m_matcher</a>;</div>
+<div class="line"><a name="l00055"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_tracker.html#a7efbebcf19f9308ae8b74232d809e47a">   55</a></span>&#160;      cv::Ptr&lt;cv::FeatureDetector&gt; <a class="code" href="class_i_stuff_1_1_tracker.html#a7efbebcf19f9308ae8b74232d809e47a">m_detector</a>;</div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="code" href="class_i_stuff_1_1_tracker.html#a126a9bea1a885a25b3fc734c96a052de">   56</a></span>&#160;      cv::Ptr&lt;cv::DescriptorMatcher&gt; <a class="code" href="class_i_stuff_1_1_tracker.html#a126a9bea1a885a25b3fc734c96a052de">m_matcher</a>;</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="comment">/* Methods */</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            <span class="comment">/* Constructors and Destructors */</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            <a class="code" href="class_i_stuff_1_1_tracker.html#adf214393a14e8bf23de2fc8231e239ec" title="Constructs a structure used to track 3D objects inside a video stream. ">Tracker</a>();</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            <span class="keyword">virtual</span> <a class="code" href="class_i_stuff_1_1_tracker.html#a0ed1e23312cfe7fcfe5f2ac2abd69163">~Tracker</a>();</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;      <span class="comment">/* Methods */</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;      <span class="comment">/* Constructors and Destructors */</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;      <a class="code" href="class_i_stuff_1_1_tracker.html#adf214393a14e8bf23de2fc8231e239ec" title="Constructs a structure used to track 3D objects inside a video stream. ">Tracker</a>();</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;      <span class="keyword">virtual</span> <a class="code" href="class_i_stuff_1_1_tracker.html#a0ed1e23312cfe7fcfe5f2ac2abd69163">~Tracker</a>();</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            <span class="comment">/* Setters */</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;      <span class="comment">/* Setters */</span></div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            <span class="comment">/* Getters */</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;            <span class="keywordtype">bool</span> <a class="code" href="class_i_stuff_1_1_tracker.html#adeaab8820045251bcf5a7b4f394eb568" title="Checks whether this IStuff::Tracker has a thread up and running. ">isRunning</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;      <span class="comment">/* Getters */</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;      <span class="keywordtype">bool</span> <a class="code" href="class_i_stuff_1_1_tracker.html#adeaab8820045251bcf5a7b4f394eb568" title="Checks whether this IStuff::Tracker has a thread up and running. ">isRunning</a>() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            <span class="comment">/* Other methods */</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            <a class="code" href="class_i_stuff_1_1_object.html" title="Class used to represent a three dimensional object. ">Object</a> <a class="code" href="class_i_stuff_1_1_tracker.html#ae2ed3c100de7c3a58484628c748c926c" title="Tracks the current IStuff::Object between the last frame and this one. ">trackFrame</a>(cv::Mat);</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            <span class="keywordtype">void</span> <a class="code" href="class_i_stuff_1_1_tracker.html#a931b4e57f59d6a0f38d78bb34ab2332b" title="Method to send messages to this IStuff::Tracker. ">sendMessage</a>(<span class="keywordtype">int</span>, <span class="keywordtype">void</span>*, <span class="keywordtype">void</span>* = NULL);</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            <span class="comment">/* Setters */</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;            <span class="keywordtype">void</span> <a class="code" href="class_i_stuff_1_1_tracker.html#a0f512d1134b48840d65547bc60d2dd7d" title="Method used by this IStuff::Tracker&#39;s thread to mark itself as running. ">setRunning</a>(<span class="keywordtype">bool</span>);</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;      <span class="comment">/* Other methods */</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;      <a class="code" href="class_i_stuff_1_1_object.html" title="Class used to represent a three dimensional object. ">Object</a> <a class="code" href="class_i_stuff_1_1_tracker.html#ae2ed3c100de7c3a58484628c748c926c" title="Tracks the current IStuff::Object between the last frame and this one. ">trackFrame</a>(cv::Mat);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;      <span class="keywordtype">void</span> <a class="code" href="class_i_stuff_1_1_tracker.html#a931b4e57f59d6a0f38d78bb34ab2332b" title="Method to send messages to this IStuff::Tracker. ">sendMessage</a>(<span class="keywordtype">int</span>, <span class="keywordtype">void</span>*, <span class="keywordtype">void</span>* = NULL);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;      <span class="comment">/* Setters */</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;      <span class="keywordtype">void</span> <a class="code" href="class_i_stuff_1_1_tracker.html#a0f512d1134b48840d65547bc60d2dd7d" title="Method used by this IStuff::Tracker&#39;s thread to mark itself as running. ">setRunning</a>(<span class="keywordtype">bool</span>);</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;            <span class="comment">/* Other methods */</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;            <a class="code" href="namespace_i_stuff.html#a2d680b8d3ea1fa53d1aa740cc669063c" title="An alias for a std::vector of cv::Point, used for tracking. ">Features</a> <a class="code" href="class_i_stuff_1_1_tracker.html#ac36102855dfda592ccec02f77a8eaf35" title="Method to calculate the IStuff::Features used to track IStuff::Object between frames. ">calcFeatures</a>(cv::Mat);</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            <a class="code" href="namespace_i_stuff.html#a2d680b8d3ea1fa53d1aa740cc669063c" title="An alias for a std::vector of cv::Point, used for tracking. ">Features</a> <a class="code" href="class_i_stuff_1_1_tracker.html#ac36102855dfda592ccec02f77a8eaf35" title="Method to calculate the IStuff::Features used to track IStuff::Object between frames. ">calcFeatures</a>(cv::Mat, cv::Mat, <a class="code" href="namespace_i_stuff.html#a2d680b8d3ea1fa53d1aa740cc669063c" title="An alias for a std::vector of cv::Point, used for tracking. ">Features</a>*);</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            <a class="code" href="class_i_stuff_1_1_object.html" title="Class used to represent a three dimensional object. ">Object</a> <a class="code" href="class_i_stuff_1_1_tracker.html#a3d9b861a3cf475309dda610d68b5dbd5" title="Function to update an IStuff::Object from an old position to its new one. ">updateObject</a>(<a class="code" href="namespace_i_stuff.html#a2d680b8d3ea1fa53d1aa740cc669063c" title="An alias for a std::vector of cv::Point, used for tracking. ">Features</a>, <a class="code" href="namespace_i_stuff.html#a2d680b8d3ea1fa53d1aa740cc669063c" title="An alias for a std::vector of cv::Point, used for tracking. ">Features</a>, <a class="code" href="class_i_stuff_1_1_object.html" title="Class used to represent a three dimensional object. ">Object</a>);</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;            <span class="keywordtype">bool</span> <a class="code" href="class_i_stuff_1_1_tracker.html#a26eecfd128d97776101938b59f13c987" title="Method to do the tracking process in a separate thread. ">backgroundTrackFrame</a>(cv::Mat, <a class="code" href="class_i_stuff_1_1_manager.html" title="Class to manage the joint 3D Object recognition and tracking. ">Manager</a>*);</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    };</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;      <span class="comment">/* Other methods */</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;      <a class="code" href="namespace_i_stuff.html#a2d680b8d3ea1fa53d1aa740cc669063c" title="An alias for a std::vector of cv::Point, used for tracking. ">Features</a> <a class="code" href="class_i_stuff_1_1_tracker.html#ac36102855dfda592ccec02f77a8eaf35" title="Method to calculate the IStuff::Features used to track IStuff::Object between frames. ">calcFeatures</a>(cv::Mat);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;      <a class="code" href="namespace_i_stuff.html#a2d680b8d3ea1fa53d1aa740cc669063c" title="An alias for a std::vector of cv::Point, used for tracking. ">Features</a> <a class="code" href="class_i_stuff_1_1_tracker.html#ac36102855dfda592ccec02f77a8eaf35" title="Method to calculate the IStuff::Features used to track IStuff::Object between frames. ">calcFeatures</a>(cv::Mat, cv::Mat, <a class="code" href="namespace_i_stuff.html#a2d680b8d3ea1fa53d1aa740cc669063c" title="An alias for a std::vector of cv::Point, used for tracking. ">Features</a>*);</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;      <a class="code" href="class_i_stuff_1_1_object.html" title="Class used to represent a three dimensional object. ">Object</a> <a class="code" href="class_i_stuff_1_1_tracker.html#a3d9b861a3cf475309dda610d68b5dbd5" title="Function to update an IStuff::Object from an old position to its new one. ">updateObject</a>(<a class="code" href="namespace_i_stuff.html#a2d680b8d3ea1fa53d1aa740cc669063c" title="An alias for a std::vector of cv::Point, used for tracking. ">Features</a>, <a class="code" href="namespace_i_stuff.html#a2d680b8d3ea1fa53d1aa740cc669063c" title="An alias for a std::vector of cv::Point, used for tracking. ">Features</a>, <a class="code" href="class_i_stuff_1_1_object.html" title="Class used to represent a three dimensional object. ">Object</a>);</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;      <span class="keywordtype">bool</span> <a class="code" href="class_i_stuff_1_1_tracker.html#a26eecfd128d97776101938b59f13c987" title="Method to do the tracking process in a separate thread. ">backgroundTrackFrame</a>(cv::Mat, <a class="code" href="class_i_stuff_1_1_manager.html" title="Class to manage the joint 3D Object recognition and tracking. ">Manager</a>*);</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  };</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;}</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="manager_8h.html" title="Header file relative to the class IStuff::Manager. ">manager.h</a>&quot;</span></div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* defined I_STUFF_TRACKER_H__ */</span><span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
-</div><!-- doc-content -->
 <!-- start footer part -->
-<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
-  <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_9ecd5c5c2bfeacb6e1f58c01e4ddfde2.html">IStuff</a></li><li class="navelem"><a class="el" href="tracker_8h.html">tracker.h</a></li>
-    <li class="footer">Generated on Wed Jul 24 2013 01:39:51 for iStuffTracking by
-    <a href="http://www.doxygen.org/index.html">
-    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
-  </ul>
-</div>
+<hr class="footer"/><address class="footer"><small>
+Generated on Wed Jul 24 2013 22:02:45 for iStuffTracking by &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.4
+</small></address>
 </body>
 </html>

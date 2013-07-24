@@ -1,0 +1,557 @@
+\begin{theindex}
+
+  \item {$\sim $\discretionary {-}{}{}Database}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Database}, 
+		\hyperpage{14}
+  \item {$\sim $\discretionary {-}{}{}Fakable\discretionary {-}{}{}Queue}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Fakable\discretionary {-}{}{}Queue}, 
+		\hyperpage{19}
+  \item {$\sim $\discretionary {-}{}{}Manager}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Manager}, 
+		\hyperpage{23}
+  \item {$\sim $\discretionary {-}{}{}Object}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Object}, 
+		\hyperpage{26}
+  \item {$\sim $\discretionary {-}{}{}Recognizer}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Recognizer}, 
+		\hyperpage{29}
+  \item {$\sim $\discretionary {-}{}{}Tracker}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Tracker}, 
+		\hyperpage{32}
+
+  \indexspace
+
+  \item {actual\discretionary {-}{}{}\_\discretionary {-}{}{}object}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Manager}, 
+		\hyperpage{24}
+  \item {add\discretionary {-}{}{}Label}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Object}, 
+		\hyperpage{27}
+
+  \indexspace
+
+  \item {background\discretionary {-}{}{}Recognize\discretionary {-}{}{}Frame}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Recognizer}, 
+		\hyperpage{29}
+  \item {background\discretionary {-}{}{}Track\discretionary {-}{}{}Frame}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Tracker}, 
+		\hyperpage{32}
+  \item {boost}, \hyperpage{11}
+  \item {boost\discretionary {-}{}{}::serialization}, \hyperpage{11}
+    \subitem {load}, \hyperpage{11}
+    \subitem {save}, \hyperpage{11}
+  \item {build}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Database}, 
+		\hyperpage{14}
+
+  \indexspace
+
+  \item {calc\discretionary {-}{}{}Features}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Tracker}, 
+		\hyperpage{32, 33}
+  \item {color}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Label}, 
+		\hyperpage{21}
+
+  \indexspace
+
+  \item {Database}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Database}, 
+		\hyperpage{14}
+  \item {database.\discretionary {-}{}{}h}
+    \subitem {debug}, \hyperpage{38}
+  \item {db\discretionary {-}{}{}Name}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Database}, 
+		\hyperpage{15}
+  \item {db\discretionary {-}{}{}Path}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Database}, 
+		\hyperpage{15}
+  \item {debug}
+    \subitem {database.\discretionary {-}{}{}h}, \hyperpage{38}
+    \subitem {fakable\discretionary {-}{}{}\_\discretionary {-}{}{}queue.\discretionary {-}{}{}h}, 
+		\hyperpage{39}
+    \subitem {main.\discretionary {-}{}{}h}, \hyperpage{47}
+    \subitem {manager.\discretionary {-}{}{}h}, \hyperpage{41}
+    \subitem {object.\discretionary {-}{}{}h}, \hyperpage{42}
+    \subitem {recognizer.\discretionary {-}{}{}h}, \hyperpage{43}
+    \subitem {tracker.\discretionary {-}{}{}h}, \hyperpage{45}
+  \item {dequeue}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Fakable\discretionary {-}{}{}Queue}, 
+		\hyperpage{19}
+  \item {descriptor\discretionary {-}{}{}D\discretionary {-}{}{}B}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Database}, 
+		\hyperpage{15}
+  \item {discard}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Fakable\discretionary {-}{}{}Queue}, 
+		\hyperpage{19}
+
+  \indexspace
+
+  \item {elaborate\discretionary {-}{}{}Frame}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Manager}, 
+		\hyperpage{23}
+  \item {empty}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Object}, 
+		\hyperpage{27}
+  \item {enqueue}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Fakable\discretionary {-}{}{}Queue}, 
+		\hyperpage{19}
+
+  \indexspace
+
+  \item {fakable\discretionary {-}{}{}\_\discretionary {-}{}{}queue.\discretionary {-}{}{}h}
+    \subitem {debug}, \hyperpage{39}
+  \item {Fakable\discretionary {-}{}{}Queue}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Fakable\discretionary {-}{}{}Queue}, 
+		\hyperpage{19}
+  \item {Features}
+    \subitem {I\discretionary {-}{}{}Stuff}, \hyperpage{12}
+  \item {frames\discretionary {-}{}{}\_\discretionary {-}{}{}tracked\discretionary {-}{}{}\_\discretionary {-}{}{}count}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Manager}, 
+		\hyperpage{24}
+
+  \indexspace
+
+  \item {get\discretionary {-}{}{}Labels}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Object}, 
+		\hyperpage{27}
+  \item {get\discretionary {-}{}{}Object}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Manager}, 
+		\hyperpage{23}
+  \item {get\discretionary {-}{}{}Starter}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Fakable\discretionary {-}{}{}Queue}, 
+		\hyperpage{19}
+
+  \indexspace
+
+  \item {hl\discretionary {-}{}{}\_\discretionary {-}{}{}debug}
+    \subitem {main.\discretionary {-}{}{}h}, \hyperpage{47}
+    \subitem {manager.\discretionary {-}{}{}h}, \hyperpage{41}
+
+  \indexspace
+
+  \item {I\discretionary {-}{}{}M\discretionary {-}{}{}G\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}R\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}I\discretionary {-}{}{}Z\discretionary {-}{}{}E}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Tracker}, 
+		\hyperpage{34}
+  \item {I\discretionary {-}{}{}Stuff}, \hyperpage{11}
+    \subitem {Features}, \hyperpage{12}
+  \item {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}D\discretionary {-}{}{}B\discretionary {-}{}{}Creation\discretionary {-}{}{}Exception}, 
+		\hyperpage{16}
+    \subitem {what}, \hyperpage{16}
+  \item {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}D\discretionary {-}{}{}B\discretionary {-}{}{}Loading\discretionary {-}{}{}Exception}, 
+		\hyperpage{16}
+    \subitem {what}, \hyperpage{17}
+  \item {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}D\discretionary {-}{}{}B\discretionary {-}{}{}Saving\discretionary {-}{}{}Exception}, 
+		\hyperpage{17}
+    \subitem {what}, \hyperpage{17}
+  \item {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Database}, 
+		\hyperpage{13}
+    \subitem {$\sim $\discretionary {-}{}{}Database}, \hyperpage{14}
+    \subitem {build}, \hyperpage{14}
+    \subitem {Database}, \hyperpage{14}
+    \subitem {db\discretionary {-}{}{}Name}, \hyperpage{15}
+    \subitem {db\discretionary {-}{}{}Path}, \hyperpage{15}
+    \subitem {descriptor\discretionary {-}{}{}D\discretionary {-}{}{}B}, 
+		\hyperpage{15}
+    \subitem {keypoint\discretionary {-}{}{}D\discretionary {-}{}{}B}, 
+		\hyperpage{15}
+    \subitem {label\discretionary {-}{}{}D\discretionary {-}{}{}B}, 
+		\hyperpage{15}
+    \subitem {load}, \hyperpage{14}
+    \subitem {M\discretionary {-}{}{}A\discretionary {-}{}{}T\discretionary {-}{}{}C\discretionary {-}{}{}H\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}T\discretionary {-}{}{}H\discretionary {-}{}{}R\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}H\discretionary {-}{}{}O\discretionary {-}{}{}L\discretionary {-}{}{}D}, 
+		\hyperpage{15}
+    \subitem {M\discretionary {-}{}{}I\discretionary {-}{}{}N\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}I\discretionary {-}{}{}N\discretionary {-}{}{}L\discretionary {-}{}{}I\discretionary {-}{}{}E\discretionary {-}{}{}R\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}R\discretionary {-}{}{}A\discretionary {-}{}{}T\discretionary {-}{}{}I\discretionary {-}{}{}O}, 
+		\hyperpage{15}
+    \subitem {match}, \hyperpage{14}
+    \subitem {matcher}, \hyperpage{15}
+    \subitem {N\discretionary {-}{}{}N\discretionary {-}{}{}D\discretionary {-}{}{}R\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}R\discretionary {-}{}{}A\discretionary {-}{}{}T\discretionary {-}{}{}I\discretionary {-}{}{}O}, 
+		\hyperpage{16}
+    \subitem {save}, \hyperpage{15}
+  \item {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Fakable\discretionary {-}{}{}Queue}, 
+		\hyperpage{18}
+    \subitem {$\sim $\discretionary {-}{}{}Fakable\discretionary {-}{}{}Queue}, 
+		\hyperpage{19}
+    \subitem {dequeue}, \hyperpage{19}
+    \subitem {discard}, \hyperpage{19}
+    \subitem {enqueue}, \hyperpage{19}
+    \subitem {Fakable\discretionary {-}{}{}Queue}, \hyperpage{19}
+    \subitem {get\discretionary {-}{}{}Starter}, \hyperpage{19}
+    \subitem {queue\discretionary {-}{}{}\_\discretionary {-}{}{}mutex}, 
+		\hyperpage{20}
+    \subitem {real\discretionary {-}{}{}\_\discretionary {-}{}{}queue}, 
+		\hyperpage{20}
+    \subitem {saved\discretionary {-}{}{}\_\discretionary {-}{}{}queue}, 
+		\hyperpage{20}
+    \subitem {start}, \hyperpage{20}
+    \subitem {T\discretionary {-}{}{}A\discretionary {-}{}{}G}, 
+		\hyperpage{20}
+  \item {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Label}, 
+		\hyperpage{20}
+    \subitem {color}, \hyperpage{21}
+    \subitem {Label}, \hyperpage{21}
+    \subitem {name}, \hyperpage{21}
+    \subitem {operator==}, \hyperpage{21}
+    \subitem {position}, \hyperpage{21}
+  \item {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Manager}, 
+		\hyperpage{21}
+    \subitem {$\sim $\discretionary {-}{}{}Manager}, \hyperpage{23}
+    \subitem {actual\discretionary {-}{}{}\_\discretionary {-}{}{}object}, 
+		\hyperpage{24}
+    \subitem {elaborate\discretionary {-}{}{}Frame}, \hyperpage{23}
+    \subitem {frames\discretionary {-}{}{}\_\discretionary {-}{}{}tracked\discretionary {-}{}{}\_\discretionary {-}{}{}count}, 
+		\hyperpage{24}
+    \subitem {get\discretionary {-}{}{}Object}, \hyperpage{23}
+    \subitem {M\discretionary {-}{}{}S\discretionary {-}{}{}G\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}T\discretionary {-}{}{}R\discretionary {-}{}{}A\discretionary {-}{}{}C\discretionary {-}{}{}K\discretionary {-}{}{}I\discretionary {-}{}{}N\discretionary {-}{}{}G\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}E\discretionary {-}{}{}N\discretionary {-}{}{}D}, 
+		\hyperpage{25}
+    \subitem {Manager}, \hyperpage{23}
+    \subitem {object\discretionary {-}{}{}\_\discretionary {-}{}{}update}, 
+		\hyperpage{25}
+    \subitem {paint\discretionary {-}{}{}Object}, \hyperpage{23}
+    \subitem {R\discretionary {-}{}{}E\discretionary {-}{}{}C\discretionary {-}{}{}O\discretionary {-}{}{}G\discretionary {-}{}{}N\discretionary {-}{}{}I\discretionary {-}{}{}T\discretionary {-}{}{}I\discretionary {-}{}{}O\discretionary {-}{}{}N\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}P\discretionary {-}{}{}E\discretionary {-}{}{}R\discretionary {-}{}{}I\discretionary {-}{}{}O\discretionary {-}{}{}D}, 
+		\hyperpage{25}
+    \subitem {recognizer}, \hyperpage{25}
+    \subitem {send\discretionary {-}{}{}Message}, \hyperpage{24}
+    \subitem {set\discretionary {-}{}{}Database}, \hyperpage{24}
+    \subitem {set\discretionary {-}{}{}Object}, \hyperpage{24}
+    \subitem {T\discretionary {-}{}{}A\discretionary {-}{}{}G}, 
+		\hyperpage{25}
+    \subitem {tracker}, \hyperpage{25}
+  \item {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Object}, 
+		\hyperpage{25}
+    \subitem {$\sim $\discretionary {-}{}{}Object}, \hyperpage{26}
+    \subitem {add\discretionary {-}{}{}Label}, \hyperpage{27}
+    \subitem {empty}, \hyperpage{27}
+    \subitem {get\discretionary {-}{}{}Labels}, \hyperpage{27}
+    \subitem {labels}, \hyperpage{27}
+    \subitem {Object}, \hyperpage{26}
+    \subitem {paint}, \hyperpage{27}
+    \subitem {T\discretionary {-}{}{}A\discretionary {-}{}{}G}, 
+		\hyperpage{27}
+  \item {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Recognizer}, 
+		\hyperpage{28}
+    \subitem {$\sim $\discretionary {-}{}{}Recognizer}, \hyperpage{29}
+    \subitem {background\discretionary {-}{}{}Recognize\discretionary {-}{}{}Frame}, 
+		\hyperpage{29}
+    \subitem {is\discretionary {-}{}{}Running}, \hyperpage{29}
+    \subitem {m\discretionary {-}{}{}\_\discretionary {-}{}{}matcher}, 
+		\hyperpage{30}
+    \subitem {m\discretionary {-}{}{}\_\discretionary {-}{}{}running}, 
+		\hyperpage{30}
+    \subitem {m\discretionary {-}{}{}\_\discretionary {-}{}{}thread}, 
+		\hyperpage{30}
+    \subitem {recognize\discretionary {-}{}{}Frame}, \hyperpage{29}
+    \subitem {Recognizer}, \hyperpage{29}
+    \subitem {send\discretionary {-}{}{}Message}, \hyperpage{30}
+    \subitem {set\discretionary {-}{}{}Database}, \hyperpage{30}
+    \subitem {set\discretionary {-}{}{}Running}, \hyperpage{30}
+    \subitem {T\discretionary {-}{}{}A\discretionary {-}{}{}G}, 
+		\hyperpage{30}
+  \item {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Tracker}, 
+		\hyperpage{31}
+    \subitem {$\sim $\discretionary {-}{}{}Tracker}, \hyperpage{32}
+    \subitem {background\discretionary {-}{}{}Track\discretionary {-}{}{}Frame}, 
+		\hyperpage{32}
+    \subitem {calc\discretionary {-}{}{}Features}, \hyperpage{32, 33}
+    \subitem {I\discretionary {-}{}{}M\discretionary {-}{}{}G\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}R\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}I\discretionary {-}{}{}Z\discretionary {-}{}{}E}, 
+		\hyperpage{34}
+    \subitem {is\discretionary {-}{}{}Running}, \hyperpage{33}
+    \subitem {L\discretionary {-}{}{}K\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}W\discretionary {-}{}{}I\discretionary {-}{}{}N\discretionary {-}{}{}D\discretionary {-}{}{}O\discretionary {-}{}{}W}, 
+		\hyperpage{34}
+    \subitem {m\discretionary {-}{}{}\_\discretionary {-}{}{}detector}, 
+		\hyperpage{35}
+    \subitem {m\discretionary {-}{}{}\_\discretionary {-}{}{}features}, 
+		\hyperpage{35}
+    \subitem {m\discretionary {-}{}{}\_\discretionary {-}{}{}frame}, 
+		\hyperpage{35}
+    \subitem {m\discretionary {-}{}{}\_\discretionary {-}{}{}matcher}, 
+		\hyperpage{35}
+    \subitem {m\discretionary {-}{}{}\_\discretionary {-}{}{}object}, 
+		\hyperpage{35}
+    \subitem {m\discretionary {-}{}{}\_\discretionary {-}{}{}object\discretionary {-}{}{}\_\discretionary {-}{}{}mutex}, 
+		\hyperpage{35}
+    \subitem {m\discretionary {-}{}{}\_\discretionary {-}{}{}running}, 
+		\hyperpage{35}
+    \subitem {m\discretionary {-}{}{}\_\discretionary {-}{}{}saved\discretionary {-}{}{}\_\discretionary {-}{}{}features}, 
+		\hyperpage{35}
+    \subitem {m\discretionary {-}{}{}\_\discretionary {-}{}{}thread}, 
+		\hyperpage{35}
+    \subitem {send\discretionary {-}{}{}Message}, \hyperpage{33}
+    \subitem {set\discretionary {-}{}{}Running}, \hyperpage{34}
+    \subitem {T\discretionary {-}{}{}A\discretionary {-}{}{}G}, 
+		\hyperpage{35}
+    \subitem {track\discretionary {-}{}{}Frame}, \hyperpage{34}
+    \subitem {Tracker}, \hyperpage{32}
+    \subitem {update\discretionary {-}{}{}Object}, \hyperpage{34}
+  \item {is\discretionary {-}{}{}Running}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Recognizer}, 
+		\hyperpage{29}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Tracker}, 
+		\hyperpage{33}
+
+  \indexspace
+
+  \item {keypoint\discretionary {-}{}{}D\discretionary {-}{}{}B}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Database}, 
+		\hyperpage{15}
+
+  \indexspace
+
+  \item {L\discretionary {-}{}{}K\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}W\discretionary {-}{}{}I\discretionary {-}{}{}N\discretionary {-}{}{}D\discretionary {-}{}{}O\discretionary {-}{}{}W}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Tracker}, 
+		\hyperpage{34}
+  \item {Label}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Label}, 
+		\hyperpage{21}
+  \item {label\discretionary {-}{}{}D\discretionary {-}{}{}B}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Database}, 
+		\hyperpage{15}
+  \item {labels}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Object}, 
+		\hyperpage{27}
+  \item {load}
+    \subitem {boost\discretionary {-}{}{}::serialization}, 
+		\hyperpage{11}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Database}, 
+		\hyperpage{14}
+
+  \indexspace
+
+  \item {m\discretionary {-}{}{}\_\discretionary {-}{}{}detector}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Tracker}, 
+		\hyperpage{35}
+  \item {m\discretionary {-}{}{}\_\discretionary {-}{}{}features}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Tracker}, 
+		\hyperpage{35}
+  \item {m\discretionary {-}{}{}\_\discretionary {-}{}{}frame}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Tracker}, 
+		\hyperpage{35}
+  \item {m\discretionary {-}{}{}\_\discretionary {-}{}{}matcher}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Recognizer}, 
+		\hyperpage{30}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Tracker}, 
+		\hyperpage{35}
+  \item {m\discretionary {-}{}{}\_\discretionary {-}{}{}object}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Tracker}, 
+		\hyperpage{35}
+  \item {m\discretionary {-}{}{}\_\discretionary {-}{}{}object\discretionary {-}{}{}\_\discretionary {-}{}{}mutex}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Tracker}, 
+		\hyperpage{35}
+  \item {m\discretionary {-}{}{}\_\discretionary {-}{}{}running}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Recognizer}, 
+		\hyperpage{30}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Tracker}, 
+		\hyperpage{35}
+  \item {m\discretionary {-}{}{}\_\discretionary {-}{}{}saved\discretionary {-}{}{}\_\discretionary {-}{}{}features}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Tracker}, 
+		\hyperpage{35}
+  \item {m\discretionary {-}{}{}\_\discretionary {-}{}{}thread}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Recognizer}, 
+		\hyperpage{30}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Tracker}, 
+		\hyperpage{35}
+  \item {M\discretionary {-}{}{}A\discretionary {-}{}{}T\discretionary {-}{}{}C\discretionary {-}{}{}H\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}T\discretionary {-}{}{}H\discretionary {-}{}{}R\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}H\discretionary {-}{}{}O\discretionary {-}{}{}L\discretionary {-}{}{}D}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Database}, 
+		\hyperpage{15}
+  \item {M\discretionary {-}{}{}I\discretionary {-}{}{}N\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}I\discretionary {-}{}{}N\discretionary {-}{}{}L\discretionary {-}{}{}I\discretionary {-}{}{}E\discretionary {-}{}{}R\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}R\discretionary {-}{}{}A\discretionary {-}{}{}T\discretionary {-}{}{}I\discretionary {-}{}{}O}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Database}, 
+		\hyperpage{15}
+  \item {M\discretionary {-}{}{}S\discretionary {-}{}{}G\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}T\discretionary {-}{}{}R\discretionary {-}{}{}A\discretionary {-}{}{}C\discretionary {-}{}{}K\discretionary {-}{}{}I\discretionary {-}{}{}N\discretionary {-}{}{}G\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}E\discretionary {-}{}{}N\discretionary {-}{}{}D}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Manager}, 
+		\hyperpage{25}
+  \item {M\discretionary {-}{}{}S\discretionary {-}{}{}G\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}T\discretionary {-}{}{}R\discretionary {-}{}{}A\discretionary {-}{}{}C\discretionary {-}{}{}K\discretionary {-}{}{}I\discretionary {-}{}{}N\discretionary {-}{}{}G\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}S\discretionary {-}{}{}T\discretionary {-}{}{}A\discretionary {-}{}{}R\discretionary {-}{}{}T}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Manager}, 
+		\hyperpage{25}
+  \item {main}
+    \subitem {main.\discretionary {-}{}{}cpp}, \hyperpage{46}
+    \subitem {main.\discretionary {-}{}{}h}, \hyperpage{47}
+  \item {main.\discretionary {-}{}{}cpp}
+    \subitem {main}, \hyperpage{46}
+    \subitem {print\discretionary {-}{}{}Help}, \hyperpage{46}
+  \item {main.\discretionary {-}{}{}h}
+    \subitem {debug}, \hyperpage{47}
+    \subitem {hl\discretionary {-}{}{}\_\discretionary {-}{}{}debug}, 
+		\hyperpage{47}
+    \subitem {main}, \hyperpage{47}
+    \subitem {print\discretionary {-}{}{}Help}, \hyperpage{47}
+  \item {Manager}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Manager}, 
+		\hyperpage{23}
+  \item {manager.\discretionary {-}{}{}h}
+    \subitem {debug}, \hyperpage{41}
+    \subitem {hl\discretionary {-}{}{}\_\discretionary {-}{}{}debug}, 
+		\hyperpage{41}
+  \item {match}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Database}, 
+		\hyperpage{14}
+  \item {matcher}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Database}, 
+		\hyperpage{15}
+
+  \indexspace
+
+  \item {N\discretionary {-}{}{}N\discretionary {-}{}{}D\discretionary {-}{}{}R\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}R\discretionary {-}{}{}A\discretionary {-}{}{}T\discretionary {-}{}{}I\discretionary {-}{}{}O}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Database}, 
+		\hyperpage{16}
+  \item {name}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Label}, 
+		\hyperpage{21}
+
+  \indexspace
+
+  \item {Object}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Object}, 
+		\hyperpage{26}
+  \item {object.\discretionary {-}{}{}h}
+    \subitem {debug}, \hyperpage{42}
+  \item {object\discretionary {-}{}{}\_\discretionary {-}{}{}update}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Manager}, 
+		\hyperpage{25}
+  \item {operator==}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Label}, 
+		\hyperpage{21}
+
+  \indexspace
+
+  \item {paint}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Object}, 
+		\hyperpage{27}
+  \item {paint\discretionary {-}{}{}Object}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Manager}, 
+		\hyperpage{23}
+  \item {position}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Label}, 
+		\hyperpage{21}
+  \item {print\discretionary {-}{}{}Help}
+    \subitem {main.\discretionary {-}{}{}cpp}, \hyperpage{46}
+    \subitem {main.\discretionary {-}{}{}h}, \hyperpage{47}
+
+  \indexspace
+
+  \item {queue\discretionary {-}{}{}\_\discretionary {-}{}{}mutex}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Fakable\discretionary {-}{}{}Queue}, 
+		\hyperpage{20}
+
+  \indexspace
+
+  \item {R\discretionary {-}{}{}E\discretionary {-}{}{}C\discretionary {-}{}{}O\discretionary {-}{}{}G\discretionary {-}{}{}N\discretionary {-}{}{}I\discretionary {-}{}{}T\discretionary {-}{}{}I\discretionary {-}{}{}O\discretionary {-}{}{}N\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}P\discretionary {-}{}{}E\discretionary {-}{}{}R\discretionary {-}{}{}I\discretionary {-}{}{}O\discretionary {-}{}{}D}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Manager}, 
+		\hyperpage{25}
+  \item {real\discretionary {-}{}{}\_\discretionary {-}{}{}queue}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Fakable\discretionary {-}{}{}Queue}, 
+		\hyperpage{20}
+  \item {recognize\discretionary {-}{}{}Frame}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Recognizer}, 
+		\hyperpage{29}
+  \item {Recognizer}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Recognizer}, 
+		\hyperpage{29}
+  \item {recognizer}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Manager}, 
+		\hyperpage{25}
+  \item {recognizer.\discretionary {-}{}{}h}
+    \subitem {debug}, \hyperpage{43}
+
+  \indexspace
+
+  \item {save}
+    \subitem {boost\discretionary {-}{}{}::serialization}, 
+		\hyperpage{11}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Database}, 
+		\hyperpage{15}
+  \item {saved\discretionary {-}{}{}\_\discretionary {-}{}{}queue}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Fakable\discretionary {-}{}{}Queue}, 
+		\hyperpage{20}
+  \item {send\discretionary {-}{}{}Message}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Manager}, 
+		\hyperpage{24}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Recognizer}, 
+		\hyperpage{30}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Tracker}, 
+		\hyperpage{33}
+  \item {set\discretionary {-}{}{}Database}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Manager}, 
+		\hyperpage{24}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Recognizer}, 
+		\hyperpage{30}
+  \item {set\discretionary {-}{}{}Object}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Manager}, 
+		\hyperpage{24}
+  \item {set\discretionary {-}{}{}Running}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Recognizer}, 
+		\hyperpage{30}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Tracker}, 
+		\hyperpage{34}
+  \item {src/\discretionary {-}{}{}I\discretionary {-}{}{}Stuff/database.\discretionary {-}{}{}cpp}, 
+		\hyperpage{37}
+  \item {src/\discretionary {-}{}{}I\discretionary {-}{}{}Stuff/database.\discretionary {-}{}{}h}, 
+		\hyperpage{37}
+  \item {src/\discretionary {-}{}{}I\discretionary {-}{}{}Stuff/fakable\discretionary {-}{}{}\_\discretionary {-}{}{}queue.\discretionary {-}{}{}cpp}, 
+		\hyperpage{38}
+  \item {src/\discretionary {-}{}{}I\discretionary {-}{}{}Stuff/fakable\discretionary {-}{}{}\_\discretionary {-}{}{}queue.\discretionary {-}{}{}h}, 
+		\hyperpage{39}
+  \item {src/\discretionary {-}{}{}I\discretionary {-}{}{}Stuff/manager.\discretionary {-}{}{}cpp}, 
+		\hyperpage{40}
+  \item {src/\discretionary {-}{}{}I\discretionary {-}{}{}Stuff/manager.\discretionary {-}{}{}h}, 
+		\hyperpage{40}
+  \item {src/\discretionary {-}{}{}I\discretionary {-}{}{}Stuff/object.\discretionary {-}{}{}cpp}, 
+		\hyperpage{41}
+  \item {src/\discretionary {-}{}{}I\discretionary {-}{}{}Stuff/object.\discretionary {-}{}{}h}, 
+		\hyperpage{41}
+  \item {src/\discretionary {-}{}{}I\discretionary {-}{}{}Stuff/recognizer.\discretionary {-}{}{}cpp}, 
+		\hyperpage{42}
+  \item {src/\discretionary {-}{}{}I\discretionary {-}{}{}Stuff/recognizer.\discretionary {-}{}{}h}, 
+		\hyperpage{42}
+  \item {src/\discretionary {-}{}{}I\discretionary {-}{}{}Stuff/serialize\discretionary {-}{}{}\_\discretionary {-}{}{}opencv.\discretionary {-}{}{}h}, 
+		\hyperpage{43}
+  \item {src/\discretionary {-}{}{}I\discretionary {-}{}{}Stuff/tracker.\discretionary {-}{}{}cpp}, 
+		\hyperpage{44}
+  \item {src/\discretionary {-}{}{}I\discretionary {-}{}{}Stuff/tracker.\discretionary {-}{}{}h}, 
+		\hyperpage{44}
+  \item {src/main.\discretionary {-}{}{}cpp}, \hyperpage{45}
+  \item {src/main.\discretionary {-}{}{}h}, \hyperpage{46}
+  \item {start}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Fakable\discretionary {-}{}{}Queue}, 
+		\hyperpage{20}
+
+  \indexspace
+
+  \item {T\discretionary {-}{}{}A\discretionary {-}{}{}G}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Fakable\discretionary {-}{}{}Queue}, 
+		\hyperpage{20}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Manager}, 
+		\hyperpage{25}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Object}, 
+		\hyperpage{27}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Recognizer}, 
+		\hyperpage{30}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Tracker}, 
+		\hyperpage{35}
+  \item {track\discretionary {-}{}{}Frame}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Tracker}, 
+		\hyperpage{34}
+  \item {Tracker}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Tracker}, 
+		\hyperpage{32}
+  \item {tracker}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Manager}, 
+		\hyperpage{25}
+  \item {tracker.\discretionary {-}{}{}h}
+    \subitem {debug}, \hyperpage{45}
+
+  \indexspace
+
+  \item {update\discretionary {-}{}{}Object}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}Tracker}, 
+		\hyperpage{34}
+
+  \indexspace
+
+  \item {what}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}D\discretionary {-}{}{}B\discretionary {-}{}{}Creation\discretionary {-}{}{}Exception}, 
+		\hyperpage{16}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}D\discretionary {-}{}{}B\discretionary {-}{}{}Loading\discretionary {-}{}{}Exception}, 
+		\hyperpage{17}
+    \subitem {I\discretionary {-}{}{}Stuff\discretionary {-}{}{}::\discretionary {-}{}{}D\discretionary {-}{}{}B\discretionary {-}{}{}Saving\discretionary {-}{}{}Exception}, 
+		\hyperpage{17}
+
+\end{theindex}

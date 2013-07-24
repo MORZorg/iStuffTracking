@@ -20,11 +20,17 @@ virtual \hyperlink{class_i_stuff_1_1_database_a84d399a2ad58d69daab9b05330e1316d}
 void \hyperlink{class_i_stuff_1_1_database_aed93b2b7c426f730488f66d0909b1212}{build} (std\-::string)
 \begin{DoxyCompactList}\small\item\em Creates the database from the sample images. \end{DoxyCompactList}\item 
 void \hyperlink{class_i_stuff_1_1_database_a0d09456daeb72a2a2fb432650e55025f}{load} ()
-\begin{DoxyCompactList}\small\item\em Load existing database and fill the map. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Load existing database and fill the structures. \end{DoxyCompactList}\item 
 void \hyperlink{class_i_stuff_1_1_database_a3aae61eb0bc2fa65398f809cc5aa1065}{save} ()
-\begin{DoxyCompactList}\small\item\em Writes the database to a file in the default directory. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Writes the database to a set of files in the default directory. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Private Attributes}
 \begin{DoxyCompactItemize}
+\item 
+const float \hyperlink{class_i_stuff_1_1_database_ade8d4afb9ec5e100de098777257d192c}{N\-N\-D\-R\-\_\-\-R\-A\-T\-I\-O} = 0.\-6
+\item 
+const float \hyperlink{class_i_stuff_1_1_database_a11bb91e98d0c0a6640b69c699f22999a}{M\-I\-N\-\_\-\-I\-N\-L\-I\-E\-R\-\_\-\-R\-A\-T\-I\-O} = 0.\-5
+\item 
+const int \hyperlink{class_i_stuff_1_1_database_addc638b6be97feec274eb995ffd1d937}{M\-A\-T\-C\-H\-\_\-\-T\-H\-R\-E\-S\-H\-O\-L\-D} = 14
 \item 
 std\-::string \hyperlink{class_i_stuff_1_1_database_ae648dcc6da59f19955681584028fef99}{db\-Path}
 \item 
@@ -46,14 +52,14 @@ std\-::vector$<$ cv\-::\-Mat $>$ \hyperlink{class_i_stuff_1_1_database_a6af39e0c
 Mattia Rizzini 
 \end{DoxyAuthor}
 \begin{DoxyVersion}{Version}
-0.\-1.\-3 
+0.\-1.\-4 
 \end{DoxyVersion}
 \begin{DoxyDate}{Date}
 2013-\/07-\/14 
 \end{DoxyDate}
 
 
-Definition at line 48 of file database.\-h.
+Definition at line 49 of file database.\-h.
 
 
 
@@ -94,7 +100,7 @@ Destructor.
 
 
 
-Definition at line 53 of file database.\-cpp.
+Definition at line 55 of file database.\-cpp.
 
 
 
@@ -110,14 +116,14 @@ Definition at line 53 of file database.\-cpp.
 
 Creates the database from the sample images. 
 
-Loaded the images contained in the argument path generate a set of labels, detects the S\-U\-R\-F features and descriptors for every sample and associate them to every label, then trains a matcher with the descriptors and save everything in the corresponding structures. Also save the database into a file 
+Loaded the images contained in the argument path associate to every image sample its keypoints and descriptors. Also loads the label positions in the samples. Saves everything in three structures and to a set of files 
 \begin{DoxyParams}[1]{Parameters}
 \mbox{\tt in}  & {\em images\-Path} & The path containing the source images \\
 \hline
 \end{DoxyParams}
 
 
-Definition at line 216 of file database.\-cpp.
+Definition at line 205 of file database.\-cpp.
 
 \hypertarget{class_i_stuff_1_1_database_a0d09456daeb72a2a2fb432650e55025f}{\index{I\-Stuff\-::\-Database@{I\-Stuff\-::\-Database}!load@{load}}
 \index{load@{load}!IStuff::Database@{I\-Stuff\-::\-Database}}
@@ -128,11 +134,11 @@ Definition at line 216 of file database.\-cpp.
 )\hspace{0.3cm}{\ttfamily [private]}}}\label{class_i_stuff_1_1_database_a0d09456daeb72a2a2fb432650e55025f}
 
 
-Load existing database and fill the map. 
+Load existing database and fill the structures. 
 
 
 
-Definition at line 334 of file database.\-cpp.
+Definition at line 324 of file database.\-cpp.
 
 \hypertarget{class_i_stuff_1_1_database_afc2ff4e18f1b9477722889ee06a765db}{\index{I\-Stuff\-::\-Database@{I\-Stuff\-::\-Database}!match@{match}}
 \index{match@{match}!IStuff::Database@{I\-Stuff\-::\-Database}}
@@ -145,19 +151,19 @@ Definition at line 334 of file database.\-cpp.
 
 Search for descriptors matching in passed frame. 
 
-Given an image, searches for the descriptors in the database and returns a rectangle enclosing the matched object 
+Given an image, searches for descriptor matches in the database and returns an object containing the estimated label positions 
 \begin{DoxyParams}[1]{Parameters}
 \mbox{\tt in}  & {\em frame} & The image to search into \\
 \hline
 \end{DoxyParams}
 
 \begin{DoxyRetVals}{Return values}
-{\em An} & \hyperlink{class_i_stuff_1_1_object}{Object} containing an association between the labels and the areas in which every label is found \\
+{\em An} & \hyperlink{class_i_stuff_1_1_object}{Object} containing an association between the labels and the positions in which every label is found \\
 \hline
 \end{DoxyRetVals}
 
 
-Definition at line 65 of file database.\-cpp.
+Definition at line 67 of file database.\-cpp.
 
 \hypertarget{class_i_stuff_1_1_database_a3aae61eb0bc2fa65398f809cc5aa1065}{\index{I\-Stuff\-::\-Database@{I\-Stuff\-::\-Database}!save@{save}}
 \index{save@{save}!IStuff::Database@{I\-Stuff\-::\-Database}}
@@ -168,11 +174,11 @@ Definition at line 65 of file database.\-cpp.
 )\hspace{0.3cm}{\ttfamily [private]}}}\label{class_i_stuff_1_1_database_a3aae61eb0bc2fa65398f809cc5aa1065}
 
 
-Writes the database to a file in the default directory. 
+Writes the database to a set of files in the default directory. 
 
 
 
-Definition at line 451 of file database.\-cpp.
+Definition at line 441 of file database.\-cpp.
 
 
 
@@ -182,42 +188,63 @@ Definition at line 451 of file database.\-cpp.
 \subsubsection[{db\-Name}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string I\-Stuff\-::\-Database\-::db\-Name\hspace{0.3cm}{\ttfamily [private]}}}\label{class_i_stuff_1_1_database_a4e8d5c6cbf4e5eaafe379cd5762fd76f}
 
 
-Definition at line 51 of file database.\-h.
+Definition at line 56 of file database.\-h.
 
 \hypertarget{class_i_stuff_1_1_database_ae648dcc6da59f19955681584028fef99}{\index{I\-Stuff\-::\-Database@{I\-Stuff\-::\-Database}!db\-Path@{db\-Path}}
 \index{db\-Path@{db\-Path}!IStuff::Database@{I\-Stuff\-::\-Database}}
 \subsubsection[{db\-Path}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string I\-Stuff\-::\-Database\-::db\-Path\hspace{0.3cm}{\ttfamily [private]}}}\label{class_i_stuff_1_1_database_ae648dcc6da59f19955681584028fef99}
 
 
-Definition at line 50 of file database.\-h.
+Definition at line 55 of file database.\-h.
 
 \hypertarget{class_i_stuff_1_1_database_a6af39e0cf95b7a14c331911bf388bf65}{\index{I\-Stuff\-::\-Database@{I\-Stuff\-::\-Database}!descriptor\-D\-B@{descriptor\-D\-B}}
 \index{descriptor\-D\-B@{descriptor\-D\-B}!IStuff::Database@{I\-Stuff\-::\-Database}}
 \subsubsection[{descriptor\-D\-B}]{\setlength{\rightskip}{0pt plus 5cm}std\-::vector$<$ cv\-::\-Mat $>$ I\-Stuff\-::\-Database\-::descriptor\-D\-B\hspace{0.3cm}{\ttfamily [private]}}}\label{class_i_stuff_1_1_database_a6af39e0cf95b7a14c331911bf388bf65}
 
 
-Definition at line 56 of file database.\-h.
+Definition at line 61 of file database.\-h.
 
 \hypertarget{class_i_stuff_1_1_database_a9e5ee68bf2517bcc87fa38b3519897ee}{\index{I\-Stuff\-::\-Database@{I\-Stuff\-::\-Database}!keypoint\-D\-B@{keypoint\-D\-B}}
 \index{keypoint\-D\-B@{keypoint\-D\-B}!IStuff::Database@{I\-Stuff\-::\-Database}}
 \subsubsection[{keypoint\-D\-B}]{\setlength{\rightskip}{0pt plus 5cm}std\-::vector$<$ std\-::vector$<$ cv\-::\-Key\-Point $>$ $>$ I\-Stuff\-::\-Database\-::keypoint\-D\-B\hspace{0.3cm}{\ttfamily [private]}}}\label{class_i_stuff_1_1_database_a9e5ee68bf2517bcc87fa38b3519897ee}
 
 
-Definition at line 55 of file database.\-h.
+Definition at line 60 of file database.\-h.
 
 \hypertarget{class_i_stuff_1_1_database_a6d83fe3176ec13b1847ab7600e8e230c}{\index{I\-Stuff\-::\-Database@{I\-Stuff\-::\-Database}!label\-D\-B@{label\-D\-B}}
 \index{label\-D\-B@{label\-D\-B}!IStuff::Database@{I\-Stuff\-::\-Database}}
 \subsubsection[{label\-D\-B}]{\setlength{\rightskip}{0pt plus 5cm}std\-::vector$<$ std\-::vector$<$ {\bf Label} $>$ $>$ I\-Stuff\-::\-Database\-::label\-D\-B\hspace{0.3cm}{\ttfamily [private]}}}\label{class_i_stuff_1_1_database_a6d83fe3176ec13b1847ab7600e8e230c}
 
 
-Definition at line 54 of file database.\-h.
+Definition at line 59 of file database.\-h.
+
+\hypertarget{class_i_stuff_1_1_database_addc638b6be97feec274eb995ffd1d937}{\index{I\-Stuff\-::\-Database@{I\-Stuff\-::\-Database}!M\-A\-T\-C\-H\-\_\-\-T\-H\-R\-E\-S\-H\-O\-L\-D@{M\-A\-T\-C\-H\-\_\-\-T\-H\-R\-E\-S\-H\-O\-L\-D}}
+\index{M\-A\-T\-C\-H\-\_\-\-T\-H\-R\-E\-S\-H\-O\-L\-D@{M\-A\-T\-C\-H\-\_\-\-T\-H\-R\-E\-S\-H\-O\-L\-D}!IStuff::Database@{I\-Stuff\-::\-Database}}
+\subsubsection[{M\-A\-T\-C\-H\-\_\-\-T\-H\-R\-E\-S\-H\-O\-L\-D}]{\setlength{\rightskip}{0pt plus 5cm}const int I\-Stuff\-::\-Database\-::\-M\-A\-T\-C\-H\-\_\-\-T\-H\-R\-E\-S\-H\-O\-L\-D = 14\hspace{0.3cm}{\ttfamily [private]}}}\label{class_i_stuff_1_1_database_addc638b6be97feec274eb995ffd1d937}
+
+
+Definition at line 53 of file database.\-h.
 
 \hypertarget{class_i_stuff_1_1_database_a871b6feeaa1b3d1e75d3b4b8edb86a84}{\index{I\-Stuff\-::\-Database@{I\-Stuff\-::\-Database}!matcher@{matcher}}
 \index{matcher@{matcher}!IStuff::Database@{I\-Stuff\-::\-Database}}
 \subsubsection[{matcher}]{\setlength{\rightskip}{0pt plus 5cm}cv\-::\-Flann\-Based\-Matcher I\-Stuff\-::\-Database\-::matcher\hspace{0.3cm}{\ttfamily [private]}}}\label{class_i_stuff_1_1_database_a871b6feeaa1b3d1e75d3b4b8edb86a84}
 
 
-Definition at line 53 of file database.\-h.
+Definition at line 58 of file database.\-h.
+
+\hypertarget{class_i_stuff_1_1_database_a11bb91e98d0c0a6640b69c699f22999a}{\index{I\-Stuff\-::\-Database@{I\-Stuff\-::\-Database}!M\-I\-N\-\_\-\-I\-N\-L\-I\-E\-R\-\_\-\-R\-A\-T\-I\-O@{M\-I\-N\-\_\-\-I\-N\-L\-I\-E\-R\-\_\-\-R\-A\-T\-I\-O}}
+\index{M\-I\-N\-\_\-\-I\-N\-L\-I\-E\-R\-\_\-\-R\-A\-T\-I\-O@{M\-I\-N\-\_\-\-I\-N\-L\-I\-E\-R\-\_\-\-R\-A\-T\-I\-O}!IStuff::Database@{I\-Stuff\-::\-Database}}
+\subsubsection[{M\-I\-N\-\_\-\-I\-N\-L\-I\-E\-R\-\_\-\-R\-A\-T\-I\-O}]{\setlength{\rightskip}{0pt plus 5cm}const float I\-Stuff\-::\-Database\-::\-M\-I\-N\-\_\-\-I\-N\-L\-I\-E\-R\-\_\-\-R\-A\-T\-I\-O = 0.\-5\hspace{0.3cm}{\ttfamily [private]}}}\label{class_i_stuff_1_1_database_a11bb91e98d0c0a6640b69c699f22999a}
+
+
+Definition at line 52 of file database.\-h.
+
+\hypertarget{class_i_stuff_1_1_database_ade8d4afb9ec5e100de098777257d192c}{\index{I\-Stuff\-::\-Database@{I\-Stuff\-::\-Database}!N\-N\-D\-R\-\_\-\-R\-A\-T\-I\-O@{N\-N\-D\-R\-\_\-\-R\-A\-T\-I\-O}}
+\index{N\-N\-D\-R\-\_\-\-R\-A\-T\-I\-O@{N\-N\-D\-R\-\_\-\-R\-A\-T\-I\-O}!IStuff::Database@{I\-Stuff\-::\-Database}}
+\subsubsection[{N\-N\-D\-R\-\_\-\-R\-A\-T\-I\-O}]{\setlength{\rightskip}{0pt plus 5cm}const float I\-Stuff\-::\-Database\-::\-N\-N\-D\-R\-\_\-\-R\-A\-T\-I\-O = 0.\-6\hspace{0.3cm}{\ttfamily [private]}}}\label{class_i_stuff_1_1_database_ade8d4afb9ec5e100de098777257d192c}
+
+
+Definition at line 51 of file database.\-h.
 
 
 

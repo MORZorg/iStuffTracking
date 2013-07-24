@@ -1,0 +1,208 @@
+\contentsline {chapter}{\numberline {1}Todo List}{1}{chapter.1}
+\contentsline {chapter}{\numberline {2}Namespace Index}{3}{chapter.2}
+\contentsline {section}{\numberline {2.1}Namespace List}{3}{section.2.1}
+\contentsline {chapter}{\numberline {3}Hierarchical Index}{5}{chapter.3}
+\contentsline {section}{\numberline {3.1}Class Hierarchy}{5}{section.3.1}
+\contentsline {chapter}{\numberline {4}Class Index}{7}{chapter.4}
+\contentsline {section}{\numberline {4.1}Class List}{7}{section.4.1}
+\contentsline {chapter}{\numberline {5}File Index}{9}{chapter.5}
+\contentsline {section}{\numberline {5.1}File List}{9}{section.5.1}
+\contentsline {chapter}{\numberline {6}Namespace Documentation}{11}{chapter.6}
+\contentsline {section}{\numberline {6.1}boost Namespace Reference}{11}{section.6.1}
+\contentsline {section}{\numberline {6.2}boost\discretionary {-}{}{}:\discretionary {-}{}{}:serialization Namespace Reference}{11}{section.6.2}
+\contentsline {subsection}{\numberline {6.2.1}Function Documentation}{11}{subsection.6.2.1}
+\contentsline {subsubsection}{\numberline {6.2.1.1}load}{11}{subsubsection.6.2.1.1}
+\contentsline {subsubsection}{\numberline {6.2.1.2}save}{11}{subsubsection.6.2.1.2}
+\contentsline {section}{\numberline {6.3}I\discretionary {-}{}{}Stuff Namespace Reference}{11}{section.6.3}
+\contentsline {subsection}{\numberline {6.3.1}Typedef Documentation}{12}{subsection.6.3.1}
+\contentsline {subsubsection}{\numberline {6.3.1.1}Features}{12}{subsubsection.6.3.1.1}
+\contentsline {chapter}{\numberline {7}Class Documentation}{13}{chapter.7}
+\contentsline {section}{\numberline {7.1}I\discretionary {-}{}{}Stuff\discretionary {-}{}{}:\discretionary {-}{}{}:Database Class Reference}{13}{section.7.1}
+\contentsline {subsection}{\numberline {7.1.1}Detailed Description}{14}{subsection.7.1.1}
+\contentsline {subsection}{\numberline {7.1.2}Constructor \& Destructor Documentation}{14}{subsection.7.1.2}
+\contentsline {subsubsection}{\numberline {7.1.2.1}Database}{14}{subsubsection.7.1.2.1}
+\contentsline {subsubsection}{\numberline {7.1.2.2}$\sim $\discretionary {-}{}{}Database}{14}{subsubsection.7.1.2.2}
+\contentsline {subsection}{\numberline {7.1.3}Member Function Documentation}{14}{subsection.7.1.3}
+\contentsline {subsubsection}{\numberline {7.1.3.1}build}{14}{subsubsection.7.1.3.1}
+\contentsline {subsubsection}{\numberline {7.1.3.2}load}{14}{subsubsection.7.1.3.2}
+\contentsline {subsubsection}{\numberline {7.1.3.3}match}{15}{subsubsection.7.1.3.3}
+\contentsline {subsubsection}{\numberline {7.1.3.4}save}{15}{subsubsection.7.1.3.4}
+\contentsline {subsection}{\numberline {7.1.4}Member Data Documentation}{15}{subsection.7.1.4}
+\contentsline {subsubsection}{\numberline {7.1.4.1}db\discretionary {-}{}{}Name}{15}{subsubsection.7.1.4.1}
+\contentsline {subsubsection}{\numberline {7.1.4.2}db\discretionary {-}{}{}Path}{15}{subsubsection.7.1.4.2}
+\contentsline {subsubsection}{\numberline {7.1.4.3}descriptor\discretionary {-}{}{}D\discretionary {-}{}{}B}{15}{subsubsection.7.1.4.3}
+\contentsline {subsubsection}{\numberline {7.1.4.4}keypoint\discretionary {-}{}{}D\discretionary {-}{}{}B}{15}{subsubsection.7.1.4.4}
+\contentsline {subsubsection}{\numberline {7.1.4.5}label\discretionary {-}{}{}D\discretionary {-}{}{}B}{15}{subsubsection.7.1.4.5}
+\contentsline {subsubsection}{\numberline {7.1.4.6}M\discretionary {-}{}{}A\discretionary {-}{}{}T\discretionary {-}{}{}C\discretionary {-}{}{}H\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}T\discretionary {-}{}{}H\discretionary {-}{}{}R\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}H\discretionary {-}{}{}O\discretionary {-}{}{}L\discretionary {-}{}{}D}{15}{subsubsection.7.1.4.6}
+\contentsline {subsubsection}{\numberline {7.1.4.7}matcher}{15}{subsubsection.7.1.4.7}
+\contentsline {subsubsection}{\numberline {7.1.4.8}M\discretionary {-}{}{}I\discretionary {-}{}{}N\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}I\discretionary {-}{}{}N\discretionary {-}{}{}L\discretionary {-}{}{}I\discretionary {-}{}{}E\discretionary {-}{}{}R\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}R\discretionary {-}{}{}A\discretionary {-}{}{}T\discretionary {-}{}{}I\discretionary {-}{}{}O}{16}{subsubsection.7.1.4.8}
+\contentsline {subsubsection}{\numberline {7.1.4.9}N\discretionary {-}{}{}N\discretionary {-}{}{}D\discretionary {-}{}{}R\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}R\discretionary {-}{}{}A\discretionary {-}{}{}T\discretionary {-}{}{}I\discretionary {-}{}{}O}{16}{subsubsection.7.1.4.9}
+\contentsline {section}{\numberline {7.2}I\discretionary {-}{}{}Stuff\discretionary {-}{}{}:\discretionary {-}{}{}:D\discretionary {-}{}{}B\discretionary {-}{}{}Creation\discretionary {-}{}{}Exception Class Reference}{16}{section.7.2}
+\contentsline {subsection}{\numberline {7.2.1}Detailed Description}{16}{subsection.7.2.1}
+\contentsline {subsection}{\numberline {7.2.2}Member Function Documentation}{16}{subsection.7.2.2}
+\contentsline {subsubsection}{\numberline {7.2.2.1}what}{16}{subsubsection.7.2.2.1}
+\contentsline {section}{\numberline {7.3}I\discretionary {-}{}{}Stuff\discretionary {-}{}{}:\discretionary {-}{}{}:D\discretionary {-}{}{}B\discretionary {-}{}{}Loading\discretionary {-}{}{}Exception Class Reference}{16}{section.7.3}
+\contentsline {subsection}{\numberline {7.3.1}Detailed Description}{17}{subsection.7.3.1}
+\contentsline {subsection}{\numberline {7.3.2}Member Function Documentation}{17}{subsection.7.3.2}
+\contentsline {subsubsection}{\numberline {7.3.2.1}what}{17}{subsubsection.7.3.2.1}
+\contentsline {section}{\numberline {7.4}I\discretionary {-}{}{}Stuff\discretionary {-}{}{}:\discretionary {-}{}{}:D\discretionary {-}{}{}B\discretionary {-}{}{}Saving\discretionary {-}{}{}Exception Class Reference}{17}{section.7.4}
+\contentsline {subsection}{\numberline {7.4.1}Detailed Description}{17}{subsection.7.4.1}
+\contentsline {subsection}{\numberline {7.4.2}Member Function Documentation}{17}{subsection.7.4.2}
+\contentsline {subsubsection}{\numberline {7.4.2.1}what}{17}{subsubsection.7.4.2.1}
+\contentsline {section}{\numberline {7.5}I\discretionary {-}{}{}Stuff\discretionary {-}{}{}:\discretionary {-}{}{}:Fakable\discretionary {-}{}{}Queue Class Reference}{18}{section.7.5}
+\contentsline {subsection}{\numberline {7.5.1}Detailed Description}{18}{subsection.7.5.1}
+\contentsline {subsection}{\numberline {7.5.2}Constructor \& Destructor Documentation}{19}{subsection.7.5.2}
+\contentsline {subsubsection}{\numberline {7.5.2.1}Fakable\discretionary {-}{}{}Queue}{19}{subsubsection.7.5.2.1}
+\contentsline {subsubsection}{\numberline {7.5.2.2}$\sim $\discretionary {-}{}{}Fakable\discretionary {-}{}{}Queue}{19}{subsubsection.7.5.2.2}
+\contentsline {subsection}{\numberline {7.5.3}Member Function Documentation}{19}{subsection.7.5.3}
+\contentsline {subsubsection}{\numberline {7.5.3.1}dequeue}{19}{subsubsection.7.5.3.1}
+\contentsline {subsubsection}{\numberline {7.5.3.2}discard}{19}{subsubsection.7.5.3.2}
+\contentsline {subsubsection}{\numberline {7.5.3.3}enqueue}{19}{subsubsection.7.5.3.3}
+\contentsline {subsubsection}{\numberline {7.5.3.4}get\discretionary {-}{}{}Starter}{20}{subsubsection.7.5.3.4}
+\contentsline {subsubsection}{\numberline {7.5.3.5}start}{20}{subsubsection.7.5.3.5}
+\contentsline {subsection}{\numberline {7.5.4}Member Data Documentation}{20}{subsection.7.5.4}
+\contentsline {subsubsection}{\numberline {7.5.4.1}queue\discretionary {-}{}{}\_\discretionary {-}{}{}mutex}{20}{subsubsection.7.5.4.1}
+\contentsline {subsubsection}{\numberline {7.5.4.2}real\discretionary {-}{}{}\_\discretionary {-}{}{}queue}{20}{subsubsection.7.5.4.2}
+\contentsline {subsubsection}{\numberline {7.5.4.3}saved\discretionary {-}{}{}\_\discretionary {-}{}{}queue}{20}{subsubsection.7.5.4.3}
+\contentsline {subsubsection}{\numberline {7.5.4.4}T\discretionary {-}{}{}A\discretionary {-}{}{}G}{20}{subsubsection.7.5.4.4}
+\contentsline {section}{\numberline {7.6}I\discretionary {-}{}{}Stuff\discretionary {-}{}{}:\discretionary {-}{}{}:Label Struct Reference}{20}{section.7.6}
+\contentsline {subsection}{\numberline {7.6.1}Detailed Description}{21}{subsection.7.6.1}
+\contentsline {subsection}{\numberline {7.6.2}Constructor \& Destructor Documentation}{21}{subsection.7.6.2}
+\contentsline {subsubsection}{\numberline {7.6.2.1}Label}{21}{subsubsection.7.6.2.1}
+\contentsline {subsection}{\numberline {7.6.3}Member Function Documentation}{21}{subsection.7.6.3}
+\contentsline {subsubsection}{\numberline {7.6.3.1}operator==}{21}{subsubsection.7.6.3.1}
+\contentsline {subsection}{\numberline {7.6.4}Member Data Documentation}{21}{subsection.7.6.4}
+\contentsline {subsubsection}{\numberline {7.6.4.1}color}{21}{subsubsection.7.6.4.1}
+\contentsline {subsubsection}{\numberline {7.6.4.2}name}{21}{subsubsection.7.6.4.2}
+\contentsline {subsubsection}{\numberline {7.6.4.3}position}{21}{subsubsection.7.6.4.3}
+\contentsline {section}{\numberline {7.7}I\discretionary {-}{}{}Stuff\discretionary {-}{}{}:\discretionary {-}{}{}:Manager Class Reference}{21}{section.7.7}
+\contentsline {subsection}{\numberline {7.7.1}Detailed Description}{22}{subsection.7.7.1}
+\contentsline {subsection}{\numberline {7.7.2}Constructor \& Destructor Documentation}{23}{subsection.7.7.2}
+\contentsline {subsubsection}{\numberline {7.7.2.1}Manager}{23}{subsubsection.7.7.2.1}
+\contentsline {subsubsection}{\numberline {7.7.2.2}$\sim $\discretionary {-}{}{}Manager}{23}{subsubsection.7.7.2.2}
+\contentsline {subsection}{\numberline {7.7.3}Member Function Documentation}{23}{subsection.7.7.3}
+\contentsline {subsubsection}{\numberline {7.7.3.1}elaborate\discretionary {-}{}{}Frame}{23}{subsubsection.7.7.3.1}
+\contentsline {subsubsection}{\numberline {7.7.3.2}get\discretionary {-}{}{}Object}{23}{subsubsection.7.7.3.2}
+\contentsline {subsubsection}{\numberline {7.7.3.3}paint\discretionary {-}{}{}Object}{23}{subsubsection.7.7.3.3}
+\contentsline {subsubsection}{\numberline {7.7.3.4}send\discretionary {-}{}{}Message}{24}{subsubsection.7.7.3.4}
+\contentsline {subsubsection}{\numberline {7.7.3.5}set\discretionary {-}{}{}Database}{24}{subsubsection.7.7.3.5}
+\contentsline {subsubsection}{\numberline {7.7.3.6}set\discretionary {-}{}{}Object}{24}{subsubsection.7.7.3.6}
+\contentsline {subsection}{\numberline {7.7.4}Member Data Documentation}{24}{subsection.7.7.4}
+\contentsline {subsubsection}{\numberline {7.7.4.1}actual\discretionary {-}{}{}\_\discretionary {-}{}{}object}{24}{subsubsection.7.7.4.1}
+\contentsline {subsubsection}{\numberline {7.7.4.2}frames\discretionary {-}{}{}\_\discretionary {-}{}{}tracked\discretionary {-}{}{}\_\discretionary {-}{}{}count}{25}{subsubsection.7.7.4.2}
+\contentsline {subsubsection}{\numberline {7.7.4.3}M\discretionary {-}{}{}S\discretionary {-}{}{}G\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}R\discretionary {-}{}{}E\discretionary {-}{}{}C\discretionary {-}{}{}O\discretionary {-}{}{}G\discretionary {-}{}{}N\discretionary {-}{}{}I\discretionary {-}{}{}T\discretionary {-}{}{}I\discretionary {-}{}{}O\discretionary {-}{}{}N\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}E\discretionary {-}{}{}N\discretionary {-}{}{}D}{25}{subsubsection.7.7.4.3}
+\contentsline {subsubsection}{\numberline {7.7.4.4}M\discretionary {-}{}{}S\discretionary {-}{}{}G\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}R\discretionary {-}{}{}E\discretionary {-}{}{}C\discretionary {-}{}{}O\discretionary {-}{}{}G\discretionary {-}{}{}N\discretionary {-}{}{}I\discretionary {-}{}{}T\discretionary {-}{}{}I\discretionary {-}{}{}O\discretionary {-}{}{}N\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}S\discretionary {-}{}{}T\discretionary {-}{}{}A\discretionary {-}{}{}R\discretionary {-}{}{}T}{25}{subsubsection.7.7.4.4}
+\contentsline {subsubsection}{\numberline {7.7.4.5}M\discretionary {-}{}{}S\discretionary {-}{}{}G\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}T\discretionary {-}{}{}R\discretionary {-}{}{}A\discretionary {-}{}{}C\discretionary {-}{}{}K\discretionary {-}{}{}I\discretionary {-}{}{}N\discretionary {-}{}{}G\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}E\discretionary {-}{}{}N\discretionary {-}{}{}D}{25}{subsubsection.7.7.4.5}
+\contentsline {subsubsection}{\numberline {7.7.4.6}M\discretionary {-}{}{}S\discretionary {-}{}{}G\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}T\discretionary {-}{}{}R\discretionary {-}{}{}A\discretionary {-}{}{}C\discretionary {-}{}{}K\discretionary {-}{}{}I\discretionary {-}{}{}N\discretionary {-}{}{}G\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}S\discretionary {-}{}{}T\discretionary {-}{}{}A\discretionary {-}{}{}R\discretionary {-}{}{}T}{25}{subsubsection.7.7.4.6}
+\contentsline {subsubsection}{\numberline {7.7.4.7}object\discretionary {-}{}{}\_\discretionary {-}{}{}update}{25}{subsubsection.7.7.4.7}
+\contentsline {subsubsection}{\numberline {7.7.4.8}R\discretionary {-}{}{}E\discretionary {-}{}{}C\discretionary {-}{}{}O\discretionary {-}{}{}G\discretionary {-}{}{}N\discretionary {-}{}{}I\discretionary {-}{}{}T\discretionary {-}{}{}I\discretionary {-}{}{}O\discretionary {-}{}{}N\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}P\discretionary {-}{}{}E\discretionary {-}{}{}R\discretionary {-}{}{}I\discretionary {-}{}{}O\discretionary {-}{}{}D}{25}{subsubsection.7.7.4.8}
+\contentsline {subsubsection}{\numberline {7.7.4.9}recognizer}{25}{subsubsection.7.7.4.9}
+\contentsline {subsubsection}{\numberline {7.7.4.10}T\discretionary {-}{}{}A\discretionary {-}{}{}G}{25}{subsubsection.7.7.4.10}
+\contentsline {subsubsection}{\numberline {7.7.4.11}tracker}{25}{subsubsection.7.7.4.11}
+\contentsline {section}{\numberline {7.8}I\discretionary {-}{}{}Stuff\discretionary {-}{}{}:\discretionary {-}{}{}:Object Class Reference}{25}{section.7.8}
+\contentsline {subsection}{\numberline {7.8.1}Detailed Description}{26}{subsection.7.8.1}
+\contentsline {subsection}{\numberline {7.8.2}Constructor \& Destructor Documentation}{26}{subsection.7.8.2}
+\contentsline {subsubsection}{\numberline {7.8.2.1}Object}{26}{subsubsection.7.8.2.1}
+\contentsline {subsubsection}{\numberline {7.8.2.2}$\sim $\discretionary {-}{}{}Object}{26}{subsubsection.7.8.2.2}
+\contentsline {subsection}{\numberline {7.8.3}Member Function Documentation}{27}{subsection.7.8.3}
+\contentsline {subsubsection}{\numberline {7.8.3.1}add\discretionary {-}{}{}Label}{27}{subsubsection.7.8.3.1}
+\contentsline {subsubsection}{\numberline {7.8.3.2}empty}{27}{subsubsection.7.8.3.2}
+\contentsline {subsubsection}{\numberline {7.8.3.3}get\discretionary {-}{}{}Labels}{27}{subsubsection.7.8.3.3}
+\contentsline {subsubsection}{\numberline {7.8.3.4}paint}{27}{subsubsection.7.8.3.4}
+\contentsline {subsection}{\numberline {7.8.4}Member Data Documentation}{27}{subsection.7.8.4}
+\contentsline {subsubsection}{\numberline {7.8.4.1}labels}{27}{subsubsection.7.8.4.1}
+\contentsline {subsubsection}{\numberline {7.8.4.2}T\discretionary {-}{}{}A\discretionary {-}{}{}G}{28}{subsubsection.7.8.4.2}
+\contentsline {section}{\numberline {7.9}I\discretionary {-}{}{}Stuff\discretionary {-}{}{}:\discretionary {-}{}{}:Recognizer Class Reference}{28}{section.7.9}
+\contentsline {subsection}{\numberline {7.9.1}Detailed Description}{28}{subsection.7.9.1}
+\contentsline {subsection}{\numberline {7.9.2}Constructor \& Destructor Documentation}{29}{subsection.7.9.2}
+\contentsline {subsubsection}{\numberline {7.9.2.1}Recognizer}{29}{subsubsection.7.9.2.1}
+\contentsline {subsubsection}{\numberline {7.9.2.2}$\sim $\discretionary {-}{}{}Recognizer}{29}{subsubsection.7.9.2.2}
+\contentsline {subsection}{\numberline {7.9.3}Member Function Documentation}{29}{subsection.7.9.3}
+\contentsline {subsubsection}{\numberline {7.9.3.1}background\discretionary {-}{}{}Recognize\discretionary {-}{}{}Frame}{29}{subsubsection.7.9.3.1}
+\contentsline {subsubsection}{\numberline {7.9.3.2}is\discretionary {-}{}{}Running}{29}{subsubsection.7.9.3.2}
+\contentsline {subsubsection}{\numberline {7.9.3.3}recognize\discretionary {-}{}{}Frame}{29}{subsubsection.7.9.3.3}
+\contentsline {subsubsection}{\numberline {7.9.3.4}send\discretionary {-}{}{}Message}{30}{subsubsection.7.9.3.4}
+\contentsline {subsubsection}{\numberline {7.9.3.5}set\discretionary {-}{}{}Database}{30}{subsubsection.7.9.3.5}
+\contentsline {subsubsection}{\numberline {7.9.3.6}set\discretionary {-}{}{}Running}{30}{subsubsection.7.9.3.6}
+\contentsline {subsection}{\numberline {7.9.4}Member Data Documentation}{30}{subsection.7.9.4}
+\contentsline {subsubsection}{\numberline {7.9.4.1}m\discretionary {-}{}{}\_\discretionary {-}{}{}matcher}{30}{subsubsection.7.9.4.1}
+\contentsline {subsubsection}{\numberline {7.9.4.2}m\discretionary {-}{}{}\_\discretionary {-}{}{}running}{30}{subsubsection.7.9.4.2}
+\contentsline {subsubsection}{\numberline {7.9.4.3}m\discretionary {-}{}{}\_\discretionary {-}{}{}thread}{30}{subsubsection.7.9.4.3}
+\contentsline {subsubsection}{\numberline {7.9.4.4}T\discretionary {-}{}{}A\discretionary {-}{}{}G}{31}{subsubsection.7.9.4.4}
+\contentsline {section}{\numberline {7.10}I\discretionary {-}{}{}Stuff\discretionary {-}{}{}:\discretionary {-}{}{}:Tracker Class Reference}{31}{section.7.10}
+\contentsline {subsection}{\numberline {7.10.1}Detailed Description}{32}{subsection.7.10.1}
+\contentsline {subsection}{\numberline {7.10.2}Constructor \& Destructor Documentation}{32}{subsection.7.10.2}
+\contentsline {subsubsection}{\numberline {7.10.2.1}Tracker}{32}{subsubsection.7.10.2.1}
+\contentsline {subsubsection}{\numberline {7.10.2.2}$\sim $\discretionary {-}{}{}Tracker}{32}{subsubsection.7.10.2.2}
+\contentsline {subsection}{\numberline {7.10.3}Member Function Documentation}{32}{subsection.7.10.3}
+\contentsline {subsubsection}{\numberline {7.10.3.1}background\discretionary {-}{}{}Track\discretionary {-}{}{}Frame}{32}{subsubsection.7.10.3.1}
+\contentsline {subsubsection}{\numberline {7.10.3.2}calc\discretionary {-}{}{}Features}{32}{subsubsection.7.10.3.2}
+\contentsline {subsubsection}{\numberline {7.10.3.3}calc\discretionary {-}{}{}Features}{33}{subsubsection.7.10.3.3}
+\contentsline {subsubsection}{\numberline {7.10.3.4}is\discretionary {-}{}{}Running}{33}{subsubsection.7.10.3.4}
+\contentsline {subsubsection}{\numberline {7.10.3.5}send\discretionary {-}{}{}Message}{33}{subsubsection.7.10.3.5}
+\contentsline {subsubsection}{\numberline {7.10.3.6}set\discretionary {-}{}{}Running}{34}{subsubsection.7.10.3.6}
+\contentsline {subsubsection}{\numberline {7.10.3.7}track\discretionary {-}{}{}Frame}{34}{subsubsection.7.10.3.7}
+\contentsline {subsubsection}{\numberline {7.10.3.8}update\discretionary {-}{}{}Object}{34}{subsubsection.7.10.3.8}
+\contentsline {subsection}{\numberline {7.10.4}Member Data Documentation}{34}{subsection.7.10.4}
+\contentsline {subsubsection}{\numberline {7.10.4.1}I\discretionary {-}{}{}M\discretionary {-}{}{}G\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}R\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}I\discretionary {-}{}{}Z\discretionary {-}{}{}E}{34}{subsubsection.7.10.4.1}
+\contentsline {subsubsection}{\numberline {7.10.4.2}L\discretionary {-}{}{}K\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}W\discretionary {-}{}{}I\discretionary {-}{}{}N\discretionary {-}{}{}D\discretionary {-}{}{}O\discretionary {-}{}{}W}{35}{subsubsection.7.10.4.2}
+\contentsline {subsubsection}{\numberline {7.10.4.3}m\discretionary {-}{}{}\_\discretionary {-}{}{}detector}{35}{subsubsection.7.10.4.3}
+\contentsline {subsubsection}{\numberline {7.10.4.4}m\discretionary {-}{}{}\_\discretionary {-}{}{}features}{35}{subsubsection.7.10.4.4}
+\contentsline {subsubsection}{\numberline {7.10.4.5}m\discretionary {-}{}{}\_\discretionary {-}{}{}frame}{35}{subsubsection.7.10.4.5}
+\contentsline {subsubsection}{\numberline {7.10.4.6}m\discretionary {-}{}{}\_\discretionary {-}{}{}matcher}{35}{subsubsection.7.10.4.6}
+\contentsline {subsubsection}{\numberline {7.10.4.7}m\discretionary {-}{}{}\_\discretionary {-}{}{}object}{35}{subsubsection.7.10.4.7}
+\contentsline {subsubsection}{\numberline {7.10.4.8}m\discretionary {-}{}{}\_\discretionary {-}{}{}object\discretionary {-}{}{}\_\discretionary {-}{}{}mutex}{35}{subsubsection.7.10.4.8}
+\contentsline {subsubsection}{\numberline {7.10.4.9}m\discretionary {-}{}{}\_\discretionary {-}{}{}running}{35}{subsubsection.7.10.4.9}
+\contentsline {subsubsection}{\numberline {7.10.4.10}m\discretionary {-}{}{}\_\discretionary {-}{}{}saved\discretionary {-}{}{}\_\discretionary {-}{}{}features}{35}{subsubsection.7.10.4.10}
+\contentsline {subsubsection}{\numberline {7.10.4.11}m\discretionary {-}{}{}\_\discretionary {-}{}{}thread}{35}{subsubsection.7.10.4.11}
+\contentsline {subsubsection}{\numberline {7.10.4.12}N\discretionary {-}{}{}E\discretionary {-}{}{}A\discretionary {-}{}{}R\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}T\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}F\discretionary {-}{}{}E\discretionary {-}{}{}A\discretionary {-}{}{}T\discretionary {-}{}{}U\discretionary {-}{}{}R\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}C\discretionary {-}{}{}O\discretionary {-}{}{}U\discretionary {-}{}{}N\discretionary {-}{}{}T}{35}{subsubsection.7.10.4.12}
+\contentsline {subsubsection}{\numberline {7.10.4.13}T\discretionary {-}{}{}A\discretionary {-}{}{}G}{35}{subsubsection.7.10.4.13}
+\contentsline {chapter}{\numberline {8}File Documentation}{37}{chapter.8}
+\contentsline {section}{\numberline {8.1}src/\discretionary {-}{}{}I\discretionary {-}{}{}Stuff/database.cpp File Reference}{37}{section.8.1}
+\contentsline {subsection}{\numberline {8.1.1}Detailed Description}{37}{subsection.8.1.1}
+\contentsline {section}{\numberline {8.2}src/\discretionary {-}{}{}I\discretionary {-}{}{}Stuff/database.h File Reference}{37}{section.8.2}
+\contentsline {subsection}{\numberline {8.2.1}Detailed Description}{38}{subsection.8.2.1}
+\contentsline {subsection}{\numberline {8.2.2}Variable Documentation}{38}{subsection.8.2.2}
+\contentsline {subsubsection}{\numberline {8.2.2.1}debug}{38}{subsubsection.8.2.2.1}
+\contentsline {section}{\numberline {8.3}src/\discretionary {-}{}{}I\discretionary {-}{}{}Stuff/fakable\discretionary {-}{}{}\_\discretionary {-}{}{}queue.cpp File Reference}{38}{section.8.3}
+\contentsline {section}{\numberline {8.4}src/\discretionary {-}{}{}I\discretionary {-}{}{}Stuff/fakable\discretionary {-}{}{}\_\discretionary {-}{}{}queue.h File Reference}{39}{section.8.4}
+\contentsline {subsection}{\numberline {8.4.1}Detailed Description}{39}{subsection.8.4.1}
+\contentsline {subsection}{\numberline {8.4.2}Variable Documentation}{39}{subsection.8.4.2}
+\contentsline {subsubsection}{\numberline {8.4.2.1}debug}{39}{subsubsection.8.4.2.1}
+\contentsline {section}{\numberline {8.5}src/\discretionary {-}{}{}I\discretionary {-}{}{}Stuff/manager.cpp File Reference}{40}{section.8.5}
+\contentsline {section}{\numberline {8.6}src/\discretionary {-}{}{}I\discretionary {-}{}{}Stuff/manager.h File Reference}{40}{section.8.6}
+\contentsline {subsection}{\numberline {8.6.1}Detailed Description}{40}{subsection.8.6.1}
+\contentsline {subsection}{\numberline {8.6.2}Variable Documentation}{41}{subsection.8.6.2}
+\contentsline {subsubsection}{\numberline {8.6.2.1}debug}{41}{subsubsection.8.6.2.1}
+\contentsline {subsubsection}{\numberline {8.6.2.2}hl\discretionary {-}{}{}\_\discretionary {-}{}{}debug}{41}{subsubsection.8.6.2.2}
+\contentsline {section}{\numberline {8.7}src/\discretionary {-}{}{}I\discretionary {-}{}{}Stuff/object.cpp File Reference}{41}{section.8.7}
+\contentsline {section}{\numberline {8.8}src/\discretionary {-}{}{}I\discretionary {-}{}{}Stuff/object.h File Reference}{41}{section.8.8}
+\contentsline {subsection}{\numberline {8.8.1}Detailed Description}{41}{subsection.8.8.1}
+\contentsline {subsection}{\numberline {8.8.2}Variable Documentation}{42}{subsection.8.8.2}
+\contentsline {subsubsection}{\numberline {8.8.2.1}debug}{42}{subsubsection.8.8.2.1}
+\contentsline {section}{\numberline {8.9}src/\discretionary {-}{}{}I\discretionary {-}{}{}Stuff/recognizer.cpp File Reference}{42}{section.8.9}
+\contentsline {section}{\numberline {8.10}src/\discretionary {-}{}{}I\discretionary {-}{}{}Stuff/recognizer.h File Reference}{42}{section.8.10}
+\contentsline {subsection}{\numberline {8.10.1}Detailed Description}{43}{subsection.8.10.1}
+\contentsline {subsection}{\numberline {8.10.2}Variable Documentation}{43}{subsection.8.10.2}
+\contentsline {subsubsection}{\numberline {8.10.2.1}debug}{43}{subsubsection.8.10.2.1}
+\contentsline {section}{\numberline {8.11}src/\discretionary {-}{}{}I\discretionary {-}{}{}Stuff/serialize\discretionary {-}{}{}\_\discretionary {-}{}{}opencv.h File Reference}{43}{section.8.11}
+\contentsline {subsection}{\numberline {8.11.1}Detailed Description}{44}{subsection.8.11.1}
+\contentsline {section}{\numberline {8.12}src/\discretionary {-}{}{}I\discretionary {-}{}{}Stuff/tracker.cpp File Reference}{44}{section.8.12}
+\contentsline {section}{\numberline {8.13}src/\discretionary {-}{}{}I\discretionary {-}{}{}Stuff/tracker.h File Reference}{44}{section.8.13}
+\contentsline {subsection}{\numberline {8.13.1}Detailed Description}{45}{subsection.8.13.1}
+\contentsline {subsection}{\numberline {8.13.2}Variable Documentation}{45}{subsection.8.13.2}
+\contentsline {subsubsection}{\numberline {8.13.2.1}debug}{45}{subsubsection.8.13.2.1}
+\contentsline {section}{\numberline {8.14}src/main.cpp File Reference}{45}{section.8.14}
+\contentsline {subsection}{\numberline {8.14.1}Detailed Description}{45}{subsection.8.14.1}
+\contentsline {subsection}{\numberline {8.14.2}Function Documentation}{46}{subsection.8.14.2}
+\contentsline {subsubsection}{\numberline {8.14.2.1}main}{46}{subsubsection.8.14.2.1}
+\contentsline {subsubsection}{\numberline {8.14.2.2}print\discretionary {-}{}{}Help}{46}{subsubsection.8.14.2.2}
+\contentsline {section}{\numberline {8.15}src/main.h File Reference}{46}{section.8.15}
+\contentsline {subsection}{\numberline {8.15.1}Detailed Description}{47}{subsection.8.15.1}
+\contentsline {subsection}{\numberline {8.15.2}Function Documentation}{47}{subsection.8.15.2}
+\contentsline {subsubsection}{\numberline {8.15.2.1}main}{47}{subsubsection.8.15.2.1}
+\contentsline {subsubsection}{\numberline {8.15.2.2}print\discretionary {-}{}{}Help}{47}{subsubsection.8.15.2.2}
+\contentsline {subsection}{\numberline {8.15.3}Variable Documentation}{47}{subsection.8.15.3}
+\contentsline {subsubsection}{\numberline {8.15.3.1}debug}{47}{subsubsection.8.15.3.1}
+\contentsline {subsubsection}{\numberline {8.15.3.2}hl\discretionary {-}{}{}\_\discretionary {-}{}{}debug}{47}{subsubsection.8.15.3.2}
+\contentsline {part}{Index}{48}{section*.64}

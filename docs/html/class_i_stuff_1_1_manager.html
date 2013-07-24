@@ -8,13 +8,6 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
-<link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="resize.js"></script>
-<script type="text/javascript" src="navtree.js"></script>
-<script type="text/javascript">
-  $(document).ready(initResizable);
-  $(window).load(resizeHeight);
-</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
@@ -30,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">iStuffTracking
-   &#160;<span id="projectnumber">0.2.0</span>
+   &#160;<span id="projectnumber">0.2.5</span>
    </div>
   </td>
  </tr>
@@ -75,21 +68,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
-</div><!-- top -->
-<div id="side-nav" class="ui-resizable side-nav-resizable">
-  <div id="nav-tree">
-    <div id="nav-tree-contents">
-      <div id="nav-sync" class="sync"></div>
-    </div>
-  </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
-       class="ui-resizable-handle">
-  </div>
-</div>
-<script type="text/javascript">
-$(document).ready(function(){initNavTree('class_i_stuff_1_1_manager.html','');});
-</script>
-<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -104,6 +82,11 @@ $(document).ready(function(){initNavTree('class_i_stuff_1_1_manager.html','');})
 </iframe>
 </div>
 
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="namespace_i_stuff.html">IStuff</a></li><li class="navelem"><a class="el" href="class_i_stuff_1_1_manager.html">Manager</a></li>  </ul>
+</div>
+</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -180,7 +163,7 @@ Private Attributes</h2></td></tr>
 Static Private Attributes</h2></td></tr>
 <tr class="memitem:a0228682f317a86ce7057b86e9d229ac6"><td class="memItemLeft" align="right" valign="top">static const char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_stuff_1_1_manager.html#a0228682f317a86ce7057b86e9d229ac6">TAG</a> [] = &quot;Mng&quot;</td></tr>
 <tr class="separator:a0228682f317a86ce7057b86e9d229ac6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a58f0beb39eea21e78a8983e5954065c3"><td class="memItemLeft" align="right" valign="top">static const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_stuff_1_1_manager.html#a58f0beb39eea21e78a8983e5954065c3">RECOGNITION_PERIOD</a> = 50</td></tr>
+<tr class="memitem:a58f0beb39eea21e78a8983e5954065c3"><td class="memItemLeft" align="right" valign="top">static const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_stuff_1_1_manager.html#a58f0beb39eea21e78a8983e5954065c3">RECOGNITION_PERIOD</a> = 30</td></tr>
 <tr class="separator:a58f0beb39eea21e78a8983e5954065c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -591,7 +574,7 @@ Static Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const int IStuff::Manager::RECOGNITION_PERIOD = 50</td>
+          <td class="memname">const int IStuff::Manager::RECOGNITION_PERIOD = 30</td>
         </tr>
       </table>
   </td>
@@ -676,15 +659,11 @@ Static Private Attributes</h2></td></tr>
 <li>src/IStuff/<a class="el" href="manager_8cpp_source.html">manager.cpp</a></li>
 </ul>
 </div><!-- contents -->
-</div><!-- doc-content -->
 <!-- start footer part -->
-<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
-  <ul>
-    <li class="navelem"><a class="el" href="namespace_i_stuff.html">IStuff</a></li><li class="navelem"><a class="el" href="class_i_stuff_1_1_manager.html">Manager</a></li>
-    <li class="footer">Generated on Wed Jul 24 2013 01:39:52 for iStuffTracking by
-    <a href="http://www.doxygen.org/index.html">
-    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
-  </ul>
-</div>
+<hr class="footer"/><address class="footer"><small>
+Generated on Wed Jul 24 2013 22:02:46 for iStuffTracking by &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.4
+</small></address>
 </body>
 </html>

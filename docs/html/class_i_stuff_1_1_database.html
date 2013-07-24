@@ -8,13 +8,6 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
-<link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="resize.js"></script>
-<script type="text/javascript" src="navtree.js"></script>
-<script type="text/javascript">
-  $(document).ready(initResizable);
-  $(window).load(resizeHeight);
-</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
@@ -30,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">iStuffTracking
-   &#160;<span id="projectnumber">0.2.0</span>
+   &#160;<span id="projectnumber">0.2.5</span>
    </div>
   </td>
  </tr>
@@ -75,21 +68,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
-</div><!-- top -->
-<div id="side-nav" class="ui-resizable side-nav-resizable">
-  <div id="nav-tree">
-    <div id="nav-tree-contents">
-      <div id="nav-sync" class="sync"></div>
-    </div>
-  </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
-       class="ui-resizable-handle">
-  </div>
-</div>
-<script type="text/javascript">
-$(document).ready(function(){initNavTree('class_i_stuff_1_1_database.html','');});
-</script>
-<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -104,6 +82,11 @@ $(document).ready(function(){initNavTree('class_i_stuff_1_1_database.html','');}
 </iframe>
 </div>
 
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="namespace_i_stuff.html">IStuff</a></li><li class="navelem"><a class="el" href="class_i_stuff_1_1_database.html">Database</a></li>  </ul>
+</div>
+</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -135,14 +118,20 @@ Private Member Functions</h2></td></tr>
 <tr class="memdesc:aed93b2b7c426f730488f66d0909b1212"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the database from the sample images.  <a href="#aed93b2b7c426f730488f66d0909b1212">More...</a><br/></td></tr>
 <tr class="separator:aed93b2b7c426f730488f66d0909b1212"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0d09456daeb72a2a2fb432650e55025f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_stuff_1_1_database.html#a0d09456daeb72a2a2fb432650e55025f">load</a> ()</td></tr>
-<tr class="memdesc:a0d09456daeb72a2a2fb432650e55025f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load existing database and fill the map.  <a href="#a0d09456daeb72a2a2fb432650e55025f">More...</a><br/></td></tr>
+<tr class="memdesc:a0d09456daeb72a2a2fb432650e55025f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load existing database and fill the structures.  <a href="#a0d09456daeb72a2a2fb432650e55025f">More...</a><br/></td></tr>
 <tr class="separator:a0d09456daeb72a2a2fb432650e55025f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3aae61eb0bc2fa65398f809cc5aa1065"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_stuff_1_1_database.html#a3aae61eb0bc2fa65398f809cc5aa1065">save</a> ()</td></tr>
-<tr class="memdesc:a3aae61eb0bc2fa65398f809cc5aa1065"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the database to a file in the default directory.  <a href="#a3aae61eb0bc2fa65398f809cc5aa1065">More...</a><br/></td></tr>
+<tr class="memdesc:a3aae61eb0bc2fa65398f809cc5aa1065"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the database to a set of files in the default directory.  <a href="#a3aae61eb0bc2fa65398f809cc5aa1065">More...</a><br/></td></tr>
 <tr class="separator:a3aae61eb0bc2fa65398f809cc5aa1065"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
+<tr class="memitem:ade8d4afb9ec5e100de098777257d192c"><td class="memItemLeft" align="right" valign="top">const float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_stuff_1_1_database.html#ade8d4afb9ec5e100de098777257d192c">NNDR_RATIO</a> = 0.6</td></tr>
+<tr class="separator:ade8d4afb9ec5e100de098777257d192c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11bb91e98d0c0a6640b69c699f22999a"><td class="memItemLeft" align="right" valign="top">const float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_stuff_1_1_database.html#a11bb91e98d0c0a6640b69c699f22999a">MIN_INLIER_RATIO</a> = 0.5</td></tr>
+<tr class="separator:a11bb91e98d0c0a6640b69c699f22999a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:addc638b6be97feec274eb995ffd1d937"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_stuff_1_1_database.html#addc638b6be97feec274eb995ffd1d937">MATCH_THRESHOLD</a> = 14</td></tr>
+<tr class="separator:addc638b6be97feec274eb995ffd1d937"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae648dcc6da59f19955681584028fef99"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_stuff_1_1_database.html#ae648dcc6da59f19955681584028fef99">dbPath</a></td></tr>
 <tr class="separator:ae648dcc6da59f19955681584028fef99"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4e8d5c6cbf4e5eaafe379cd5762fd76f"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_stuff_1_1_database.html#a4e8d5c6cbf4e5eaafe379cd5762fd76f">dbName</a></td></tr>
@@ -159,10 +148,10 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Mattia Rizzini </dd></dl>
-<dl class="section version"><dt>Version</dt><dd>0.1.3 </dd></dl>
+<dl class="section version"><dt>Version</dt><dd>0.1.4 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2013-07-14 </dd></dl>
 
-<p>Definition at line <a class="el" href="database_8h_source.html#l00048">48</a> of file <a class="el" href="database_8h_source.html">database.h</a>.</p>
+<p>Definition at line <a class="el" href="database_8h_source.html#l00049">49</a> of file <a class="el" href="database_8h_source.html">database.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ab569353f3a7991f6eb8345a2d9d61d6b"></a>
 <div class="memitem">
@@ -225,7 +214,7 @@ Private Attributes</h2></td></tr>
 
 <p>Destructor. </p>
 
-<p>Definition at line <a class="el" href="database_8cpp_source.html#l00053">53</a> of file <a class="el" href="database_8cpp_source.html">database.cpp</a>.</p>
+<p>Definition at line <a class="el" href="database_8cpp_source.html#l00055">55</a> of file <a class="el" href="database_8cpp_source.html">database.cpp</a>.</p>
 
 </div>
 </div>
@@ -253,7 +242,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Creates the database from the sample images. </p>
-<p>Loaded the images contained in the argument path generate a set of labels, detects the SURF features and descriptors for every sample and associate them to every label, then trains a matcher with the descriptors and save everything in the corresponding structures. Also save the database into a file </p>
+<p>Loaded the images contained in the argument path associate to every image sample its keypoints and descriptors. Also loads the label positions in the samples. Saves everything in three structures and to a set of files </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">imagesPath</td><td>The path containing the source images </td></tr>
@@ -261,7 +250,7 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="database_8cpp_source.html#l00216">216</a> of file <a class="el" href="database_8cpp_source.html">database.cpp</a>.</p>
+<p>Definition at line <a class="el" href="database_8cpp_source.html#l00205">205</a> of file <a class="el" href="database_8cpp_source.html">database.cpp</a>.</p>
 
 </div>
 </div>
@@ -286,9 +275,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Load existing database and fill the map. </p>
+<p>Load existing database and fill the structures. </p>
 
-<p>Definition at line <a class="el" href="database_8cpp_source.html#l00334">334</a> of file <a class="el" href="database_8cpp_source.html">database.cpp</a>.</p>
+<p>Definition at line <a class="el" href="database_8cpp_source.html#l00324">324</a> of file <a class="el" href="database_8cpp_source.html">database.cpp</a>.</p>
 
 </div>
 </div>
@@ -307,7 +296,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Search for descriptors matching in passed frame. </p>
-<p>Given an image, searches for the descriptors in the database and returns a rectangle enclosing the matched object </p>
+<p>Given an image, searches for descriptor matches in the database and returns an object containing the estimated label positions </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">frame</td><td>The image to search into </td></tr>
@@ -316,12 +305,12 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="retval"><dt>Return values</dt><dd>
   <table class="retval">
-    <tr><td class="paramname">An</td><td><a class="el" href="class_i_stuff_1_1_object.html" title="Class used to represent a three dimensional object. ">Object</a> containing an association between the labels and the areas in which every label is found </td></tr>
+    <tr><td class="paramname">An</td><td><a class="el" href="class_i_stuff_1_1_object.html" title="Class used to represent a three dimensional object. ">Object</a> containing an association between the labels and the positions in which every label is found </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="database_8cpp_source.html#l00065">65</a> of file <a class="el" href="database_8cpp_source.html">database.cpp</a>.</p>
+<p>Definition at line <a class="el" href="database_8cpp_source.html#l00067">67</a> of file <a class="el" href="database_8cpp_source.html">database.cpp</a>.</p>
 
 </div>
 </div>
@@ -346,9 +335,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Writes the database to a file in the default directory. </p>
+<p>Writes the database to a set of files in the default directory. </p>
 
-<p>Definition at line <a class="el" href="database_8cpp_source.html#l00451">451</a> of file <a class="el" href="database_8cpp_source.html">database.cpp</a>.</p>
+<p>Definition at line <a class="el" href="database_8cpp_source.html#l00441">441</a> of file <a class="el" href="database_8cpp_source.html">database.cpp</a>.</p>
 
 </div>
 </div>
@@ -371,7 +360,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="database_8h_source.html#l00051">51</a> of file <a class="el" href="database_8h_source.html">database.h</a>.</p>
+<p>Definition at line <a class="el" href="database_8h_source.html#l00056">56</a> of file <a class="el" href="database_8h_source.html">database.h</a>.</p>
 
 </div>
 </div>
@@ -393,7 +382,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="database_8h_source.html#l00050">50</a> of file <a class="el" href="database_8h_source.html">database.h</a>.</p>
+<p>Definition at line <a class="el" href="database_8h_source.html#l00055">55</a> of file <a class="el" href="database_8h_source.html">database.h</a>.</p>
 
 </div>
 </div>
@@ -415,7 +404,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="database_8h_source.html#l00056">56</a> of file <a class="el" href="database_8h_source.html">database.h</a>.</p>
+<p>Definition at line <a class="el" href="database_8h_source.html#l00061">61</a> of file <a class="el" href="database_8h_source.html">database.h</a>.</p>
 
 </div>
 </div>
@@ -437,7 +426,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="database_8h_source.html#l00055">55</a> of file <a class="el" href="database_8h_source.html">database.h</a>.</p>
+<p>Definition at line <a class="el" href="database_8h_source.html#l00060">60</a> of file <a class="el" href="database_8h_source.html">database.h</a>.</p>
 
 </div>
 </div>
@@ -459,7 +448,29 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="database_8h_source.html#l00054">54</a> of file <a class="el" href="database_8h_source.html">database.h</a>.</p>
+<p>Definition at line <a class="el" href="database_8h_source.html#l00059">59</a> of file <a class="el" href="database_8h_source.html">database.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="addc638b6be97feec274eb995ffd1d937"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int IStuff::Database::MATCH_THRESHOLD = 14</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="database_8h_source.html#l00053">53</a> of file <a class="el" href="database_8h_source.html">database.h</a>.</p>
 
 </div>
 </div>
@@ -481,7 +492,51 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="database_8h_source.html#l00053">53</a> of file <a class="el" href="database_8h_source.html">database.h</a>.</p>
+<p>Definition at line <a class="el" href="database_8h_source.html#l00058">58</a> of file <a class="el" href="database_8h_source.html">database.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a11bb91e98d0c0a6640b69c699f22999a"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const float IStuff::Database::MIN_INLIER_RATIO = 0.5</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="database_8h_source.html#l00052">52</a> of file <a class="el" href="database_8h_source.html">database.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ade8d4afb9ec5e100de098777257d192c"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const float IStuff::Database::NNDR_RATIO = 0.6</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="database_8h_source.html#l00051">51</a> of file <a class="el" href="database_8h_source.html">database.h</a>.</p>
 
 </div>
 </div>
@@ -490,15 +545,11 @@ Private Attributes</h2></td></tr>
 <li>src/IStuff/<a class="el" href="database_8cpp_source.html">database.cpp</a></li>
 </ul>
 </div><!-- contents -->
-</div><!-- doc-content -->
 <!-- start footer part -->
-<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
-  <ul>
-    <li class="navelem"><a class="el" href="namespace_i_stuff.html">IStuff</a></li><li class="navelem"><a class="el" href="class_i_stuff_1_1_database.html">Database</a></li>
-    <li class="footer">Generated on Wed Jul 24 2013 01:39:52 for iStuffTracking by
-    <a href="http://www.doxygen.org/index.html">
-    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
-  </ul>
-</div>
+<hr class="footer"/><address class="footer"><small>
+Generated on Wed Jul 24 2013 22:02:45 for iStuffTracking by &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.4
+</small></address>
 </body>
 </html>

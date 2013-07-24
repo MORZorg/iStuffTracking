@@ -46,9 +46,9 @@ void Manager::setObject(const Object object)
 /**
  * @brief Changes the IStuff::Database used to identify the IStuff::Object.
  * @details This means that with high probability a different IStuff::Object
- *	will be searched for: the next elaboration must be a recognition.
+ *  will be searched for: the next elaboration must be a recognition.
  *
- * @param[in] database	The new IStuff::Database to be used.
+ * @param[in] database  The new IStuff::Database to be used.
  */
 void Manager::setDatabase(Database* database)
 {
@@ -75,9 +75,9 @@ Object Manager::getObject()
 /**
  * @brief Elaborates a frame, searching for the IStuff::Object.
  * @details This function alternates the recognition to the tracking, making a
- *	new recognition every IStuff::Manager::RECOGNITION_PERIOD frames.
+ *  new recognition every IStuff::Manager::RECOGNITION_PERIOD frames.
  *
- * @param frame	The frame to be analyzed.
+ * @param frame  The frame to be analyzed.
  */
 void Manager::elaborateFrame(Mat frame)
 {
@@ -104,7 +104,7 @@ void Manager::elaborateFrame(Mat frame)
 /**
  * @brief Paints the various masks of the IStuff::Object on the frame.
  *
- * @param[in] frame	The frame on which the IStuff::Object must be painted.
+ * @param[in] frame  The frame on which the IStuff::Object must be painted.
  *
  * @return A copy of the input frame, with the IStuff::Object painted on it.
  */
@@ -116,21 +116,21 @@ Mat Manager::paintObject(Mat frame)
 /**
  * @brief Method to send messages to this IStuff::Manager.
  * @details Managed messages:<br />
- *	<dl>
- *		<dt>IStuff::Manager::MSG_RECOGNITION_START</dt>
- *		<dd>data: cv::Mat<br />
- *		This message is forwarded to both the IStuff::Recognizer (to make it
- *		start the recognization) and the IStuff::Tracker (to alert it).<br />
- *		This also resets the counter of frames tracked from last recognition.</dd>
- *		<dt>IStuff::Manager::MSG_RECOGNITION_END</dt>
- *		<dd>data: IStuff::Object<br />
- *		This message is forwarded to the IStuff::Tracker, to update its
- *		IStuff::Object.</dd>
- *	</dl>
+ *  <dl>
+ *    <dt>IStuff::Manager::MSG_RECOGNITION_START</dt>
+ *    <dd>data: cv::Mat<br />
+ *    This message is forwarded to both the IStuff::Recognizer (to make it
+ *    start the recognization) and the IStuff::Tracker (to alert it).<br />
+ *    This also resets the counter of frames tracked from last recognition.</dd>
+ *    <dt>IStuff::Manager::MSG_RECOGNITION_END</dt>
+ *    <dd>data: IStuff::Object<br />
+ *    This message is forwarded to the IStuff::Tracker, to update its
+ *    IStuff::Object.</dd>
+ *  </dl>
  *
- * @param[in] msg				The message identifier.
- * @param[in] data			The data related to the message.
- * @param[in] reply_to	The sender of the message (optional).
+ * @param[in] msg       The message identifier.
+ * @param[in] data      The data related to the message.
+ * @param[in] reply_to  The sender of the message (optional).
  */
 void Manager::sendMessage(int msg, void* data, void* reply_to)
 {

@@ -3,11 +3,11 @@
  * @class IStuff::FakableQueue
  * @brief Class used to manage a synchronized double queue.
  * @details This class is used by IStuff::Tracker and it allows to address
- *	problems caused by alternated recognizations:<br />
- *	This queue manages two queues: one "real", used normally, from where frames
- *	are enqueued and dequeued and one "fake", or "saved", used to store the
- *	frames regarding only the last recognization, where frames are just enqueued
- *	and which is substituted to the real queue when the last recognization ends.
+ *  problems caused by alternated recognizations:<br />
+ *  This queue manages two queues: one "real", used normally, from where frames
+ *  are enqueued and dequeued and one "fake", or "saved", used to store the
+ *  frames regarding only the last recognization, where frames are just enqueued
+ *  and which is substituted to the real queue when the last recognization ends.
  * @author Maurizio Zucchelli
  * @version 0.1.2
  * @date 2013-07-18
@@ -38,9 +38,9 @@ FakableQueue::~FakableQueue()
 /**
  * @brief Adds a frame to the queue.
  * @details If the queue has been started, the frame is added to both the 'real'
- *	and the 'saved' queue; otherwise, nothing happens.
+ *  and the 'saved' queue; otherwise, nothing happens.
  *
- * @param[in] frame	The frame to be inserted.
+ * @param[in] frame  The frame to be inserted.
  */
 void FakableQueue::enqueue(Mat frame)
 {
@@ -61,9 +61,9 @@ void FakableQueue::enqueue(Mat frame)
 /**
  * @brief Starts the queue, enabiling the enqueuement.
  * @details This operation resets the 'saved' queue and then performs an
- *	enqueue with the given frame.
+ *  enqueue with the given frame.
  *
- * @param[in] frame	The frame starter of the queue.
+ * @param[in] frame  The frame starter of the queue.
  */
 void FakableQueue::start(Mat frame)
 {

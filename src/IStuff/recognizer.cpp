@@ -1,10 +1,10 @@
 /**
  * @file recognizer.cpp
- * @class	IStuff::Recognizer
+ * @class  IStuff::Recognizer
  * @brief Class used to recognize objects in a video stream.
- * @details	This class manages a thread receiving a frame from an input stream,
- *	analyzing it to find some kind of 3D object and then updating the data used 
- *	by the requester to track it.
+ * @details  This class manages a thread receiving a frame from an input stream,
+ *  analyzing it to find some kind of 3D object and then updating the data used 
+ *  by the requester to track it.
  * @author Maurizio Zucchelli
  * @version 0.2.1
  * @date 2013-07-14
@@ -41,7 +41,7 @@ Recognizer::~Recognizer()
 /**
  * @brief Associates a IStuff::Database to this IStuff::Recognizer.
  *
- * @param[in] matcher	The new matcher to be used.
+ * @param[in] matcher  The new matcher to be used.
  */
 void Recognizer::setDatabase(Database* matcher)
 {
@@ -70,7 +70,7 @@ bool Recognizer::isRunning() const
 /**
  * @brief Recognizes an IStuff::Object into a frame.
  *
- * @param[in] frame	The frame to be searched for an IStuff::Object.
+ * @param[in] frame  The frame to be searched for an IStuff::Object.
  *
  * @return The IStuff::Object found inside the given frame.
  */
@@ -90,8 +90,8 @@ Object Recognizer::recognizeFrame(Mat frame)
 /**
  * @brief Method to do the recognization process in a separate thread.
  *
- * @param[in] frame			The frame to be searched for an IStuff::Object.
- * @param[in] reference	The reference to the IStuff::Manager to inform of the result.
+ * @param[in] frame      The frame to be searched for an IStuff::Object.
+ * @param[in] reference  The reference to the IStuff::Manager to inform of the result.
  *
  * @return `true` if the thread is started, `false` if it was already running.
  */
@@ -125,15 +125,15 @@ bool Recognizer::backgroundRecognizeFrame(Mat frame, Manager* reference)
 /**
  * @brief Method to send messages to this IStuff::Recognizer.
  * @details Managed messages:<br />
- *	<dl>
- *		<dt>IStuff::Manager::MSG_RECOGNITION_START</dt>
- *		<dd>data: cv::Mat<br />
- *		This causes the recognization process to start.</dd>
- *	</dl>
+ *  <dl>
+ *    <dt>IStuff::Manager::MSG_RECOGNITION_START</dt>
+ *    <dd>data: cv::Mat<br />
+ *    This causes the recognization process to start.</dd>
+ *  </dl>
  *
- * @param[in] msg				The message identifier.
- * @param[in] data			The data related to the message.
- * @param[in] reply_to	The sender of the message (optional).
+ * @param[in] msg       The message identifier.
+ * @param[in] data      The data related to the message.
+ * @param[in] reply_to  The sender of the message (optional).
  */
 void Recognizer::sendMessage(int msg, void* data, void* reply_to)
 {

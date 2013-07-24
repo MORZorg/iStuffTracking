@@ -3,3 +3,5 @@
 *.un~
 *.gch
 dbg/video_sample/*
+*.d
+*.o

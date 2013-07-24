@@ -8,13 +8,6 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
-<link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="resize.js"></script>
-<script type="text/javascript" src="navtree.js"></script>
-<script type="text/javascript">
-  $(document).ready(initResizable);
-  $(window).load(resizeHeight);
-</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
@@ -30,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">iStuffTracking
-   &#160;<span id="projectnumber">0.2.0</span>
+   &#160;<span id="projectnumber">0.2.5</span>
    </div>
   </td>
  </tr>
@@ -75,21 +68,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
-</div><!-- top -->
-<div id="side-nav" class="ui-resizable side-nav-resizable">
-  <div id="nav-tree">
-    <div id="nav-tree-contents">
-      <div id="nav-sync" class="sync"></div>
-    </div>
-  </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
-       class="ui-resizable-handle">
-  </div>
-</div>
-<script type="text/javascript">
-$(document).ready(function(){initNavTree('class_i_stuff_1_1_database.html','');});
-</script>
-<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -104,6 +82,11 @@ $(document).ready(function(){initNavTree('class_i_stuff_1_1_database.html','');}
 </iframe>
 </div>
 
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="namespace_i_stuff.html">IStuff</a></li><li class="navelem"><a class="el" href="class_i_stuff_1_1_database.html">Database</a></li>  </ul>
+</div>
+</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">IStuff::Database Member List</div>  </div>
@@ -121,18 +104,18 @@ $(document).ready(function(){initNavTree('class_i_stuff_1_1_database.html','');}
   <tr class="even"><td class="entry"><a class="el" href="class_i_stuff_1_1_database.html#a6d83fe3176ec13b1847ab7600e8e230c">labelDB</a></td><td class="entry"><a class="el" href="class_i_stuff_1_1_database.html">IStuff::Database</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
   <tr><td class="entry"><a class="el" href="class_i_stuff_1_1_database.html#a0d09456daeb72a2a2fb432650e55025f">load</a>()</td><td class="entry"><a class="el" href="class_i_stuff_1_1_database.html">IStuff::Database</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_i_stuff_1_1_database.html#afc2ff4e18f1b9477722889ee06a765db">match</a>(cv::Mat)</td><td class="entry"><a class="el" href="class_i_stuff_1_1_database.html">IStuff::Database</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_i_stuff_1_1_database.html#a871b6feeaa1b3d1e75d3b4b8edb86a84">matcher</a></td><td class="entry"><a class="el" href="class_i_stuff_1_1_database.html">IStuff::Database</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_i_stuff_1_1_database.html#a3aae61eb0bc2fa65398f809cc5aa1065">save</a>()</td><td class="entry"><a class="el" href="class_i_stuff_1_1_database.html">IStuff::Database</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_i_stuff_1_1_database.html#a84d399a2ad58d69daab9b05330e1316d">~Database</a>()</td><td class="entry"><a class="el" href="class_i_stuff_1_1_database.html">IStuff::Database</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_i_stuff_1_1_database.html#addc638b6be97feec274eb995ffd1d937">MATCH_THRESHOLD</a></td><td class="entry"><a class="el" href="class_i_stuff_1_1_database.html">IStuff::Database</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_i_stuff_1_1_database.html#a871b6feeaa1b3d1e75d3b4b8edb86a84">matcher</a></td><td class="entry"><a class="el" href="class_i_stuff_1_1_database.html">IStuff::Database</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_i_stuff_1_1_database.html#a11bb91e98d0c0a6640b69c699f22999a">MIN_INLIER_RATIO</a></td><td class="entry"><a class="el" href="class_i_stuff_1_1_database.html">IStuff::Database</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_i_stuff_1_1_database.html#ade8d4afb9ec5e100de098777257d192c">NNDR_RATIO</a></td><td class="entry"><a class="el" href="class_i_stuff_1_1_database.html">IStuff::Database</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_i_stuff_1_1_database.html#a3aae61eb0bc2fa65398f809cc5aa1065">save</a>()</td><td class="entry"><a class="el" href="class_i_stuff_1_1_database.html">IStuff::Database</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_i_stuff_1_1_database.html#a84d399a2ad58d69daab9b05330e1316d">~Database</a>()</td><td class="entry"><a class="el" href="class_i_stuff_1_1_database.html">IStuff::Database</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
-</div><!-- doc-content -->
 <!-- start footer part -->
-<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
-  <ul>
-    <li class="footer">Generated on Wed Jul 24 2013 01:39:52 for iStuffTracking by
-    <a href="http://www.doxygen.org/index.html">
-    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
-  </ul>
-</div>
+<hr class="footer"/><address class="footer"><small>
+Generated on Wed Jul 24 2013 22:02:45 for iStuffTracking by &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.4
+</small></address>
 </body>
 </html>
