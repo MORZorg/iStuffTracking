@@ -26,6 +26,8 @@ namespace fs = boost::filesystem;
 Database::Database( string _dbName, string imagesPath ) :
 	dbPath( "database/" ), dbName( _dbName )
 {
+	initModule_nonfree();
+
 	// Check for database existence
 	string dbFileName = dbPath + dbName + ".sbra";
 	ifstream file_check( dbFileName.c_str(), ios::binary );
@@ -146,7 +148,7 @@ Object Database::match( Mat scene ) {
 		}
 
 	// Given a proper database, this threshold looks definitely optimal
-	int matchThreshold = 20;
+	int matchThreshold = 15;
 
 	//if( debug )
 		cerr << "\t" << samplePoints.size() << " definitely good matches found\n";
