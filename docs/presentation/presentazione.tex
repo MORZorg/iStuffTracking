@@ -1,11 +1,13 @@
 \documentclass{beamer}
 \usepackage[utf8]{inputenc}
 
-\usetheme {Copenhagen}
-\title {Joint 3D object recognition and tracking}
-\author [Orizio, Rizzini, Zucchelli]{Orizio Riccardo,\\Rizzini Mattia, Zucchelli Maurizio}
+\usetheme{Copenhagen}
+\usecolortheme{whale}
+
+\title{Joint 3D object recognition and tracking}
+\author[Orizio, Rizzini, Zucchelli]{Orizio Riccardo,\\Rizzini Mattia,\\Zucchelli Maurizio}
 \date{26 luglio 2013}
-\institute [UniBS]{Universit\`{a} degli Studi di Brescia}
+\institute[UniBS]{Universit\`{a} degli Studi di Brescia}
 \logo{\includegraphics[width=15mm]{logo.png}}
 
 \begin{document}
@@ -15,54 +17,93 @@
 	
 	\begin{frame}
 		\frametitle{Introduction}
-		The project goal is to realize a joint system of recognition and tracking of some features of an object which is identified in a video. These features are called \emph{label}.
-		The sofware is aimed for execution on low performance devices such as the iPad, therefore the tracking is necessary due to the high computational cost of a pure recognition.
+		The project goal is to realize a joint system of recognition and tracking
+		of some features of an object which is identified in a video.
+		These features are called \textsc{Label}.\\
+		The sofware is aimed for execution on low performance devices such as the
+		iPad, therefore the tracking is necessary due to the high computational
+		cost of a pure recognition.\\
 	\end{frame}
 
-	
 	\begin{frame}
 		\frametitle{Overall structure}
-		The software is designed for concurrent execution.
-		There is an object of class Manager which, given every frame captured by a webcam or in a video, elaborates it in some way and retuns an object of class Object which contains the actual label positions.
+		The software is designed for concurrent execution.\\
+		There is an object of class \textsc{Manager} which, given every frame
+		captured by a webcam or in a video, elaborates it in some way and retuns
+		an object of class \textsc{Object} which contains the actual \textsc{Label}
+		positions.\\
 	\end{frame}
 
 	\begin{frame}
 		\frametitle{Manager}
-		The managers handles two objects of class Recognizer and Tracker. The two objects are \emph{threads}.
-		Every N frames elaborated, the Manager asks the recognizer to perform a full recognition. In the meantime the tracker keeps tracking the labels starting from the last Object given by the recognizer.
-		When the recognizer has finished it returns an object which contains the positions of the labels in the moment in which the recognition started. These positions are \emph{actualized} by the tracker.
+		The \textsc{Manager} handles two objects of class \textsc{Recognizer} and
+		\textsc{Tracker}. The first object runs a \emph{thread}.\\
+		Every $N$ frames elaborated, the \textsc{Manager} asks the
+		\textsc{Recognizer} to perform a full recognition. In the meantime the
+		\textsc{Tracker} keeps tracking the \textsc{Label}s starting from the last
+		\textsc{Object} given by the \textsc{Recognizer}.\\
+		When the \textsc{Recognizer} has finished it returns an \textsc{Object}
+		which contains the positions of the \textsc{Label}s in the moment in which
+		the recognition started. These positions are \emph{actualized} by the
+		\textsc{Tracker}.\\
 	\end{frame}
 
 	\begin{frame}
 		\frametitle{Recognition}
-		To perform recognition, \emph{SURF} descriptors are used in place of \emph{SIFT} ones because they are proved to be lighter in application.
-		The recognition bases itself on a \emph{database}.
-		This database support serialization of the structures used for recognition. At the program start, a database name is provided. If this name corresponds to a serialized database, the database is loaded, otherwise it is trained.
+		To perform recognition, \emph{SURF} descriptors are used in place of
+		\emph{SIFT} ones because they are proved to be lighter in application.\\
+		The recognition bases itself on a \textsc{Database}.\\
+		This \textsc{Database} support serialization of the structures used for
+		recognition. At the program start, a \textsc{Database} name is provided:
+		if this name corresponds to a serialized \textsc{Database}, the
+		\textsc{Database} is loaded; otherwise it is trained.\\
+			% Maybe eccessive `textsc` for the word database? Lol.
 	\end{frame}
 
 	\begin{frame}
 	\frametitle{Recognition - database}
-		The database training is performed through the analysis of a group of sample images depicting the object from various points of view.
-		To every image is also associated a text file which contains the absolute positions of the various labels in the referenced sample.
-		Every sample image is loaded, from every image SURF features are extracted, descriptors computed and label positions loaded. Everything is then saved in three structures and serialized.
+		The \textsc{Database} training is performed through the analysis of a group
+		of sample images depicting the object from various points of view.\\
+		To every image is also associated a text file which contains the absolute
+		positions of the various labels in the referenced sample.\\
+		Every sample image is loaded, from every image \emph{SURF} features are
+		extracted, descriptors computed and label positions loaded. Everything
+		is then saved in three structures and serialized.\\
 	\end{frame}
 
 	\begin{frame}
 		\frametitle{Recognition - matching}
-		At the end of the training or load phase, a \emph{FLANN} based matcher is trained based on all the samples descriptors.
-		When the manager asks the recognizer to perform a match on a frame, his SURF features are extracted and descriptors computed. The descriptors are then used to find a match in the FLANN index.
-		For every descriptors, the two best matches are given. Then the matches are filtered to exclude the ones in which the distance of the best match are too close to the distance of the second best match.
+		At the end of the training or load phase, a \emph{FLANN} based matcher is
+		trained based on all the samples descriptors.\\
+		When the \textsc{Manager} asks the \textsc{Recognizer} to perform a match
+		on a frame, his \emph{SURF} features are extracted and descriptors
+		computed. The descriptors are then used to find a match in the
+		\emph{FLANN} index.\\
+		For every descriptor, the two best matches are given. Then the matches are
+		filtered to exclude the ones in which the distance of the best match are
+		too close to the distance of the second best match.\\
 	\end{frame}
 
 	\begin{frame}
 		\frametitle{Recognition - matching}
-		These good matches are analyzed to find out what is the sample who's got more of them. That sample is the only considered and his matching keypoints are extracted from the database.
-		Then an homography matrix is calculated between the sample keypoints and the ones in the frame. The matrix is used to map the positions of the labels in the frame. These labels are added to an Object which is returned to the manager.
+		These good matches are analyzed to find out what is the sample who's got
+		more of them. That sample is the only considered and his matching keypoints
+		are extracted from the \textsc{Database}.\\
+		Then an homography matrix is calculated between the sample keypoints and the
+		ones in the frame. The matrix is used to map the positions of the
+		\textsc{Label}s in the frame. These \textsc{Label}s are added to an
+		\textsc{Object} which is returned to the manager.\\
 	\end{frame}
 
 	\begin{frame}
 		\frametitle{Tracking}
-		Starting from the last recognized object
+		The tracking of the object is divided in two principal parts:
+		\begin{enumerate}
+			\item The \emph{actualization} of the \textsc{Object} received by the
+				\textsc{Recognizer}.
+			\item The effective tracking of the \textsc{Object} between two
+				successive frames.
+		\end{enumerate}
 	\end{frame}
 
 	\begin{frame}
