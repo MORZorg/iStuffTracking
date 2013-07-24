@@ -109,10 +109,8 @@ Object Database::match( Mat scene ) {
 	if( debug )
 		cerr << "\t\t" << matches.size() << " matches found, start filtering the good ones\n";
 
-	double NNDRRatio = 0.6;
-
 	for( int i = 0; i < matches.size(); i++ )
-		if( matches[ i ][ 0 ].imgIdx == maxSample && matches[ i ][ 0 ].distance <= NNDRRatio * matches[ i ][ 1 ].distance )
+		if( matches[ i ][ 0 ].imgIdx == maxSample && matches[ i ][ 0 ].distance <= NNDR_RATIO * matches[ i ][ 1 ].distance )
 			goodMatches.push_back( matches[ i ][ 0 ] );
 
 	if( debug )
@@ -145,13 +143,10 @@ Object Database::match( Mat scene ) {
 			scenePoints.push_back( sceneKeypoints[ goodMatches[ i ].queryIdx ].pt );
 		}
 
-	// Given a proper database, this threshold looks definitely optimal
-	int matchThreshold = 20;
-
-	//if( debug )
+	if( debug )
 		cerr << "\t" << samplePoints.size() << " definitely good matches found\n";
 
-	if( samplePoints.size() < matchThreshold ) {
+	if( samplePoints.size() < MATCH_THRESHOLD ) {
 		if( debug )
 			cerr << "\tToo few keypoints, exiting..\n";
 
@@ -167,12 +162,10 @@ Object Database::match( Mat scene ) {
 	int inliersCount = accumulate( inliers.begin(), inliers.end(), 0 );
 	float inliersRatio = (float) inliersCount / inliers.size();
 
-	//if( debug )
+	if( debug )
 		cerr << "\tInliers ratio is " << inliersRatio << endl;
 
-	float minInlierRatio = 0.50;
-
-	if( inliersRatio < minInlierRatio ) {
+	if( inliersRatio < MIN_INLIER_RATIO ) {
 		if( debug )
 			cerr << "\tToo many outliers\n";
 
