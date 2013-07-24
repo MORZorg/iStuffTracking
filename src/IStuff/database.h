@@ -48,6 +48,10 @@ extern bool debug;
 namespace IStuff {
 	class Database {
 		private:
+			const float NNDR_RATIO = 0.6;
+			const float MIN_INLIER_RATIO = 0.5;
+			const int MATCH_THRESHOLD = 20;
+
 			std::string dbPath;
 			std::string dbName;
 
