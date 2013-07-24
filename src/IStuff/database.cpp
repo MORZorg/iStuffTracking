@@ -142,11 +142,15 @@ Object Database::match( Mat scene ) {
 			scenePoints.push_back( sceneKeypoints[ goodMatches[ i ].queryIdx ].pt );
 		}
 
-	int matchThreshold = 10;
+	// Given a proper database, this threshold looks definitely optimal
+	int matchThreshold = 20;
+
+	//if( debug )
+		cerr << "\t" << samplePoints.size() << " definitely good matches found\n";
 
 	if( samplePoints.size() < matchThreshold ) {
 		if( debug )
-			cerr << "\tToo few keypoints to calculate homography, exiting..\n";
+			cerr << "\tToo few keypoints, exiting..\n";
 
 		return matchingObject;
 	}
