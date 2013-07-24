@@ -6,15 +6,17 @@ DIP Project
 Recognition and tracking for low-performance devices.
 
 Usage
-=====
+-----
 
-## To compile (requires Boost and OpenCV):
-  ```sh
-  cd dbg
-  make
-  ```
-##After **compiling**:
+### To compile (requires Boost and OpenCV):
 
+```sh
+cd dbg
+make
+```
+  
+### After **compiling**:
+  
 * First execution:
   `./iStuffTracking --database databaseName --folder folderPath`
 
