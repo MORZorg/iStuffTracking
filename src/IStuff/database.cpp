@@ -145,7 +145,7 @@ Object Database::match( Mat scene ) {
 			scenePoints.push_back( sceneKeypoints[ goodMatches[ i ].queryIdx ].pt );
 		}
 
-	//if( debug )
+	if( debug )
 		cerr << "\t" << samplePoints.size() << " definitely good matches found\n";
 
 	if( samplePoints.size() < MATCH_THRESHOLD ) {
@@ -164,7 +164,7 @@ Object Database::match( Mat scene ) {
 	int inliersCount = accumulate( inliers.begin(), inliers.end(), 0 );
 	float inliersRatio = (float) inliersCount / inliers.size();
 
-	//if( debug )
+	if( debug )
 		cerr << "\tInliers ratio is " << inliersRatio << endl;
 
 	if( inliersRatio < MIN_INLIER_RATIO ) {
