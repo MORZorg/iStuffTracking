@@ -24,11 +24,11 @@ const Size Tracker::LK_WINDOW = cv::Size(15, 15);
  */
 Tracker::Tracker()
 {
-	m_detector = FeatureDetector::create("GFTT");
-	m_matcher = DescriptorMatcher::create("FlannBased");
+  m_detector = FeatureDetector::create("GFTT");
+  m_matcher = DescriptorMatcher::create("FlannBased");
 
-	if (debug)
-		cerr << TAG << " constructed.\n";
+  if (debug)
+    cerr << TAG << " constructed.\n";
 }
 
 Tracker::~Tracker()
@@ -43,7 +43,7 @@ Tracker::~Tracker()
  */
 void Tracker::setRunning(bool running)
 {
-	m_running = running;
+  m_running = running;
 }
 
 /* Getters */
@@ -55,7 +55,7 @@ void Tracker::setRunning(bool running)
  */
 bool Tracker::isRunning() const
 {
-	return m_running;
+  return m_running;
 }
 
 /* Other methods */
@@ -72,28 +72,28 @@ bool Tracker::isRunning() const
  */
 Object Tracker::trackFrame(Mat new_frame)
 {
-	if (debug)
-		cerr << TAG << ": Tracking frame.\n";
+  if (debug)
+    cerr << TAG << ": Tracking frame.\n";
 
-	Object new_object;
-	Mat small_new_frame;
-	Features new_features;
+  Object new_object;
+  Mat small_new_frame;
+  Features new_features;
 
-	resize(new_frame, small_new_frame, Size(),
-				 IMG_RESIZE, IMG_RESIZE, INTER_AREA);
+  resize(new_frame, small_new_frame, Size(),
+         IMG_RESIZE, IMG_RESIZE, INTER_AREA);
 
-	lock_guard<mutex> lock(m_object_mutex);
+  lock_guard<mutex> lock(m_object_mutex);
 
-	// Syncrhonizing this whole operation ensures no writing occurs
-	// during this tracking
-	new_features = calcFeatures(m_frame, small_new_frame, &m_features);
-	new_object = updateObject(m_features, new_features, m_object);
+  // Syncrhonizing this whole operation ensures no writing occurs
+  // during this tracking
+  new_features = calcFeatures(m_frame, small_new_frame, &m_features);
+  new_object = updateObject(m_features, new_features, m_object);
 
-	m_object = new_object;
-	m_frame = small_new_frame;
-	m_features = new_features;
+  m_object = new_object;
+  m_frame = small_new_frame;
+  m_features = new_features;
 
-	return new_object;
+  return new_object;
 }
 
 /**
@@ -105,20 +105,20 @@ Object Tracker::trackFrame(Mat new_frame)
  */
 Features Tracker::calcFeatures(cv::Mat frame)
 {
-	if (debug)
-		cerr << TAG << ": calcFeatures (detection).\n";
+  if (debug)
+    cerr << TAG << ": calcFeatures (detection).\n";
 
-	vector<KeyPoint> key_points;
-	m_detector->detect(frame, key_points);
+  vector<KeyPoint> key_points;
+  m_detector->detect(frame, key_points);
 
-	if (debug)
-		cerr << TAG << ": Found " << key_points.size() << " keypoints.\n";
+  if (debug)
+    cerr << TAG << ": Found " << key_points.size() << " keypoints.\n";
 
-	Features features;
-	for (KeyPoint a_key_point : key_points)
-		features.push_back(a_key_point.pt);
+  Features features;
+  for (KeyPoint a_key_point : key_points)
+    features.push_back(a_key_point.pt);
 
-	return features;
+  return features;
 }
 
 /**
@@ -133,36 +133,36 @@ Features Tracker::calcFeatures(cv::Mat frame)
 Features Tracker::calcFeatures(cv::Mat old_frame, cv::Mat new_frame,
 															 Features* old_features)
 {
-	if (debug)
-		cerr << TAG << ": calcFeatures (optical flow).\n";
+  if (debug)
+    cerr << TAG << ": calcFeatures (optical flow).\n";
 
-	Features new_features;
+  Features new_features;
 
-	if (old_features->empty() || new_frame.empty())
-		return new_features;
+  if (old_features->empty() || new_frame.empty())
+    return new_features;
 
-	vector<uchar> status;
-	vector<float> error;
-	calcOpticalFlowPyrLK(old_frame, new_frame,
-											 *old_features, new_features,
-											 status, error, LK_WINDOW);
+  vector<uchar> status;
+  vector<float> error;
+  calcOpticalFlowPyrLK(old_frame, new_frame,
+                       *old_features, new_features,
+                       status, error, LK_WINDOW);
 
-	if (debug)
-		cerr << TAG << ": Points tracked.\n";
+  if (debug)
+    cerr << TAG << ": Points tracked.\n";
 
-	for (int i = status.size()-1; i >= 0; i--)
-		if (!status[i])
-		{
-			old_features->erase(old_features->begin() + i);
-			new_features.erase(new_features.begin() + i);
+  for (int i = status.size()-1; i >= 0; i--)
+    if (!status[i])
+    {
+      old_features->erase(old_features->begin() + i);
+      new_features.erase(new_features.begin() + i);
 
-			m_saved_features.erase(m_saved_features.begin() + i);
-		}
+      m_saved_features.erase(m_saved_features.begin() + i);
+    }
 
-	if (debug)
-		cerr << TAG << ": " << new_features.size() << " points remained.\n";
+  if (debug)
+    cerr << TAG << ": " << new_features.size() << " points remained.\n";
 
-	return new_features;
+  return new_features;
 }
 
 /**
@@ -178,50 +178,50 @@ Features Tracker::calcFeatures(cv::Mat old_frame, cv::Mat new_frame,
  * @return	The new IStuff::Object, moved according to the IStuff::Features.
  */
 Object Tracker::updateObject(Features old_features, Features new_features,
-														 Object old_object)
+                             Object old_object)
 {
-	if (debug)
-		cerr << TAG << ": Updating object.\n";
+  if (debug)
+    cerr << TAG << ": Updating object.\n";
 
-	if (old_object.empty() || old_features.empty())
-		return old_object;
+  if (old_object.empty() || old_features.empty())
+    return old_object;
 
-	vector<Label> labels = old_object.getLabels();
-	vector<Point2f> old_positions;
-	for (Label a_label : labels)
-		old_positions.push_back(a_label.position * .5);
+  vector<Label> labels = old_object.getLabels();
+  vector<Point2f> old_positions;
+  for (Label a_label : labels)
+    old_positions.push_back(a_label.position * .5);
 
 
-	// Organize data as DescriptorMatcher wants it
-	Mat positions,
-			features,
-			temp[2];
-	split(Mat(old_positions), temp);
-	hconcat(temp[0], temp[1], positions);
-	split(Mat(old_features), temp);
-	hconcat(temp[0], temp[1], features);
+  // Organize data as DescriptorMatcher wants it
+  Mat positions,
+      features,
+      temp[2];
+  split(Mat(old_positions), temp);
+  hconcat(temp[0], temp[1], positions);
+  split(Mat(old_features), temp);
+  hconcat(temp[0], temp[1], features);
 
-	vector< vector<DMatch> > matches;
-	m_matcher->knnMatch(positions, features, matches, NEAREST_FEATURES_COUNT);
+  vector< vector<DMatch> > matches;
+  m_matcher->knnMatch(positions, features, matches, NEAREST_FEATURES_COUNT);
 
-	Object new_object;
-	for (size_t i = 0; i < matches.size(); i++) 
-	{
-		Point2f movement;
-		for (size_t j = 0; j < NEAREST_FEATURES_COUNT; j++)
-		{
-			size_t feature_index = matches[i][j].trainIdx;
-			movement += new_features[feature_index] - old_features[feature_index];
-		}
-		movement = movement * (1. / NEAREST_FEATURES_COUNT);
+  Object new_object;
+  for (size_t i = 0; i < matches.size(); i++) 
+  {
+    Point2f movement;
+    for (size_t j = 0; j < NEAREST_FEATURES_COUNT; j++)
+    {
+      size_t feature_index = matches[i][j].trainIdx;
+      movement += new_features[feature_index] - old_features[feature_index];
+    }
+    movement = movement * (1. / NEAREST_FEATURES_COUNT);
 
-		size_t label_index = matches[i][0].queryIdx;
-		Label new_label = labels[label_index];
-		new_label.position += movement * 2;
-		new_object.addLabel(new_label);
-	}
+    size_t label_index = matches[i][0].queryIdx;
+    Label new_label = labels[label_index];
+    new_label.position += movement * 2;
+    new_object.addLabel(new_label);
+  }
 
-	return new_object;
+  return new_object;
 }
 
 /**
@@ -234,29 +234,29 @@ Object Tracker::updateObject(Features old_features, Features new_features,
  */
 bool Tracker::backgroundTrackFrame(Mat frame, Manager* reference)
 {
-	if (isRunning())
-	{
-		if (debug)
-			cerr << TAG << ": Already started in background!\n";
+  if (isRunning())
+  {
+    if (debug)
+      cerr << TAG << ": Already started in background!\n";
 
-		return false;
-	}
+    return false;
+  }
 
-	if (debug)
-		cerr << TAG << ": Starting in background.\n";
+  if (debug)
+    cerr << TAG << ": Starting in background.\n";
 
-	// NOTE: "[=]" means "all used variables are captured in the lambda".
-	m_thread = auto_ptr<thread>(new thread([=]()
-			{
-				setRunning(true);
-				
-				Object new_object = trackFrame(frame);
-				reference->sendMessage(Manager::MSG_TRACKING_END, &new_object);
+  // NOTE: "[=]" means "all used variables are captured in the lambda".
+  m_thread = auto_ptr<thread>(new thread([=]()
+  {
+    setRunning(true);
 
-				setRunning(false);
-			}));
+    Object new_object = trackFrame(frame);
+    reference->sendMessage(Manager::MSG_TRACKING_END, &new_object);
 
-	return true;
+    setRunning(false);
+  }));
+
+  return true;
 }
 
 /**
@@ -282,48 +282,48 @@ bool Tracker::backgroundTrackFrame(Mat frame, Manager* reference)
  */
 void Tracker::sendMessage(int msg, void* data, void* reply_to)
 {
-	Features temp_features;
-	switch (msg)
-	{
-		case Manager::MSG_RECOGNITION_START:
-			// Synchronized
-			{
-				lock_guard<mutex> lock(m_object_mutex);
+  Features temp_features;
+  switch (msg)
+  {
+    case Manager::MSG_RECOGNITION_START:
+      // Synchronized
+      {
+        lock_guard<mutex> lock(m_object_mutex);
 
-				Mat frame;
-				resize(*(Mat*)data, frame, Size(), IMG_RESIZE, IMG_RESIZE, INTER_AREA);
+        Mat frame;
+        resize(*(Mat*)data, frame, Size(), IMG_RESIZE, IMG_RESIZE, INTER_AREA);
 
-				// Calcolo le features per il frame,
-				// traccio al contrario derivando le features relative al vecchio frame
-				// aggiorno l'oggetto tra i due frames
-				// salvo il frame
-				m_saved_features = calcFeatures(frame);
-				temp_features = m_saved_features;
-				m_features = calcFeatures(frame, m_frame, &temp_features);
-				m_object = updateObject(m_features, m_saved_features, m_object);
-				m_frame = frame;
-				m_features = m_saved_features;
-			}
-			break;
+        // Calcolo le features per il frame,
+        // traccio al contrario derivando le features relative al vecchio frame
+        // aggiorno l'oggetto tra i due frames
+        // salvo il frame
+        m_saved_features = calcFeatures(frame);
+        temp_features = m_saved_features;
+        m_features = calcFeatures(frame, m_frame, &temp_features);
+        m_object = updateObject(m_features, m_saved_features, m_object);
+        m_frame = frame;
+        m_features = m_saved_features;
+      }
+      break;
 
-		case Manager::MSG_RECOGNITION_END:
-			// Synchronized
-			{
-				lock_guard<mutex> lock(m_object_mutex);
+    case Manager::MSG_RECOGNITION_END:
+      // Synchronized
+      {
+        lock_guard<mutex> lock(m_object_mutex);
 
-				m_object = updateObject(m_saved_features, m_features, *(Object*)data);
-			}
-			break;
+        m_object = updateObject(m_saved_features, m_features, *(Object*)data);
+      }
+      break;
 
-		case Manager::MSG_TRACKING_START:
-			backgroundTrackFrame(*(Mat*)data, (Manager*)reply_to);
-			break;
+    case Manager::MSG_TRACKING_START:
+      backgroundTrackFrame(*(Mat*)data, (Manager*)reply_to);
+      break;
 
-		case Manager::MSG_TRACKING_END:
-			break;
+    case Manager::MSG_TRACKING_END:
+      break;
 
-		default:
-			break;
-	}
+    default:
+      break;
+  }
 }
 

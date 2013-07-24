@@ -21,55 +21,55 @@
 #include "tracker.h"
 
 extern bool debug,
-						hl_debug;
+            hl_debug;
 
 namespace IStuff
 {
-	class Manager
-	{
-		/* Attributes */
-		public:
-			const static int MSG_RECOGNITION_START = 1;
-			const static int MSG_RECOGNITION_END	 = 2;
-			const static int MSG_TRACKING_START		 = 3;
-			const static int MSG_TRACKING_END			 = 4;
+  class Manager
+  {
+    /* Attributes */
+    public:
+      const static int MSG_RECOGNITION_START = 1;
+      const static int MSG_RECOGNITION_END	 = 2;
+      const static int MSG_TRACKING_START		 = 3;
+      const static int MSG_TRACKING_END			 = 4;
 
-		private:
-			const static char TAG[];
-			const static int RECOGNITION_PERIOD = 30;
+    private:
+      const static char TAG[];
+      const static int RECOGNITION_PERIOD = 30;
 
-			/**
-			 * @brief When this reaches RECOGNITION_PERIOD, a new recognition is done.
-			 */
-			int frames_tracked_count;
-			boost::shared_mutex object_update;
+      /**
+       * @brief When this reaches RECOGNITION_PERIOD, a new recognition is done.
+       */
+      int frames_tracked_count;
+      boost::shared_mutex object_update;
 
-			Object actual_object;
-			Recognizer recognizer;
-			Tracker tracker;
+      Object actual_object;
+      Recognizer recognizer;
+      Tracker tracker;
 
-		/* Methods */
-		public:
-			/* Constructors and Destructors */
-			Manager();
-			virtual ~Manager();
+      /* Methods */
+    public:
+      /* Constructors and Destructors */
+      Manager();
+      virtual ~Manager();
 
-			/* Setters */
-			void setDatabase(Database*);
+      /* Setters */
+      void setDatabase(Database*);
 
-			/* Getters */
-			Object getObject();
+      /* Getters */
+      Object getObject();
 
-			/* Other methods */
-			void elaborateFrame(cv::Mat);
-			cv::Mat paintObject(cv::Mat);
+      /* Other methods */
+      void elaborateFrame(cv::Mat);
+      cv::Mat paintObject(cv::Mat);
 
-			void sendMessage(int, void*, void* = NULL);
+      void sendMessage(int, void*, void* = NULL);
 
-		private:
-			/* Setters */
-			void setObject(const Object);
-	};
+    private:
+      /* Setters */
+      void setObject(const Object);
+  };
 }
 
 #endif /* defined I_STUFF_MANAGER_H__ */

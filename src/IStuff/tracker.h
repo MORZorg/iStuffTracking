@@ -26,59 +26,59 @@ extern bool debug;
 
 namespace IStuff
 {
-	class Manager;
+  class Manager;
 
-	/**
-	 * @brief An alias for a std::vector of cv::Point, used for tracking.
-	 */
-	typedef std::vector<cv::Point2f> Features;
+  /**
+   * @brief An alias for a std::vector of cv::Point, used for tracking.
+   */
+  typedef std::vector<cv::Point2f> Features;
 
-	class Tracker
-	{
-		/* Attributes */
-		private:
-			const static char TAG[];
+  class Tracker
+  {
+    /* Attributes */
+    private:
+      const static char TAG[];
 
-			const static int NEAREST_FEATURES_COUNT = 10;
-			const static float constexpr IMG_RESIZE = .5;
-			const static cv::Size LK_WINDOW;
+      const static int NEAREST_FEATURES_COUNT = 10;
+      const static float constexpr IMG_RESIZE = .5;
+      const static cv::Size LK_WINDOW;
 
-			std::auto_ptr<boost::thread> m_thread;
-			bool m_running = false;
-			boost::mutex m_object_mutex;
+      std::auto_ptr<boost::thread> m_thread;
+      bool m_running = false;
+      boost::mutex m_object_mutex;
 
-			Object m_object;
-			cv::Mat m_frame;
-			Features m_features,
-							 m_saved_features;
+      Object m_object;
+      cv::Mat m_frame;
+      Features m_features,
+               m_saved_features;
 
-			cv::Ptr<cv::FeatureDetector> m_detector;
-			cv::Ptr<cv::DescriptorMatcher> m_matcher;
+      cv::Ptr<cv::FeatureDetector> m_detector;
+      cv::Ptr<cv::DescriptorMatcher> m_matcher;
 
-		/* Methods */
-		public:
-			/* Constructors and Destructors */
-			Tracker();
-			virtual ~Tracker();
+      /* Methods */
+    public:
+      /* Constructors and Destructors */
+      Tracker();
+      virtual ~Tracker();
 
-			/* Setters */
+      /* Setters */
 
-			/* Getters */
-			bool isRunning() const;
+      /* Getters */
+      bool isRunning() const;
 
-			/* Other methods */
-			Object trackFrame(cv::Mat);
-			void sendMessage(int, void*, void* = NULL);
-		private:
-			/* Setters */
-			void setRunning(bool);
+      /* Other methods */
+      Object trackFrame(cv::Mat);
+      void sendMessage(int, void*, void* = NULL);
+    private:
+      /* Setters */
+      void setRunning(bool);
 
-			/* Other methods */
-			Features calcFeatures(cv::Mat);
-			Features calcFeatures(cv::Mat, cv::Mat, Features*);
-			Object updateObject(Features, Features, Object);
-			bool backgroundTrackFrame(cv::Mat, Manager*);
-	};
+      /* Other methods */
+      Features calcFeatures(cv::Mat);
+      Features calcFeatures(cv::Mat, cv::Mat, Features*);
+      Object updateObject(Features, Features, Object);
+      bool backgroundTrackFrame(cv::Mat, Manager*);
+  };
 }
 
 #include "manager.h"

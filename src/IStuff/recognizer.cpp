@@ -26,11 +26,11 @@ const char Recognizer::TAG[] = "Rec";
  */
 Recognizer::Recognizer()
 {
-	//m_thread = auto_ptr<thread>(new thread());
-	setRunning(false);
+  //m_thread = auto_ptr<thread>(new thread());
+  setRunning(false);
 
-	if (debug)
-		cerr << TAG << " constructed.\n";
+  if (debug)
+    cerr << TAG << " constructed.\n";
 }
 
 Recognizer::~Recognizer()
@@ -45,12 +45,12 @@ Recognizer::~Recognizer()
  */
 void Recognizer::setDatabase(Database* matcher)
 {
-	m_matcher = matcher;
+  m_matcher = matcher;
 }
 
 void Recognizer::setRunning(bool running)
 {
-	m_running = running;
+  m_running = running;
 }
 
 /* Getters */
@@ -62,7 +62,7 @@ void Recognizer::setRunning(bool running)
  */
 bool Recognizer::isRunning() const
 {
-	return m_running;
+  return m_running;
 }
 
 /* Other methods */
@@ -76,15 +76,15 @@ bool Recognizer::isRunning() const
  */
 Object Recognizer::recognizeFrame(Mat frame)
 {
-	if (debug)
-		cerr << TAG << ": Recognizing frame.\n";
+  if (debug)
+    cerr << TAG << ": Recognizing frame.\n";
 
-	Object result = m_matcher->match(frame.clone());
+  Object result = m_matcher->match(frame.clone());
 
-	if (debug)
-		cerr << TAG << ": Frame recognized.\n";
+  if (debug)
+    cerr << TAG << ": Frame recognized.\n";
 
-	return result;
+  return result;
 }
 
 /**
@@ -97,29 +97,29 @@ Object Recognizer::recognizeFrame(Mat frame)
  */
 bool Recognizer::backgroundRecognizeFrame(Mat frame, Manager* reference)
 {
-	if (isRunning())
-	{
-		if (debug)
-			cerr << TAG << ": Already started in background!\n";
+  if (isRunning())
+  {
+    if (debug)
+      cerr << TAG << ": Already started in background!\n";
 
-		return false;
-	}
+    return false;
+  }
 
-	if (debug)
-		cerr << TAG << ": Starting in background.\n";
+  if (debug)
+    cerr << TAG << ": Starting in background.\n";
 
-	// NOTE: "[=]" means "all used variables are captured in the lambda".
-	m_thread = auto_ptr<thread>(new thread([=]()
-			{
-				setRunning(true);
+  // NOTE: "[=]" means "all used variables are captured in the lambda".
+  m_thread = auto_ptr<thread>(new thread([=]()
+  {
+    setRunning(true);
 
-				Object new_object = recognizeFrame(frame);
-				reference->sendMessage(Manager::MSG_RECOGNITION_END, &new_object);
+    Object new_object = recognizeFrame(frame);
+    reference->sendMessage(Manager::MSG_RECOGNITION_END, &new_object);
 
-				setRunning(false);
-			}));
+    setRunning(false);
+  }));
 
-	return true;
+  return true;
 }
 
 /**
@@ -137,17 +137,17 @@ bool Recognizer::backgroundRecognizeFrame(Mat frame, Manager* reference)
  */
 void Recognizer::sendMessage(int msg, void* data, void* reply_to)
 {
-	switch (msg)
-	{
-		case Manager::MSG_RECOGNITION_START:
-			backgroundRecognizeFrame(*(Mat*)data, (Manager*)reply_to);
-			//tmp = recognizeFrame(*(Mat*)data);
-			//((Manager*)reply_to)->sendMessage(Manager::MSG_RECOGNITION_END, &tmp);
-			break;
-		case Manager::MSG_RECOGNITION_END:
-			break;
-		default:
-			break;
-	}
+  switch (msg)
+  {
+    case Manager::MSG_RECOGNITION_START:
+      backgroundRecognizeFrame(*(Mat*)data, (Manager*)reply_to);
+      //tmp = recognizeFrame(*(Mat*)data);
+      //((Manager*)reply_to)->sendMessage(Manager::MSG_RECOGNITION_END, &tmp);
+      break;
+    case Manager::MSG_RECOGNITION_END:
+      break;
+    default:
+      break;
+  }
 }
 

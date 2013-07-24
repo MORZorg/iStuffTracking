@@ -23,41 +23,41 @@ extern bool debug;
 
 namespace IStuff
 {
-	class Manager;
-	
-	class Recognizer
-	{
-		/* Attributes */
-		private:
-			const static char TAG[];
+  class Manager;
 
-			std::auto_ptr<boost::thread> m_thread;
-			bool m_running;
+  class Recognizer
+  {
+    /* Attributes */
+    private:
+      const static char TAG[];
 
-			Database* m_matcher;
+      std::auto_ptr<boost::thread> m_thread;
+      bool m_running;
 
-		/* Methods */
-		public:
-			/* Constructors and Destructors */
-			Recognizer();
-			virtual ~Recognizer();
-			
-			/* Setters */
-			void setDatabase(Database*);
+      Database* m_matcher;
 
-			/* Getters */
-			bool isRunning() const;
+      /* Methods */
+    public:
+      /* Constructors and Destructors */
+      Recognizer();
+      virtual ~Recognizer();
 
-			/* Other methods */
-			Object recognizeFrame(cv::Mat);
-			bool backgroundRecognizeFrame(cv::Mat, Manager*);
+      /* Setters */
+      void setDatabase(Database*);
 
-			void sendMessage(int, void*, void* = NULL);
+      /* Getters */
+      bool isRunning() const;
 
-		private:
-			/* Setters */
-			void setRunning(bool);
-	};
+      /* Other methods */
+      Object recognizeFrame(cv::Mat);
+      bool backgroundRecognizeFrame(cv::Mat, Manager*);
+
+      void sendMessage(int, void*, void* = NULL);
+
+    private:
+      /* Setters */
+      void setRunning(bool);
+  };
 }
 
 #include "manager.h"
