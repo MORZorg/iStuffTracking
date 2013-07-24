@@ -88,13 +88,31 @@ Object Database::match( Mat scene ) {
 	matcher.knnMatch( sceneDescriptors, matches, 2 );
 
 	if( debug )
+		cerr << "\tStart searching for the best sample\n";
+
+	// I consider only the sample with the biggest number of matches (the index will be contained in maxSample)
+	vector< int > bestSample( labelDB.size(), 0 );
+
+	for( vector< vector< DMatch > >::iterator m = matches.begin(); m != matches.end(); m++ )
+		bestSample[ ( *m )[0].imgIdx ]++;
+
+	int maxSample = 0;
+
+	for( int i = 1; i < bestSample.size(); i++ )
+		if( bestSample[ i ] > bestSample[ maxSample ] )
+			maxSample = i;
+
+	if( debug )
+		cerr << "\tBest sample is #" << maxSample << endl;
+
+	// Keep only the matches with a significant difference in distance between the two nearest neighbours and regarding the best sample
+	if( debug )
 		cerr << "\t\t" << matches.size() << " matches found, start filtering the good ones\n";
 
-	// Keep only the matches with a significant difference in distance between the two nearest neighbours
 	double NNDRRatio = 0.6;
 
 	for( int i = 0; i < matches.size(); i++ )
-		if( matches[ i ][ 0 ].distance <= NNDRRatio * matches[ i ][ 1 ].distance )
+		if( matches[ i ][ 0 ].imgIdx == maxSample && matches[ i ][ 0 ].distance <= NNDRRatio * matches[ i ][ 1 ].distance )
 			goodMatches.push_back( matches[ i ][ 0 ] );
 
 	if( debug )
@@ -116,21 +134,6 @@ Object Database::match( Mat scene ) {
 
 		imwrite( outsbra, imgKeypoints );
 	}
-
-	// I consider only the sample with the biggest number of matches (the index will be contained in maxSample)
-	vector< int > bestSample( labelDB.size(), 0 );
-
-	for( vector< DMatch >::iterator m = goodMatches.begin(); m != goodMatches.end(); m++ )
-		bestSample[ ( *m ).imgIdx ]++;
-
-	int maxSample = 0;
-
-	for( int i = 1; i < bestSample.size(); i++ )
-		if( bestSample[ i ] > bestSample[ maxSample ] )
-			maxSample = i;
-
-	if( debug )
-		cerr << "\tBest sample is #" << maxSample << endl;
 
 	// Analyze the keypoints found for the sample to estimate homography and apply a perspectiveTransform
 	// to the labels associated to that sample
@@ -167,7 +170,7 @@ Object Database::match( Mat scene ) {
 	//if( debug )
 		cerr << "\tInliers ratio is " << inliersRatio << endl;
 
-	float minInlierRatio = 0.55;
+	float minInlierRatio = 0.50;
 
 	if( inliersRatio < minInlierRatio ) {
 		if( debug )
