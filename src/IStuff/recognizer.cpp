@@ -141,8 +141,6 @@ void Recognizer::sendMessage(int msg, void* data, void* reply_to)
   {
     case Manager::MSG_RECOGNITION_START:
       backgroundRecognizeFrame(*(Mat*)data, (Manager*)reply_to);
-      //tmp = recognizeFrame(*(Mat*)data);
-      //((Manager*)reply_to)->sendMessage(Manager::MSG_RECOGNITION_END, &tmp);
       break;
     case Manager::MSG_RECOGNITION_END:
       break;

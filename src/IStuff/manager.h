@@ -29,10 +29,10 @@ namespace IStuff
   {
     /* Attributes */
     public:
-      const static int MSG_RECOGNITION_START = 1;
-      const static int MSG_RECOGNITION_END	 = 2;
-      const static int MSG_TRACKING_START		 = 3;
-      const static int MSG_TRACKING_END			 = 4;
+      const static int MSG_RECOGNITION_START  = 1;
+      const static int MSG_RECOGNITION_END    = 2;
+      const static int MSG_TRACKING_START     = 3;
+      const static int MSG_TRACKING_END       = 4;
 
     private:
       const static char TAG[];
