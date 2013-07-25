@@ -1,12 +1,12 @@
 \beamer@endinputifotherversion {3.26pt}
 \beamer@sectionintoc {1}{Introduction}{2}{0}{1}
-\beamer@subsectionintoc {1}{1}{Overall structure}{3}{0}{1}
-\beamer@sectionintoc {2}{Manager}{5}{0}{2}
+\beamer@sectionintoc {2}{Manager and overall functioning}{3}{0}{2}
 \beamer@sectionintoc {3}{Recognition}{7}{0}{3}
 \beamer@subsectionintoc {3}{1}{Database}{9}{0}{3}
 \beamer@subsectionintoc {3}{2}{Matching}{11}{0}{3}
-\beamer@subsectionintoc {3}{3}{Match filtering considerations}{13}{0}{3}
-\beamer@sectionintoc {4}{Tracking}{15}{0}{4}
-\beamer@subsectionintoc {4}{1}{Actualization}{18}{0}{4}
-\beamer@subsectionintoc {4}{2}{Optimization}{19}{0}{4}
-\beamer@sectionintoc {5}{Conclusions}{20}{0}{5}
+\beamer@subsectionintoc {3}{3}{Match filtering considerations}{16}{0}{3}
+\beamer@sectionintoc {4}{Tracking}{18}{0}{4}
+\beamer@subsectionintoc {4}{1}{Actualization}{21}{0}{4}
+\beamer@subsectionintoc {4}{2}{Optimization}{22}{0}{4}
+\beamer@sectionintoc {5}{Complexity evaluation}{23}{0}{5}
+\beamer@sectionintoc {6}{Conclusions}{25}{0}{6}

@@ -1,5 +1,6 @@
 \documentclass{beamer}
 \usepackage[utf8]{inputenc}
+\usepackage{graphicx}
 
 %\usetheme{Copenhagen}
 \usetheme{Antibes}
@@ -45,22 +46,6 @@
     cost of a pure recognition.\\
   \end{frame}
 
-  \subsection{Overall structure}
-
-  \begin{frame}
-    \frametitle{\insertsection\ - \insertsubsection}
-    The software is designed for concurrent execution.\\
-    There is an object of class \textsc{Manager} which, given every frame
-    captured by a webcam or in a video, elaborates it in some way and retuns
-    an object of class \textsc{Object} which contains the actual \textsc{Label}
-    positions.\\
-  \end{frame}
-
-  \begin{frame}
-    \frametitle{\insertsection\ - \insertsubsection}
-	\includegraphics[width=\textwidth]{images/main_flow.png}
-  \end{frame}
-
   \AtBeginSection[]
   {
     \begin{frame}
@@ -68,20 +53,37 @@
       \tableofcontents[currentsection]
     \end{frame}
   }
-  \section{Manager}
+
+  \section{Manager and overall functioning}
 
   \begin{frame}
     \frametitle{\insertsection}
-    The \textsc{Manager} handles two objects of class \textsc{Recognizer} and
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.8\textwidth]{images/main_flow.pdf}\\
+		Fig 1: Graphical presentation of the overall functioning
+	\end{figure}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{\insertsection}
+    The software is designed for concurrent execution.\\
+    An object of class \textsc{Manager} handles two objects of class \textsc{Recognizer} and
     \textsc{Tracker}. The first object runs a \emph{thread}.\\
     Every $N$ frames elaborated, the \textsc{Manager} asks the
     \textsc{Recognizer} to perform a full recognition. In the meantime the
     \textsc{Tracker} keeps tracking the \textsc{Label}s starting from the last
     \textsc{Object} given by the \textsc{Recognizer}.\\
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{\insertsection}
     When the \textsc{Recognizer} has finished it returns an \textsc{Object}
     which contains the positions of the \textsc{Label}s in the moment in which
     the recognition started. These positions are then \emph{actualized} by the
-    \textsc{Tracker}.\\
+    \textsc{Tracker} and the \textsc{Object} is updated with the actualized positions.\\
+	The \textsc{Object} is then used as a reference to paint the \textsc{Label}s on the
+	frame and show the result to video.
   \end{frame}
 
   \section{Recognition}
@@ -142,10 +144,37 @@
       \item Otherwise the keypoints related to the matches in the database and
         the frame are used to estimate an homography with \emph{RANSAC}.
       \item If it is valid (the inliers ratio over the total points used by
-        RANSAC is at least 50\%), the homography is used to remap the positions
+        \emph{RANSAC} is at least 50\%), the homography is used to remap the positions
         of the labels in the frame. Those positions are added to an
         \textsc{Object} which is passed back to the \textsc{Manager}.
     \end{cenumerate}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{\insertsection\ - \insertsubsection}
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.8\textwidth]{images/sample.jpg}\\
+		Fig 2: Example image
+	\end{figure}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{\insertsection\ - \insertsubsection}
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.8\textwidth]{images/sampleKeypoints.jpg}\\
+		Fig 3: Detected keypoints
+	\end{figure}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{\insertsection\ - \insertsubsection}
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.8\textwidth]{images/sampleLabels.jpg}\\
+		Fig 4: Detected Labels
+	\end{figure}
   \end{frame}
 
   \subsection{Match filtering considerations}
@@ -154,22 +183,22 @@
 	\frametitle{\insertsection\ - \insertsubsection}
 	The matching process implements multiple checks to determine if everything
 	is going fine.\\
-	The NNDR and inliers ratio checks are strictly connected as by adopting a
-	less restrictive NNDR check, more bad matches are allowed and therefore
-	RANSAC works on more outliers (decreasing the inliers ratio). We've found
-	that a NNDR value of 60\% works fine since when the object is still in
-	front of the camera, RANSAC is found working with an inlier ratio between
-	95\% and 100\%.
+	The NNDR and inliers ratio checks are strictly connected to each other
+	as by adopting a less restrictive NNDR check, more bad matches are allowed
+	and therefore RANSAC works on more outliers (decreasing the inliers ratio).
+	We've found that a NNDR value of 60\% works fine since when the object is
+	standing still in front of the camera, RANSAC works with an inlier ratio
+	between 95\% and 100\%.
   \end{frame}
 
   \begin{frame}
   	\frametitle{\insertsection\ - \insertsubsection}
 	On the other hand, we found that the right threshold of remaining matches
 	after the NNDR filtering is strictly connected to the quality of the video
-	source used as input.
+	source used as input.\\
 	In particular we found that a higher quality source is likely to produce
-	more matches that pass the NNDR test, and in general we think that
-	this threshold is to be set somewhere between 14 and 20.
+	more matches that pass the NNDR test, so the threshold should be raised
+	up a bit (generally somewhere between 14 and 20).
   \end{frame}
 
   \section{Tracking}
@@ -216,14 +245,25 @@
   \begin{frame}
     \frametitle{\insertsection\ - \insertsubsection}
     The heaviest part of the tracking algorithm is the calculation of the
-        \emph{optical flow}. To reduce the time required, the frame is
-        decimated by a factor $2$; since the complexity of the algorithm is
-        more than linear, this reduces the computational cost to less than
-        $25\%$ of the original time.\\
+    \emph{optical flow}. To reduce the time required, the frame is
+    decimated by a factor $2$; since the complexity of the algorithm is
+    more than linear, this reduces the computational cost to less than
+    $25\%$ of the original time.\\
     Also, to furtherly abate the complexity, the whole tracker has been
     adapted to work with decimated frames. This can be done without damaging
     the results because both the features and the tracking algorithm are
-        robust to scaling.\\
+    robust to scaling.\\
+  \end{frame}
+
+  \section{Complexity evaluation}
+
+  \begin{frame}
+    \frametitle{\insertsection}
+	To evaluate the complexity, we decided to admit an execution mode which
+	excludes the tracking part and, therefore, it is recognition only.\\
+	On my uber PC, the complete version of the system can elaborate
+	25 frame per second against a depressing 2 frame per second if the tracker
+	is excluded.
   \end{frame}
 
   \section{Conclusions}
