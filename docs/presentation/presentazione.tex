@@ -43,7 +43,7 @@
     The project goal is to realize a joint system of recognition and tracking
     of some features of a previously chosen object which is identified in a
     video.  These features are called \textsc{Label}s.\\
-    The sofware is aimed for execution on low performance devices such as the
+    The software is aimed for execution on low performance devices such as the
     iPad, therefore the tracking is necessary due to the high computational
     cost of a pure recognition.\\
   \end{frame}
@@ -82,9 +82,9 @@
 
   \begin{frame}
     \frametitle{\insertsection}
-    When the \textsc{Recognizer} has finished it returns an \textsc{Object}
-    which contains the positions of the \textsc{Label}s in the moment in which
-    the recognition started. These positions are then \emph{actualized} by the
+    When the \textsc{Recognizer} has finished, it returns an \textsc{Object}
+    containing the positions of the \textsc{Label}s in the moment in which the
+    recognition started. These positions are then \emph{actualized} by the
     \textsc{Tracker} and the \textsc{Object} is updated with the actualized
     positions.\\
 	The \textsc{Object} is then used as a reference to paint the
@@ -328,13 +328,24 @@
 
   \begin{frame}
     \frametitle{\insertsection}
- 	Furthermore, because the recognizer is asked to match a single frame, if for
-	some reason (e.g., object in fast motion) the frame given to the recognizer
-    is blurry or somehow distorted, the recognition doesn't end up with a proper
-	output.\\
+ 	Furthermore, because the \textsc{Recognizer} is asked to match a single
+    frame, if for some reason (e.g., the object is in fast motion) the frame
+    given to the \textsc{Recognizer} is blurry or somehow distorted, the
+    recognition doesn't end up with a proper output.\\
 	To avoid this we think it might be a good idea to pass a set of frames to
-	the recognizer in which it should choose the best to use (for example,
-	the best could be the frame in which the most number of good matches
-	is found).\\
+	the \textsc{Recognizer} among which it should choose the best to use (for
+    example, the best could be the frame in which the most number of good
+    matches is found) or to employ an image stabilization system.\\
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{\insertsection}
+    Other optimizations could avoid useless \textsc{Object} re-identifcation or
+    anticipate them in case of problems with the tracking. This could, for
+    example, be done using \emph{reverse tracking}: every few frames, the
+    \textsc{Object} is back-tracked starting from the actual frame towards the
+    beginning (i.e., the last frame used for the recognition); if the resulting
+    \textsc{Label}s are too different from the original, a new recognition has
+    to be requested, otherwise it can be skipped.\\
   \end{frame}
 \end{document}
