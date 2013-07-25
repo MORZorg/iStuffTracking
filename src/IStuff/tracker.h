@@ -52,6 +52,9 @@ namespace IStuff
       Features m_features,
                m_saved_features;
 
+      cv::Mat m_display;
+      Object m_original_object;
+
       cv::Ptr<cv::FeatureDetector> m_detector;
       cv::Ptr<cv::DescriptorMatcher> m_matcher;
 

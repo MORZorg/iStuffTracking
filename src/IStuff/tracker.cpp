@@ -89,6 +89,36 @@ Object Tracker::trackFrame(Mat new_frame)
   new_features = calcFeatures(m_frame, small_new_frame, &m_features);
   new_object = updateObject(m_features, new_features, m_object);
 
+  if (debug)
+  {
+    Mat display = m_display.clone();
+
+    for (size_t i = 0; i < new_features.size(); i++)
+    {
+      line(display,
+           m_saved_features[i] * 2,
+           new_features[i] * 2,
+           Scalar(255, 255, 0));
+      circle(display, new_features[i] * 2, 5, Scalar(255, 0, 0));
+    }
+
+    for (size_t i = 0; i < new_object.getLabels().size(); i++)
+    {
+      Point2f old_position = m_original_object.getLabels().at(i).position,
+              new_position = new_object.getLabels().at(i).position;
+
+      circle(display, old_position, 4, Scalar(0, 255, 255));
+      line(display, old_position, new_position, Scalar(0, 0, 255));
+      circle(display, new_position, 5, Scalar(255, 255, 0));
+    }
+
+    imshow("Tracker", new_object.paint(display));
+
+    int key = waitKey(30);
+    if (key != -1)
+      waitKey(0);
+  }
+
   m_object = new_object;
   m_frame = small_new_frame;
   m_features = new_features;
@@ -303,6 +333,16 @@ void Tracker::sendMessage(int msg, void* data, void* reply_to)
         m_object = updateObject(m_features, m_saved_features, m_object);
         m_frame = frame;
         m_features = m_saved_features;
+
+        if (debug)
+        {
+          m_display = (*(Mat*)data).clone();
+          
+          for (Point2f a_feature : m_saved_features)
+            circle(m_display, a_feature * 2, 4, Scalar(0, 255, 0));
+
+          imshow("Tracker", m_display);
+        }
       }
       break;
 
@@ -311,6 +351,9 @@ void Tracker::sendMessage(int msg, void* data, void* reply_to)
       {
         lock_guard<mutex> lock(m_object_mutex);
 
+        if (debug)
+          m_original_object = *(Object*)data;
+        
         m_object = updateObject(m_saved_features, m_features, *(Object*)data);
       }
       break;
