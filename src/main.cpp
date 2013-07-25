@@ -25,7 +25,8 @@ int main(int argc, char* argv[])
 {
   int i = 0;
 
-  bool video = false;
+  bool video = false,
+	   notrack = false;
   string dbName,
          dbDir,
          videoSrc;
@@ -60,6 +61,10 @@ int main(int argc, char* argv[])
       {
         dbDir = argv[++i];
       }
+	  else if( !strcmp( argv[ i ], "notrack" ) )
+	  {
+		  notrack = true;
+	  }
 
     }
     else
@@ -93,6 +98,10 @@ int main(int argc, char* argv[])
           extended_command = "--video";
           argv[i--] = &extended_command[0];
           break;
+		case 't':
+  		  extended_command = "--notrack";
+		  argv[ i-- ] = &extended_command[ 0 ];
+		  break;
         default:
           // No other flags yet.
           cerr << "Undefined flag.\n";
@@ -132,6 +141,9 @@ int main(int argc, char* argv[])
   Manager manager;
   manager.setDatabase(db);
 
+  time_t start = time( NULL );
+  size_t frames = 0;
+
   if (!video)
   {
     namedWindow("Camera", CV_WINDOW_AUTOSIZE);
@@ -144,11 +156,18 @@ int main(int argc, char* argv[])
       // Get one frame
       Mat frame;
       capture >> frame;
+	  frames++;
 
-      //Object o = db->match(frame);
-      //frame = o.paint(frame);
-      manager.elaborateFrame(frame);
-      frame = manager.paintObject(frame);
+	  if( notrack )
+	  {
+		  Object o = db->match(frame);
+		  frame = o.paint(frame);
+	  }
+	  else
+	  {
+		  manager.elaborateFrame(frame);
+		  frame = manager.paintObject(frame);
+	  }
 
       imshow("Camera", frame);
 
@@ -170,6 +189,7 @@ int main(int argc, char* argv[])
       // Get one frame
       Mat frame;
       capture >> frame;
+	  frames++;
 
       if( frame.empty() ) {
         cerr << "Capture error or video ended. Exiting..\n";
@@ -189,6 +209,13 @@ int main(int argc, char* argv[])
     capture.release();
     destroyWindow( "Video" );
   }
+
+  time_t end = time( NULL );
+  time_t duration = difftime( end, start );
+
+  cout << "Frames: " << frames << endl;
+  cout << "Time: " << duration << endl;
+  cout << "Frame rate: " << (float) frames / duration << endl;
 
   return 0;
 }
