@@ -4,9 +4,10 @@
 \beamer@sectionintoc {3}{Recognition}{7}{0}{3}
 \beamer@subsectionintoc {3}{1}{Database}{9}{0}{3}
 \beamer@subsectionintoc {3}{2}{Matching}{11}{0}{3}
-\beamer@subsectionintoc {3}{3}{Match filtering considerations}{16}{0}{3}
+\beamer@subsectionintoc {3}{3}{Matching example}{13}{0}{3}
+\beamer@subsectionintoc {3}{4}{Match filtering considerations}{16}{0}{3}
 \beamer@sectionintoc {4}{Tracking}{18}{0}{4}
 \beamer@subsectionintoc {4}{1}{Actualization}{21}{0}{4}
 \beamer@subsectionintoc {4}{2}{Optimization}{22}{0}{4}
-\beamer@sectionintoc {5}{Complexity evaluation}{23}{0}{5}
-\beamer@sectionintoc {6}{Conclusions}{25}{0}{6}
+\beamer@subsectionintoc {4}{3}{Example}{23}{0}{4}
+\beamer@sectionintoc {5}{Complexity evaluation and conclusions}{26}{0}{5}

@@ -150,6 +150,8 @@
     \end{cenumerate}
   \end{frame}
 
+  \subsection{Matching example}
+
   \begin{frame}
     \frametitle{\insertsection\ - \insertsubsection}
 	\begin{figure}
@@ -255,29 +257,72 @@
     robust to scaling.\\
   \end{frame}
 
-  \section{Complexity evaluation}
+  \subsection{Example}
+
+  \begin{frame}
+    \frametitle{\insertsection\ - \insertsubsection}
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.8\textwidth]{images/sampleTracking.jpg}\\
+		Fig 5: Frame with tracking paths
+	\end{figure}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{\insertsection\ - \insertsubsection}
+	In \emph{Fig 5} is given an example of the tracking process. The underlying
+	image is the last frame on which recognition has been performed.\\
+	On the frame, the green circles are the GFTT features detected on that frame,
+	the blue circles are the GFTT features detected on the frame in which this
+	image is produced (shown in \emph{Fig 6}) and the green lines are the matches
+	between the keypoints.\\
+	The \textsc{Label}s are visualized in the final tracked position and their
+	estimated movement is shown with a red line.
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{\insertsection\ - \insertsubsection}
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.8\textwidth]{images/sampleFrame.jpg}\\
+		Fig 6: Tracked labels
+	\end{figure}
+  \end{frame}
+  
+  \section{Complexity evaluation and conclusions}
 
   \begin{frame}
     \frametitle{\insertsection}
 	To evaluate the complexity, we decided to admit an execution mode which
 	excludes the tracking part and, therefore, it is recognition only.\\
-	On my uber PC, the complete version of the system can elaborate
-	25 frame per second against a depressing 2 frame per second if the tracker
+	On a good performing PC, the complete version of the system can elaborate
+	25 frame per second against a rate of 2 frame per second if the tracker
 	is excluded.
   \end{frame}
 
-  \section{Conclusions}
-
   \begin{frame}
     \frametitle{\insertsection}
+    Given this comparation it is easy to see that the combination of a tracking
+	and recognizing system achieved pretty well the goal of creating a lightweight
+	software.\\
     The software works very well in tracking simple shaped objects with lots of
     details (mostly because of the way \emph{SIFT} works).\\
-    The combination of a tracking and recognizing system achieved pretty well
-    the goal of creating a lightweight software.
     It is to notice that to achieve this, some sacrifice has been made,
     particularly in the tracking part which has the purpouse to compensate
     the slowliness of the recognizer: the biggest consequence of this is
     the inaccuracy in tracking objects in case of noise, such as changes of
     illumination.\\
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{\insertsection}
+ 	Furthermore, because the recognizer is asked to match a single frame, if for
+	some reason (eg object in fast motion) the frame given to the recognizer is
+	blurry or somehow distorced, the recognition doesn't end up with a proper
+	output.\\
+	To avoid this we think it might be a good idea to pass a set of frames to
+	the recognizer in which it should choose the best to use (for example,
+	the best could be the frame in which the most number of good matches
+	is found).
   \end{frame}
 \end{document}
