@@ -1,10 +1,12 @@
 \documentclass{beamer}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
+\usepackage{units}
 
 %\usetheme{Copenhagen}
 \usetheme{Antibes}
 \hypersetup{pdfstartview={Fit}}
+\setbeamertemplate{caption}[numbered]
 
 % Defining a new environment for continual enumerating throught frames
 \makeatletter
@@ -25,7 +27,7 @@
 
 \title{Joint 3D object recognition and tracking}
 \author[Orizio, Rizzini, Zucchelli]{Orizio Riccardo,\\Rizzini Mattia,\\Zucchelli Maurizio}
-\date{25 july 2013}
+\date{26 july 2013}
 \institute[UniBS]{University of Brescia}
 \logo{\includegraphics[width=15mm]{images/logo.png}}
 
@@ -60,16 +62,18 @@
     \frametitle{\insertsection}
 	\begin{figure}
 		\centering
-		\includegraphics[width=0.8\textwidth]{images/main_flow.pdf}\\
-		Fig 1: Graphical presentation of the overall functioning
+          \includegraphics[width=0.8\textwidth]{images/main_flow.pdf}
+        \caption{Graphical presentation of the overall functioning
+          \label{fig:overall}}
 	\end{figure}
   \end{frame}
 
   \begin{frame}
     \frametitle{\insertsection}
     The software is designed for concurrent execution.\\
-    An object of class \textsc{Manager} handles two objects of class \textsc{Recognizer} and
-    \textsc{Tracker}. The first object runs a \emph{thread}.\\
+    An object of class \textsc{Manager} handles two objects of class
+    \textsc{Recognizer} and \textsc{Tracker}. The first object runs a
+    \emph{thread}.\\
     Every $N$ frames elaborated, the \textsc{Manager} asks the
     \textsc{Recognizer} to perform a full recognition. In the meantime the
     \textsc{Tracker} keeps tracking the \textsc{Label}s starting from the last
@@ -81,9 +85,10 @@
     When the \textsc{Recognizer} has finished it returns an \textsc{Object}
     which contains the positions of the \textsc{Label}s in the moment in which
     the recognition started. These positions are then \emph{actualized} by the
-    \textsc{Tracker} and the \textsc{Object} is updated with the actualized positions.\\
-	The \textsc{Object} is then used as a reference to paint the \textsc{Label}s on the
-	frame and show the result to video.
+    \textsc{Tracker} and the \textsc{Object} is updated with the actualized
+    positions.\\
+	The \textsc{Object} is then used as a reference to paint the
+    \textsc{Label}s on the frame and show the result to video.\\
   \end{frame}
 
   \section{Recognition}
@@ -125,7 +130,8 @@
     \frametitle{\insertsection\ - \insertsubsection}
     To perform a match on a frame, the following steps are executed:
     \begin{cenumerate*}
-      \item The SIFT features and descriptors are extracted from the frame.
+      \item The \emph{SIFT} features and descriptors are extracted from the
+        frame.
       \item The descriptors are matched using the \emph{FLANN} matcher with
         a \emph{knnMatch} method.
       \item The matches are searched to identify the sample which has got 
@@ -144,9 +150,10 @@
       \item Otherwise the keypoints related to the matches in the database and
         the frame are used to estimate an homography with \emph{RANSAC}.
       \item If it is valid (the inliers ratio over the total points used by
-        \emph{RANSAC} is at least 50\%), the homography is used to remap the positions
-        of the labels in the frame. Those positions are added to an
-        \textsc{Object} which is passed back to the \textsc{Manager}.
+        \emph{RANSAC} is at least \unit[50]{\%}), the homography is used to
+        remap the positions of the labels in the frame. Those positions are
+        added to an \textsc{Object} which is passed back to the
+        \textsc{Manager}.\\
     \end{cenumerate}
   \end{frame}
 
@@ -156,8 +163,8 @@
     \frametitle{\insertsection\ - \insertsubsection}
 	\begin{figure}
 		\centering
-		\includegraphics[width=0.8\textwidth]{images/sample.jpg}\\
-		Fig 2: Example image
+          \includegraphics[width=0.8\textwidth]{images/sample.jpg}
+        \caption{Example image\label{fig:example}}
 	\end{figure}
   \end{frame}
 
@@ -165,8 +172,8 @@
     \frametitle{\insertsection\ - \insertsubsection}
 	\begin{figure}
 		\centering
-		\includegraphics[width=0.8\textwidth]{images/sampleKeypoints.jpg}\\
-		Fig 3: Detected keypoints (already filtered)
+          \includegraphics[width=0.8\textwidth]{images/sampleKeypoints.jpg}
+        \caption{Detected keypoints (already filtered)\label{fig:keypoints}}
 	\end{figure}
   \end{frame}
 
@@ -174,8 +181,8 @@
     \frametitle{\insertsection\ - \insertsubsection}
 	\begin{figure}
 		\centering
-		\includegraphics[width=0.8\textwidth]{images/sampleLabels.jpg}\\
-		Fig 4: Detected Labels
+          \includegraphics[width=0.8\textwidth]{images/sampleLabels.jpg}
+        \caption{Detected \textsc{Label}s\label{fig:labels}}
 	\end{figure}
   \end{frame}
 
@@ -185,22 +192,23 @@
 	\frametitle{\insertsection\ - \insertsubsection}
 	The matching process implements multiple checks to determine if everything
 	is going fine.\\
-	The NNDR and inliers ratio checks are strictly connected to each other
-	as by adopting a less restrictive NNDR check, more bad matches are allowed
-	and therefore RANSAC works on more outliers (decreasing the inliers ratio).
-	We've found that a NNDR value of 60\% works fine since when the object is
-	standing still in front of the camera, RANSAC works with an inlier ratio
-	between 95\% and 100\%.
+	The \emph{NNDR} and inliers ratio checks are strictly connected to each
+    other as by adopting a less restrictive \emph{NNDR} check, more bad matches
+    are allowed and therefore \emph{RANSAC} works on more outliers (decreasing
+    the inliers ratio).  We've found that a \emph{NNDR} value of \unit[60]{\%}
+    works fine since when the object is standing still in front of the camera,
+    \emph{RANSAC} works with an inlier ratio between \unit[95]{\%} and
+    \unit[100]{\%}.\\
   \end{frame}
 
   \begin{frame}
   	\frametitle{\insertsection\ - \insertsubsection}
 	On the other hand, we found that the right threshold of remaining matches
-	after the NNDR filtering is strictly connected to the quality of the video
-	source used as input.\\
+	after the \emph{NNDR} filtering is strictly connected to the quality of the
+    video source used as input.\\
 	In particular we found that a higher quality source is likely to produce
-	more matches that pass the NNDR test, so the threshold should be raised
-	up a bit (generally somewhere between 14 and 20).
+	more matches that pass the \emph{NNDR} test, so the threshold should be
+    raised up a bit (generally somewhere between 14 and 20).\\
   \end{frame}
 
   \section{Tracking}
@@ -250,7 +258,7 @@
     \emph{optical flow}. To reduce the time required, the frame is
     decimated by a factor $2$; since the complexity of the algorithm is
     more than linear, this reduces the computational cost to less than
-    $25\%$ of the original time.\\
+    $\unit[25]{\%}$ of the original time.\\
     Also, to furtherly abate the complexity, the whole tracker has been
     adapted to work with decimated frames. This can be done without damaging
     the results because both the features and the tracking algorithm are
@@ -263,19 +271,21 @@
     \frametitle{\insertsection\ - \insertsubsection}
 	\begin{figure}
 		\centering
-		\includegraphics[width=0.8\textwidth]{images/sampleTracking.jpg}\\
-		Fig 5: Frame with tracking paths
+          \includegraphics[width=0.8\textwidth]{images/sampleTracking.jpg}
+        \caption{Frame with tracking paths\label{fig:tracking-paths}}
 	\end{figure}
   \end{frame}
 
   \begin{frame}
     \frametitle{\insertsection\ - \insertsubsection}
-	In \emph{Fig 5} is given an example of the tracking process. The underlying
-	image is the last frame on which recognition has been performed.\\
-	On the frame, the green circles are the GFTT features detected on that frame,
-	the blue circles are the GFTT features detected on the frame in which this
-	image is produced (shown in \emph{Fig 6}) and the green lines are the matches
-	between the keypoints.\\
+	In Fig~\ref{fig:tracking-paths} is given an example of the tracking
+    process. The underlying image is the last frame on which recognition has
+    been performed.\\
+	On the frame, the green circles are the \emph{GFTT} features detected on
+    that frame, the blue circles are the \emph{GFTT} features detected on the
+    frame in which this image is produced (shown in
+    Fig~\ref{fig:tracked-labels}) and the green lines are the matches between
+    the keypoints.\\
 	The \textsc{Label}s are visualized in the final tracked position and their
 	estimated movement is shown with a red line.
   \end{frame}
@@ -284,8 +294,8 @@
     \frametitle{\insertsection\ - \insertsubsection}
 	\begin{figure}
 		\centering
-		\includegraphics[width=0.8\textwidth]{images/sampleFrame.jpg}\\
-		Fig 6: Tracked labels
+          \includegraphics[width=0.8\textwidth]{images/sampleFrame.jpg}
+        \caption{Tracked labels\label{fig:tracked-labels}}
 	\end{figure}
   \end{frame}
   
@@ -295,16 +305,18 @@
     \frametitle{\insertsection}
 	To evaluate the complexity, we decided to admit an execution mode which
 	excludes the tracking part and, therefore, it is recognition only.\\
-	On a good performing PC, the complete version of the system can elaborate
-	25 frame per second against a rate of 2 frame per second if the tracker
-	is excluded.
+	On a high-end PC, the complete version of the system can elaborate 25 frame
+    per second against a rate of $\unit[2]{fps}$ if the tracker is excluded.\\
+    On a computer with lower capabilities, these rate reduce respectively to
+    around $\unit[5]{fps}$ and $\unit[0.4]{fps}$, preserving the frame rate
+    gain ratio of $\unit[1250]{\%}$.\\
   \end{frame}
 
   \begin{frame}
     \frametitle{\insertsection}
     Given this comparation it is easy to see that the combination of a tracking
-	and recognizing system achieved pretty well the goal of creating a lightweight
-	software.\\
+	and recognizing system achieved pretty well the goal of creating a
+    lightweight software.\\
     The software works very well in tracking simple shaped objects with lots of
     details (mostly because of the way \emph{SIFT} works).\\
     It is to notice that to achieve this, some sacrifice has been made,
@@ -317,12 +329,12 @@
   \begin{frame}
     \frametitle{\insertsection}
  	Furthermore, because the recognizer is asked to match a single frame, if for
-	some reason (eg object in fast motion) the frame given to the recognizer is
-	blurry or somehow distorced, the recognition doesn't end up with a proper
+	some reason (e.g., object in fast motion) the frame given to the recognizer
+    is blurry or somehow distorted, the recognition doesn't end up with a proper
 	output.\\
 	To avoid this we think it might be a good idea to pass a set of frames to
 	the recognizer in which it should choose the best to use (for example,
 	the best could be the frame in which the most number of good matches
-	is found).
+	is found).\\
   \end{frame}
 \end{document}
