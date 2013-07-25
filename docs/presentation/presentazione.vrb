@@ -1,64 +1,5 @@
-\documentclass{beamer}
-\usepackage[utf8]{inputenc}
-
-%\usetheme{Copenhagen}
-\usetheme{Antibes}
-\hypersetup{pdfstartview={Fit}}
-
-% Defining a new environment for continual enumerating throught frames
-\makeatletter
-\newenvironment{cenumerate}{
-  \enumerate
-  \setcounter{\@enumctr}{\csname saved@\@enumctr\endcsname}
-}{
-  \expandafter\xdef\csname saved@\@enumctr\endcsname{\the\value{\@enumctr}}
-  \endenumerate
-}
-\newenvironment{cenumerate*}{
-  \enumerate
-}{
-  \expandafter\xdef\csname saved@\@enumctr\endcsname{\the\value{\@enumctr}}
-  \endenumerate
-}
-\makeatother
-
-\title{Joint 3D object recognition and tracking}
-\author[Orizio, Rizzini, Zucchelli]{Orizio Riccardo,\\Rizzini Mattia,\\Zucchelli Maurizio}
-\date{25 july 2013}
-\institute[UniBS]{University of Brescia}
-\logo{\includegraphics[width=15mm]{images/logo.png}}
-
-\begin{document}
-  \begin{frame}
-    \maketitle
-  \end{frame}
-
-  \section{Introduction}
-  
-  \begin{frame}
-    \frametitle{\insertsection}
-    The project goal is to realize a joint system of recognition and tracking
-    of some features of a previously chosen object which is identified in a
-    video.  These features are called \textsc{Label}s.\\
-    The sofware is aimed for execution on low performance devices such as the
-    iPad, therefore the tracking is necessary due to the high computational
-    cost of a pure recognition.\\
-  \end{frame}
-
-  \subsection{Overall structure}
-
-  \begin{frame}
-    \frametitle{\insertsection\ - \insertsubsection}
-    The software is designed for concurrent execution.\\
-    There is an object of class \textsc{Manager} which, given every frame
-    captured by a webcam or in a video, elaborates it in some way and retuns
-    an object of class \textsc{Object} which contains the actual \textsc{Label}
-    positions.\\
-  \end{frame}
-
-  \begin{frame}
-    \frametitle{\insertsection\ - \insertsubsection}
-	\includegraphics[width=\textwidth]{images/main_flow.png}
+\frametitle{\insertsection\ - \insertsubsection}
+%\includegraphics[width=\textwidth]{images/main_flow.jpg}
   \end{frame}
 
   \AtBeginSection[]
@@ -94,7 +35,7 @@
   \end{frame}
 
   \subsection{Database}
-  
+
   \begin{frame}
     \frametitle{\insertsection\ - \insertsubsection}
     The recognition bases itself on a \textsc{Database}.\\
@@ -126,7 +67,7 @@
       \item The SIFT features and descriptors are extracted from the frame.
       \item The descriptors are matched using the \emph{FLANN} matcher with
         a \emph{knnMatch} method.
-      \item The matches are searched to identify the sample which has got 
+      \item The matches are searched to identify the sample which has got
         the maximum number of matches. The only informations considered in
         the database are now those regarding this sample.
       \item The matches of that sample are extracted and filtered using the
@@ -138,7 +79,7 @@
     \frametitle{\insertsection\ - \insertsubsection}
     \begin{cenumerate}
       \item If the remaining matches are less than a threshold, then the
-	 	match ends with nothing found (empty \textsc{Object} is given back);
+  match ends with nothing found (empty \textsc{Object} is given back);
       \item Otherwise the keypoints related to the matches in the database and
         the frame are used to estimate an homography with \emph{RANSAC}.
       \item If it is valid (the inliers ratio over the total points used by
@@ -151,25 +92,25 @@
   \subsection{Match filtering considerations}
 
   \begin{frame}
-	\frametitle{\insertsection\ - \insertsubsection}
-	The matching process implements multiple checks to determine if everything
-	is going fine.\\
-	The NNDR and inliers ratio checks are strictly connected as by adopting a
-	less restrictive NNDR check, more bad matches are allowed and therefore
-	RANSAC works on more outliers (decreasing the inliers ratio). We've found
-	that a NNDR value of 60\% works fine since when the object is still in
-	front of the camera, RANSAC is found working with an inlier ratio between
-	95\% and 100\%.
+\frametitle{\insertsection\ - \insertsubsection}
+The matching process implements multiple checks to determine if everything
+is going fine.\\
+The NNDR and inliers ratio checks are strictly connected as by adopting a
+less restrictive NNDR check, more bad matches are allowed and therefore
+RANSAC works on more outliers (decreasing the inliers ratio). We've found
+that a NNDR value of 60\% works fine since when the object is still in
+front of the camera, RANSAC is found working with an inlier ratio between
+95\% and 100\%.
   \end{frame}
 
   \begin{frame}
-  	\frametitle{\insertsection\ - \insertsubsection}
-	On the other hand, we found that the right threshold of remaining matches
-	after the NNDR filtering is strictly connected to the quality of the video
-	source used as input.
-	In particular we found that a higher quality source is likely to produce
-	more matches that pass the NNDR test, and in general we think that
-	this threshold is to be set somewhere between 14 and 20.
+   \frametitle{\insertsection\ - \insertsubsection}
+On the other hand, we found that the right threshold of remaining matches
+after the NNDR filtering is strictly connected to the quality of the video
+source used as input.
+In particular we found that a higher quality source is likely to produce
+more matches that pass the NNDR test, and in general we think that
+this threshold is to be set somewhere between 14 and 20.
   \end{frame}
 
   \section{Tracking}
@@ -210,7 +151,7 @@
     This way, when the \textsc{Object} is received, the only operation to be
     done is the tracking from the saved features to the current features.\\
   \end{frame}
-  
+
   \subsection{Optimization}
 
   \begin{frame}

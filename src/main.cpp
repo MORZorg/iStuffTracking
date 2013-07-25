@@ -148,7 +148,7 @@ int main(int argc, char* argv[])
   {
     namedWindow("Camera", CV_WINDOW_AUTOSIZE);
 
-    VideoCapture capture = VideoCapture(CV_CAP_ANY);
+    VideoCapture capture = VideoCapture(0);
 
     // Show the image captured from the camera in the window and repeat
     while (key != 'q')

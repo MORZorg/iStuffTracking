@@ -1,10 +1,12 @@
 \beamer@endinputifotherversion {3.26pt}
 \beamer@sectionintoc {1}{Introduction}{2}{0}{1}
-\beamer@sectionintoc {2}{Manager}{4}{0}{2}
-\beamer@sectionintoc {3}{Recognition}{6}{0}{3}
-\beamer@subsectionintoc {3}{1}{Database}{8}{0}{3}
-\beamer@subsectionintoc {3}{2}{Matching}{10}{0}{3}
-\beamer@sectionintoc {4}{Tracking}{12}{0}{4}
-\beamer@subsectionintoc {4}{1}{Actualization}{15}{0}{4}
-\beamer@subsectionintoc {4}{2}{Optimization}{16}{0}{4}
-\beamer@sectionintoc {5}{Conclusions}{17}{0}{5}
+\beamer@subsectionintoc {1}{1}{Overall structure}{3}{0}{1}
+\beamer@sectionintoc {2}{Manager}{5}{0}{2}
+\beamer@sectionintoc {3}{Recognition}{7}{0}{3}
+\beamer@subsectionintoc {3}{1}{Database}{9}{0}{3}
+\beamer@subsectionintoc {3}{2}{Matching}{11}{0}{3}
+\beamer@subsectionintoc {3}{3}{Match filtering considerations}{13}{0}{3}
+\beamer@sectionintoc {4}{Tracking}{15}{0}{4}
+\beamer@subsectionintoc {4}{1}{Actualization}{18}{0}{4}
+\beamer@subsectionintoc {4}{2}{Optimization}{19}{0}{4}
+\beamer@sectionintoc {5}{Conclusions}{20}{0}{5}
